@@ -62,7 +62,7 @@ const OTPBox = ({ email, role, onSuccess }) => {
 
       <button
         onClick={handleVerify}
-        className="w-full mt-8 bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg active:scale-[0.98]"
+        className="w-full mt-8 bg-green-500 hover:bg-teal-600 text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg active:scale-[0.98]"
       >
         {loading ? "VERIFYING..." : "Verify OTP"}
       </button>
@@ -84,7 +84,7 @@ const OTPBox = ({ email, role, onSuccess }) => {
       <div className="mt-6 text-sm text-gray-400">
         {timer > 0 ? (
           <span className="flex items-center justify-center gap-2">
-            <span className="w-2 h-2 bg-teal-500 rounded-full animate-pulse"></span>
+            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
             Resend in <span className="font-bold text-gray-600">{timer}s</span>
           </span>
         ) : (

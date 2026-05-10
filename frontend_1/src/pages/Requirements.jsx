@@ -170,14 +170,23 @@ const Requirements = () => {
     }
   };
 
+  const cutoutMedium = {
+    WebkitMask: `radial-gradient(circle at 0 0, transparent 22px, black 22.5px) top left, radial-gradient(circle at 100% 0, transparent 22px, black 22.5px) top right, radial-gradient(circle at 0 100%, transparent 22px, black 22.5px) bottom left, radial-gradient(circle at 100% 100%, transparent 22px, black 22.5px) bottom right`,
+    WebkitMaskSize: '51% 51%',
+    WebkitMaskRepeat: 'no-repeat',
+    mask: `radial-gradient(circle at 0 0, transparent 22px, black 22.5px) top left, radial-gradient(circle at 100% 0, transparent 22px, black 22.5px) top right, radial-gradient(circle at 0 100%, transparent 22px, black 22.5px) bottom left, radial-gradient(circle at 100% 100%, transparent 22px, black 22.5px) bottom right`,
+    maskSize: '51% 51%',
+    maskRepeat: 'no-repeat',
+  };
+
   return (
-    <div className="min-h-screen bg-[#f8fafc]">
+    <div className="min-h-screen bg-white">
 
-      {/* ── BACKGROUND DECORATION ── */}
-      <div className="fixed top-0 right-0 w-96 h-96 bg-teal-100/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="fixed bottom-0 left-0 w-72 h-72 bg-blue-100/10 rounded-full blur-3xl pointer-events-none" />
+      {/* ── AMBIENT BLURS ── */}
+      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#74b986]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="fixed bottom-0 left-0 w-[500px] h-[500px] bg-[#2d6a4f]/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-6 md:px-8 py-8 pb-16 space-y-6">
+      <div className="relative max-w-7xl mx-auto px-6 md:px-8 py-10 pb-20 space-y-8">
 
         {/* ── PAGE HEADER ── */}
         <motion.div
@@ -190,29 +199,29 @@ const Requirements = () => {
             <div className="flex items-center gap-2 mb-1">
               <button
                 onClick={() => navigate('/company-dashboard')}
-                className="text-gray-400 hover:text-[#0eb59a] text-sm font-semibold transition-colors"
+                className="text-gray-400 hover:text-[#74b986] text-sm font-semibold transition-colors"
               >
                 Dashboard
               </button>
               <ChevronRight size={14} className="text-gray-300" />
               <span className="text-sm font-bold text-gray-700">My Requirements</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold text-white tracking-tight">
               My Requirements
             </h1>
-            <p className="text-gray-400 text-sm mt-1">
+            <p className="text-gray-600 font-sans font-light text-lg mt-2">
               Manage all your posted roles and track expert matches
             </p>
           </div>
 
           <motion.button
-            whileHover={{ scale: 1.03, boxShadow: '0 8px 30px rgba(20,78,64,0.25)' }}
+            whileHover={{ scale: 1.03, boxShadow: '0 8px 30px rgba(14,181,154,0.3)' }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/requirements/create')}
-            className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white text-sm font-bold rounded-xl shadow-lg shadow-teal-900/15 shrink-0"
+            className="flex items-center gap-2 px-8 py-4 bg-[#2d6a4f] hover:bg-[#74b986] text-white text-base font-sans font-bold rounded-full shadow-xl shrink-0 transition-all"
           >
             <motion.div whileHover={{ rotate: 90 }} transition={{ duration: 0.2 }}>
-              <Plus size={16} />
+              <Plus size={18} strokeWidth={1.5} />
             </motion.div>
             New Requirement
           </motion.button>
@@ -223,29 +232,34 @@ const Requirements = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.05 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6"
         >
           {[
-            { label: 'Total Posted', value: stats.total, icon: Briefcase, color: 'text-gray-600', bg: 'bg-gray-50', border: 'border-l-gray-400' },
-            { label: 'Active', value: stats.active, icon: Zap, color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-l-emerald-500' },
-            { label: 'Shortlisting', value: stats.shortlisting, icon: Users, color: 'text-blue-600', bg: 'bg-blue-50', border: 'border-l-blue-500' },
-            { label: 'Drafts', value: stats.draft, icon: Edit, color: 'text-amber-600', bg: 'bg-amber-50', border: 'border-l-amber-500' },
+            { label: 'Total Posted', value: stats.total, icon: Briefcase },
+            { label: 'Active', value: stats.active, icon: Zap },
+            { label: 'Shortlisting', value: stats.shortlisting, icon: Users },
+            { label: 'Drafts', value: stats.draft, icon: Edit },
           ].map((stat, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.08 + idx * 0.06 }}
-              whileHover={{ y: -4 }}
-              className={`bg-white rounded-2xl p-4 border border-gray-100 border-l-4 ${stat.border} shadow-sm hover:shadow-md transition-all`}
+              whileHover={{ y: -6, filter: 'drop-shadow(0 20px 30px rgba(14,181,154,0.2))' }}
+              className="drop-shadow-[0_10px_25px_rgba(0,0,0,0.12)] cursor-default"
             >
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">{stat.label}</span>
-                <div className={`w-8 h-8 ${stat.bg} rounded-xl flex items-center justify-center`}>
-                  <stat.icon size={15} className={stat.color} />
+              <div style={cutoutMedium} className="relative bg-[#0e1f17] overflow-hidden">
+                <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-[#74b986]/25 rounded-full blur-[30px]" />
+                <div className="relative bg-white/5 backdrop-blur-xl p-7 z-10">
+                  <div className="flex items-center justify-between mb-5">
+                    <span className="text-[12px] font-sans font-bold text-white/60 uppercase tracking-widest">{stat.label}</span>
+                    <div className="w-10 h-10 bg-white/10 border border-white/20 rounded-[1rem] flex items-center justify-center">
+                      <stat.icon size={18} strokeWidth={1.5} className="text-[#74b986]" />
+                    </div>
+                  </div>
+                  <p className="text-4xl font-sans font-semibold text-white">{stat.value}</p>
                 </div>
               </div>
-              <p className="text-3xl font-black text-gray-900">{stat.value}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -258,45 +272,39 @@ const Requirements = () => {
           className="flex flex-col md:flex-row gap-4"
         >
           {/* Search */}
-          <div className="relative flex-1 max-w-md group">
-            <Search
-              size={16}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#0eb59a] transition-colors"
-            />
+          <div className="relative flex-1 max-w-lg group">
+            <Search size={18} strokeWidth={1.5} className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#74b986] transition-colors" />
             <input
               type="text"
-              placeholder="Search requirements..."
+              placeholder="Search by title, area, or type..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all shadow-sm"
+              className="w-full pl-16 pr-12 py-4 bg-white border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.03)] rounded-full text-base font-sans font-light focus:outline-none focus:border-[#74b986]/30 focus:shadow-[0_8px_30px_rgba(14,181,154,0.08)] transition-all"
             />
             {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              >
-                <X size={14} />
+              <button onClick={() => setSearchQuery('')} className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 transition-colors">
+                <X size={16} strokeWidth={1.5} />
               </button>
             )}
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-3 flex-wrap">
             {filters.map((filter) => (
               <motion.button
                 key={filter}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                className={`px-5 py-3 rounded-full text-sm font-sans font-bold transition-all ${
                   activeFilter === filter
-                    ? 'bg-[#134e40] text-white shadow-md shadow-teal-900/15'
-                    : 'bg-white text-gray-500 border border-gray-200 hover:border-[#0eb59a]/40 hover:text-[#0eb59a]'
+                    ? 'bg-[#2d6a4f] text-white shadow-lg'
+                    : 'bg-white text-gray-500 border border-gray-200 hover:border-[#74b986]/40 hover:text-[#74b986]'
                 }`}
               >
                 {filter}
                 {filter !== 'All' && (
-                  <span className={`ml-1.5 px-1.5 py-0.5 rounded-md text-[10px] font-black ${
+                  <span className={`ml-2 px-2 py-0.5 rounded-full text-[11px] font-black ${
                     activeFilter === filter ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-400'
                   }`}>
                     {requirements.filter(r => r.status === filter).length}
@@ -315,23 +323,27 @@ const Requirements = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="bg-white rounded-3xl border border-gray-100 shadow-sm p-16 text-center"
+                className="drop-shadow-[0_15px_40px_rgba(0,0,0,0.12)]"
               >
-                <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Search size={24} className="text-gray-300" />
+                <div style={cutoutMedium} className="relative bg-[#0e1f17] overflow-hidden">
+                  <div className="relative bg-white/5 backdrop-blur-2xl p-20 z-10 text-center">
+                    <div className="w-16 h-16 bg-white/10 border border-white/20 rounded-[1.5rem] flex items-center justify-center mx-auto mb-6">
+                      <Search size={28} strokeWidth={1.5} className="text-[#74b986]" />
+                    </div>
+                    <h3 className="font-serif font-bold text-white text-2xl mb-3">No requirements found</h3>
+                    <p className="text-white/60 font-sans font-light mb-8">
+                      {searchQuery ? `No results for "${searchQuery}"` : `No ${activeFilter.toLowerCase()} requirements yet`}
+                    </p>
+                    <motion.button
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      onClick={() => navigate('/requirements/create')}
+                      className="px-8 py-4 bg-[#74b986] text-white font-sans font-bold rounded-full shadow-lg"
+                    >
+                      + Create New Requirement
+                    </motion.button>
+                  </div>
                 </div>
-                <h3 className="font-black text-gray-700 text-lg mb-2">No requirements found</h3>
-                <p className="text-gray-400 text-sm mb-6">
-                  {searchQuery ? `No results for "${searchQuery}"` : `No ${activeFilter.toLowerCase()} requirements yet`}
-                </p>
-                <motion.button
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  onClick={() => navigate('/requirements/create')}
-                  className="px-6 py-2.5 bg-[#134e40] text-white text-sm font-bold rounded-xl"
-                >
-                  + Create New Requirement
-                </motion.button>
               </motion.div>
             ) : (
               filteredRequirements.map((req, idx) => (
@@ -341,10 +353,12 @@ const Requirements = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10, scale: 0.98 }}
                   transition={{ duration: 0.3, delay: idx * 0.06 }}
-                  whileHover={{ y: -2, boxShadow: '0 12px 40px rgba(0,0,0,0.06)' }}
-                  className={`bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden transition-all duration-300 group ${req.status === 'Closed' ? 'opacity-70' : ''}`}
+                  whileHover={{ y: -4, filter: 'drop-shadow(0 25px 40px rgba(14,181,154,0.15))' }}
+                  className={`drop-shadow-[0_15px_30px_rgba(0,0,0,0.12)] ${req.status === 'Closed' ? 'opacity-60' : ''}`}
                 >
-                  <div className="p-6">
+                  <div style={cutoutMedium} className="relative bg-[#0e1f17] overflow-hidden group">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#74b986]/10 rounded-full blur-[60px] group-hover:bg-[#74b986]/20 transition-all duration-700" />
+                    <div className="relative bg-white/5 backdrop-blur-xl p-8 z-10">
                     <div className="flex flex-col lg:flex-row lg:items-start gap-4">
 
                       {/* Left — Main Info */}
@@ -378,20 +392,20 @@ const Requirements = () => {
                         {/* Title */}
                         <h3
                           onClick={() => navigate(`/requirements/${req.id}`)}
-                          className="text-lg font-black text-gray-900 group-hover:text-[#0eb59a] transition-colors cursor-pointer mb-1 leading-tight"
+                          className="text-lg font-black text-white group-hover:text-[#74b986] transition-colors cursor-pointer mb-1 leading-tight"
                         >
                           {req.title}
                         </h3>
 
                         {/* Description */}
-                        <p className="text-sm text-gray-400 mb-4 leading-relaxed line-clamp-2">
+                        <p className="text-sm text-white/60 mb-4 leading-relaxed line-clamp-2">
                           {req.description}
                         </p>
 
                         {/* Meta row */}
-                        <div className="flex flex-wrap gap-4 text-xs text-gray-400 font-semibold mb-4">
+                        <div className="flex flex-wrap gap-4 text-xs text-white/60 font-semibold mb-4">
                           <span className="flex items-center gap-1.5">
-                            <DollarSign size={12} className="text-[#0eb59a]" /> {req.budget}
+                            <DollarSign size={12} className="text-[#74b986]" /> {req.budget}
                           </span>
                           <span className="flex items-center gap-1.5">
                             <Clock size={12} className="text-blue-400" /> {req.duration}
@@ -448,7 +462,7 @@ const Requirements = () => {
                               whileHover={{ scale: 1.03 }}
                               whileTap={{ scale: 0.97 }}
                               onClick={() => navigate(`/requirements/create?draft=${req.id}`)}
-                              className="flex items-center gap-2 px-4 py-2 bg-[#134e40] text-white text-xs font-bold rounded-xl hover:bg-[#0eb59a] transition-all shadow-sm"
+                              className="flex items-center gap-2 px-4 py-2 bg-[#2d6a4f] text-white text-xs font-bold rounded-xl hover:bg-[#74b986] transition-all shadow-sm"
                             >
                               <Edit size={13} /> Continue Draft
                             </motion.button>
@@ -457,7 +471,7 @@ const Requirements = () => {
                               whileHover={{ scale: 1.03 }}
                               whileTap={{ scale: 0.97 }}
                               onClick={() => navigate(`/requirements/${req.id}`)}
-                              className="flex items-center gap-2 px-4 py-2 bg-[#134e40] text-white text-xs font-bold rounded-xl hover:bg-[#0eb59a] transition-all shadow-sm"
+                              className="flex items-center gap-2 px-4 py-2 bg-[#2d6a4f] text-white text-xs font-bold rounded-xl hover:bg-[#74b986] transition-all shadow-sm"
                             >
                               <Eye size={13} /> View Details
                             </motion.button>
@@ -469,7 +483,7 @@ const Requirements = () => {
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                               onClick={() => setActiveDropdown(activeDropdown === req.id ? null : req.id)}
-                              className="w-8 h-8 flex items-center justify-center rounded-xl border border-gray-200 text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-all"
+                              className="w-8 h-8 flex items-center justify-center rounded-xl border border-white/20 text-white/50 hover:text-white hover:bg-white/10 transition-all"
                             >
                               <MoreVertical size={14} />
                             </motion.button>
@@ -481,7 +495,7 @@ const Requirements = () => {
                                   animate={{ opacity: 1, scale: 1, y: 0 }}
                                   exit={{ opacity: 0, scale: 0.9, y: -5 }}
                                   transition={{ duration: 0.15 }}
-                                  className="absolute right-0 top-10 w-44 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-20"
+                                  className="absolute right-0 top-10 w-44 bg-[#152a1e] backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 overflow-hidden z-20"
                                 >
                                   {[
                                     { label: 'View Details', icon: Eye, action: () => navigate(`/requirements/${req.id}`) },
@@ -492,10 +506,10 @@ const Requirements = () => {
                                   ].map((item, iIdx) => (
                                     <motion.button
                                       key={iIdx}
-                                      whileHover={{ backgroundColor: item.danger ? '#fef2f2' : '#f9fafb' }}
+                                      whileHover={{ backgroundColor: item.danger ? 'rgba(239,68,68,0.15)' : 'rgba(255,255,255,0.07)' }}
                                       onClick={() => { item.action(); setActiveDropdown(null); }}
                                       className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm font-semibold transition-colors ${
-                                        item.danger ? 'text-red-500' : 'text-gray-600'
+                                        item.danger ? 'text-red-400' : 'text-white/80'
                                       }`}
                                     >
                                       <item.icon size={14} />
@@ -510,25 +524,26 @@ const Requirements = () => {
 
                       </div>
                     </div>
-                  </div>
 
-                  {/* Bottom Progress Bar for active */}
-                  {req.status === 'Shortlisting' && (
-                    <div className="px-6 pb-4">
-                      <div className="flex justify-between text-xs text-gray-400 font-semibold mb-1.5">
-                        <span>Shortlisting Progress</span>
-                        <span className="font-black text-[#134e40]">{Math.round((req.shortlisted / req.matchedExperts) * 100)}%</span>
-                      </div>
-                      <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${(req.shortlisted / req.matchedExperts) * 100}%` }}
-                          transition={{ duration: 1, delay: 0.3 + idx * 0.1, ease: 'easeOut' }}
-                          className="h-full bg-gradient-to-r from-[#134e40] to-[#0eb59a] rounded-full"
-                        />
-                      </div>
-                    </div>
-                  )}
+                   {/* Bottom Progress Bar */}
+                   {req.status === 'Shortlisting' && (
+                     <div className="px-8 pb-6 mt-4">
+                       <div className="flex justify-between text-xs font-sans font-bold mb-2">
+                         <span className="text-white/60">Shortlisting Progress</span>
+                         <span className="text-[#74b986]">{Math.round((req.shortlisted / req.matchedExperts) * 100)}%</span>
+                       </div>
+                       <div className="h-2 bg-black/30 rounded-full overflow-hidden">
+                         <motion.div
+                           initial={{ width: 0 }}
+                           animate={{ width: `${(req.shortlisted / req.matchedExperts) * 100}%` }}
+                           transition={{ duration: 1, delay: 0.3 + idx * 0.1, ease: 'easeOut' }}
+                           className="h-full bg-gradient-to-r from-[#2d6a4f] to-[#74b986] rounded-full"
+                         />
+                       </div>
+                     </div>
+                   )}
+                   </div>{/* end inner glass */}
+                  </div>{/* end cutout wrapper */}
                 </motion.div>
               ))
             )}
@@ -556,7 +571,7 @@ const Requirements = () => {
               <div className="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
                 <Trash2 size={24} className="text-red-500" />
               </div>
-              <h3 className="text-xl font-black text-gray-900 text-center mb-2">
+              <h3 className="text-xl font-black text-white text-center mb-2">
                 Delete Requirement?
               </h3>
               <p className="text-sm text-gray-400 text-center mb-6 leading-relaxed">

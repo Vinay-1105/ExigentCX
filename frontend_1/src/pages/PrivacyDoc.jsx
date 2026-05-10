@@ -8,11 +8,11 @@ const privacySections = [
     {
         id: "information-we-collect",
         title: "1. Information We Collect",
-        icon: <UserCheck className="w-5 h-5 text-[#0eb59a]" />,
+        icon: <UserCheck className="w-5 h-5 text-[#74b986]" />,
         content: (
             <>
                 <p className="text-gray-600 text-lg leading-relaxed">When you use CXO Connect, we collect information you share with us directly:</p>
-                <ul className="list-disc pl-6 space-y-2 mt-4 marker:text-[#0eb59a]">
+                <ul className="list-disc pl-6 space-y-2 mt-4 marker:text-[#74b986]">
                     <li className="text-gray-600 text-lg pl-2">Contact details such as your name, email address, and phone number</li>
                     <li className="text-gray-600 text-lg pl-2">Organisation details and senior-level hiring requirements</li>
                     <li className="text-gray-600 text-lg pl-2">Responses from assessments, scorecards, and hiring preference inputs</li>
@@ -24,11 +24,11 @@ const privacySections = [
     {
         id: "how-we-use",
         title: "2. How We Use Your Information",
-        icon: <Settings className="w-5 h-5 text-[#0eb59a]" />,
+        icon: <Settings className="w-5 h-5 text-[#74b986]" />,
         content: (
             <>
                 <p className="text-gray-600 text-lg leading-relaxed">The information we collect is used to:</p>
-                <ul className="list-disc pl-6 space-y-2 mt-4 marker:text-[#0eb59a]">
+                <ul className="list-disc pl-6 space-y-2 mt-4 marker:text-[#74b986]">
                     <li className="text-gray-600 text-lg pl-2">Deliver and continuously improve our CXO-level hiring tools</li>
                     <li className="text-gray-600 text-lg pl-2">Generate tailored job descriptions and leadership alignment reports</li>
                     <li className="text-gray-600 text-lg pl-2">Provide culture-fit evaluations, structured interview frameworks, and onboarding recommendations</li>
@@ -40,11 +40,11 @@ const privacySections = [
     {
         id: "information-sharing",
         title: "3. Information Sharing",
-        icon: <Shield className="w-5 h-5 text-[#0eb59a]" />,
+        icon: <Shield className="w-5 h-5 text-[#74b986]" />,
         content: (
             <>
                 <p className="text-gray-600 text-lg leading-relaxed">We do not sell or rent your personal information. We may share it only:</p>
-                <ul className="list-disc pl-6 space-y-2 mt-4 marker:text-[#0eb59a]">
+                <ul className="list-disc pl-6 space-y-2 mt-4 marker:text-[#74b986]">
                     <li className="text-gray-600 text-lg pl-2">When you have given us explicit permission to do so</li>
                     <li className="text-gray-600 text-lg pl-2">With vetted technology partners who help us operate CXO Connect</li>
                     <li className="text-gray-600 text-lg pl-2">When legally required or necessary to protect our platform and users</li>
@@ -56,11 +56,11 @@ const privacySections = [
     {
         id: "data-security",
         title: "4. Data Security",
-        icon: <Lock className="w-5 h-5 text-[#0eb59a]" />,
+        icon: <Lock className="w-5 h-5 text-[#74b986]" />,
         content: (
             <>
                 <p className="text-gray-600 text-lg leading-relaxed">We take the security of your data seriously. Our safeguards include:</p>
-                <ul className="list-disc pl-6 space-y-2 mt-4 marker:text-[#0eb59a]">
+                <ul className="list-disc pl-6 space-y-2 mt-4 marker:text-[#74b986]">
                     <li className="text-gray-600 text-lg pl-2">End-to-end encrypted data transmission and storage</li>
                     <li className="text-gray-600 text-lg pl-2">Periodic security reviews and vulnerability assessments</li>
                     <li className="text-gray-600 text-lg pl-2">Role-based access controls and multi-factor authentication</li>
@@ -72,11 +72,11 @@ const privacySections = [
     {
         id: "your-rights",
         title: "5. Your Rights",
-        icon: <FileText className="w-5 h-5 text-[#0eb59a]" />,
+        icon: <FileText className="w-5 h-5 text-[#74b986]" />,
         content: (
             <>
                 <p className="text-gray-600 text-lg leading-relaxed">As a user of CXO Connect, you have the right to:</p>
-                <ul className="list-disc pl-6 space-y-2 mt-4 marker:text-[#0eb59a]">
+                <ul className="list-disc pl-6 space-y-2 mt-4 marker:text-[#74b986]">
                     <li className="text-gray-600 text-lg pl-2">View and review the personal information we hold about you</li>
                     <li className="text-gray-600 text-lg pl-2">Request corrections if any of your data is inaccurate</li>
                     <li className="text-gray-600 text-lg pl-2">Delete your account and all associated data at any time</li>
@@ -89,25 +89,25 @@ const privacySections = [
     {
         id: "cookies",
         title: "6. Cookies and Tracking",
-        icon: <Info className="w-5 h-5 text-[#0eb59a]" />,
+        icon: <Info className="w-5 h-5 text-[#74b986]" />,
         content: <p className="text-gray-600 text-lg leading-relaxed">CXO Connect uses cookies and similar technologies to personalise your experience and understand how our platform is used. You can manage cookie settings through your browser at any time.</p>
     },
     {
         id: "policy-updates",
         title: "7. Policy Updates",
-        icon: <Bell className="w-5 h-5 text-[#0eb59a]" />,
+        icon: <Bell className="w-5 h-5 text-[#74b986]" />,
         content: <p className="text-gray-600 text-lg leading-relaxed">We may revise this policy as our services evolve. If we make significant changes, we will update the date at the top of this page and inform you where appropriate.</p>
     },
     {
         id: "contact",
         title: "8. Get in Touch",
-        icon: <Mail className="w-5 h-5 text-[#0eb59a]" />,
+        icon: <Mail className="w-5 h-5 text-[#74b986]" />,
         content: (
             <div className="bg-gradient-to-br from-[#f0fdfa] to-white p-6 md:p-8 rounded-2xl border border-[#ccfbf1] shadow-sm">
-                <p className="text-[#134e40] mb-4 text-lg">For any questions or concerns about this policy or how your data is handled, reach out to us:</p>
+                <p className="text-[#2d6a4f] mb-4 text-lg">For any questions or concerns about this policy or how your data is handled, reach out to us:</p>
                 <div className="space-y-3">
-                    <p className="flex items-center gap-3"><strong className="text-[#134e40] bg-white px-3 py-1 rounded shadow-sm border border-[#ccfbf1] text-sm">Email</strong> <a href="mailto:admin@cxoconnect.com" className="text-[#0eb59a] hover:underline font-medium text-lg">admin@cxoconnect.com</a></p>
-                    <p className="flex items-center gap-3"><strong className="text-[#134e40] bg-white px-3 py-1 rounded shadow-sm border border-[#ccfbf1] text-sm">Website</strong> <a href="https://www.cxoconnect.com" className="text-[#0eb59a] hover:underline font-medium text-lg">www.cxoconnect.com</a></p>
+                    <p className="flex items-center gap-3"><strong className="text-[#2d6a4f] bg-white px-3 py-1 rounded shadow-sm border border-[#ccfbf1] text-sm">Email</strong> <a href="mailto:admin@cxoconnect.com" className="text-[#74b986] hover:underline font-medium text-lg">admin@cxoconnect.com</a></p>
+                    <p className="flex items-center gap-3"><strong className="text-[#2d6a4f] bg-white px-3 py-1 rounded shadow-sm border border-[#ccfbf1] text-sm">Website</strong> <a href="https://www.cxoconnect.com" className="text-[#74b986] hover:underline font-medium text-lg">www.cxoconnect.com</a></p>
                 </div>
             </div>
         )
@@ -122,11 +122,11 @@ const PrivacyPolicy = () => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-[#fafafa] font-sans pt-20">
+        <div className="min-h-screen bg-white font-sans pt-20">
             {/* Dark Header Section */}
             <section className="relative py-24 bg-[#111827] border-b border-gray-800">
                 <div className="absolute inset-0">
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#111827] via-[#134e40]/20 to-[#111827] z-0"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#111827] via-[#2d6a4f]/20 to-[#111827] z-0"></div>
                 </div>
 
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
@@ -136,11 +136,11 @@ const PrivacyPolicy = () => {
                         transition={{ duration: 0.6, ease: "easeOut" }}
                     >
                         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6 text-sm font-medium text-teal-50 tracking-wider uppercase backdrop-blur-md">
-                            <Shield size={16} className="text-[#0eb59a]" />
+                            <Shield size={16} className="text-[#74b986]" />
                             LEGAL INFORMATION
                         </div>
                         <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-4 tracking-tight">
-                            Privacy <span className="text-[#0eb59a]">Policy</span>
+                            Privacy <span className="text-[#74b986]">Policy</span>
                         </h1>
                         <p className="text-sm text-gray-400 font-light">
                             Last updated: May 2026

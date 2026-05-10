@@ -277,8 +277,18 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
     }, 2000);
   };
 
+
+const cutoutCard = {
+  WebkitMask: `radial-gradient(circle at 0 0, transparent 22px, black 22.5px) top left, radial-gradient(circle at 100% 0, transparent 22px, black 22.5px) top right, radial-gradient(circle at 0 100%, transparent 22px, black 22.5px) bottom left, radial-gradient(circle at 100% 100%, transparent 22px, black 22.5px) bottom right`,
+  WebkitMaskSize: '51% 51%',
+  WebkitMaskRepeat: 'no-repeat',
+  mask: `radial-gradient(circle at 0 0, transparent 22px, black 22.5px) top left, radial-gradient(circle at 100% 0, transparent 22px, black 22.5px) top right, radial-gradient(circle at 0 100%, transparent 22px, black 22.5px) bottom left, radial-gradient(circle at 100% 100%, transparent 22px, black 22.5px) bottom right`,
+  maskSize: '51% 51%',
+  maskRepeat: 'no-repeat',
+};
+
   return (
-    <div className="min-h-screen bg-[#f8fafc]">
+    <div className="min-h-screen bg-white">
 
       {/* Background */}
       <div className="fixed top-0 right-0 w-96 h-96 bg-teal-100/20 rounded-full blur-3xl pointer-events-none" />
@@ -296,17 +306,17 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
             <div className="flex items-center gap-2 mb-1">
               <button
                 onClick={() => navigate('/company-dashboard')}
-                className="text-gray-400 hover:text-[#0eb59a] text-sm font-semibold transition-colors"
+                className="text-gray-400 hover:text-[#74b986] text-sm font-semibold transition-colors"
               >
                 Dashboard
               </button>
               <ChevronRight size={14} className="text-gray-300" />
               <span className="text-sm font-bold text-gray-700">Contracts</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">
               Contracts & NDAs
             </h1>
-            <p className="text-gray-400 text-sm mt-1">
+            <p className="text-white/60 text-sm mt-1">
               All agreements generated and managed by CXO Connect
             </p>
           </div>
@@ -315,9 +325,9 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-2 bg-gradient-to-r from-[#0d1f2d] to-[#134e40] text-white px-5 py-3 rounded-2xl shadow-lg"
+            className="flex items-center gap-2 bg-gradient-to-r from-[#2d6a4f] to-[#2d6a4f] text-white px-5 py-3 rounded-2xl shadow-lg"
           >
-            <Shield size={16} className="text-[#0eb59a]" />
+            <Shield size={16} className="text-[#74b986]" />
             <div>
               <p className="text-xs font-black">Platform Protected</p>
               <p className="text-[10px] text-white/60">All contracts auto-generated & legally binding</p>
@@ -352,7 +362,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                   <stat.icon size={15} className={stat.color} />
                 </div>
               </div>
-              <p className="text-3xl font-black text-gray-900">{stat.value}</p>
+              <p className="text-3xl font-black text-white">{stat.value}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -400,13 +410,13 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
         >
           {/* Search */}
           <div className="relative flex-1 max-w-md group">
-            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#0eb59a] transition-colors" />
+            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#74b986] transition-colors" />
             <input
               type="text"
               placeholder="Search contracts..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all shadow-sm"
+              className="w-full pl-11 pr-4 py-2.5 bg-white border border-gray-100 rounded-full text-base font-sans font-light focus:outline-none focus:border-[#74b986]/30 focus:shadow-[0_8px_30px_rgba(14,181,154,0.08)] transition-all shadow-[0_8px_30px_rgb(0,0,0,0.03)]"
             />
             {searchQuery && (
               <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
@@ -425,8 +435,8 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                 onClick={() => setActiveFilter(filter)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                   activeFilter === filter
-                    ? 'bg-[#134e40] text-white shadow-md'
-                    : 'bg-white text-gray-500 border border-gray-200 hover:border-[#0eb59a]/40 hover:text-[#0eb59a]'
+                    ? 'bg-[#2d6a4f] text-white shadow-md'
+                    : 'bg-white text-gray-500 border border-gray-200 hover:border-[#74b986]/40 hover:text-[#74b986] rounded-full'
                 }`}
               >
                 {filter}
@@ -450,13 +460,13 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
-                className="bg-white rounded-3xl border border-gray-100 shadow-sm p-16 text-center"
+                className="bg-[#0e1f17] [&]:bg-[#0e1f17] p-16 text-center"
               >
                 <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-gray-100">
                   <FileText size={24} className="text-gray-300" />
                 </div>
                 <h3 className="font-black text-gray-700 text-lg mb-2">No contracts found</h3>
-                <p className="text-gray-400 text-sm">
+                <p className="text-white/60 text-sm">
                   {searchQuery ? `No results for "${searchQuery}"` : `No ${activeFilter.toLowerCase()} contracts`}
                 </p>
               </motion.div>
@@ -471,8 +481,8 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10, scale: 0.98 }}
                     transition={{ duration: 0.3, delay: idx * 0.05 }}
-                    whileHover={{ y: -2, boxShadow: '0 12px 40px rgba(0,0,0,0.06)' }}
-                    className={`bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden group transition-all duration-300 ${
+                    whileHover={{ y: -4, filter: 'drop-shadow(0 20px 40px rgba(14,181,154,0.15))' }}
+                    className={`bg-[#0e1f17] [&]:bg-[#0e1f17] overflow-hidden group transition-all duration-300 ${
                       contract.status === 'Expired' ? 'opacity-60' : ''
                     }`}
                   >
@@ -486,7 +496,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                         }`}>
                           <FileText size={24} className={
                             contract.type === 'NDA' ? 'text-purple-500' :
-                            contract.type === 'Advisory Agreement' ? 'text-teal-500' : 'text-blue-500'
+                            contract.type === 'Advisory Agreement' ? 'text-green-500' : 'text-blue-500'
                           } />
                         </div>
 
@@ -516,16 +526,16 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                           </div>
 
                           {/* Title */}
-                          <h3 className="font-black text-gray-900 text-base group-hover:text-[#0eb59a] transition-colors cursor-pointer leading-tight mb-1 truncate"
+                          <h3 className="font-black text-white text-base group-hover:text-[#74b986] transition-colors cursor-pointer leading-tight mb-1 truncate"
                             onClick={() => setShowViewModal(contract)}
                           >
                             {contract.title}
                           </h3>
 
                           {/* Meta */}
-                          <div className="flex flex-wrap gap-4 text-xs text-gray-400 font-semibold mb-3">
+                          <div className="flex flex-wrap gap-4 text-xs text-white/60 font-semibold mb-3">
                             <span className="flex items-center gap-1.5">
-                              <Users size={11} className="text-[#0eb59a]" />
+                              <Users size={11} className="text-[#74b986]" />
                               {contract.expert} · {contract.expertTitle}
                             </span>
                             <span className="flex items-center gap-1.5">
@@ -590,7 +600,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                             </div>
 
                             {contract.signedDate && (
-                              <span className="text-[10px] text-gray-400 font-semibold">
+                              <span className="text-[10px] text-white/60 font-semibold">
                                 Fully signed on {contract.signedDate}
                               </span>
                             )}
@@ -610,7 +620,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                               whileHover={{ scale: 1.03, boxShadow: '0 8px 20px rgba(20,78,64,0.25)' }}
                               whileTap={{ scale: 0.97 }}
                               onClick={() => setShowSignModal(contract)}
-                              className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white text-xs font-black rounded-xl shadow-md"
+                              className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white text-xs font-black rounded-xl shadow-md"
                             >
                               <PenLine size={13} /> Sign Now
                             </motion.button>
@@ -638,7 +648,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                           <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="p-2.5 bg-white border border-gray-200 text-gray-400 hover:text-[#0eb59a] hover:border-teal-200 rounded-xl transition-all shadow-sm"
+                            className="p-2.5 bg-white border border-gray-200 text-gray-400 hover:text-[#74b986] hover:border-teal-200 rounded-xl transition-all shadow-sm"
                           >
                             <Download size={14} />
                           </motion.button>
@@ -661,7 +671,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                                   animate={{ opacity: 1, scale: 1, y: 0 }}
                                   exit={{ opacity: 0, scale: 0.9, y: -5 }}
                                   transition={{ duration: 0.15 }}
-                                  className="absolute right-0 top-11 w-44 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-20"
+                                  className="absolute right-0 top-11 w-44 bg-[#152a1e] backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 overflow-hidden z-20"
                                 >
                                   {[
                                     { label: 'View Contract', icon: Eye, action: () => { setShowViewModal(contract); setActiveDropdown(null); } },
@@ -676,7 +686,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                                       onClick={item.action}
                                       className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-gray-600 transition-colors"
                                     >
-                                      <item.icon size={14} className="text-[#0eb59a]" />
+                                      <item.icon size={14} className="text-[#74b986]" />
                                       {item.label}
                                     </motion.button>
                                   ))}
@@ -699,7 +709,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                       </div>
                     )}
                     {contract.status === 'Signed' && (
-                      <div className="h-1 bg-gradient-to-r from-emerald-400 to-teal-400" />
+                      <div className="h-1 bg-gradient-to-r from-emerald-400 to-green-400" />
                     )}
                   </motion.div>
                 );
@@ -713,10 +723,10 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6"
+          className="bg-[#0e1f17] [&]:bg-[#0e1f17] p-6"
         >
-          <h3 className="font-black text-gray-900 text-sm mb-4 flex items-center gap-2">
-            <Shield size={15} className="text-[#0eb59a]" /> How CXO Connect Manages Your Contracts
+          <h3 className="font-black text-white text-sm mb-4 flex items-center gap-2">
+            <Shield size={15} className="text-[#74b986]" /> How CXO Connect Manages Your Contracts
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
@@ -738,7 +748,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                 icon: Lock,
                 title: 'Escrow-Linked',
                 desc: 'Contracts are linked to milestone-based escrow payments — funds release only after your approval.',
-                color: 'text-teal-500',
+                color: 'text-green-500',
                 bg: 'bg-teal-50',
               },
             ].map((item, idx) => (
@@ -751,8 +761,8 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                   <item.icon size={17} className={item.color} />
                 </div>
                 <div>
-                  <p className="font-black text-gray-900 text-sm mb-1">{item.title}</p>
-                  <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                  <p className="font-black text-white text-sm mb-1">{item.title}</p>
+                  <p className="text-xs text-white/70 leading-relaxed">{item.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -783,7 +793,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
               className="bg-white rounded-3xl shadow-2xl w-full max-w-3xl max-h-[85vh] flex flex-col overflow-hidden"
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between p-6 border-b border-gray-100">
+              <div className="flex items-center justify-between p-6 border-b border-white/10">
                 <div className="flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                     showViewModal.type === 'NDA' ? 'bg-purple-50' : 'bg-blue-50'
@@ -791,8 +801,8 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                     <FileText size={18} className={showViewModal.type === 'NDA' ? 'text-purple-500' : 'text-blue-500'} />
                   </div>
                   <div>
-                    <h3 className="font-black text-gray-900 text-sm leading-tight">{showViewModal.title}</h3>
-                    <p className="text-xs text-gray-400 font-semibold">{showViewModal.pages} pages · {showViewModal.fileSize}</p>
+                    <h3 className="font-black text-white text-sm leading-tight">{showViewModal.title}</h3>
+                    <p className="text-xs text-white/60 font-semibold">{showViewModal.pages} pages · {showViewModal.fileSize}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -814,7 +824,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
               </div>
 
               {/* Status bar */}
-              <div className={`flex items-center gap-3 px-6 py-3 border-b border-gray-50 ${
+              <div className={`flex items-center gap-3 px-6 py-3 border-b border-white/10 ${
                 showViewModal.status === 'Signed' ? 'bg-emerald-50' :
                 showViewModal.status === 'Pending Signature' ? 'bg-amber-50' : 'bg-gray-50'
               }`}>
@@ -868,7 +878,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                     whileHover={{ scale: 1.02, boxShadow: '0 8px 25px rgba(20,78,64,0.25)' }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => { setShowViewModal(null); setShowSignModal(showViewModal); }}
-                    className="flex-1 py-3 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white text-sm font-black rounded-2xl shadow-md"
+                    className="flex-1 py-3 bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white text-sm font-black rounded-2xl shadow-md"
                   >
                     <PenLine size={14} className="inline mr-1.5" /> Sign This Contract
                   </motion.button>
@@ -905,10 +915,10 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                   >
                     {/* Icon */}
                     <div className="w-16 h-16 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-5 border border-teal-100">
-                      <PenLine size={28} className="text-[#0eb59a]" />
+                      <PenLine size={28} className="text-[#74b986]" />
                     </div>
 
-                    <h3 className="text-xl font-black text-gray-900 text-center mb-1">Sign Contract</h3>
+                    <h3 className="text-xl font-black text-white text-center mb-1">Sign Contract</h3>
                     <p className="text-sm text-gray-400 text-center mb-6 leading-relaxed">
                       You are signing <span className="font-bold text-gray-700">{showSignModal.title}</span>.
                       Type your full name below to apply your digital signature.
@@ -923,7 +933,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                         { label: 'Duration', value: `${showSignModal.startDate} → ${showSignModal.endDate}` },
                       ].map((item, idx) => (
                         <div key={idx} className="flex justify-between text-xs">
-                          <span className="text-gray-400 font-semibold">{item.label}</span>
+                          <span className="text-white/60 font-semibold">{item.label}</span>
                           <span className="font-bold text-gray-700">{item.value}</span>
                         </div>
                       ))}
@@ -939,12 +949,12 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                         value={signatureText}
                         onChange={e => setSignatureText(e.target.value)}
                         placeholder="Type your full name exactly..."
-                        className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
+                        className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all"
                         style={{ fontFamily: 'cursive', fontSize: '16px' }}
                       />
                       {signatureText && (
                         <p className="text-[10px] text-gray-400 mt-2 font-semibold text-center">
-                          Preview: <span style={{ fontFamily: 'cursive', fontSize: '14px' }} className="text-[#134e40] font-bold">{signatureText}</span>
+                          Preview: <span style={{ fontFamily: 'cursive', fontSize: '14px' }} className="text-[#2d6a4f] font-bold">{signatureText}</span>
                         </p>
                       )}
                     </div>
@@ -973,7 +983,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                         onClick={handleSign}
                         className={`flex-1 py-3 text-sm font-bold rounded-2xl transition-all ${
                           signatureText.trim()
-                            ? 'bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white shadow-lg'
+                            ? 'bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white shadow-lg'
                             : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                         }`}
                       >
@@ -993,18 +1003,18 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                      className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-[#0eb59a]"
+                      className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-[#74b986]"
                     >
-                      <Check size={36} className="text-[#0eb59a]" strokeWidth={3} />
+                      <Check size={36} className="text-[#74b986]" strokeWidth={3} />
                     </motion.div>
-                    <h3 className="text-xl font-black text-gray-900 mb-2">Contract Signed!</h3>
+                    <h3 className="text-xl font-black text-white mb-2">Contract Signed!</h3>
                     <p className="text-sm text-gray-400 leading-relaxed">
                       Your signature has been applied successfully. The engagement is now officially active.
                     </p>
                     <motion.div
                       animate={{ scale: [1, 1.05, 1] }}
                       transition={{ duration: 1, repeat: 2 }}
-                      className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-[#134e40] text-xs font-black rounded-xl border border-teal-100"
+                      className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-[#2d6a4f] text-xs font-black rounded-xl border border-teal-100"
                     >
                       <Shield size={12} /> Secured by CXO Connect
                     </motion.div>

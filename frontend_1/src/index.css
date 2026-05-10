@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary-accent: #0eb59a;
+  --color-primary-accent: #74b986;
   --animate-marquee: marquee 40s linear infinite;
 
   @keyframes marquee {
@@ -15,14 +15,27 @@
   }
 }
 
+/* ── CXO CONNECT DESIGN TOKENS ── */
 :root {
-  --primary-accent: #0eb59a;
+  /* Primary palette (from uploaded palette image) */
+  --clr-primary:    #2d6a4f;   /* Deep Forest Green  */
+  --clr-secondary:  #74b986;   /* Sage Green         */
+  --clr-accent:     #f9c846;   /* Golden Yellow      */
+  --clr-cream:      #ffffff;   /* White background   */
+
+  /* Dark card surfaces */
+  --clr-card-dark:  #0e1f17;   /* Very dark green    */
+  --clr-card-mid:   #152a1e;   /* Mid dark green     */
+
+  /* Legacy aliases (keep old variables pointing to new values) */
+  --primary-accent: #74b986;
 }
 
 body {
   margin: 0;
-  background-color: #fafafa;
+  background-color: #ffffff;
   user-select: none;
+  font-family: 'Inter', sans-serif;
 }
 
 #root {
@@ -34,4 +47,32 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+}
+
+/* GLASSMORPHISM CARD SHAPES - INVERTED CORNERS */
+.cutout-large {
+  -webkit-mask: radial-gradient(circle at 0 0, transparent 32px, black 32.5px) top left, radial-gradient(circle at 100% 0, transparent 32px, black 32.5px) top right, radial-gradient(circle at 0 100%, transparent 32px, black 32.5px) bottom left, radial-gradient(circle at 100% 100%, transparent 32px, black 32.5px) bottom right;
+  -webkit-mask-size: 51% 51%;
+  -webkit-mask-repeat: no-repeat;
+  mask: radial-gradient(circle at 0 0, transparent 32px, black 32.5px) top left, radial-gradient(circle at 100% 0, transparent 32px, black 32.5px) top right, radial-gradient(circle at 0 100%, transparent 32px, black 32.5px) bottom left, radial-gradient(circle at 100% 100%, transparent 32px, black 32.5px) bottom right;
+  mask-size: 51% 51%;
+  mask-repeat: no-repeat;
+}
+
+.cutout-medium {
+  -webkit-mask: radial-gradient(circle at 0 0, transparent 24px, black 24.5px) top left, radial-gradient(circle at 100% 0, transparent 24px, black 24.5px) top right, radial-gradient(circle at 0 100%, transparent 24px, black 24.5px) bottom left, radial-gradient(circle at 100% 100%, transparent 24px, black 24.5px) bottom right;
+  -webkit-mask-size: 51% 51%;
+  -webkit-mask-repeat: no-repeat;
+  mask: radial-gradient(circle at 0 0, transparent 24px, black 24.5px) top left, radial-gradient(circle at 100% 0, transparent 24px, black 24.5px) top right, radial-gradient(circle at 0 100%, transparent 24px, black 24.5px) bottom left, radial-gradient(circle at 100% 100%, transparent 24px, black 24.5px) bottom right;
+  mask-size: 51% 51%;
+  mask-repeat: no-repeat;
+}
+
+.cutout-small {
+  -webkit-mask: radial-gradient(circle at 0 0, transparent 16px, black 16.5px) top left, radial-gradient(circle at 100% 0, transparent 16px, black 16.5px) top right, radial-gradient(circle at 0 100%, transparent 16px, black 16.5px) bottom left, radial-gradient(circle at 100% 100%, transparent 16px, black 16.5px) bottom right;
+  -webkit-mask-size: 51% 51%;
+  -webkit-mask-repeat: no-repeat;
+  mask: radial-gradient(circle at 0 0, transparent 16px, black 16.5px) top left, radial-gradient(circle at 100% 0, transparent 16px, black 16.5px) top right, radial-gradient(circle at 0 100%, transparent 16px, black 16.5px) bottom left, radial-gradient(circle at 100% 100%, transparent 16px, black 16.5px) bottom right;
+  mask-size: 51% 51%;
+  mask-repeat: no-repeat;
 }

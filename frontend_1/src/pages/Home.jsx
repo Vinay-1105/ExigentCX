@@ -84,7 +84,7 @@ const Home = () => {
     const prevSlide = () => setCurrentSlide((prev) => (prev === 0 ? maxSlide : prev - 1));
 
     return (
-        <div className="bg-[#fafafa] min-h-screen text-gray-900 font-sans selection:bg-[#0eb59a] selection:text-white pt-20">
+        <div className="bg-white min-h-screen text-gray-900 font-sans selection:bg-[#74b986] selection:text-white pt-20">
             {/* Hero Section */}
             <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-white">
                 <div className="absolute inset-0 z-0 bg-white">
@@ -114,17 +114,17 @@ const Home = () => {
                 >
 
                     <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold tracking-tight mb-8 leading-[1.1] text-[#111827]">
-                        Elite Expertise.<br /><span className="text-[#134e40]">Leadership on Demand.</span>
+                        Elite Expertise.<br /><span className="text-[#2d6a4f]">Leadership on Demand.</span>
                     </h1>
                     <p className="text-lg md:text-2xl text-gray-600 font-light max-w-3xl mx-auto mb-12 leading-relaxed">
                         Connect with vetted CXOs and senior advisors to solve your most critical business challenges on demand and managed by experts.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
-                        <button onClick={openModal} className="px-10 py-4 rounded-full bg-[#134e40] text-white font-semibold text-lg hover:bg-[#0eb59a] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2 group">
+                        <button onClick={openModal} className="px-10 py-4 rounded-full bg-[#2d6a4f] text-white font-semibold text-lg hover:bg-[#74b986] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2 group">
                             Get Started
                             <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
                         </button>
-                        <button onClick={(e) => { e.preventDefault(); document.getElementById('about-us')?.scrollIntoView({ behavior: 'smooth' }); }} className="px-10 py-4 rounded-full bg-white text-[#134e40] border-2 border-[#134e40] font-semibold text-lg hover:bg-[#134e40] hover:text-white transition-all duration-300 w-full sm:w-auto shadow-sm">
+                        <button onClick={(e) => { e.preventDefault(); document.getElementById('about-us')?.scrollIntoView({ behavior: 'smooth' }); }} className="px-10 py-4 rounded-full bg-white text-[#2d6a4f] border-2 border-[#2d6a4f] font-semibold text-lg hover:bg-[#2d6a4f] hover:text-white transition-all duration-300 w-full sm:w-auto shadow-sm">
                             Learn More
                         </button>
                     </div>
@@ -167,7 +167,7 @@ const Home = () => {
 
             {/* Dark Green Impact Section (Updated Content for Two-Sided Marketplace) */} 
             <AnimatedSection className="py-24 px-6 max-w-7xl mx-auto">
-                <div className="bg-[#134e40] rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row shadow-2xl relative group">
+                <div className="bg-[#2d6a4f] rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row shadow-2xl relative group">
                     <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/5 blur-[100px] rounded-full pointer-events-none group-hover:scale-150 transition-transform duration-1000"></div>
                     <div className="flex-1 p-12 md:p-16 flex flex-col justify-center relative z-10">
                         <div className="flex items-center gap-2 text-yellow-400 mb-8">
@@ -188,25 +188,25 @@ const Home = () => {
                             </p>
                             <ul className="space-y-6">
                                 <li className="flex items-start gap-4">
-                                    <div className="mt-1 bg-[#0eb59a]/20 p-1 rounded-full">
-                                        <Check className="text-[#0eb59a]" size={16} />
+                                    <div className="mt-1 bg-[#74b986]/20 p-1 rounded-full">
+                                        <Check className="text-[#74b986]" size={16} />
                                     </div>
                                     <span className="text-teal-50 text-lg leading-relaxed"><strong className="text-white font-semibold">Companies</strong> seeking impactful leadership.</span>
                                 </li>
                                 <li className="flex items-start gap-4">
-                                    <div className="mt-1 bg-[#0eb59a]/20 p-1 rounded-full">
-                                        <Check className="text-[#0eb59a]" size={16} />
+                                    <div className="mt-1 bg-[#74b986]/20 p-1 rounded-full">
+                                        <Check className="text-[#74b986]" size={16} />
                                     </div>
                                     <span className="text-teal-50 text-lg leading-relaxed"><strong className="text-white font-semibold">Senior Professionals</strong> seeking flexible engagements.</span>
                                 </li>
                             </ul>
-                            <div className="border-l-4 border-[#0eb59a] pl-6 py-2 bg-white/5 rounded-r-2xl">
+                            <div className="border-l-4 border-[#74b986] pl-6 py-2 bg-white/5 rounded-r-2xl">
                                 <p className="text-teal-50/90 text-base leading-relaxed italic">
                                     Supported by an expert Admin layer to ensure trust, meticulous vetting, and seamless managed delivery.
                                 </p>
                             </div>
                             <div className="pt-4">
-                                <button onClick={openModal} className="bg-white text-[#134e40] px-10 py-4 rounded-full font-bold hover:bg-[#0eb59a] hover:text-white transition-all duration-300 inline-flex items-center gap-3 group/btn shadow-lg">
+                                <button onClick={openModal} className="bg-white text-[#2d6a4f] px-10 py-4 rounded-full font-bold hover:bg-[#74b986] hover:text-white transition-all duration-300 inline-flex items-center gap-3 group/btn shadow-lg">
                                     Explore Engagements <ChevronRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
                                 </button>
                             </div>
@@ -219,12 +219,12 @@ const Home = () => {
             </AnimatedSection>
 
             {/* How It Works Section */}
-            <AnimatedSection className="py-12 w-full relative overflow-hidden bg-[#fafafa]" id="about-us">
+            <AnimatedSection className="py-12 w-full relative overflow-hidden bg-white" id="about-us">
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="bg-white rounded-[2.5rem] border border-gray-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] py-12 px-6 lg:px-12 relative overflow-hidden">
                         {/* Background Ambient Blurs for Light Theme */}
-                        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#0eb59a]/5 rounded-full blur-[100px] pointer-events-none"></div>
-                        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#134e40]/5 rounded-full blur-[100px] pointer-events-none"></div>
+                        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#74b986]/5 rounded-full blur-[100px] pointer-events-none"></div>
+                        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#2d6a4f]/5 rounded-full blur-[100px] pointer-events-none"></div>
 
                         <div className="text-center mb-16 relative z-10">
                             <motion.div
@@ -244,7 +244,7 @@ const Home = () => {
                             {/* For CXOs Column */}
                             <div className="lg:pr-10 flex flex-col gap-8">
                                 <div className="text-center lg:text-left">
-                                    <h3 className="text-2xl font-bold text-[#0eb59a] mb-2 tracking-tight">For CXOs</h3>
+                                    <h3 className="text-2xl font-bold text-[#74b986] mb-2 tracking-tight">For CXOs</h3>
                                     <p className="text-gray-500 text-sm font-light">Your path to meaningful leadership roles</p>
                                 </div>
 
@@ -254,11 +254,11 @@ const Home = () => {
                                         whileHover={{ x: 8 }}
                                         className="flex flex-col sm:flex-row items-center sm:items-start gap-4 group text-center sm:text-left"
                                     >
-                                        <div className="shrink-0 w-10 h-10 rounded-xl bg-[#f0fdfa] border border-[#ccfbf1] flex items-center justify-center text-[#0eb59a] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#0eb59a] group-hover:text-white transition-all duration-300">
+                                        <div className="shrink-0 w-10 h-10 rounded-xl bg-[#f0fdfa] border border-[#ccfbf1] flex items-center justify-center text-[#74b986] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#74b986] group-hover:text-white transition-all duration-300">
                                             <Edit size={20} />
                                         </div>
                                         <div>
-                                            <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-[#0eb59a] transition-colors">Build your leadership profile, your way</h4>
+                                            <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-[#74b986] transition-colors">Build your leadership profile, your way</h4>
                                             <p className="text-gray-600 leading-relaxed text-sm font-light">Share your expertise, past outcomes, and availability, guided step-by-step with personal assistant support</p>
                                         </div>
                                     </motion.div>
@@ -268,11 +268,11 @@ const Home = () => {
                                         whileHover={{ x: 8 }}
                                         className="flex flex-col sm:flex-row items-center sm:items-start gap-4 group text-center sm:text-left"
                                     >
-                                        <div className="shrink-0 w-10 h-10 rounded-xl bg-[#f0fdfa] border border-[#ccfbf1] flex items-center justify-center text-[#0eb59a] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#0eb59a] group-hover:text-white transition-all duration-300">
+                                        <div className="shrink-0 w-10 h-10 rounded-xl bg-[#f0fdfa] border border-[#ccfbf1] flex items-center justify-center text-[#74b986] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#74b986] group-hover:text-white transition-all duration-300">
                                             <Search size={20} />
                                         </div>
                                         <div>
-                                            <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-[#0eb59a] transition-colors">Get discovered by the right companies</h4>
+                                            <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-[#74b986] transition-colors">Get discovered by the right companies</h4>
                                             <p className="text-gray-600 leading-relaxed text-sm font-light">Our AI matching engine scores your leadership style and culture fit against founder needs before any introduction is made</p>
                                         </div>
                                     </motion.div>
@@ -282,11 +282,11 @@ const Home = () => {
                                         whileHover={{ x: 8 }}
                                         className="flex flex-col sm:flex-row items-center sm:items-start gap-4 group text-center sm:text-left"
                                     >
-                                        <div className="shrink-0 w-10 h-10 rounded-xl bg-[#f0fdfa] border border-[#ccfbf1] flex items-center justify-center text-[#0eb59a] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#0eb59a] group-hover:text-white transition-all duration-300">
+                                        <div className="shrink-0 w-10 h-10 rounded-xl bg-[#f0fdfa] border border-[#ccfbf1] flex items-center justify-center text-[#74b986] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#74b986] group-hover:text-white transition-all duration-300">
                                             <Lock size={20} />
                                         </div>
                                         <div>
-                                            <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-[#0eb59a] transition-colors">Unlock high-value engagements</h4>
+                                            <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-[#74b986] transition-colors">Unlock high-value engagements</h4>
                                             <p className="text-gray-600 leading-relaxed text-sm font-light">Access pre-qualified fractional, interim, and advisory roles with contracts and payments built in</p>
                                         </div>
                                     </motion.div>
@@ -296,7 +296,7 @@ const Home = () => {
                             {/* For Companies Column */}
                             <div className="lg:pl-10 flex flex-col gap-8 mt-12 lg:mt-0">
                                 <div className="text-center lg:text-left">
-                                    <h3 className="text-2xl font-bold text-[#134e40] mb-2 tracking-tight">For Companies</h3>
+                                    <h3 className="text-2xl font-bold text-[#2d6a4f] mb-2 tracking-tight">For Companies</h3>
                                     <p className="text-gray-500 text-sm font-light">Find your next strategic leader</p>
                                 </div>
 
@@ -306,11 +306,11 @@ const Home = () => {
                                         whileHover={{ x: 8 }}
                                         className="flex flex-col sm:flex-row items-center sm:items-start gap-4 group text-center sm:text-left"
                                     >
-                                        <div className="shrink-0 w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-[#134e40] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#134e40] group-hover:text-white transition-all duration-300">
+                                        <div className="shrink-0 w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-[#2d6a4f] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#2d6a4f] group-hover:text-white transition-all duration-300">
                                             <Monitor size={20} />
                                         </div>
                                         <div>
-                                            <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-[#134e40] transition-colors">Define your leadership need in minutes</h4>
+                                            <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-[#2d6a4f] transition-colors">Define your leadership need in minutes</h4>
                                             <p className="text-gray-600 leading-relaxed text-sm font-light">Use our guided requirement wizard to articulate your real business challenge — not just a job title</p>
                                         </div>
                                     </motion.div>
@@ -320,11 +320,11 @@ const Home = () => {
                                         whileHover={{ x: 8 }}
                                         className="flex flex-col sm:flex-row items-center sm:items-start gap-4 group text-center sm:text-left"
                                     >
-                                        <div className="shrink-0 w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-[#134e40] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#134e40] group-hover:text-white transition-all duration-300">
+                                        <div className="shrink-0 w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-[#2d6a4f] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#2d6a4f] group-hover:text-white transition-all duration-300">
                                             <Users size={20} />
                                         </div>
                                         <div>
-                                            <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-[#134e40] transition-colors">Get matched with verified senior leaders</h4>
+                                            <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-[#2d6a4f] transition-colors">Get matched with verified senior leaders</h4>
                                             <p className="text-gray-600 leading-relaxed text-sm font-light">AI-powered shortlisting of CXOs who fit your industry, stage, and culture, not just keywords</p>
                                         </div>
                                     </motion.div>
@@ -334,11 +334,11 @@ const Home = () => {
                                         whileHover={{ x: 8 }}
                                         className="flex flex-col sm:flex-row items-center sm:items-start gap-4 group text-center sm:text-left"
                                     >
-                                        <div className="shrink-0 w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-[#134e40] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#134e40] group-hover:text-white transition-all duration-300">
+                                        <div className="shrink-0 w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-[#2d6a4f] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#2d6a4f] group-hover:text-white transition-all duration-300">
                                             <CheckCircle2 size={20} />
                                         </div>
                                         <div>
-                                            <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-[#134e40] transition-colors">Onboard with confidence and governance</h4>
+                                            <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-[#2d6a4f] transition-colors">Onboard with confidence and governance</h4>
                                             <p className="text-gray-600 leading-relaxed text-sm font-light">Kick off engagements with structured milestones, escrow-backed payments, and PMO oversight from day one</p>
                                         </div>
                                     </motion.div>
@@ -357,7 +357,7 @@ const Home = () => {
 
                 <div className="max-w-[100vw] mx-auto relative z-10 flex flex-col items-center overflow-hidden">
 
-                    <h2 className="text-center text-5xl md:text-6xl text-white mb-20 font-serif font-bold tracking-tight">What problem can we <span className="text-[#0eb59a]">solve together?</span></h2>
+                    <h2 className="text-center text-5xl md:text-6xl text-white mb-20 font-serif font-bold tracking-tight">What problem can we <span className="text-[#74b986]">solve together?</span></h2>
 
                     <div className="relative w-full flex items-center justify-center px-4 md:px-0">
                         {/* Wrapper for the slides to handle the overflow and flex layout */}
@@ -426,12 +426,12 @@ const Home = () => {
                             </AnimatePresence>
 
                             {/* Left Arrow overlaid on the left card */}
-                            <button className="absolute left-[5%] lg:left-[15%] z-40 bg-[#134e40]/80 backdrop-blur-md shadow-2xl text-white rounded-full w-14 h-14 flex items-center justify-center cursor-pointer transition-all hover:bg-[#0eb59a] hover:scale-110" onClick={prevSlide}>
+                            <button className="absolute left-[5%] lg:left-[15%] z-40 bg-[#2d6a4f]/80 backdrop-blur-md shadow-2xl text-white rounded-full w-14 h-14 flex items-center justify-center cursor-pointer transition-all hover:bg-[#74b986] hover:scale-110" onClick={prevSlide}>
                                 <ChevronLeft size={28} />
                             </button>
 
                             {/* Right Arrow overlaid on the right card */}
-                            <button className="absolute right-[5%] lg:right-[15%] z-40 bg-[#134e40]/80 backdrop-blur-md shadow-2xl text-white rounded-full w-14 h-14 flex items-center justify-center cursor-pointer transition-all hover:bg-[#0eb59a] hover:scale-110" onClick={nextSlide}>
+                            <button className="absolute right-[5%] lg:right-[15%] z-40 bg-[#2d6a4f]/80 backdrop-blur-md shadow-2xl text-white rounded-full w-14 h-14 flex items-center justify-center cursor-pointer transition-all hover:bg-[#74b986] hover:scale-110" onClick={nextSlide}>
                                 <ChevronRight size={28} />
                             </button>
                         </div>
@@ -439,7 +439,7 @@ const Home = () => {
 
                     <div className="flex gap-3 justify-center mt-12 z-20 relative">
                         {slides.map((_, i) => (
-                            <span key={i} className={`h-3 rounded-full cursor-pointer transition-all duration-500 ${i === currentSlide ? 'bg-[#0eb59a] w-10 shadow-[0_0_10px_#0eb59a]' : 'bg-white/30 w-3 hover:bg-white/60'}`} onClick={() => setCurrentSlide(i)}></span>
+                            <span key={i} className={`h-3 rounded-full cursor-pointer transition-all duration-500 ${i === currentSlide ? 'bg-[#74b986] w-10 shadow-[0_0_10px_#74b986]' : 'bg-white/30 w-3 hover:bg-white/60'}`} onClick={() => setCurrentSlide(i)}></span>
                         ))}
                     </div>
                 </div>
@@ -454,26 +454,26 @@ const Home = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-6 md:px-12">
-                    <div className="p-8 rounded-3xl bg-[#f8fafc] border border-gray-100 flex flex-col items-center text-center hover:shadow-xl transition-all hover:-translate-y-2">
-                        <div className="w-16 h-16 rounded-full bg-[#0eb59a]/10 flex items-center justify-center mb-6 text-[#0eb59a]">
+                    <div className="p-8 rounded-3xl bg-white border border-gray-100 flex flex-col items-center text-center hover:shadow-xl transition-all hover:-translate-y-2">
+                        <div className="w-16 h-16 rounded-full bg-[#74b986]/10 flex items-center justify-center mb-6 text-[#74b986]">
                             <Target size={32} />
                         </div>
                         <h3 className="text-2xl font-bold text-gray-900 mb-4">Curated Matches</h3>
                         <p className="text-gray-600">AI-driven matching ensures you connect with the exact expertise or role you're looking for.</p>
                     </div>
 
-                    <div className="p-8 rounded-3xl bg-[#134e40] text-white border border-[#134e40] flex flex-col items-center text-center hover:shadow-2xl transition-all scale-105 shadow-xl relative overflow-hidden">
-                        <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#0eb59a]/20 rounded-full blur-2xl"></div>
-                        <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center mb-6 text-[#0eb59a]">
+                    <div className="p-8 rounded-3xl bg-[#2d6a4f] text-white border border-[#2d6a4f] flex flex-col items-center text-center hover:shadow-2xl transition-all scale-105 shadow-xl relative overflow-hidden">
+                        <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#74b986]/20 rounded-full blur-2xl"></div>
+                        <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center mb-6 text-[#74b986]">
                             <Shield size={32} />
                         </div>
                         <h3 className="text-2xl font-bold mb-4">Verified Network</h3>
                         <p className="text-teal-50/80 mb-8">Every member undergoes rigorous vetting to ensure a high-trust environment.</p>
-                        <button onClick={openModal} className="mt-auto bg-[#0eb59a] text-white px-8 py-3 rounded-full font-bold w-full hover:bg-teal-400 transition-colors shadow-lg">Become a Member</button>
+                        <button onClick={openModal} className="mt-auto bg-[#74b986] text-white px-8 py-3 rounded-full font-bold w-full hover:bg-green-400 transition-colors shadow-lg">Become a Member</button>
                     </div>
 
-                    <div className="p-8 rounded-3xl bg-[#f8fafc] border border-gray-100 flex flex-col items-center text-center hover:shadow-xl transition-all hover:-translate-y-2">
-                        <div className="w-16 h-16 rounded-full bg-[#0eb59a]/10 flex items-center justify-center mb-6 text-[#0eb59a]">
+                    <div className="p-8 rounded-3xl bg-white border border-gray-100 flex flex-col items-center text-center hover:shadow-xl transition-all hover:-translate-y-2">
+                        <div className="w-16 h-16 rounded-full bg-[#74b986]/10 flex items-center justify-center mb-6 text-[#74b986]">
                             <Star size={32} />
                         </div>
                         <h3 className="text-2xl font-bold text-gray-900 mb-4">PMO Governance</h3>
@@ -498,9 +498,9 @@ const Home = () => {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
                             <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop" alt="Companies" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-in-out" />
                             <div className="absolute bottom-0 left-0 p-10 z-20 w-full">
-                                <h4 className="text-4xl text-white mb-3 font-semibold group-hover:text-[#0eb59a] transition-colors">Hire a CXO</h4>
+                                <h4 className="text-4xl text-white mb-3 font-semibold group-hover:text-[#74b986] transition-colors">Hire a CXO</h4>
                                 <p className="text-gray-300 mb-8 text-lg font-light">Find top-tier fractional executives.</p>
-                                <button className="bg-white text-[#134e40] px-8 py-3 rounded-full font-bold text-sm group-hover:bg-[#0eb59a] group-hover:text-white transition-colors shadow-lg">
+                                <button className="bg-white text-[#2d6a4f] px-8 py-3 rounded-full font-bold text-sm group-hover:bg-[#74b986] group-hover:text-white transition-colors shadow-lg">
                                     Join as Company
                                 </button>
                             </div>
@@ -513,9 +513,9 @@ const Home = () => {
                             {/* Fixed image URL for Experts */}
                             <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" alt="Experts" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-in-out" />
                             <div className="absolute bottom-0 left-0 p-10 z-20 w-full">
-                                <h4 className="text-4xl text-white mb-3 font-semibold group-hover:text-[#0eb59a] transition-colors">Executive Opportunities</h4>
+                                <h4 className="text-4xl text-white mb-3 font-semibold group-hover:text-[#74b986] transition-colors">Executive Opportunities</h4>
                                 <p className="text-gray-300 mb-8 text-lg font-light">Discover flexible, high-impact engagements.</p>
-                                <button className="bg-white text-[#134e40] px-8 py-3 rounded-full font-bold text-sm group-hover:bg-[#0eb59a] group-hover:text-white transition-colors shadow-lg">
+                                <button className="bg-white text-[#2d6a4f] px-8 py-3 rounded-full font-bold text-sm group-hover:bg-[#74b986] group-hover:text-white transition-colors shadow-lg">
                                     Join as Expert
                                 </button>
                             </div>
@@ -529,7 +529,7 @@ const Home = () => {
                 {/* Background Image with Premium Dark Overlay */}
                 <div className="absolute inset-0 z-0">
                     <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2084&auto=format&fit=crop" alt="Contact Office" className="w-full h-full object-cover scale-105" />
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#111827]/95 via-[#111827]/90 to-[#134e40]/90 backdrop-blur-sm"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#111827]/95 via-[#111827]/90 to-[#2d6a4f]/90 backdrop-blur-sm"></div>
                 </div>
 
                 <div className="relative z-10 max-w-7xl mx-auto px-6">
@@ -543,14 +543,14 @@ const Home = () => {
                             className="text-left"
                         >
 
-                            <h2 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 tracking-tight">Let's build <br/>the <span className="text-[#0eb59a]">future.</span></h2>
+                            <h2 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 tracking-tight">Let's build <br/>the <span className="text-[#74b986]">future.</span></h2>
                             <p className="text-gray-300 text-lg md:text-xl font-light mb-12 max-w-lg leading-relaxed">
                                 Join our exclusive network of forward-thinking companies and elite fractional leaders. We're ready to answer your questions.
                             </p>
 
                             <div className="space-y-6">
                                 <div className="flex items-center gap-6 bg-white/5 border border-white/10 p-6 rounded-3xl backdrop-blur-md hover:bg-white/10 transition-all duration-300 group">
-                                    <div className="w-14 h-14 shrink-0 rounded-2xl bg-[#0eb59a]/20 border border-[#0eb59a]/30 flex items-center justify-center text-[#0eb59a] group-hover:bg-[#0eb59a] group-hover:text-white transition-colors duration-300">
+                                    <div className="w-14 h-14 shrink-0 rounded-2xl bg-[#74b986]/20 border border-[#74b986]/30 flex items-center justify-center text-[#74b986] group-hover:bg-[#74b986] group-hover:text-white transition-colors duration-300">
                                         <MapPin size={26} />
                                     </div>
                                     <div>
@@ -559,7 +559,7 @@ const Home = () => {
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-6 bg-white/5 border border-white/10 p-6 rounded-3xl backdrop-blur-md hover:bg-white/10 transition-all duration-300 group">
-                                    <div className="w-14 h-14 shrink-0 rounded-2xl bg-[#0eb59a]/20 border border-[#0eb59a]/30 flex items-center justify-center text-[#0eb59a] group-hover:bg-[#0eb59a] group-hover:text-white transition-colors duration-300">
+                                    <div className="w-14 h-14 shrink-0 rounded-2xl bg-[#74b986]/20 border border-[#74b986]/30 flex items-center justify-center text-[#74b986] group-hover:bg-[#74b986] group-hover:text-white transition-colors duration-300">
                                         <Mail size={26} />
                                     </div>
                                     <div>
@@ -578,20 +578,20 @@ const Home = () => {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="bg-white/5 border border-white/10 p-8 sm:p-12 rounded-[3rem] backdrop-blur-xl shadow-2xl relative overflow-hidden"
                         >
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-[#0eb59a]/20 rounded-full blur-[80px] pointer-events-none"></div>
-                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#134e40]/20 rounded-full blur-[80px] pointer-events-none"></div>
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-[#74b986]/20 rounded-full blur-[80px] pointer-events-none"></div>
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#2d6a4f]/20 rounded-full blur-[80px] pointer-events-none"></div>
                             
                             <h3 className="text-3xl font-bold text-white mb-2 relative z-10 tracking-tight">Stay Updated</h3>
                             <p className="text-gray-400 font-light mb-10 relative z-10 text-lg">Subscribe for platform updates and exclusive insights.</p>
 
                             <form className="flex flex-col gap-6 relative z-10" onSubmit={(e) => { e.preventDefault(); setShowToast(true); }}>
                                 <div className="space-y-2 group">
-                                    <label className="text-gray-300 text-xs font-bold uppercase tracking-widest ml-1">Email Address <span className="text-[#0eb59a]">*</span></label>
+                                    <label className="text-gray-300 text-xs font-bold uppercase tracking-widest ml-1">Email Address <span className="text-[#74b986]">*</span></label>
                                     <div className="relative">
-                                        <input type="email" required placeholder="Enter your email address" className="w-full bg-black/20 border border-white/10 rounded-2xl px-6 py-5 text-white placeholder-gray-500 focus:outline-none focus:border-[#0eb59a] focus:bg-white/5 transition-all duration-300 text-lg" />
+                                        <input type="email" required placeholder="Enter your email address" className="w-full bg-black/20 border border-white/10 rounded-2xl px-6 py-5 text-white placeholder-gray-500 focus:outline-none focus:border-[#74b986] focus:bg-white/5 transition-all duration-300 text-lg" />
                                     </div>
                                 </div>
-                                <button type="submit" className="w-full bg-[#0eb59a] text-white px-8 py-5 rounded-2xl font-bold hover:bg-teal-400 hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-[0_0_30px_rgba(14,181,154,0.3)] text-lg flex items-center justify-center gap-3 group mt-4">
+                                <button type="submit" className="w-full bg-[#74b986] text-white px-8 py-5 rounded-2xl font-bold hover:bg-green-400 hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-[0_0_30px_rgba(14,181,154,0.3)] text-lg flex items-center justify-center gap-3 group mt-4">
                                     Get Updates <ChevronRight size={22} className="group-hover:translate-x-1 transition-transform" />
                                 </button>
                             </form>

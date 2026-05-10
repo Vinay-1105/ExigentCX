@@ -71,8 +71,8 @@ const ExpertDashboard = () => {
       trendPositive: true,
       icon: Activity,
       iconBg: 'bg-teal-50',
-      iconColor: 'text-[#0eb59a]',
-      borderColor: 'border-l-[#0eb59a]',
+      iconColor: 'text-[#74b986]',
+      borderColor: 'border-l-[#74b986]',
       path: '/expert-engagements'
     },
     {
@@ -167,7 +167,7 @@ const ExpertDashboard = () => {
       title: 'Series B Funding Strategy',
       company: 'Acme Corp',
       companyLogo: 'AC',
-      logoColor: 'from-[#134e40] to-[#0eb59a]',
+      logoColor: 'from-[#2d6a4f] to-[#74b986]',
       status: 'IN PROGRESS',
       statusColor: 'text-blue-600 bg-blue-50',
       progress: 65,
@@ -226,7 +226,7 @@ const ExpertDashboard = () => {
   ];
 
   const quickActions = [
-    { label: 'Browse Roles', icon: Briefcase, color: 'text-[#0eb59a]', bg: 'bg-teal-50', path: '/expert-opportunities' },
+    { label: 'Browse Roles', icon: Briefcase, color: 'text-[#74b986]', bg: 'bg-teal-50', path: '/expert-opportunities' },
     { label: 'My Engagements', icon: Activity, color: 'text-blue-500', bg: 'bg-blue-50', path: '/expert-engagements' },
     { label: 'Earnings', icon: DollarSign, color: 'text-emerald-500', bg: 'bg-emerald-50', path: '/expert-earnings' },
     { label: 'Edit Profile', icon: User, color: 'text-purple-500', bg: 'bg-purple-50', path: '/expert-profile' },
@@ -235,7 +235,7 @@ const ExpertDashboard = () => {
   ];
 
   const notifications = [
-    { title: 'New Role Match', desc: 'Fractional CFO role at HealthTech — 96% match', time: '10 min ago', unread: true, color: 'bg-teal-500' },
+    { title: 'New Role Match', desc: 'Fractional CFO role at HealthTech — 96% match', time: '10 min ago', unread: true, color: 'bg-green-500' },
     { title: 'Milestone Approved', desc: 'Acme Corp approved Financial Model Development', time: '2 hours ago', unread: true, color: 'bg-emerald-500' },
     { title: 'Payment Received', desc: '₹2,00,000 credited for milestone completion', time: '3 hours ago', unread: true, color: 'bg-blue-500' },
     { title: 'New Message', desc: 'Acme Corp sent you a message about the investor deck', time: '1 day ago', unread: false, color: 'bg-purple-500' },
@@ -265,7 +265,7 @@ const ExpertDashboard = () => {
   const sidebarExpanded = isMobile ? true : isSidebarOpen;
 
   return (
-    <div className="flex h-screen bg-[#f8fafc] font-sans text-gray-800 overflow-hidden">
+    <div className="flex h-screen bg-white font-sans text-gray-800 overflow-hidden">
 
       {/* ── MOBILE SIDEBAR OVERLAY ── */}
       <AnimatePresence>
@@ -292,7 +292,7 @@ const ExpertDashboard = () => {
       >
         {/* Logo */}
         <div className={`flex items-center border-b border-gray-100 overflow-hidden transition-all duration-300 ${sidebarExpanded ? 'px-5 py-5 gap-3' : 'px-0 py-5 justify-center'}`}>
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#134e40] to-[#0eb59a] flex items-center justify-center shrink-0 shadow-md">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#2d6a4f] to-[#74b986] flex items-center justify-center shrink-0 shadow-md">
             <span className="text-white font-black text-sm">C</span>
           </div>
           <motion.div
@@ -300,7 +300,7 @@ const ExpertDashboard = () => {
             transition={{ duration: 0.2 }}
             className="overflow-hidden whitespace-nowrap"
           >
-            <p className="text-sm font-black text-[#134e40] leading-tight">CXO Connect</p>
+            <p className="text-sm font-black text-[#2d6a4f] leading-tight">CXO Connect</p>
             <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Expert Portal</p>
           </motion.div>
         </div>
@@ -325,15 +325,15 @@ const ExpertDashboard = () => {
                   onClick={() => { setActiveMenu(item.name); navigate(item.path); if (isMobile) setIsSidebarOpen(false); }}
                   className={`w-full flex items-center transition-all duration-200 rounded-xl relative
                     ${sidebarExpanded ? 'gap-3 px-4 py-3' : 'justify-center px-0 py-3'}
-                    ${isActive ? 'bg-teal-50 text-[#134e40]' : 'text-gray-400 hover:bg-gray-50 hover:text-gray-700'}`}
+                    ${isActive ? 'bg-teal-50 text-[#2d6a4f]' : 'text-gray-400 hover:bg-gray-50 hover:text-gray-700'}`}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="expertActiveBar"
-                      className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#0eb59a] rounded-r-full"
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#74b986] rounded-r-full"
                     />
                   )}
-                  <item.icon size={20} className={`shrink-0 transition-colors ${isActive ? 'text-[#0eb59a]' : 'text-gray-400 group-hover:text-gray-600'}`} />
+                  <item.icon size={20} className={`shrink-0 transition-colors ${isActive ? 'text-[#74b986]' : 'text-gray-400 group-hover:text-gray-600'}`} />
                   <motion.span
                     animate={{ opacity: sidebarExpanded ? 1 : 0, width: sidebarExpanded ? 'auto' : 0 }}
                     transition={{ duration: 0.2 }}
@@ -342,15 +342,15 @@ const ExpertDashboard = () => {
                     {item.name}
                   </motion.span>
                   {isActive && sidebarExpanded && (
-                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="ml-auto w-1.5 h-1.5 rounded-full bg-[#0eb59a] shrink-0" />
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="ml-auto w-1.5 h-1.5 rounded-full bg-[#74b986] shrink-0" />
                   )}
                 </motion.button>
 
                 {/* Tooltip when collapsed */}
                 {!sidebarExpanded && (
-                  <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-3 py-1.5 bg-[#0d1f2d] text-white text-xs font-bold rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 z-50 shadow-xl">
+                  <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-3 py-1.5 bg-[#2d6a4f] text-white text-xs font-bold rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 z-50 shadow-xl">
                     {item.name}
-                    <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-[#0d1f2d]" />
+                    <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-[#2d6a4f]" />
                   </div>
                 )}
               </div>
@@ -365,23 +365,23 @@ const ExpertDashboard = () => {
             <motion.div
               whileHover={{ scale: 1.02 }}
               onClick={() => { navigate('/expert-profile'); if (isMobile) setIsSidebarOpen(false); }}
-              className="mx-1 p-4 rounded-2xl bg-gradient-to-br from-[#0d1f2d] to-[#134e40] text-white relative overflow-hidden cursor-pointer group"
+              className="mx-1 p-4 rounded-2xl bg-gradient-to-br from-[#2d6a4f] to-[#2d6a4f] text-white relative overflow-hidden cursor-pointer group"
             >
               <div className="absolute -right-3 -top-3 w-16 h-16 bg-white/5 rounded-full" />
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
-                    <Award size={14} className="text-[#0eb59a]" />
+                    <Award size={14} className="text-[#74b986]" />
                     <p className="font-black text-xs">Profile Strength</p>
                   </div>
-                  <span className="text-sm font-black text-[#0eb59a]">{profileStrength}%</span>
+                  <span className="text-sm font-black text-[#74b986]">{profileStrength}%</span>
                 </div>
                 <div className="h-1.5 bg-white/10 rounded-full overflow-hidden mb-2">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${profileStrength}%` }}
                     transition={{ duration: 1.2 }}
-                    className="h-full bg-[#0eb59a] rounded-full"
+                    className="h-full bg-[#74b986] rounded-full"
                   />
                 </div>
                 <p className="text-[10px] text-white/50">Complete your profile to get more matches</p>
@@ -392,13 +392,13 @@ const ExpertDashboard = () => {
               <motion.button
                 whileHover={{ scale: 1.15 }}
                 onClick={() => navigate('/expert-profile')}
-                className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0d1f2d] to-[#134e40] flex items-center justify-center shadow-md"
+                className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2d6a4f] to-[#2d6a4f] flex items-center justify-center shadow-md"
               >
-                <Award size={18} className="text-[#0eb59a]" />
+                <Award size={18} className="text-[#74b986]" />
               </motion.button>
-              <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-3 py-1.5 bg-[#0d1f2d] text-white text-xs font-bold rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-all z-50 shadow-xl">
+              <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-3 py-1.5 bg-[#2d6a4f] text-white text-xs font-bold rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-all z-50 shadow-xl">
                 Profile Strength: {profileStrength}%
-                <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-[#0d1f2d]" />
+                <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-[#2d6a4f]" />
               </div>
             </div>
           )}
@@ -444,7 +444,7 @@ const ExpertDashboard = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="p-2.5 rounded-xl hover:bg-gray-100 text-gray-500 hover:text-[#134e40] transition-all"
+              className="p-2.5 rounded-xl hover:bg-gray-100 text-gray-500 hover:text-[#2d6a4f] transition-all"
             >
               <motion.div animate={{ rotate: isSidebarOpen ? 0 : 180 }} transition={{ duration: 0.3 }}>
                 <Menu size={20} />
@@ -455,11 +455,11 @@ const ExpertDashboard = () => {
           {/* Search */}
           <div className="flex-1 max-w-xl mx-6 hidden md:block">
             <div className="relative group">
-              <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#0eb59a] transition-colors" />
+              <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#74b986] transition-colors" />
               <input
                 type="text"
                 placeholder="Search opportunities, companies, skills..."
-                className="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm focus:bg-white focus:border-[#0eb59a]/40 focus:ring-4 focus:ring-[#0eb59a]/10 transition-all outline-none"
+                className="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm focus:bg-white focus:border-[#74b986]/40 focus:ring-4 focus:ring-[#74b986]/10 transition-all outline-none"
               />
             </div>
           </div>
@@ -470,7 +470,7 @@ const ExpertDashboard = () => {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => navigate('/expert-opportunities')}
-              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#134e40] text-white text-sm font-bold rounded-full hover:bg-[#0eb59a] transition-all shadow-md group"
+              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#2d6a4f] text-white text-sm font-bold rounded-full hover:bg-[#74b986] transition-all shadow-md group"
             >
               <motion.div whileHover={{ rotate: 12 }} transition={{ duration: 0.2 }}>
                 <Briefcase size={15} />
@@ -516,7 +516,7 @@ const ExpertDashboard = () => {
                     >
                       <div className="px-5 py-4 border-b border-gray-50 flex items-center justify-between bg-gradient-to-r from-teal-50/50 to-white">
                         <h3 className="font-black text-gray-900 text-sm">Notifications</h3>
-                        <button className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors">
+                        <button className="text-xs font-bold text-[#74b986] hover:text-[#2d6a4f] transition-colors">
                           Mark all read
                         </button>
                       </div>
@@ -535,12 +535,12 @@ const ExpertDashboard = () => {
                               <p className="text-xs text-gray-400 mt-0.5 leading-relaxed">{notif.desc}</p>
                               <p className="text-[10px] text-gray-300 font-semibold mt-1">{notif.time}</p>
                             </div>
-                            {notif.unread && <div className="w-2 h-2 rounded-full bg-[#0eb59a] mt-1.5 shrink-0" />}
+                            {notif.unread && <div className="w-2 h-2 rounded-full bg-[#74b986] mt-1.5 shrink-0" />}
                           </motion.div>
                         ))}
                       </div>
                       <div className="px-5 py-3 text-center border-t border-gray-50">
-                        <button className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors">
+                        <button className="text-xs font-bold text-[#74b986] hover:text-[#2d6a4f] transition-colors">
                           View all notifications →
                         </button>
                       </div>
@@ -554,7 +554,7 @@ const ExpertDashboard = () => {
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-9 h-9 rounded-full bg-gradient-to-br from-[#134e40] to-[#0eb59a] flex items-center justify-center text-white font-black text-xs cursor-pointer shadow-md ring-2 ring-white"
+              className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2d6a4f] to-[#74b986] flex items-center justify-center text-white font-black text-xs cursor-pointer shadow-md ring-2 ring-white"
             >
               DC
             </motion.div>
@@ -562,7 +562,7 @@ const ExpertDashboard = () => {
         </header>
 
         {/* ── MAIN CONTENT ── */}
-        <main className="flex-1 overflow-y-auto bg-[#f8fafc] [&::-webkit-scrollbar]:hidden relative">
+        <main className="flex-1 overflow-y-auto bg-white [&::-webkit-scrollbar]:hidden relative">
 
           {/* Background decoration */}
           <div className="fixed top-0 right-0 w-96 h-96 bg-teal-100/20 rounded-full blur-3xl pointer-events-none" />
@@ -586,7 +586,7 @@ const ExpertDashboard = () => {
                 >
                   Good morning,{' '}
                   <motion.span
-                    className="text-[#0eb59a] inline-block"
+                    className="text-[#74b986] inline-block"
                   >
                     David
                   </motion.span>{' '}
@@ -604,7 +604,7 @@ const ExpertDashboard = () => {
                   transition={{ delay: 0.2 }}
                   className="text-gray-400 text-sm mt-1"
                 >
-                  You have <span className="font-bold text-amber-500">3 pending actions</span> and <span className="font-bold text-teal-500">3 new role matches</span> today.
+                  You have <span className="font-bold text-amber-500">3 pending actions</span> and <span className="font-bold text-green-500">3 new role matches</span> today.
                 </motion.p>
               </div>
 
@@ -618,7 +618,7 @@ const ExpertDashboard = () => {
                   whileHover={{ scale: 1.04, boxShadow: '0 8px 30px rgba(20,78,64,0.3)' }}
                   whileTap={{ scale: 0.96 }}
                   onClick={() => navigate('/expert-opportunities')}
-                  className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white text-sm font-bold rounded-xl shadow-lg whitespace-nowrap"
+                  className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white text-sm font-bold rounded-xl shadow-lg whitespace-nowrap"
                 >
                   <Briefcase size={16} /> Browse Roles
                 </motion.button>
@@ -676,7 +676,7 @@ const ExpertDashboard = () => {
                     initial={{ width: 0 }}
                     whileHover={{ width: '100%' }}
                     transition={{ duration: 0.3 }}
-                    className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#0eb59a] to-transparent"
+                    className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#74b986] to-transparent"
                   />
                 </motion.div>
               ))}
@@ -736,7 +736,7 @@ const ExpertDashboard = () => {
                           animate={{ rotate: [0, 15, -15, 0] }}
                           transition={{ duration: 2, repeat: Infinity, repeatDelay: 2 }}
                         >
-                          <Zap size={17} fill="#0eb59a" className="text-[#0eb59a]" />
+                          <Zap size={17} fill="#74b986" className="text-[#74b986]" />
                         </motion.div>
                         Matched Opportunities
                       </h2>
@@ -749,7 +749,7 @@ const ExpertDashboard = () => {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         onClick={prevOpportunity}
-                        className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:bg-[#0eb59a] hover:text-white hover:border-[#0eb59a] transition-all"
+                        className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:bg-[#74b986] hover:text-white hover:border-[#74b986] transition-all"
                       >
                         <ChevronLeft size={15} />
                       </motion.button>
@@ -757,7 +757,7 @@ const ExpertDashboard = () => {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         onClick={nextOpportunity}
-                        className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:bg-[#0eb59a] hover:text-white hover:border-[#0eb59a] transition-all"
+                        className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:bg-[#74b986] hover:text-white hover:border-[#74b986] transition-all"
                       >
                         <ChevronRight size={15} />
                       </motion.button>
@@ -776,7 +776,7 @@ const ExpertDashboard = () => {
                           key={idx}
                           whileHover={{ y: -5, boxShadow: '0 16px 40px rgba(14,181,154,0.12)' }}
                           style={{ minWidth: itemsPerView === 1 ? '100%' : itemsPerView === 2 ? 'calc((100% - 16px) / 2)' : 'calc((100% - 32px) / 3)' }}
-                          className="bg-[#f8fafc] rounded-2xl p-4 border border-gray-100 hover:border-[#0eb59a]/40 hover:bg-white transition-all duration-300 group cursor-pointer shrink-0"
+                          className="bg-white rounded-2xl p-4 border border-gray-100 hover:border-[#74b986]/40 hover:bg-white transition-all duration-300 group cursor-pointer shrink-0"
                           onClick={() => navigate(`/expert-opportunities/${opp.id}`)}
                         >
                           {/* Company logo + match */}
@@ -784,13 +784,13 @@ const ExpertDashboard = () => {
                             <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${opp.logoColor} flex items-center justify-center shadow-sm`}>
                               <span className="text-white font-black text-sm">{opp.logo}</span>
                             </div>
-                            <span className="text-[10px] font-black text-[#134e40] bg-teal-50 px-2 py-1 rounded-lg border border-teal-100">
+                            <span className="text-[10px] font-black text-[#2d6a4f] bg-teal-50 px-2 py-1 rounded-lg border border-teal-100">
                               {opp.match}% Match
                             </span>
                           </div>
 
                           {/* Info */}
-                          <h3 className="font-black text-gray-900 text-sm group-hover:text-[#0eb59a] transition-colors leading-tight mb-0.5">
+                          <h3 className="font-black text-gray-900 text-sm group-hover:text-[#74b986] transition-colors leading-tight mb-0.5">
                             {opp.title}
                           </h3>
                           <p className="text-[11px] text-gray-600 font-bold mb-0.5">{opp.company}</p>
@@ -798,7 +798,7 @@ const ExpertDashboard = () => {
 
                           {/* Meta */}
                           <div className="space-y-1.5 mb-4">
-                            <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#0eb59a]">
+                            <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#74b986]">
                               <DollarSign size={11} /> {opp.budget}
                             </div>
                             <div className="flex items-center gap-1.5 text-[11px] text-gray-400 font-semibold">
@@ -823,7 +823,7 @@ const ExpertDashboard = () => {
                             whileHover={{ scale: 1.03 }}
                             whileTap={{ scale: 0.97 }}
                             onClick={e => { e.stopPropagation(); navigate(`/expert-opportunities/${opp.id}`); }}
-                            className="w-full py-2 bg-[#134e40] hover:bg-[#0eb59a] text-white text-[11px] font-black rounded-xl transition-all"
+                            className="w-full py-2 bg-[#2d6a4f] hover:bg-[#74b986] text-white text-[11px] font-black rounded-xl transition-all"
                           >
                             View & Apply
                           </motion.button>
@@ -840,7 +840,7 @@ const ExpertDashboard = () => {
                         onClick={() => setOpportunityCarouselIndex(idx)}
                         animate={{
                           width: opportunityCarouselIndex === idx ? 24 : 8,
-                          backgroundColor: opportunityCarouselIndex === idx ? '#0eb59a' : '#e5e7eb'
+                          backgroundColor: opportunityCarouselIndex === idx ? '#74b986' : '#e5e7eb'
                         }}
                         transition={{ duration: 0.3 }}
                         className="h-2 rounded-full"
@@ -852,7 +852,7 @@ const ExpertDashboard = () => {
                   <motion.button
                     whileHover={{ scale: 1.01 }}
                     onClick={() => navigate('/expert-opportunities')}
-                    className="w-full mt-4 py-2.5 border border-dashed border-gray-200 rounded-xl text-sm font-bold text-gray-400 hover:text-[#0eb59a] hover:border-[#0eb59a] transition-all"
+                    className="w-full mt-4 py-2.5 border border-dashed border-gray-200 rounded-xl text-sm font-bold text-gray-400 hover:text-[#74b986] hover:border-[#74b986] transition-all"
                   >
                     Browse All Opportunities →
                   </motion.button>
@@ -867,12 +867,12 @@ const ExpertDashboard = () => {
                 >
                   <div className="flex items-center justify-between mb-5">
                     <h2 className="text-base font-black text-gray-900 flex items-center gap-2">
-                      <Activity size={17} className="text-[#0eb59a]" /> Active Engagements
+                      <Activity size={17} className="text-[#74b986]" /> Active Engagements
                     </h2>
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       onClick={() => navigate('/expert-engagements')}
-                      className="text-sm font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors flex items-center gap-1"
+                      className="text-sm font-bold text-[#74b986] hover:text-[#2d6a4f] transition-colors flex items-center gap-1"
                     >
                       View All <ChevronRight size={14} />
                     </motion.button>
@@ -885,7 +885,7 @@ const ExpertDashboard = () => {
                         whileHover={{ y: -3 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => navigate(eng.path)}
-                        className="bg-[#f8fafc] rounded-2xl p-4 border border-gray-100 hover:border-[#0eb59a]/30 hover:shadow-md hover:bg-white transition-all duration-300 cursor-pointer group"
+                        className="bg-white rounded-2xl p-4 border border-gray-100 hover:border-[#74b986]/30 hover:shadow-md hover:bg-white transition-all duration-300 cursor-pointer group"
                       >
                         {/* Status */}
                         <div className="flex items-center justify-between mb-3">
@@ -901,7 +901,7 @@ const ExpertDashboard = () => {
                         </div>
 
                         {/* Title + Company */}
-                        <h4 className="font-black text-gray-900 text-sm mb-1 group-hover:text-[#0eb59a] transition-colors leading-snug">
+                        <h4 className="font-black text-gray-900 text-sm mb-1 group-hover:text-[#74b986] transition-colors leading-snug">
                           {eng.title}
                         </h4>
 
@@ -922,14 +922,14 @@ const ExpertDashboard = () => {
                             <span className="text-gray-400 font-semibold truncate pr-2">
                               Next: {eng.nextMilestone}
                             </span>
-                            <span className="font-black text-[#134e40] shrink-0">{eng.progress}%</span>
+                            <span className="font-black text-[#2d6a4f] shrink-0">{eng.progress}%</span>
                           </div>
                           <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
                             <motion.div
                               initial={{ width: 0 }}
                               animate={{ width: `${eng.progress}%` }}
                               transition={{ duration: 1.2, delay: 0.5 + idx * 0.15, ease: 'easeOut' }}
-                              className="h-full bg-gradient-to-r from-[#134e40] to-[#0eb59a] rounded-full relative overflow-hidden"
+                              className="h-full bg-gradient-to-r from-[#2d6a4f] to-[#74b986] rounded-full relative overflow-hidden"
                             >
                               <motion.div
                                 animate={{ x: ['-100%', '200%'] }}
@@ -981,7 +981,7 @@ const ExpertDashboard = () => {
                         transition={{ delay: 0.35 + idx * 0.08 }}
                         whileHover={{ x: 3 }}
                         onClick={() => navigate(action.path)}
-                        className={`p-4 rounded-2xl border ${action.cardBg} border-gray-100 hover:border-[#0eb59a]/20 hover:shadow-md transition-all cursor-pointer group`}
+                        className={`p-4 rounded-2xl border ${action.cardBg} border-gray-100 hover:border-[#74b986]/20 hover:shadow-md transition-all cursor-pointer group`}
                       >
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-1.5">
@@ -1000,7 +1000,7 @@ const ExpertDashboard = () => {
                             <Clock size={9} /> {action.time}
                           </span>
                         </div>
-                        <h4 className="font-black text-gray-900 text-sm mb-1 group-hover:text-[#0eb59a] transition-colors leading-snug">
+                        <h4 className="font-black text-gray-900 text-sm mb-1 group-hover:text-[#74b986] transition-colors leading-snug">
                           {action.title}
                         </h4>
                         <p className="text-xs text-gray-400 flex items-center gap-1.5 mb-3">
@@ -1010,7 +1010,7 @@ const ExpertDashboard = () => {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.97 }}
                           onClick={e => { e.stopPropagation(); navigate(action.path); }}
-                          className="w-full py-2 bg-white border border-gray-200 rounded-xl text-xs font-black text-gray-600 hover:bg-[#134e40] hover:text-white hover:border-[#134e40] transition-all shadow-sm"
+                          className="w-full py-2 bg-white border border-gray-200 rounded-xl text-xs font-black text-gray-600 hover:bg-[#2d6a4f] hover:text-white hover:border-[#2d6a4f] transition-all shadow-sm"
                         >
                           Take Action
                         </motion.button>
@@ -1028,9 +1028,9 @@ const ExpertDashboard = () => {
                 >
                   <div className="flex items-center justify-between mb-4">
                     <h2 className="text-sm font-black text-gray-900 flex items-center gap-2">
-                      <Award size={15} className="text-[#0eb59a]" /> Profile Strength
+                      <Award size={15} className="text-[#74b986]" /> Profile Strength
                     </h2>
-                    <span className="text-xl font-black text-[#0eb59a]">{profileStrength}%</span>
+                    <span className="text-xl font-black text-[#74b986]">{profileStrength}%</span>
                   </div>
 
                   {/* Circular progress feel with bar */}
@@ -1039,7 +1039,7 @@ const ExpertDashboard = () => {
                       initial={{ width: 0 }}
                       animate={{ width: `${profileStrength}%` }}
                       transition={{ duration: 1.5, ease: 'easeOut' }}
-                      className="h-full bg-gradient-to-r from-[#134e40] to-[#0eb59a] rounded-full"
+                      className="h-full bg-gradient-to-r from-[#2d6a4f] to-[#74b986] rounded-full"
                     />
                   </div>
 
@@ -1068,7 +1068,7 @@ const ExpertDashboard = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => navigate('/expert-profile')}
-                    className="w-full mt-4 py-2.5 bg-teal-50 hover:bg-teal-100 text-[#134e40] text-xs font-black rounded-xl border border-teal-100 transition-all"
+                    className="w-full mt-4 py-2.5 bg-teal-50 hover:bg-teal-100 text-[#2d6a4f] text-xs font-black rounded-xl border border-teal-100 transition-all"
                   >
                     Complete Profile →
                   </motion.button>
@@ -1079,10 +1079,10 @@ const ExpertDashboard = () => {
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="bg-gradient-to-br from-[#0d1f2d] to-[#134e40] rounded-3xl p-5 text-white relative overflow-hidden"
+                  className="bg-gradient-to-br from-[#2d6a4f] to-[#2d6a4f] rounded-3xl p-5 text-white relative overflow-hidden"
                 >
                   <div className="absolute -right-4 -top-4 w-20 h-20 bg-white/5 rounded-full" />
-                  <div className="absolute -right-2 -bottom-4 w-14 h-14 bg-[#0eb59a]/20 rounded-full" />
+                  <div className="absolute -right-2 -bottom-4 w-14 h-14 bg-[#74b986]/20 rounded-full" />
                   <div className="relative z-10">
                     <p className="text-[10px] font-black text-white/50 uppercase tracking-widest mb-2">
                       This Month
@@ -1091,13 +1091,13 @@ const ExpertDashboard = () => {
                     <p className="text-xs text-white/60 mb-4">From 2 active engagements</p>
                     <div className="flex items-center justify-between text-xs">
                       <span className="text-white/50 font-semibold">Next payment</span>
-                      <span className="font-black text-[#0eb59a]">Apr 30, 2025</span>
+                      <span className="font-black text-[#74b986]">Apr 30, 2025</span>
                     </div>
                     <div className="h-px bg-white/10 my-3" />
                     <motion.button
                       whileHover={{ scale: 1.03 }}
                       onClick={() => navigate('/expert-earnings')}
-                      className="w-full py-2 bg-[#0eb59a] hover:bg-[#0ca88e] text-white text-xs font-black rounded-xl transition-all"
+                      className="w-full py-2 bg-[#74b986] hover:bg-[#0ca88e] text-white text-xs font-black rounded-xl transition-all"
                     >
                       View Earnings →
                     </motion.button>

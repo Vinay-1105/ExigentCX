@@ -12,10 +12,10 @@ const StatusModal = ({
 }) => {
   const configs = {
     success: {
-      icon: <CheckCircle2 className="w-12 h-12 text-teal-500" />,
+      icon: <CheckCircle2 className="w-12 h-12 text-green-500" />,
       bgColor: "bg-teal-50",
-      borderColor: "border-teal-500",
-      buttonColor: "bg-teal-500 hover:bg-teal-600",
+      borderColor: "border-green-500",
+      buttonColor: "bg-green-500 hover:bg-teal-600",
       titleColor: "text-gray-900"
     },
     error: {

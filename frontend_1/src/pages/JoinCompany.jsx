@@ -352,7 +352,7 @@ const JoinCompany = () => {
 					/>
 				</Link>
 				<div className="mb-auto mt-20 flex flex-col items-center">
-					<p className="text-[#0eb59a] font-bold uppercase tracking-wider text-sm mb-4">Sign up</p>
+					<p className="text-[#74b986] font-bold uppercase tracking-wider text-sm mb-4">Sign up</p>
 					<h1 className="text-5xl font-extrabold text-white leading-tight">Welcome to <br />our Company<br />Site</h1>
 				</div>
 			</div>
@@ -360,10 +360,10 @@ const JoinCompany = () => {
 			{/* Right Side: Form Area */}
 			<div className="relative flex-1 flex items-center justify-center p-5 md:p-8 overflow-hidden z-10">
 				{/* Mobile Fallback Background */}
-				<div className="absolute inset-0 z-0 pointer-events-none md:hidden bg-gradient-to-br from-teal-400/10 to-transparent"></div>
+				<div className="absolute inset-0 z-0 pointer-events-none md:hidden bg-gradient-to-br from-green-400/10 to-transparent"></div>
 
 				{/* Form Card */}
-				<div className="relative z-10 w-full max-w-2xl bg-white/80 backdrop-blur-xl border border-white/40 shadow-2xl rounded-3xl p-6 md:p-8 hover:shadow-teal-500/10 transition-all duration-500 animate-in fade-in zoom-in-95 duration-700">
+				<div className="relative z-10 w-full max-w-2xl bg-white/80 backdrop-blur-xl border border-white/40 shadow-2xl rounded-3xl p-6 md:p-8 hover:shadow-green-500/10 transition-all duration-500 animate-in fade-in zoom-in-95 duration-700">
 					<div className="mb-6">
 						<h2 className="text-2xl font-bold mb-2">Company Onboarding</h2>
 						<p className="text-gray-600">Join our network and unlock opportunities for your organization.</p>
@@ -371,8 +371,8 @@ const JoinCompany = () => {
 					<div className="flex justify-between items-center mb-8 relative">
 						{JOIN_STEPS.map((step, index) => (
 							<div key={index} className="flex-1 text-center relative">
-								<div className={`mx-auto w-8 h-8 flex items-center justify-center rounded-full border-2 transition-colors duration-300 ${currentStep === index ? 'border-teal-500 bg-teal-50 text-teal-600 font-bold' : currentStep > index ? 'border-teal-400 bg-teal-400 text-white' : 'border-gray-300 bg-white text-gray-400'}`}>{currentStep > index ? <CheckCircle2 size={20} /> : index + 1}</div>
-								<span className={`block mt-2 text-xs ${currentStep >= index ? 'text-teal-500 font-semibold' : 'text-gray-400 font-normal'}`}>{step}</span>
+								<div className={`mx-auto w-8 h-8 flex items-center justify-center rounded-full border-2 transition-colors duration-300 ${currentStep === index ? 'border-green-500 bg-teal-50 text-teal-600 font-bold' : currentStep > index ? 'border-green-400 bg-green-400 text-white' : 'border-gray-300 bg-white text-gray-400'}`}>{currentStep > index ? <CheckCircle2 size={20} /> : index + 1}</div>
+								<span className={`block mt-2 text-xs ${currentStep >= index ? 'text-green-500 font-semibold' : 'text-gray-400 font-normal'}`}>{step}</span>
 							</div>
 						))}
 					</div>
@@ -395,7 +395,7 @@ const JoinCompany = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Company Name *</label>
 									<input
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										placeholder="e.g. Acme Corp"
 										{...register("companyName", {
 											required: "Company Name is required",
@@ -409,7 +409,7 @@ const JoinCompany = () => {
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Upload Company Logo *</label>
 									<input
 										type="file"
-										className="w-full px-4 py-2.5 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 hover:border-teal-400 transition-all duration-200 text-gray-600 file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-500 file:text-white hover:file:bg-teal-600 file:transition-colors file:duration-150 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:scale-[1.01]"
+										className="w-full px-4 py-2.5 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 hover:border-green-400 transition-all duration-200 text-gray-600 file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-500 file:text-white hover:file:bg-teal-600 file:transition-colors file:duration-150 focus:outline-none focus:ring-2 focus:ring-green-400 focus:scale-[1.01]"
 										accept=".png, .jpg, .jpeg"
 										{...register("logo", { required: "Logo is required" })}
 									/>
@@ -426,7 +426,7 @@ const JoinCompany = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Industry *</label>
 									<select
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										{...register("industry", { required: "Industry is required" })}
 									>
 										<option value="">Select Industry...</option>
@@ -449,7 +449,7 @@ const JoinCompany = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Company Tagline *</label>
 									<input
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										placeholder="e.g. Building the future of AI"
 										maxLength={80}
 										{...register("tagline", {
@@ -473,7 +473,7 @@ const JoinCompany = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">About the Company *</label>
 									<textarea
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800 resize-y"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800 resize-y"
 										rows="4"
 										placeholder="Describe your company's mission and vision..."
 										{...register("about", {
@@ -487,7 +487,7 @@ const JoinCompany = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Organisation Type *</label>
 									<select
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										{...register("orgType", { required: "Organisation Type is required" })}
 									>
 										<option value="">Select Type...</option>
@@ -503,7 +503,7 @@ const JoinCompany = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Organization Size *</label>
 									<select
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										{...register("orgSize", { required: "Organization Size is required" })}
 									>
 										<option value="">Select Size...</option>
@@ -519,7 +519,7 @@ const JoinCompany = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Company Age *</label>
 									<select
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										{...register("companyAge", { required: "Company Age is required" })}
 									>
 										<option value="">Select Age...</option>
@@ -544,7 +544,7 @@ const JoinCompany = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Website URL *</label>
 									<input
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										placeholder="https://www.example.com"
 										{...register("website", {
 											required: "Website URL is required",
@@ -562,7 +562,7 @@ const JoinCompany = () => {
 									<div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
 										<div className="flex-1 w-full">
 											<input
-												className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+												className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 												placeholder="hr@company.com"
 												{...register("email", {
 													required: "Company Email is required",
@@ -589,7 +589,7 @@ const JoinCompany = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Contact Number *</label>
 									<input
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										placeholder="+1 234 567 8900"
 										{...register("contactNumber", {
 											required: "Contact Number is required",
@@ -605,7 +605,7 @@ const JoinCompany = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">LinkedIn Page *</label>
 									<input
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										placeholder="https://linkedin.com/company/yourcompany"
 										{...register("linkedin", {
 											required: "LinkedIn page is required",
@@ -627,7 +627,7 @@ const JoinCompany = () => {
 											<select
 												value={link.platform}
 												onChange={(e) => updateAdditionalLink(index, 'platform', e.target.value)}
-												className="w-48 border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-teal-400 focus:outline-none"
+												className="w-48 border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-green-400 focus:outline-none"
 											>
 												<option value="Website">🌐 Company Website</option>
 												<option value="Twitter">𝕏 X (Twitter)</option>
@@ -646,7 +646,7 @@ const JoinCompany = () => {
 												placeholder="https://..."
 												value={link.url}
 												onChange={(e) => updateAdditionalLink(index, 'url', e.target.value)}
-												className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-teal-400 focus:outline-none"
+												className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-400 focus:outline-none"
 											/>
 											<button
 												type="button"
@@ -682,7 +682,7 @@ const JoinCompany = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Account Admin Name *</label>
 									<input
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										placeholder="Jane Doe"
 										{...register("adminName", { required: "Admin Name is required" })}
 									/>
@@ -694,7 +694,7 @@ const JoinCompany = () => {
 									<div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
 										<div className="flex-1 w-full">
 											<input
-												className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+												className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 												placeholder="jane.doe@company.com"
 												{...register("adminEmail", {
 													required: "Admin Email is required",
@@ -722,7 +722,7 @@ const JoinCompany = () => {
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">CIN Number *</label>
 									<div className="relative">
 										<input
-											className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800 uppercase"
+											className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800 uppercase"
 											placeholder="U12345MH2024PTC123456"
 											{...register("cinNumber", {
 												required: "CIN Number is required",
@@ -742,7 +742,7 @@ const JoinCompany = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">GSTIN / Business Reg Number *</label>
 									<input
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										placeholder="29ABCDE1234F2Z5"
 										{...register("gstin", {
 											required: "GSTIN is required",
@@ -758,7 +758,7 @@ const JoinCompany = () => {
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Certificate of Incorporation (Optional)</label>
 									<input
 										type="file"
-										className="w-full px-4 py-2.5 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 hover:border-teal-400 transition-all duration-200 text-gray-600 file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-500 file:text-white hover:file:bg-teal-600 file:transition-colors file:duration-150 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:scale-[1.01]"
+										className="w-full px-4 py-2.5 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 hover:border-green-400 transition-all duration-200 text-gray-600 file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-500 file:text-white hover:file:bg-teal-600 file:transition-colors file:duration-150 focus:outline-none focus:ring-2 focus:ring-green-400 focus:scale-[1.01]"
 										accept=".pdf, .jpg, .jpeg, .png"
 										{...register("gstCertificate")}
 									/>
@@ -795,7 +795,7 @@ const JoinCompany = () => {
 									Next Step <ChevronRight size={18} />
 								</button>
 							) : (
-								<button type="submit" className="px-8 py-2.5 rounded-lg font-bold text-white bg-teal-500 hover:bg-teal-600 flex items-center gap-2 shadow-lg hover:scale-105 hover:shadow-xl active:scale-95 transition-all duration-150" disabled={loading}>
+								<button type="submit" className="px-8 py-2.5 rounded-lg font-bold text-white bg-green-500 hover:bg-teal-600 flex items-center gap-2 shadow-lg hover:scale-105 hover:shadow-xl active:scale-95 transition-all duration-150" disabled={loading}>
 									{loading ? "PROCESSING..." : "SUBMIT APPLICATION"}
 								</button>
 							)}

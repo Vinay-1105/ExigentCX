@@ -87,20 +87,20 @@ const TarsChatbot = () => {
 
     return (
         <>
-            {/* The Floating Button */}
+            {/* The Floating Button — Logo only */}
             {!isOpen && (
-                <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={() => setIsOpen(true)}
-                    style={{ position: 'fixed', bottom: '30px', right: '30px', backgroundColor: '#000000', color: '#ffffff', cursor: 'pointer', zIndex: 1000 }}
-                    className="hover:-translate-y-1 transition-all flex items-center justify-center gap-3 px-6 py-4 shadow-2xl rounded-full border border-gray-800 group"
+                    title="Ask TARS"
+                    style={{ position: 'fixed', bottom: '32px', right: '32px', zIndex: 1000 }}
+                    className="w-20 h-20 flex items-center justify-center transition-all group"
                 >
-                    <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <img src="/favicon.png" alt="TARS" className="w-full h-full object-cover" />
-                </div>
-                    <span className="font-bold tracking-widest text-sm uppercase">Ask Tars</span>
-                </motion.div>
+                    <div className="w-20 h-20 rounded-full overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <img src="/favicon.png" alt="TARS" className="w-full h-full object-contain" />
+                    </div>
+                </motion.button>
             )}
 
             {/* The Chat Window */}
@@ -112,10 +112,10 @@ const TarsChatbot = () => {
                         exit={{ opacity: 0, y: 50, scale: 0.9 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                         style={{ position: 'fixed', bottom: '30px', right: '30px', zIndex: 1000 }}
-                        className="w-[350px] sm:w-[400px] h-[550px] max-h-[80vh] bg-[#f8f9fa] rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200"
+                        className="w-[350px] sm:w-[420px] h-[580px] max-h-[85vh] bg-[#0e1f17] rounded-[2rem] shadow-2xl flex flex-col overflow-hidden border border-white/10"
                     >
                         {/* Header */}
-                        <div className="bg-[#134e40] p-4 flex items-center justify-between text-white shadow-md z-10">
+                        <div className="bg-[#2d6a4f] p-4 flex items-center justify-between text-white shadow-md z-10">
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center">
                                     <img src="/favicon.png" alt="TARS" className="w-full h-full object-cover" />
@@ -131,7 +131,7 @@ const TarsChatbot = () => {
                         </div>
 
                         {/* Messages Area */}
-                        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 flex flex-col">
+                        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#0e1f17] flex flex-col">
                             {messages.map((msg, idx) => (
                                 <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                     {msg.role === 'assistant' && (
@@ -142,8 +142,8 @@ const TarsChatbot = () => {
                                     <div 
                                         className={`px-4 py-3 rounded-2xl max-w-[80%] text-sm leading-relaxed whitespace-pre-wrap text-left ${
                                             msg.role === 'user' 
-                                            ? 'bg-[#134e40] text-white rounded-br-sm shadow-md' 
-                                            : 'bg-white text-gray-800 border border-gray-100 shadow-sm rounded-bl-sm'
+                                            ? 'bg-[#2d6a4f] text-white rounded-br-sm shadow-md' 
+                                            : 'bg-white/10 text-white border border-white/10 shadow-sm rounded-bl-sm'
                                         }`}
                                     >
                                         {msg.content}
@@ -155,13 +155,13 @@ const TarsChatbot = () => {
                                     <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center mr-2 shrink-0 self-end mb-1">
                                         <img src="/favicon.png" alt="TARS" className="w-full h-full object-cover" />
                                     </div>
-                                    <div className="px-4 py-3 rounded-2xl bg-white text-gray-800 border border-gray-100 shadow-sm rounded-bl-sm">
-                                        <div className="flex gap-2 items-center h-full text-xs font-medium text-gray-500 italic">
+                                    <div className="px-4 py-3 rounded-2xl bg-white/10 text-white border border-white/10 shadow-sm rounded-bl-sm">
+                                        <div className="flex gap-2 items-center h-full text-xs font-medium text-white/60 italic">
                                             <span>{loadingText}</span>
                                             <div className="flex gap-1">
-                                                <span className="w-1.5 h-1.5 bg-[#0eb59a] rounded-full animate-bounce"></span>
-                                                <span className="w-1.5 h-1.5 bg-[#0eb59a] rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></span>
-                                                <span className="w-1.5 h-1.5 bg-[#0eb59a] rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></span>
+                                                <span className="w-1.5 h-1.5 bg-[#74b986] rounded-full animate-bounce"></span>
+                                                <span className="w-1.5 h-1.5 bg-[#74b986] rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></span>
+                                                <span className="w-1.5 h-1.5 bg-[#74b986] rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></span>
                                             </div>
                                         </div>
                                     </div>
@@ -171,14 +171,14 @@ const TarsChatbot = () => {
                         </div>
 
                         {/* Input Area */}
-                        <div className="p-4 bg-[#134e40] flex items-center gap-3">
+                        <div className="p-4 bg-[#2d6a4f] flex items-center gap-3">
                             <input 
                                 type="text"
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                                 placeholder="Type a message..."
-                                className="flex-1 bg-white rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a] text-gray-800 shadow-inner"
+                                className="flex-1 bg-white rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#74b986] text-gray-800 shadow-inner"
                             />
                             <button 
                                 onClick={handleSend}

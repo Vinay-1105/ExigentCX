@@ -82,7 +82,7 @@ const ExpertEngagements = () => {
       title: 'Series B Funding Strategy',
       company: 'Acme Corp',
       logo: 'AC',
-      logoColor: 'from-[#134e40] to-[#0eb59a]',
+      logoColor: 'from-[#2d6a4f] to-[#74b986]',
       status: 'IN PROGRESS',
       statusColor: 'text-blue-600 bg-blue-50',
       progress: 65,
@@ -268,7 +268,7 @@ const ExpertEngagements = () => {
   // ── ENGAGEMENT LIST VIEW ──
   if (showEngagementList) {
     return (
-      <div className="min-h-screen bg-[#f8fafc]">
+      <div className="min-h-screen bg-white">
         <div className="fixed top-0 right-0 w-96 h-96 bg-teal-100/20 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative max-w-5xl mx-auto px-6 py-8 pb-16">
@@ -283,7 +283,7 @@ const ExpertEngagements = () => {
               <div className="flex items-center gap-2 mb-1">
                 <button
                   onClick={() => navigate('/expert-dashboard')}
-                  className="text-gray-400 hover:text-[#0eb59a] text-sm font-semibold transition-colors"
+                  className="text-gray-400 hover:text-[#74b986] text-sm font-semibold transition-colors"
                 >
                   Dashboard
                 </button>
@@ -307,7 +307,7 @@ const ExpertEngagements = () => {
             className="grid grid-cols-3 gap-4 mb-8"
           >
             {[
-              { label: 'Active', value: engagementsList.length, icon: Activity, color: 'text-teal-500', bg: 'bg-teal-50', border: 'border-l-[#0eb59a]' },
+              { label: 'Active', value: engagementsList.length, icon: Activity, color: 'text-green-500', bg: 'bg-teal-50', border: 'border-l-[#74b986]' },
               { label: 'This Month', value: '₹5.5L', icon: DollarSign, color: 'text-emerald-500', bg: 'bg-emerald-50', border: 'border-l-emerald-400' },
               { label: 'Avg Progress', value: '52%', icon: TrendingUp, color: 'text-blue-500', bg: 'bg-blue-50', border: 'border-l-blue-400' },
             ].map((stat, idx) => (
@@ -352,7 +352,7 @@ const ExpertEngagements = () => {
                     <div className="flex items-start justify-between mb-2">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-black text-gray-900 text-base group-hover:text-[#0eb59a] transition-colors">
+                          <h3 className="font-black text-gray-900 text-base group-hover:text-[#74b986] transition-colors">
                             {eng.title}
                           </h3>
                           <span className={`text-[10px] font-black px-2.5 py-1 rounded-full border flex items-center gap-1.5 ${eng.statusColor}`}>
@@ -367,7 +367,7 @@ const ExpertEngagements = () => {
                         <p className="text-sm text-gray-500 font-semibold">{eng.company}</p>
                       </div>
                       <div className="text-right shrink-0 ml-4">
-                        <p className="font-black text-[#134e40] text-lg">{eng.monthlyRate}</p>
+                        <p className="font-black text-[#2d6a4f] text-lg">{eng.monthlyRate}</p>
                         <p className="text-xs text-gray-400 font-semibold">{eng.dueDate}</p>
                       </div>
                     </div>
@@ -384,14 +384,14 @@ const ExpertEngagements = () => {
                     <div>
                       <div className="flex justify-between text-xs mb-1.5">
                         <span className="text-gray-400 font-semibold">Overall Progress</span>
-                        <span className="font-black text-[#134e40]">{eng.progress}%</span>
+                        <span className="font-black text-[#2d6a4f]">{eng.progress}%</span>
                       </div>
                       <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${eng.progress}%` }}
                           transition={{ duration: 1.2, delay: 0.3 + idx * 0.15 }}
-                          className="h-full bg-gradient-to-r from-[#134e40] to-[#0eb59a] rounded-full"
+                          className="h-full bg-gradient-to-r from-[#2d6a4f] to-[#74b986] rounded-full"
                         />
                       </div>
                     </div>
@@ -402,7 +402,7 @@ const ExpertEngagements = () => {
                     whileHover={{ x: 3 }}
                     className="w-8 h-8 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center shrink-0 group-hover:bg-teal-50 group-hover:border-teal-200 transition-all"
                   >
-                    <ChevronRight size={15} className="text-gray-400 group-hover:text-[#0eb59a] transition-colors" />
+                    <ChevronRight size={15} className="text-gray-400 group-hover:text-[#74b986] transition-colors" />
                   </motion.div>
                 </div>
               </motion.div>
@@ -415,7 +415,7 @@ const ExpertEngagements = () => {
 
   // ── WORKSPACE VIEW ──
   return (
-    <div className="min-h-screen bg-[#f8fafc]">
+    <div className="min-h-screen bg-white">
 
       <div className="fixed top-0 right-0 w-96 h-96 bg-teal-100/20 rounded-full blur-3xl pointer-events-none" />
       <div className="fixed bottom-0 left-0 w-72 h-72 bg-blue-100/10 rounded-full blur-3xl pointer-events-none" />
@@ -426,9 +426,9 @@ const ExpertEngagements = () => {
 
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-sm text-gray-400 mb-3">
-            <button onClick={() => navigate('/expert-dashboard')} className="hover:text-[#0eb59a] font-semibold transition-colors">Dashboard</button>
+            <button onClick={() => navigate('/expert-dashboard')} className="hover:text-[#74b986] font-semibold transition-colors">Dashboard</button>
             <ChevronRight size={14} />
-            <button onClick={() => setShowEngagementList(true)} className="hover:text-[#0eb59a] font-semibold transition-colors">My Engagements</button>
+            <button onClick={() => setShowEngagementList(true)} className="hover:text-[#74b986] font-semibold transition-colors">My Engagements</button>
             <ChevronRight size={14} />
             <span className="text-gray-700 font-bold truncate">{engagement.title}</span>
           </div>
@@ -473,20 +473,20 @@ const ExpertEngagements = () => {
               <div className="hidden md:block">
                 <div className="flex justify-between text-xs mb-1">
                   <span className="text-gray-400 font-semibold">Progress</span>
-                  <span className="font-black text-[#134e40]">{engagement.progress}%</span>
+                  <span className="font-black text-[#2d6a4f]">{engagement.progress}%</span>
                 </div>
                 <div className="w-36 h-2 bg-gray-100 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${engagement.progress}%` }}
                     transition={{ duration: 1.2 }}
-                    className="h-full bg-gradient-to-r from-[#134e40] to-[#0eb59a] rounded-full"
+                    className="h-full bg-gradient-to-r from-[#2d6a4f] to-[#74b986] rounded-full"
                   />
                 </div>
               </div>
               <div className="flex items-center gap-2 bg-teal-50 border border-teal-100 px-4 py-2 rounded-xl">
-                <Shield size={14} className="text-[#0eb59a]" />
-                <span className="text-xs font-black text-[#134e40]">PMO: {engagement.pmContact}</span>
+                <Shield size={14} className="text-[#74b986]" />
+                <span className="text-xs font-black text-[#2d6a4f]">PMO: {engagement.pmContact}</span>
               </div>
             </div>
           </div>
@@ -499,7 +499,7 @@ const ExpertEngagements = () => {
                 whileHover={{ y: -1 }}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-4 py-3 text-sm font-bold transition-all relative ${
-                  activeTab === tab.id ? 'text-[#134e40]' : 'text-gray-400 hover:text-gray-600'
+                  activeTab === tab.id ? 'text-[#2d6a4f]' : 'text-gray-400 hover:text-gray-600'
                 }`}
               >
                 <tab.icon size={14} />
@@ -507,7 +507,7 @@ const ExpertEngagements = () => {
                 {activeTab === tab.id && (
                   <motion.div
                     layoutId="expertWsTab"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0eb59a] rounded-full"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#74b986] rounded-full"
                   />
                 )}
                 {tab.id === 'Milestones' && milestones.filter(m => m.status === 'in_progress').length > 0 && (
@@ -541,7 +541,7 @@ const ExpertEngagements = () => {
                 {/* KPIs */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[
-                    { label: 'Total Value', value: engagement.totalValue, icon: TrendingUp, color: 'text-teal-500', bg: 'bg-teal-50', border: 'border-l-[#0eb59a]' },
+                    { label: 'Total Value', value: engagement.totalValue, icon: TrendingUp, color: 'text-green-500', bg: 'bg-teal-50', border: 'border-l-[#74b986]' },
                     { label: 'Received', value: engagement.received, icon: Unlock, color: 'text-emerald-500', bg: 'bg-emerald-50', border: 'border-l-emerald-400' },
                     { label: 'In Escrow', value: engagement.pending, icon: Lock, color: 'text-amber-500', bg: 'bg-amber-50', border: 'border-l-amber-400' },
                     { label: 'Days Left', value: engagement.daysLeft, icon: Calendar, color: 'text-blue-500', bg: 'bg-blue-50', border: 'border-l-blue-400' },
@@ -567,16 +567,16 @@ const ExpertEngagements = () => {
                 <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
                   <div className="flex items-center justify-between mb-5">
                     <h3 className="font-black text-gray-900 text-base flex items-center gap-2">
-                      <BarChart2 size={16} className="text-[#0eb59a]" /> Engagement Progress
+                      <BarChart2 size={16} className="text-[#74b986]" /> Engagement Progress
                     </h3>
-                    <span className="text-2xl font-black text-[#134e40]">{engagement.progress}%</span>
+                    <span className="text-2xl font-black text-[#2d6a4f]">{engagement.progress}%</span>
                   </div>
                   <div className="h-3 bg-gray-100 rounded-full overflow-hidden mb-5">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${engagement.progress}%` }}
                       transition={{ duration: 1.5, ease: 'easeOut' }}
-                      className="h-full bg-gradient-to-r from-[#134e40] to-[#0eb59a] rounded-full relative overflow-hidden"
+                      className="h-full bg-gradient-to-r from-[#2d6a4f] to-[#74b986] rounded-full relative overflow-hidden"
                     >
                       <motion.div
                         animate={{ x: ['-100%', '200%'] }}
@@ -587,7 +587,7 @@ const ExpertEngagements = () => {
                   </div>
                   <div className="flex justify-between text-xs font-semibold text-gray-400">
                     <span className="flex flex-col gap-1">
-                      <span className="text-[#134e40] font-black">Started</span>
+                      <span className="text-[#2d6a4f] font-black">Started</span>
                       {engagement.startDate}
                     </span>
                     <span className="flex flex-col items-center gap-1">
@@ -605,11 +605,11 @@ const ExpertEngagements = () => {
                 <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-black text-gray-900 text-base flex items-center gap-2">
-                      <CheckCircle size={16} className="text-[#0eb59a]" /> Milestone Summary
+                      <CheckCircle size={16} className="text-[#74b986]" /> Milestone Summary
                     </h3>
                     <button
                       onClick={() => setActiveTab('Milestones')}
-                      className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors flex items-center gap-1"
+                      className="text-xs font-bold text-[#74b986] hover:text-[#2d6a4f] transition-colors flex items-center gap-1"
                     >
                       View All <ChevronRight size={12} />
                     </button>
@@ -665,7 +665,7 @@ const ExpertEngagements = () => {
                   className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5"
                 >
                   <h3 className="font-black text-gray-900 text-sm mb-4 flex items-center gap-2">
-                    <Building size={14} className="text-[#0eb59a]" /> Client Company
+                    <Building size={14} className="text-[#74b986]" /> Client Company
                   </h3>
                   <div className="flex items-center gap-3 mb-4">
                     <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${engagement.logoColor} flex items-center justify-center shadow-sm`}>
@@ -693,7 +693,7 @@ const ExpertEngagements = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setActiveTab('Messages')}
-                    className="w-full mt-4 py-2.5 bg-[#134e40] hover:bg-[#0eb59a] text-white text-xs font-black rounded-xl transition-all flex items-center justify-center gap-2"
+                    className="w-full mt-4 py-2.5 bg-[#2d6a4f] hover:bg-[#74b986] text-white text-xs font-black rounded-xl transition-all flex items-center justify-center gap-2"
                   >
                     <MessageSquare size={13} /> Message {engagement.company}
                   </motion.button>
@@ -704,12 +704,12 @@ const ExpertEngagements = () => {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 }}
-                  className="bg-gradient-to-br from-[#0d1f2d] to-[#134e40] rounded-3xl p-5 text-white relative overflow-hidden"
+                  className="bg-gradient-to-br from-[#2d6a4f] to-[#2d6a4f] rounded-3xl p-5 text-white relative overflow-hidden"
                 >
                   <div className="absolute -right-4 -top-4 w-20 h-20 bg-white/5 rounded-full" />
                   <div className="relative z-10">
                     <div className="flex items-center gap-2 mb-2">
-                      <Shield size={16} className="text-[#0eb59a]" />
+                      <Shield size={16} className="text-[#74b986]" />
                       <h3 className="font-black text-sm">PMO Support</h3>
                     </div>
                     <p className="text-xs text-white/60 mb-3 leading-relaxed">
@@ -747,9 +747,9 @@ const ExpertEngagements = () => {
                         whileHover={{ x: 3 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={item.action}
-                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-[#0eb59a] transition-all"
+                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-[#74b986] transition-all"
                       >
-                        <item.icon size={15} className="text-[#0eb59a]" />
+                        <item.icon size={15} className="text-[#74b986]" />
                         {item.label}
                         <ChevronRight size={13} className="ml-auto text-gray-300" />
                       </motion.button>
@@ -842,7 +842,7 @@ const ExpertEngagements = () => {
                               <p className="text-sm text-gray-500 leading-relaxed">{ms.desc}</p>
                             </div>
                             <div className="text-right shrink-0 ml-4">
-                              <p className="font-black text-[#134e40] text-lg">{ms.payment}</p>
+                              <p className="font-black text-[#2d6a4f] text-lg">{ms.payment}</p>
                               <span className={`text-[9px] font-black px-2 py-0.5 rounded-md border ${getPaymentStatus(ms.paymentStatus).color}`}>
                                 {getPaymentStatus(ms.paymentStatus).label}
                               </span>
@@ -852,7 +852,7 @@ const ExpertEngagements = () => {
                           {/* Dates */}
                           <div className="flex gap-4 text-xs text-gray-400 font-semibold mb-4">
                             <span className="flex items-center gap-1.5">
-                              <Calendar size={11} className="text-[#0eb59a]" /> Due: {ms.dueDate}
+                              <Calendar size={11} className="text-[#74b986]" /> Due: {ms.dueDate}
                             </span>
                             {ms.completedDate && (
                               <span className="flex items-center gap-1.5 text-emerald-600">
@@ -884,7 +884,7 @@ const ExpertEngagements = () => {
                                       </div>
                                       <motion.button
                                         whileHover={{ scale: 1.1 }}
-                                        className="p-1.5 rounded-lg text-gray-300 hover:text-[#0eb59a] transition-colors opacity-0 group-hover:opacity-100"
+                                        className="p-1.5 rounded-lg text-gray-300 hover:text-[#74b986] transition-colors opacity-0 group-hover:opacity-100"
                                       >
                                         <Download size={13} />
                                       </motion.button>
@@ -901,7 +901,7 @@ const ExpertEngagements = () => {
                               whileHover={{ scale: 1.02, boxShadow: '0 8px 20px rgba(20,78,64,0.2)' }}
                               whileTap={{ scale: 0.97 }}
                               onClick={() => setShowSubmitModal(ms)}
-                              className="flex items-center justify-center gap-2 py-3 px-5 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white text-sm font-black rounded-2xl transition-all shadow-md w-full"
+                              className="flex items-center justify-center gap-2 py-3 px-5 bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white text-sm font-black rounded-2xl transition-all shadow-md w-full"
                             >
                               <Upload size={15} /> Submit Deliverables
                             </motion.button>
@@ -959,7 +959,7 @@ const ExpertEngagements = () => {
                       className={`flex gap-3 ${isExpert ? 'flex-row-reverse' : ''}`}
                     >
                       {isExpert ? (
-                        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#134e40] to-[#0eb59a] flex items-center justify-center text-white text-xs font-black shrink-0">
+                        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#2d6a4f] to-[#74b986] flex items-center justify-center text-white text-xs font-black shrink-0">
                           DC
                         </div>
                       ) : (
@@ -970,7 +970,7 @@ const ExpertEngagements = () => {
                       <div className={`max-w-md flex flex-col gap-1 ${isExpert ? 'items-end' : 'items-start'}`}>
                         <div className={`px-4 py-3 rounded-2xl text-sm leading-relaxed ${
                           isExpert
-                            ? 'bg-gradient-to-br from-[#134e40] to-[#0eb59a] text-white rounded-tr-sm'
+                            ? 'bg-gradient-to-br from-[#2d6a4f] to-[#74b986] text-white rounded-tr-sm'
                             : 'bg-gray-50 text-gray-700 border border-gray-100 rounded-tl-sm'
                         }`}>
                           {msg.text}
@@ -988,7 +988,7 @@ const ExpertEngagements = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="p-2.5 rounded-xl bg-white border border-gray-200 text-gray-400 hover:text-[#0eb59a] transition-colors shrink-0"
+                    className="p-2.5 rounded-xl bg-white border border-gray-200 text-gray-400 hover:text-[#74b986] transition-colors shrink-0"
                   >
                     <Paperclip size={16} />
                   </motion.button>
@@ -999,7 +999,7 @@ const ExpertEngagements = () => {
                       onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
                       placeholder="Type a message... (Enter to send)"
                       rows={1}
-                      className="w-full px-4 py-3 bg-white border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all resize-none [&::-webkit-scrollbar]:hidden"
+                      className="w-full px-4 py-3 bg-white border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all resize-none [&::-webkit-scrollbar]:hidden"
                     />
                   </div>
                   <motion.button
@@ -1009,7 +1009,7 @@ const ExpertEngagements = () => {
                     disabled={!messageText.trim()}
                     className={`p-3 rounded-2xl shrink-0 transition-all ${
                       messageText.trim()
-                        ? 'bg-[#134e40] hover:bg-[#0eb59a] text-white shadow-md'
+                        ? 'bg-[#2d6a4f] hover:bg-[#74b986] text-white shadow-md'
                         : 'bg-gray-100 text-gray-300 cursor-not-allowed'
                     }`}
                   >
@@ -1032,14 +1032,14 @@ const ExpertEngagements = () => {
             >
               {/* Upload area */}
               <motion.div
-                whileHover={{ borderColor: '#0eb59a' }}
+                whileHover={{ borderColor: '#74b986' }}
                 className="bg-white rounded-3xl border-2 border-dashed border-gray-200 p-8 text-center cursor-pointer transition-all group"
               >
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   className="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-3 border border-teal-100"
                 >
-                  <Upload size={22} className="text-[#0eb59a]" />
+                  <Upload size={22} className="text-[#74b986]" />
                 </motion.div>
                 <p className="font-black text-gray-700 text-sm mb-1">Upload Deliverable</p>
                 <p className="text-xs text-gray-400">
@@ -1054,7 +1054,7 @@ const ExpertEngagements = () => {
                   <div key={category}>
                     <h3 className="font-black text-gray-900 text-sm mb-3 flex items-center gap-2">
                       {category === 'Deliverable'
-                        ? <Upload size={15} className="text-[#0eb59a]" />
+                        ? <Upload size={15} className="text-[#74b986]" />
                         : <Shield size={15} className="text-blue-500" />
                       }
                       {category} Documents
@@ -1082,14 +1082,14 @@ const ExpertEngagements = () => {
                               <p className="font-bold text-gray-800 text-sm truncate">{doc.name}</p>
                               <p className="text-xs text-gray-400 font-semibold">
                                 {doc.uploadedBy === 'You' ? (
-                                  <span className="text-[#0eb59a] font-bold">Uploaded by you</span>
+                                  <span className="text-[#74b986] font-bold">Uploaded by you</span>
                                 ) : doc.uploadedBy} · {doc.date} · {doc.size}
                               </p>
                             </div>
                             <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
                               <motion.button
                                 whileHover={{ scale: 1.1 }}
-                                className="p-1.5 rounded-lg text-gray-400 hover:text-[#0eb59a] hover:bg-teal-50 transition-all"
+                                className="p-1.5 rounded-lg text-gray-400 hover:text-[#74b986] hover:bg-teal-50 transition-all"
                               >
                                 <Eye size={14} />
                               </motion.button>
@@ -1123,7 +1123,7 @@ const ExpertEngagements = () => {
               {/* Summary */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[
-                  { label: 'Total Engagement Value', value: engagement.totalValue, icon: TrendingUp, color: 'text-teal-500', bg: 'bg-teal-50', border: 'border-l-[#0eb59a]', desc: 'Full contract value' },
+                  { label: 'Total Engagement Value', value: engagement.totalValue, icon: TrendingUp, color: 'text-green-500', bg: 'bg-teal-50', border: 'border-l-[#74b986]', desc: 'Full contract value' },
                   { label: 'Already Received', value: engagement.received, icon: Unlock, color: 'text-emerald-500', bg: 'bg-emerald-50', border: 'border-l-emerald-400', desc: '2 milestones paid' },
                   { label: 'Pending in Escrow', value: engagement.pending, icon: Lock, color: 'text-amber-500', bg: 'bg-amber-50', border: 'border-l-amber-400', desc: 'Released on approval' },
                 ].map((kpi, idx) => (
@@ -1147,9 +1147,9 @@ const ExpertEngagements = () => {
 
               {/* Escrow info */}
               <div className="bg-teal-50 rounded-2xl border border-teal-100 p-4 flex items-start gap-3">
-                <Shield size={18} className="text-[#0eb59a] shrink-0 mt-0.5" />
+                <Shield size={18} className="text-[#74b986] shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-black text-[#134e40]">How you get paid</p>
+                  <p className="text-sm font-black text-[#2d6a4f]">How you get paid</p>
                   <p className="text-xs text-teal-700 mt-0.5 leading-relaxed">
                     Payments are held in escrow by CXO Connect. When you submit a milestone and the company approves it, the payment is automatically released to your account within 24 hours.
                   </p>
@@ -1162,7 +1162,7 @@ const ExpertEngagements = () => {
                   <h3 className="font-black text-gray-900 text-sm">Payment Schedule</h3>
                   <motion.button
                     whileHover={{ scale: 1.03 }}
-                    className="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-[#0eb59a] transition-colors"
+                    className="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-[#74b986] transition-colors"
                   >
                     <Download size={13} /> Export
                   </motion.button>
@@ -1230,7 +1230,7 @@ const ExpertEngagements = () => {
                   <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
 
                     <div className="w-16 h-16 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-5 border border-teal-100">
-                      <Upload size={28} className="text-[#0eb59a]" />
+                      <Upload size={28} className="text-[#74b986]" />
                     </div>
 
                     <h3 className="text-xl font-black text-gray-900 text-center mb-1">
@@ -1244,11 +1244,11 @@ const ExpertEngagements = () => {
 
                     {/* File upload zone */}
                     <motion.div
-                      whileHover={{ borderColor: '#0eb59a' }}
+                      whileHover={{ borderColor: '#74b986' }}
                       className="border-2 border-dashed border-gray-200 rounded-2xl p-6 text-center mb-4 cursor-pointer transition-all group"
                     >
-                      <Upload size={20} className="text-gray-300 mx-auto mb-2 group-hover:text-[#0eb59a] transition-colors" />
-                      <p className="text-sm font-bold text-gray-500 group-hover:text-[#0eb59a] transition-colors">
+                      <Upload size={20} className="text-gray-300 mx-auto mb-2 group-hover:text-[#74b986] transition-colors" />
+                      <p className="text-sm font-bold text-gray-500 group-hover:text-[#74b986] transition-colors">
                         Click to upload files
                       </p>
                       <p className="text-xs text-gray-400 mt-1">PDF, XLSX, PPTX, DOCX up to 25MB each</p>
@@ -1264,7 +1264,7 @@ const ExpertEngagements = () => {
                         onChange={e => setDeliverableNote(e.target.value)}
                         placeholder="Add any context or notes for the client about this submission..."
                         rows={3}
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 resize-none transition-all"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 resize-none transition-all"
                       />
                     </div>
 
@@ -1289,7 +1289,7 @@ const ExpertEngagements = () => {
                         whileHover={{ scale: 1.02, boxShadow: '0 8px 25px rgba(20,78,64,0.25)' }}
                         whileTap={{ scale: 0.98 }}
                         onClick={handleSubmit}
-                        className="flex-1 py-3 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white text-sm font-black rounded-2xl shadow-lg transition-all"
+                        className="flex-1 py-3 bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white text-sm font-black rounded-2xl shadow-lg transition-all"
                       >
                         <Upload size={14} className="inline mr-1.5" />
                         Submit for Approval
@@ -1307,9 +1307,9 @@ const ExpertEngagements = () => {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                      className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-[#0eb59a]"
+                      className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-[#74b986]"
                     >
-                      <Check size={36} className="text-[#0eb59a]" strokeWidth={3} />
+                      <Check size={36} className="text-[#74b986]" strokeWidth={3} />
                     </motion.div>
                     <h3 className="text-xl font-black text-gray-900 mb-2">Submitted!</h3>
                     <p className="text-sm text-gray-400 leading-relaxed">
@@ -1318,7 +1318,7 @@ const ExpertEngagements = () => {
                     <motion.div
                       animate={{ scale: [1, 1.05, 1] }}
                       transition={{ duration: 1, repeat: 2 }}
-                      className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-[#134e40] text-xs font-black rounded-xl border border-teal-100"
+                      className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-[#2d6a4f] text-xs font-black rounded-xl border border-teal-100"
                     >
                       <DollarSign size={12} /> {showSubmitModal.payment} pending approval
                     </motion.div>
