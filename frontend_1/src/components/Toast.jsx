@@ -20,7 +20,7 @@ const Toast = ({
 
   const configs = {
     success: {
-      icon: <CheckCircle className="w-5 h-5 text-green-500" />,
+      icon: <CheckCircle className="w-5 h-5 text-teal-500" />,
       bg: "bg-teal-50/90",
       border: "border-teal-200"
     },

@@ -70,7 +70,7 @@ const OTPModal = ({ isOpen, onClose, onVerify }) => {
               required
               maxLength="1"
               type="text"
-              className="w-11 h-12 text-center text-lg font-semibold border border-gray-300 rounded-lg bg-white/70 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
+              className="w-11 h-12 text-center text-lg font-semibold border border-gray-300 rounded-lg bg-white/70 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all"
               value={otp[index]}
               onChange={(e) => handleChange(e, index)}
               onKeyDown={(e) => handleKeyDown(e, index)}
@@ -80,7 +80,7 @@ const OTPModal = ({ isOpen, onClose, onVerify }) => {
         </div>
 
         <button 
-          className="w-full bg-green-500 hover:bg-teal-600 text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg active:scale-[0.98] mt-2" 
+          className="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg active:scale-[0.98] mt-2" 
           type="submit"
         >
           Verify

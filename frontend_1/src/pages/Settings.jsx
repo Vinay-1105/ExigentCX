@@ -193,7 +193,7 @@ const Settings = () => {
         'Analytics dashboard',
       ],
       current: true,
-      color: 'border-[#74b986]',
+      color: 'border-[#0eb59a]',
       badge: 'Current Plan',
     },
     {
@@ -249,7 +249,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#f8fafc]">
 
       {/* Background */}
       <div className="fixed top-0 right-0 w-96 h-96 bg-teal-100/20 rounded-full blur-3xl pointer-events-none" />
@@ -267,7 +267,7 @@ const Settings = () => {
             <div className="flex items-center gap-2 mb-1">
               <button
                 onClick={() => navigate('/company-dashboard')}
-                className="text-gray-400 hover:text-[#74b986] text-sm font-semibold transition-colors"
+                className="text-gray-400 hover:text-[#0eb59a] text-sm font-semibold transition-colors"
               >
                 Dashboard
               </button>
@@ -316,19 +316,19 @@ const Settings = () => {
                   onClick={() => setActiveTab(tab.id)}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold transition-all mb-1 text-left ${
                     activeTab === tab.id
-                      ? 'bg-teal-50 text-[#2d6a4f]'
+                      ? 'bg-teal-50 text-[#134e40]'
                       : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
                   }`}
                 >
                   <tab.icon
                     size={16}
-                    className={activeTab === tab.id ? 'text-[#74b986]' : 'text-gray-400'}
+                    className={activeTab === tab.id ? 'text-[#0eb59a]' : 'text-gray-400'}
                   />
                   {tab.id}
                   {activeTab === tab.id && (
                     <motion.div
                       layoutId="settingsDot"
-                      className="ml-auto w-1.5 h-1.5 rounded-full bg-[#74b986]"
+                      className="ml-auto w-1.5 h-1.5 rounded-full bg-[#0eb59a]"
                     />
                   )}
                 </motion.button>
@@ -365,13 +365,13 @@ const Settings = () => {
                   {/* Logo + Company Name */}
                   <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
                     <h3 className="font-black text-gray-900 text-base mb-5 flex items-center gap-2">
-                      <Building size={16} className="text-[#74b986]" /> Company Identity
+                      <Building size={16} className="text-[#0eb59a]" /> Company Identity
                     </h3>
 
                     {/* Logo upload */}
                     <div className="flex items-center gap-5 mb-6">
                       <div className="relative group">
-                        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#2d6a4f] to-[#74b986] flex items-center justify-center shadow-lg">
+                        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#134e40] to-[#0eb59a] flex items-center justify-center shadow-lg">
                           <span className="text-2xl font-black text-white">AC</span>
                         </div>
                         <motion.div
@@ -413,7 +413,7 @@ const Settings = () => {
                             value={profile[field.key]}
                             onChange={e => setProfile(prev => ({ ...prev, [field.key]: e.target.value }))}
                             placeholder={field.placeholder}
-                            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all"
+                            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
                           />
                         </div>
                       ))}
@@ -428,7 +428,7 @@ const Settings = () => {
                         value={profile.description}
                         onChange={e => setProfile(prev => ({ ...prev, description: e.target.value }))}
                         rows={3}
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all resize-none"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all resize-none"
                       />
                     </div>
                   </div>
@@ -436,7 +436,7 @@ const Settings = () => {
                   {/* Company Details */}
                   <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
                     <h3 className="font-black text-gray-900 text-base mb-5 flex items-center gap-2">
-                      <Zap size={16} className="text-[#74b986]" /> Company Details
+                      <Zap size={16} className="text-[#0eb59a]" /> Company Details
                     </h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -448,7 +448,7 @@ const Settings = () => {
                         <select
                           value={profile.industry}
                           onChange={e => setProfile(prev => ({ ...prev, industry: e.target.value }))}
-                          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all"
+                          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
                         >
                           {industryOptions.map(opt => (
                             <option key={opt} value={opt}>{opt}</option>
@@ -464,7 +464,7 @@ const Settings = () => {
                         <select
                           value={profile.size}
                           onChange={e => setProfile(prev => ({ ...prev, size: e.target.value }))}
-                          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all"
+                          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
                         >
                           {sizeOptions.map(opt => (
                             <option key={opt} value={opt}>{opt}</option>
@@ -480,7 +480,7 @@ const Settings = () => {
                         <select
                           value={profile.fundingStage}
                           onChange={e => setProfile(prev => ({ ...prev, fundingStage: e.target.value }))}
-                          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all"
+                          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
                         >
                           {fundingOptions.map(opt => (
                             <option key={opt} value={opt}>{opt}</option>
@@ -493,7 +493,7 @@ const Settings = () => {
                   {/* Contact Info */}
                   <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
                     <h3 className="font-black text-gray-900 text-base mb-5 flex items-center gap-2">
-                      <Mail size={16} className="text-[#74b986]" /> Contact Information
+                      <Mail size={16} className="text-[#0eb59a]" /> Contact Information
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
@@ -506,7 +506,7 @@ const Settings = () => {
                             type="email"
                             value={profile.adminEmail}
                             onChange={e => setProfile(prev => ({ ...prev, adminEmail: e.target.value }))}
-                            className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all"
+                            className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
                           />
                         </div>
                       </div>
@@ -520,7 +520,7 @@ const Settings = () => {
                             type="tel"
                             value={profile.adminPhone}
                             onChange={e => setProfile(prev => ({ ...prev, adminPhone: e.target.value }))}
-                            className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all"
+                            className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
                           />
                         </div>
                       </div>
@@ -532,7 +532,7 @@ const Settings = () => {
                     whileHover={{ scale: 1.02, boxShadow: '0 8px 30px rgba(20,78,64,0.25)' }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleSave}
-                    className="w-full py-4 bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white font-black text-sm rounded-2xl shadow-lg flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white font-black text-sm rounded-2xl shadow-lg flex items-center justify-center gap-2"
                   >
                     <Save size={16} /> Save Company Profile
                   </motion.button>
@@ -561,7 +561,7 @@ const Settings = () => {
                       whileHover={{ scale: 1.03, boxShadow: '0 8px 25px rgba(20,78,64,0.2)' }}
                       whileTap={{ scale: 0.97 }}
                       onClick={() => setShowInviteModal(true)}
-                      className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white text-sm font-bold rounded-xl shadow-md"
+                      className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white text-sm font-bold rounded-xl shadow-md"
                     >
                       <Plus size={15} /> Invite Member
                     </motion.button>
@@ -676,7 +676,7 @@ const Settings = () => {
                           transition={{ delay: i * 0.05 }}
                           className={`w-8 h-8 rounded-xl flex items-center justify-center ${
                             i < teamMembers.length
-                              ? 'bg-[#2d6a4f]'
+                              ? 'bg-[#134e40]'
                               : 'bg-gray-100 border border-dashed border-gray-300'
                           }`}
                         >
@@ -732,7 +732,7 @@ const Settings = () => {
                               whileTap={{ scale: 0.9 }}
                               onClick={() => toggleNotification(item.key)}
                               className={`relative w-12 h-6 rounded-full transition-colors duration-300 shrink-0 ml-4 ${
-                                notifications[item.key] ? 'bg-[#74b986]' : 'bg-gray-200'
+                                notifications[item.key] ? 'bg-[#0eb59a]' : 'bg-gray-200'
                               }`}
                             >
                               <motion.div
@@ -752,7 +752,7 @@ const Settings = () => {
                     whileHover={{ scale: 1.02, boxShadow: '0 8px 30px rgba(20,78,64,0.25)' }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleSave}
-                    className="w-full py-4 bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white font-black text-sm rounded-2xl shadow-lg flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white font-black text-sm rounded-2xl shadow-lg flex items-center justify-center gap-2"
                   >
                     <Save size={16} /> Save Notification Preferences
                   </motion.button>
@@ -770,7 +770,7 @@ const Settings = () => {
                   className="space-y-5"
                 >
                   {/* Current plan banner */}
-                  <div className="bg-gradient-to-br from-[#2d6a4f] to-[#2d6a4f] rounded-3xl p-6 text-white relative overflow-hidden">
+                  <div className="bg-gradient-to-br from-[#0d1f2d] to-[#134e40] rounded-3xl p-6 text-white relative overflow-hidden">
                     <div className="absolute -right-8 -top-8 w-40 h-40 bg-white/5 rounded-full" />
                     <div className="relative z-10 flex items-center justify-between">
                       <div>
@@ -787,7 +787,7 @@ const Settings = () => {
                         <motion.button
                           whileHover={{ scale: 1.05 }}
                           onClick={() => setShowUpgradePlanModal(true)}
-                          className="mt-2 px-4 py-2 bg-[#74b986] hover:bg-[#0ca88e] text-white text-xs font-black rounded-xl transition-all"
+                          className="mt-2 px-4 py-2 bg-[#0eb59a] hover:bg-[#0ca88e] text-white text-xs font-black rounded-xl transition-all"
                         >
                           Upgrade Plan
                         </motion.button>
@@ -812,7 +812,7 @@ const Settings = () => {
                           <motion.div
                             animate={{ scale: [1, 1.05, 1] }}
                             transition={{ duration: 2, repeat: Infinity }}
-                            className="absolute top-4 right-4 text-[9px] font-black bg-[#74b986] text-white px-2 py-0.5 rounded-full"
+                            className="absolute top-4 right-4 text-[9px] font-black bg-[#0eb59a] text-white px-2 py-0.5 rounded-full"
                           >
                             {plan.badge}
                           </motion.div>
@@ -830,7 +830,7 @@ const Settings = () => {
                           {plan.features.map((feature, fIdx) => (
                             <div key={fIdx} className="flex items-center gap-2">
                               <div className="w-4 h-4 bg-teal-50 rounded-full flex items-center justify-center shrink-0 border border-teal-100">
-                                <Check size={9} className="text-[#74b986]" strokeWidth={3} />
+                                <Check size={9} className="text-[#0eb59a]" strokeWidth={3} />
                               </div>
                               <span className="text-xs text-gray-600 font-semibold">{feature}</span>
                             </div>
@@ -844,10 +844,10 @@ const Settings = () => {
                           onClick={() => !plan.current && setShowUpgradePlanModal(true)}
                           className={`w-full py-2.5 rounded-2xl text-xs font-black transition-all ${
                             plan.current
-                              ? 'bg-teal-50 text-[#2d6a4f] border border-teal-100 cursor-default'
+                              ? 'bg-teal-50 text-[#134e40] border border-teal-100 cursor-default'
                               : plan.id === 'enterprise'
                               ? 'bg-gray-900 text-white hover:bg-gray-800 shadow-md'
-                              : 'bg-[#2d6a4f] text-white hover:bg-[#74b986] shadow-md'
+                              : 'bg-[#134e40] text-white hover:bg-[#0eb59a] shadow-md'
                           }`}
                         >
                           {plan.current ? '✓ Current Plan' : plan.id === 'enterprise' ? 'Contact Sales' : 'Upgrade'}
@@ -860,11 +860,11 @@ const Settings = () => {
                   <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
                     <div className="flex items-center justify-between mb-5">
                       <h3 className="font-black text-gray-900 text-base flex items-center gap-2">
-                        <CreditCard size={16} className="text-[#74b986]" /> Payment Method
+                        <CreditCard size={16} className="text-[#0eb59a]" /> Payment Method
                       </h3>
                       <motion.button
                         whileHover={{ scale: 1.03 }}
-                        className="text-xs font-bold text-[#74b986] hover:text-[#2d6a4f] transition-colors flex items-center gap-1"
+                        className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors flex items-center gap-1"
                       >
                         <Plus size={12} /> Add Method
                       </motion.button>
@@ -890,7 +890,7 @@ const Settings = () => {
                       <h3 className="font-black text-gray-900 text-base">Billing History</h3>
                       <motion.button
                         whileHover={{ scale: 1.03 }}
-                        className="text-xs font-bold text-gray-400 hover:text-[#74b986] transition-colors flex items-center gap-1"
+                        className="text-xs font-bold text-gray-400 hover:text-[#0eb59a] transition-colors flex items-center gap-1"
                       >
                         <Download size={13} /> Export All
                       </motion.button>
@@ -982,7 +982,7 @@ const Settings = () => {
                 {!inviteSent ? (
                   <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                     <div className="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-5 border border-teal-100">
-                      <Users size={24} className="text-[#74b986]" />
+                      <Users size={24} className="text-[#0eb59a]" />
                     </div>
                     <h3 className="text-xl font-black text-gray-900 text-center mb-1">Invite Team Member</h3>
                     <p className="text-sm text-gray-400 text-center mb-6">
@@ -1002,7 +1002,7 @@ const Settings = () => {
                             value={inviteEmail}
                             onChange={e => setInviteEmail(e.target.value)}
                             placeholder="colleague@yourcompany.com"
-                            className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all"
+                            className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
                           />
                         </div>
                       </div>
@@ -1058,7 +1058,7 @@ const Settings = () => {
                         onClick={handleInvite}
                         className={`flex-1 py-3 text-sm font-black rounded-2xl transition-all ${
                           inviteEmail.trim()
-                            ? 'bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white shadow-lg'
+                            ? 'bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white shadow-lg'
                             : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                         }`}
                       >
@@ -1077,9 +1077,9 @@ const Settings = () => {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                      className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-[#74b986]"
+                      className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-[#0eb59a]"
                     >
-                      <Check size={36} className="text-[#74b986]" strokeWidth={3} />
+                      <Check size={36} className="text-[#0eb59a]" strokeWidth={3} />
                     </motion.div>
                     <h3 className="text-xl font-black text-gray-900 mb-2">Invitation Sent!</h3>
                     <p className="text-sm text-gray-400 leading-relaxed">
@@ -1158,7 +1158,7 @@ const Settings = () => {
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               className="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full"
             >
-              <div className="w-14 h-14 bg-gradient-to-br from-[#2d6a4f] to-[#74b986] rounded-2xl flex items-center justify-center mx-auto mb-5">
+              <div className="w-14 h-14 bg-gradient-to-br from-[#134e40] to-[#0eb59a] rounded-2xl flex items-center justify-center mx-auto mb-5">
                 <Crown size={24} className="text-white" />
               </div>
               <h3 className="text-xl font-black text-gray-900 text-center mb-2">
@@ -1185,7 +1185,7 @@ const Settings = () => {
                   whileHover={{ scale: 1.02, boxShadow: '0 8px 25px rgba(20,78,64,0.25)' }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setShowUpgradePlanModal(false)}
-                  className="flex-1 py-3 bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white text-sm font-black rounded-2xl shadow-lg"
+                  className="flex-1 py-3 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white text-sm font-black rounded-2xl shadow-lg"
                 >
                   Contact Sales
                 </motion.button>

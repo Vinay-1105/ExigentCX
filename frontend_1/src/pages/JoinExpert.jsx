@@ -266,7 +266,7 @@ const JoinExpert = () => {
 					/>
 				</Link>
 				<div className="mb-auto mt-20 flex flex-col items-center">
-					<p className="text-[#74b986] font-bold uppercase tracking-wider text-sm mb-4">Sign up</p>
+					<p className="text-[#0eb59a] font-bold uppercase tracking-wider text-sm mb-4">Sign up</p>
 					<h1 className="text-5xl font-extrabold text-white leading-tight">Welcome to <br />our Expert<br />Site</h1>
 				</div>
 			</div>
@@ -274,10 +274,10 @@ const JoinExpert = () => {
 			{/* Right Side: Form Area */}
 			<div className="relative flex-1 flex items-center justify-center p-5 md:p-8 overflow-hidden z-10">
 				{/* Mobile Fallback Background */}
-				<div className="absolute inset-0 z-0 pointer-events-none md:hidden bg-gradient-to-br from-green-400/10 to-transparent"></div>
+				<div className="absolute inset-0 z-0 pointer-events-none md:hidden bg-gradient-to-br from-teal-400/10 to-transparent"></div>
 
 				{/* Form Card */}
-				<div className="relative z-10 w-full max-w-2xl bg-white/80 backdrop-blur-xl border border-white/40 shadow-2xl rounded-3xl p-6 md:p-8 hover:shadow-green-500/10 transition-all duration-500 animate-in fade-in zoom-in-95 duration-700">
+				<div className="relative z-10 w-full max-w-2xl bg-white/80 backdrop-blur-xl border border-white/40 shadow-2xl rounded-3xl p-6 md:p-8 hover:shadow-teal-500/10 transition-all duration-500 animate-in fade-in zoom-in-95 duration-700">
 					<div className="mb-6">
 						<h2 className="text-2xl font-bold mb-2">Expert Onboarding</h2>
 						<p className="text-gray-600">Join our premium network of verified professionals and unlock fractional, full-time, and advisory opportunities.</p>
@@ -286,8 +286,8 @@ const JoinExpert = () => {
 					<div className="flex justify-between items-center mb-8 relative">
 						{JOIN_STEPS.map((step, index) => (
 							<div key={index} className="flex-1 text-center relative">
-								<div className={`mx-auto w-8 h-8 flex items-center justify-center rounded-full border-2 transition-colors duration-300 ${currentStep === index ? 'border-green-500 bg-teal-50 text-teal-600 font-bold' : currentStep > index ? 'border-green-400 bg-green-400 text-white' : 'border-gray-300 bg-white text-gray-400'}`}>{currentStep > index ? <CheckCircle2 size={20} /> : index + 1}</div>
-								<span className={`block mt-2 text-xs ${currentStep >= index ? 'text-green-500 font-semibold' : 'text-gray-400 font-normal'}`}>{step}</span>
+								<div className={`mx-auto w-8 h-8 flex items-center justify-center rounded-full border-2 transition-colors duration-300 ${currentStep === index ? 'border-teal-500 bg-teal-50 text-teal-600 font-bold' : currentStep > index ? 'border-teal-400 bg-teal-400 text-white' : 'border-gray-300 bg-white text-gray-400'}`}>{currentStep > index ? <CheckCircle2 size={20} /> : index + 1}</div>
+								<span className={`block mt-2 text-xs ${currentStep >= index ? 'text-teal-500 font-semibold' : 'text-gray-400 font-normal'}`}>{step}</span>
 							</div>
 						))}
 					</div>
@@ -311,7 +311,7 @@ const JoinExpert = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Full Name *</label>
 									<input
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										placeholder="John Doe"
 										{...register("fullName", { required: "Full Name is required" })}
 									/>
@@ -322,7 +322,7 @@ const JoinExpert = () => {
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Upload Profile Picture *</label>
 									<input
 										type="file"
-										className="w-full px-4 py-2.5 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 hover:border-green-400 transition-all duration-200 text-gray-600 file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-500 file:text-white hover:file:bg-teal-600 file:transition-colors file:duration-150 focus:outline-none focus:ring-2 focus:ring-green-400 focus:scale-[1.01]"
+										className="w-full px-4 py-2.5 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 hover:border-teal-400 transition-all duration-200 text-gray-600 file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-500 file:text-white hover:file:bg-teal-600 file:transition-colors file:duration-150 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:scale-[1.01]"
 										accept=".png, .jpg, .jpeg"
 										{...register("profilePicture", { required: "Profile Picture is required" })}
 									/>
@@ -339,7 +339,7 @@ const JoinExpert = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Professional Headline *</label>
 									<input
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										placeholder="e.g. Full Stack Developer | React | Node.js"
 										maxLength={100}
 										{...register("headline", {
@@ -353,7 +353,7 @@ const JoinExpert = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Primary Domain / Expertise *</label>
 									<select
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										{...register("primaryDomain", { required: "Primary Domain is required" })}
 									>
 										<option value="">Select Domain...</option>
@@ -372,7 +372,7 @@ const JoinExpert = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">GitHub / Behance / Dribbble URL (Optional)</label>
 									<input
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										placeholder="https://github.com/yourusername"
 										{...register("github", {
 											pattern: {
@@ -388,7 +388,7 @@ const JoinExpert = () => {
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Resume Upload (PDF) *</label>
 									<input
 										type="file"
-										className="w-full px-4 py-2.5 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 hover:border-green-400 transition-all duration-200 text-gray-600 file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-500 file:text-white hover:file:bg-teal-600 file:transition-colors file:duration-150 focus:outline-none focus:ring-2 focus:ring-green-400 focus:scale-[1.01]"
+										className="w-full px-4 py-2.5 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 hover:border-teal-400 transition-all duration-200 text-gray-600 file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-500 file:text-white hover:file:bg-teal-600 file:transition-colors file:duration-150 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:scale-[1.01]"
 										accept=".pdf"
 										{...register("resume", { required: "Resume upload is required" })}
 									/>
@@ -398,7 +398,7 @@ const JoinExpert = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Work Samples / Projects (Optional)</label>
 									<textarea
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800 resize-y"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800 resize-y"
 										rows="3"
 										placeholder="Share links or brief descriptions of notable projects..."
 										{...register("workSamples")}
@@ -418,7 +418,7 @@ const JoinExpert = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Current Role / Title *</label>
 									<input
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										placeholder="Senior Developer"
 										{...register("currentRole", { required: "Current Role is required" })}
 									/>
@@ -428,7 +428,7 @@ const JoinExpert = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Current Company (Optional)</label>
 									<input
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										placeholder="Acme Corp"
 										{...register("currentCompany")}
 									/>
@@ -437,7 +437,7 @@ const JoinExpert = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Years of Experience *</label>
 									<select
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										{...register("yearsOfExperience", { required: "Years of Experience is required" })}
 									>
 										<option value="">Select Experience...</option>
@@ -463,7 +463,7 @@ const JoinExpert = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Key Skills (Comma separated) *</label>
 									<input
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										placeholder="React, Node.js, Python, AWS"
 										{...register("keySkills", { required: "Key Skills are required" })}
 									/>
@@ -473,7 +473,7 @@ const JoinExpert = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Services Offered *</label>
 									<textarea
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800 resize-y"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800 resize-y"
 										rows="4"
 										placeholder="Describe the services you offer (e.g. Technical consulting, MVP development, code review...)"
 										{...register("servicesOffered", { required: "Services Offered is required" })}
@@ -495,7 +495,7 @@ const JoinExpert = () => {
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Expected Hourly Rate (USD) *</label>
 									<input
 										type="number"
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										placeholder="100"
 										min="0"
 										{...register("hourlyRate", { required: "Hourly Rate is required" })}
@@ -518,7 +518,7 @@ const JoinExpert = () => {
 									<div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
 										<div className="flex-1 w-full">
 											<input
-												className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+												className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 												placeholder="you@example.com"
 												{...register("email", {
 													required: "Email is required",
@@ -546,7 +546,7 @@ const JoinExpert = () => {
 								<div className="group flex flex-col gap-1.5 mb-4">
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Phone Number *</label>
 									<input
-										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
+										className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 focus:bg-white focus:scale-[1.01] transition-all duration-200 ease-in-out text-gray-800"
 										placeholder="+1 234 567 8900"
 										{...register("phone", {
 											required: "Phone number is required",
@@ -563,7 +563,7 @@ const JoinExpert = () => {
 									<label className="text-sm font-semibold text-gray-700 group-focus-within:text-teal-600 transition-colors duration-150">Government ID Upload (Optional)</label>
 									<input
 										type="file"
-										className="w-full px-4 py-2.5 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 hover:border-green-400 transition-all duration-200 text-gray-600 file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-500 file:text-white hover:file:bg-teal-600 file:transition-colors file:duration-150 focus:outline-none focus:ring-2 focus:ring-green-400 focus:scale-[1.01]"
+										className="w-full px-4 py-2.5 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 hover:border-teal-400 transition-all duration-200 text-gray-600 file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-500 file:text-white hover:file:bg-teal-600 file:transition-colors file:duration-150 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:scale-[1.01]"
 										accept=".pdf, .jpg, .jpeg, .png"
 										{...register("govId")}
 									/>
@@ -600,7 +600,7 @@ const JoinExpert = () => {
 									Next Step <ChevronRight size={18} />
 								</button>
 							) : (
-								<button type="submit" className="px-8 py-2.5 rounded-lg font-bold text-white bg-green-500 hover:bg-teal-600 flex items-center gap-2 shadow-lg hover:scale-105 hover:shadow-xl active:scale-95 transition-all duration-150" disabled={loading}>
+								<button type="submit" className="px-8 py-2.5 rounded-lg font-bold text-white bg-teal-500 hover:bg-teal-600 flex items-center gap-2 shadow-lg hover:scale-105 hover:shadow-xl active:scale-95 transition-all duration-150" disabled={loading}>
 									{loading ? "PROCESSING..." : "FINISH REGISTRATION"}
 								</button>
 							)}

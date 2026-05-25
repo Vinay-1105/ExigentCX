@@ -285,8 +285,8 @@ const ExpertProfile = () => {
         'PMO governance included'
       ],
       popular: true,
-      color: 'border-[#74b986]',
-      btnColor: 'bg-[#2d6a4f] text-white hover:bg-[#74b986]',
+      color: 'border-[#0eb59a]',
+      btnColor: 'bg-[#134e40] text-white hover:bg-[#0eb59a]',
     },
     {
       id: 'interim',
@@ -327,7 +327,7 @@ const ExpertProfile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#f8fafc]">
 
       {/* Background */}
       <div className="fixed top-0 right-0 w-96 h-96 bg-teal-100/20 rounded-full blur-3xl pointer-events-none" />
@@ -431,7 +431,7 @@ const ExpertProfile = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.3 }}
-                  className="text-[10px] font-black bg-white text-[#2d6a4f] px-2.5 py-1 rounded-full"
+                  className="text-[10px] font-black bg-white text-[#134e40] px-2.5 py-1 rounded-full"
                 >
                   {expert.match}% MATCH
                 </motion.span>
@@ -556,7 +556,7 @@ const ExpertProfile = () => {
                   {/* Bio */}
                   <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
                     <h3 className="font-black text-gray-900 text-base mb-3 flex items-center gap-2">
-                      <Users size={16} className="text-[#74b986]" /> About
+                      <Users size={16} className="text-[#0eb59a]" /> About
                     </h3>
                     <p className="text-gray-600 text-sm leading-relaxed">{expert.bio}</p>
                   </div>
@@ -564,7 +564,7 @@ const ExpertProfile = () => {
                   {/* Highlights */}
                   <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
                     <h3 className="font-black text-gray-900 text-base mb-4 flex items-center gap-2">
-                      <Award size={16} className="text-[#74b986]" /> Key Highlights
+                      <Award size={16} className="text-[#0eb59a]" /> Key Highlights
                     </h3>
                     <div className="space-y-3">
                       {expert.highlights.map((h, idx) => (
@@ -576,7 +576,7 @@ const ExpertProfile = () => {
                           className="flex items-start gap-3"
                         >
                           <div className="w-6 h-6 bg-teal-50 rounded-lg flex items-center justify-center shrink-0 mt-0.5 border border-teal-100">
-                            <Check size={12} className="text-[#74b986]" strokeWidth={3} />
+                            <Check size={12} className="text-[#0eb59a]" strokeWidth={3} />
                           </div>
                           <p className="text-sm text-gray-700 font-semibold leading-relaxed">{h}</p>
                         </motion.div>
@@ -587,7 +587,7 @@ const ExpertProfile = () => {
                   {/* Skills */}
                   <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
                     <h3 className="font-black text-gray-900 text-base mb-4 flex items-center gap-2">
-                      <Target size={16} className="text-[#74b986]" /> Skills & Expertise
+                      <Target size={16} className="text-[#0eb59a]" /> Skills & Expertise
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {expert.skills.map((skill, idx) => (
@@ -597,7 +597,7 @@ const ExpertProfile = () => {
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: idx * 0.04 }}
                           whileHover={{ scale: 1.05 }}
-                          className="px-3.5 py-2 bg-teal-50 text-[#2d6a4f] text-xs font-bold rounded-xl border border-teal-100"
+                          className="px-3.5 py-2 bg-teal-50 text-[#134e40] text-xs font-bold rounded-xl border border-teal-100"
                         >
                           {skill}
                         </motion.span>
@@ -608,7 +608,7 @@ const ExpertProfile = () => {
                   {/* Industries */}
                   <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
                     <h3 className="font-black text-gray-900 text-base mb-4 flex items-center gap-2">
-                      <Building size={16} className="text-[#74b986]" /> Industry Experience
+                      <Building size={16} className="text-[#0eb59a]" /> Industry Experience
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {expert.industries.map((industry, idx) => (
@@ -619,7 +619,7 @@ const ExpertProfile = () => {
                           transition={{ delay: idx * 0.06 }}
                           className="px-4 py-2 bg-gray-50 text-gray-600 text-xs font-bold rounded-xl border border-gray-100 flex items-center gap-2"
                         >
-                          <Globe size={11} className="text-[#74b986]" />
+                          <Globe size={11} className="text-[#0eb59a]" />
                           {industry}
                         </motion.span>
                       ))}
@@ -629,7 +629,7 @@ const ExpertProfile = () => {
                   {/* Engagement Stats */}
                   <div className="grid grid-cols-3 gap-4">
                     {[
-                      { label: 'Engagements', value: expert.completedEngagements, icon: Briefcase, color: 'text-green-500', bg: 'bg-teal-50', border: 'border-l-[#74b986]' },
+                      { label: 'Engagements', value: expert.completedEngagements, icon: Briefcase, color: 'text-teal-500', bg: 'bg-teal-50', border: 'border-l-[#0eb59a]' },
                       { label: 'Avg Rating', value: expert.rating, icon: Star, color: 'text-amber-500', bg: 'bg-amber-50', border: 'border-l-amber-400' },
                       { label: 'Reviews', value: expert.reviews, icon: MessageSquare, color: 'text-blue-500', bg: 'bg-blue-50', border: 'border-l-blue-400' },
                     ].map((stat, idx) => (
@@ -662,7 +662,7 @@ const ExpertProfile = () => {
                       ].map((item, idx) => (
                         <div key={idx} className="flex items-start gap-3">
                           <div className="w-8 h-8 bg-gray-50 rounded-xl flex items-center justify-center shrink-0">
-                            <item.icon size={14} className="text-[#74b986]" />
+                            <item.icon size={14} className="text-[#0eb59a]" />
                           </div>
                           <div>
                             <p className="text-[10px] font-black text-gray-400 uppercase tracking-wider">{item.label}</p>
@@ -715,7 +715,7 @@ const ExpertProfile = () => {
                       <div className="flex items-start justify-between mb-4">
                         <div>
                           <div className="flex items-center gap-2 mb-2">
-                            <span className="text-[10px] font-black text-[#2d6a4f] bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-100">
+                            <span className="text-[10px] font-black text-[#134e40] bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-100">
                               {cs.type}
                             </span>
                             <span className="text-[10px] font-black text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100">
@@ -755,7 +755,7 @@ const ExpertProfile = () => {
                             transition={{ delay: idx * 0.1 + mIdx * 0.05 }}
                             className="bg-gray-50 rounded-2xl p-3 border border-gray-100 text-center"
                           >
-                            <p className="text-lg font-black text-[#2d6a4f]">{metric.value}</p>
+                            <p className="text-lg font-black text-[#134e40]">{metric.value}</p>
                             <p className="text-[10px] text-gray-400 font-bold mt-0.5 leading-tight">{metric.label}</p>
                           </motion.div>
                         ))}
@@ -764,7 +764,7 @@ const ExpertProfile = () => {
                       {/* Tags */}
                       <div className="flex flex-wrap gap-2">
                         {cs.tags.map(tag => (
-                          <span key={tag} className="text-[10px] font-bold bg-teal-50 text-[#2d6a4f] px-2.5 py-1 rounded-lg border border-teal-100">
+                          <span key={tag} className="text-[10px] font-bold bg-teal-50 text-[#134e40] px-2.5 py-1 rounded-lg border border-teal-100">
                             {tag}
                           </span>
                         ))}
@@ -861,7 +861,7 @@ const ExpertProfile = () => {
                         </div>
                       </div>
                       <p className="text-sm text-gray-600 leading-relaxed mb-3">"{review.review}"</p>
-                      <span className="text-[10px] font-bold text-[#2d6a4f] bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-100">
+                      <span className="text-[10px] font-bold text-[#134e40] bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-100">
                         {review.engagement} Engagement
                       </span>
                     </motion.div>
@@ -898,7 +898,7 @@ const ExpertProfile = () => {
                             <motion.span
                               animate={{ scale: [1, 1.05, 1] }}
                               transition={{ duration: 2, repeat: Infinity }}
-                              className="text-[10px] font-black bg-[#74b986] text-white px-2.5 py-1 rounded-full"
+                              className="text-[10px] font-black bg-[#0eb59a] text-white px-2.5 py-1 rounded-full"
                             >
                               MOST POPULAR
                             </motion.span>
@@ -917,7 +917,7 @@ const ExpertProfile = () => {
                           {tier.features.map((feature, fIdx) => (
                             <div key={fIdx} className="flex items-start gap-2.5">
                               <div className="w-4 h-4 bg-teal-50 rounded-full flex items-center justify-center shrink-0 mt-0.5 border border-teal-100">
-                                <Check size={9} className="text-[#74b986]" strokeWidth={3} />
+                                <Check size={9} className="text-[#0eb59a]" strokeWidth={3} />
                               </div>
                               <span className="text-xs text-gray-600 font-semibold leading-tight">{feature}</span>
                             </div>
@@ -946,9 +946,9 @@ const ExpertProfile = () => {
                       ].map((trust, idx) => (
                         <div key={idx} className="flex flex-col items-center text-center">
                           <div className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center mb-3 shadow-sm border border-teal-100">
-                            <trust.icon size={18} className="text-[#74b986]" />
+                            <trust.icon size={18} className="text-[#0eb59a]" />
                           </div>
-                          <p className="text-sm font-black text-[#2d6a4f] mb-1">{trust.title}</p>
+                          <p className="text-sm font-black text-[#134e40] mb-1">{trust.title}</p>
                           <p className="text-xs text-teal-700 leading-relaxed">{trust.desc}</p>
                         </div>
                       ))}
@@ -990,7 +990,7 @@ const ExpertProfile = () => {
                   ].map((item, idx) => (
                     <div key={idx} className="flex items-center justify-between text-xs">
                       <span className="flex items-center gap-1.5 text-gray-400 font-semibold">
-                        <item.icon size={12} className="text-[#74b986]" /> {item.label}
+                        <item.icon size={12} className="text-[#0eb59a]" /> {item.label}
                       </span>
                       <span className="font-bold text-gray-700">{item.value}</span>
                     </div>
@@ -1002,7 +1002,7 @@ const ExpertProfile = () => {
                     whileHover={{ scale: 1.03, boxShadow: '0 8px 30px rgba(20,78,64,0.25)' }}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => setShowInviteModal(true)}
-                    className="w-full py-3 bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white text-sm font-black rounded-2xl shadow-md"
+                    className="w-full py-3 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white text-sm font-black rounded-2xl shadow-md"
                   >
                     <Zap size={14} className="inline mr-1.5" fill="currentColor" />
                     Invite to Role
@@ -1046,7 +1046,7 @@ const ExpertProfile = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.25 }}
-                className="bg-gradient-to-br from-[#2d6a4f] to-[#2d6a4f] rounded-3xl p-5 text-white relative overflow-hidden"
+                className="bg-gradient-to-br from-[#0d1f2d] to-[#134e40] rounded-3xl p-5 text-white relative overflow-hidden"
               >
                 <div className="absolute -right-4 -top-4 w-20 h-20 bg-white/5 rounded-full" />
                 <div className="relative z-10">
@@ -1062,7 +1062,7 @@ const ExpertProfile = () => {
                       initial={{ width: 0 }}
                       animate={{ width: `${expert.match}%` }}
                       transition={{ duration: 1.2, delay: 0.5 }}
-                      className="h-full bg-[#74b986] rounded-full"
+                      className="h-full bg-[#0eb59a] rounded-full"
                     />
                   </div>
                   <p className="text-xs text-white/60 leading-relaxed">
@@ -1089,7 +1089,7 @@ const ExpertProfile = () => {
                       transition={{ delay: 0.4 + i * 0.05 }}
                       className="w-6 h-6 rounded-full bg-teal-50 border border-teal-100 flex items-center justify-center"
                     >
-                      <CheckCircle size={12} className="text-[#74b986]" />
+                      <CheckCircle size={12} className="text-[#0eb59a]" />
                     </motion.div>
                   ))}
                   {expert.completedEngagements > 8 && (
@@ -1131,7 +1131,7 @@ const ExpertProfile = () => {
                         <h4 className="font-black text-gray-900 text-sm">{expert.name}</h4>
                         <p className="text-xs text-gray-500">{expert.title}</p>
                       </div>
-                      <span className="ml-auto text-xs font-black text-[#2d6a4f] bg-white px-2.5 py-1 rounded-xl border border-teal-100">
+                      <span className="ml-auto text-xs font-black text-[#134e40] bg-white px-2.5 py-1 rounded-xl border border-teal-100">
                         {expert.match}% Match
                       </span>
                     </div>
@@ -1150,7 +1150,7 @@ const ExpertProfile = () => {
                           onClick={() => setSelectedRequirement(req.id)}
                           className={`w-full flex items-center justify-between px-4 py-3.5 rounded-2xl border-2 text-sm font-bold transition-all text-left ${
                             selectedRequirement === req.id
-                              ? 'border-[#74b986] bg-teal-50 text-[#2d6a4f]'
+                              ? 'border-[#0eb59a] bg-teal-50 text-[#134e40]'
                               : 'border-gray-100 bg-gray-50 text-gray-600 hover:border-gray-200'
                           }`}
                         >
@@ -1159,7 +1159,7 @@ const ExpertProfile = () => {
                           </span>
                           {selectedRequirement === req.id && (
                             <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}
-                              className="w-5 h-5 bg-[#74b986] rounded-full flex items-center justify-center"
+                              className="w-5 h-5 bg-[#0eb59a] rounded-full flex items-center justify-center"
                             >
                               <Check size={11} className="text-white" strokeWidth={3} />
                             </motion.div>
@@ -1177,7 +1177,7 @@ const ExpertProfile = () => {
                         onChange={e => setMessage(e.target.value)}
                         placeholder={`Hi ${expert.name.split(' ')[0]}, we'd love to discuss an opportunity with you...`}
                         rows={3}
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 resize-none transition-all"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 resize-none transition-all"
                       />
                     </div>
 
@@ -1195,7 +1195,7 @@ const ExpertProfile = () => {
                         onClick={handleInviteSend}
                         className={`flex-1 py-3 text-sm font-bold rounded-2xl transition-all ${
                           selectedRequirement
-                            ? 'bg-[#2d6a4f] hover:bg-[#74b986] text-white shadow-lg'
+                            ? 'bg-[#134e40] hover:bg-[#0eb59a] text-white shadow-lg'
                             : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                         }`}
                       >
@@ -1214,9 +1214,9 @@ const ExpertProfile = () => {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                      className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-[#74b986]"
+                      className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-[#0eb59a]"
                     >
-                      <Check size={36} className="text-[#74b986]" strokeWidth={3} />
+                      <Check size={36} className="text-[#0eb59a]" strokeWidth={3} />
                     </motion.div>
                     <h3 className="text-xl font-black text-gray-900 mb-2">Invite Sent!</h3>
                     <p className="text-sm text-gray-400">
@@ -1266,7 +1266,7 @@ const ExpertProfile = () => {
                 onChange={e => setMessage(e.target.value)}
                 placeholder={`Hi ${expert.name.split(' ')[0]}, I wanted to reach out about...`}
                 rows={5}
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 resize-none transition-all mb-4"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 resize-none transition-all mb-4"
               />
 
               <div className="flex gap-3">
@@ -1283,7 +1283,7 @@ const ExpertProfile = () => {
                   onClick={() => setShowMessageModal(false)}
                   className={`flex-1 py-3 text-sm font-bold rounded-2xl transition-all ${
                     message.trim()
-                      ? 'bg-[#2d6a4f] hover:bg-[#74b986] text-white shadow-lg'
+                      ? 'bg-[#134e40] hover:bg-[#0eb59a] text-white shadow-lg'
                       : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   }`}
                 >

@@ -316,18 +316,8 @@ const Payments = () => {
     }, 2000);
   };
 
-
-const cutoutCard = {
-  WebkitMask: `radial-gradient(circle at 0 0, transparent 22px, black 22.5px) top left, radial-gradient(circle at 100% 0, transparent 22px, black 22.5px) top right, radial-gradient(circle at 0 100%, transparent 22px, black 22.5px) bottom left, radial-gradient(circle at 100% 100%, transparent 22px, black 22.5px) bottom right`,
-  WebkitMaskSize: '51% 51%',
-  WebkitMaskRepeat: 'no-repeat',
-  mask: `radial-gradient(circle at 0 0, transparent 22px, black 22.5px) top left, radial-gradient(circle at 100% 0, transparent 22px, black 22.5px) top right, radial-gradient(circle at 0 100%, transparent 22px, black 22.5px) bottom left, radial-gradient(circle at 100% 100%, transparent 22px, black 22.5px) bottom right`,
-  maskSize: '51% 51%',
-  maskRepeat: 'no-repeat',
-};
-
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#f8fafc]">
 
       {/* Background */}
       <div className="fixed top-0 right-0 w-96 h-96 bg-teal-100/20 rounded-full blur-3xl pointer-events-none" />
@@ -345,17 +335,17 @@ const cutoutCard = {
             <div className="flex items-center gap-2 mb-1">
               <button
                 onClick={() => navigate('/company-dashboard')}
-                className="text-gray-400 hover:text-[#74b986] text-sm font-semibold transition-colors"
+                className="text-gray-400 hover:text-[#0eb59a] text-sm font-semibold transition-colors"
               >
                 Dashboard
               </button>
               <ChevronRight size={14} className="text-gray-300" />
               <span className="text-sm font-bold text-gray-700">Payments</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">
               Payments & Escrow
             </h1>
-            <p className="text-white/60 text-sm mt-1">
+            <p className="text-gray-400 text-sm mt-1">
               Manage escrow funds, milestone payments, and invoices
             </p>
           </div>
@@ -372,7 +362,7 @@ const cutoutCard = {
               whileHover={{ scale: 1.03, boxShadow: '0 8px 30px rgba(20,78,64,0.25)' }}
               whileTap={{ scale: 0.97 }}
               onClick={() => setShowAddFundsModal(true)}
-              className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white text-sm font-bold rounded-xl shadow-lg"
+              className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white text-sm font-bold rounded-xl shadow-lg"
             >
               <Plus size={15} /> Add Funds
             </motion.button>
@@ -391,9 +381,9 @@ const cutoutCard = {
               label: 'Total Escrow Balance',
               value: escrowSummary.totalBalance,
               icon: Wallet,
-              color: 'text-green-500',
+              color: 'text-teal-500',
               bg: 'bg-teal-50',
-              border: 'border-l-[#74b986]',
+              border: 'border-l-[#0eb59a]',
               desc: 'Secured funds',
               trend: null,
             },
@@ -434,12 +424,12 @@ const cutoutCard = {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.08 + idx * 0.07 }}
               whileHover={{ y: -5, boxShadow: '0 16px 40px rgba(0,0,0,0.07)' }}
-              className={`bg-[#0e1f17] overflow-hidden relative group transition-all duration-300 cursor-default`} style={cutoutCard}
+              className={`bg-white rounded-2xl p-5 border border-gray-100 border-l-4 ${card.border} shadow-sm transition-all duration-300 cursor-default group relative overflow-hidden`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-transparent to-gray-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <div className="flex items-start justify-between mb-3">
-                  <span className="text-[10px] font-bold text-white/50 uppercase tracking-widest leading-tight pr-2">
+                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-tight pr-2">
                     {card.label}
                   </span>
                   <motion.div
@@ -449,8 +439,8 @@ const cutoutCard = {
                     <card.icon size={17} className={card.color} />
                   </motion.div>
                 </div>
-                <p className="text-3xl font-black text-white mb-1 tracking-tight">{card.value}</p>
-                <p className="text-[10px] text-white/60 font-semibold">{card.desc}</p>
+                <p className="text-3xl font-black text-gray-900 mb-1 tracking-tight">{card.value}</p>
+                <p className="text-[10px] text-gray-400 font-semibold">{card.desc}</p>
                 {card.trend && (
                   <div className="flex items-center gap-1 mt-2 text-[10px] font-bold text-emerald-600 bg-emerald-50 w-fit px-2 py-0.5 rounded-lg">
                     <ArrowUpRight size={10} /> {card.trend}
@@ -461,7 +451,7 @@ const cutoutCard = {
                 initial={{ width: 0 }}
                 whileHover={{ width: '100%' }}
                 transition={{ duration: 0.3 }}
-                className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#74b986] to-transparent`}
+                className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#0eb59a] to-transparent`}
               />
             </motion.div>
           ))}
@@ -482,7 +472,7 @@ const cutoutCard = {
               onClick={() => setActiveTab(tab)}
               className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
                 activeTab === tab
-                  ? 'bg-[#2d6a4f] text-white shadow-md'
+                  ? 'bg-[#134e40] text-white shadow-md'
                   : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
               }`}
             >
@@ -508,16 +498,16 @@ const cutoutCard = {
               <div className="lg:col-span-2 space-y-5">
 
                 {/* Escrow Accounts */}
-                <div className="bg-[#0e1f17] p-6">
+                <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
                   <div className="flex items-center justify-between mb-5">
-                    <h3 className="font-black text-white text-base flex items-center gap-2">
-                      <Lock size={16} className="text-[#74b986]" /> Active Escrow Accounts
+                    <h3 className="font-black text-gray-900 text-base flex items-center gap-2">
+                      <Lock size={16} className="text-[#0eb59a]" /> Active Escrow Accounts
                     </h3>
                     <motion.button
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.97 }}
                       onClick={() => setShowAddFundsModal(true)}
-                      className="flex items-center gap-2 text-xs font-bold text-[#74b986] hover:text-[#2d6a4f] transition-colors"
+                      className="flex items-center gap-2 text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors"
                     >
                       <Plus size={13} /> Add Funds
                     </motion.button>
@@ -531,7 +521,7 @@ const cutoutCard = {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: idx * 0.1 }}
                         whileHover={{ y: -3 }}
-                        className="bg-white/5 rounded-[1.5rem] p-5 border border-gray-100 hover:border-[#74b986]/30 hover:shadow-md transition-all"
+                        className="bg-[#f8fafc] rounded-2xl p-5 border border-gray-100 hover:border-[#0eb59a]/30 hover:shadow-md transition-all"
                       >
                         {/* Header */}
                         <div className="flex items-start justify-between mb-4">
@@ -548,34 +538,34 @@ const cutoutCard = {
                               />
                             </div>
                             <div>
-                              <p className="font-black text-white text-sm">{account.engagement}</p>
-                              <p className="text-xs text-white/60 font-semibold">with {account.expert}</p>
+                              <p className="font-black text-gray-900 text-sm">{account.engagement}</p>
+                              <p className="text-xs text-gray-400 font-semibold">with {account.expert}</p>
                             </div>
                           </div>
                           <div className="text-right">
-                            <p className="text-xl font-black text-[#2d6a4f]">{account.balance}</p>
-                            <p className="text-[10px] text-white/60 font-semibold">in escrow</p>
+                            <p className="text-xl font-black text-[#134e40]">{account.balance}</p>
+                            <p className="text-[10px] text-gray-400 font-semibold">in escrow</p>
                           </div>
                         </div>
 
                         {/* Progress bar */}
                         <div className="mb-3">
                           <div className="flex justify-between text-xs mb-1.5">
-                            <span className="text-white/60 font-semibold">
+                            <span className="text-gray-400 font-semibold">
                               Released: {account.released} of {account.totalValue}
                             </span>
-                            <span className="font-black text-[#2d6a4f]">
+                            <span className="font-black text-[#134e40]">
                               {Math.round((parseInt(account.released.replace(/[₹,]/g, '')) / parseInt(account.totalValue.replace(/[₹,]/g, ''))) * 100)}%
                             </span>
                           </div>
-                          <div className="h-2 bg-black/30 rounded-full overflow-hidden">
+                          <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                             <motion.div
                               initial={{ width: 0 }}
                               animate={{
                                 width: `${Math.round((parseInt(account.released.replace(/[₹,]/g, '')) / parseInt(account.totalValue.replace(/[₹,]/g, ''))) * 100)}%`
                               }}
                               transition={{ duration: 1.2, delay: 0.3 + idx * 0.1 }}
-                              className="h-full bg-gradient-to-r from-[#2d6a4f] to-[#74b986] rounded-full relative overflow-hidden"
+                              className="h-full bg-gradient-to-r from-[#134e40] to-[#0eb59a] rounded-full relative overflow-hidden"
                             >
                               <motion.div
                                 animate={{ x: ['-100%', '200%'] }}
@@ -588,7 +578,7 @@ const cutoutCard = {
 
                         {/* Pending milestone */}
                         <div className="flex items-center justify-between">
-                          <span className="text-xs text-white/60 font-semibold flex items-center gap-1.5">
+                          <span className="text-xs text-gray-400 font-semibold flex items-center gap-1.5">
                             <Target size={11} className="text-amber-500" />
                             Next: {account.pendingMilestone}
                           </span>
@@ -596,7 +586,7 @@ const cutoutCard = {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => setShowReleaseModal(account)}
-                            className="text-xs font-black text-[#74b986] hover:text-[#2d6a4f] border border-teal-100 hover:border-teal-200 bg-teal-50 px-3 py-1.5 rounded-xl transition-all"
+                            className="text-xs font-black text-[#0eb59a] hover:text-[#134e40] border border-teal-100 hover:border-teal-200 bg-teal-50 px-3 py-1.5 rounded-xl transition-all"
                           >
                             Release Payment
                           </motion.button>
@@ -607,9 +597,9 @@ const cutoutCard = {
                 </div>
 
                 {/* Monthly spend visual */}
-                <div className="bg-[#0e1f17] p-6">
-                  <h3 className="font-black text-white text-base flex items-center gap-2 mb-5">
-                    <BarChart2 size={16} className="text-[#74b986]" /> Monthly Spend
+                <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
+                  <h3 className="font-black text-gray-900 text-base flex items-center gap-2 mb-5">
+                    <BarChart2 size={16} className="text-[#0eb59a]" /> Monthly Spend
                   </h3>
                   <div className="flex items-end gap-3 h-32">
                     {[
@@ -629,7 +619,7 @@ const cutoutCard = {
                             transition={{ duration: 0.8, delay: idx * 0.1, ease: 'easeOut' }}
                             className={`w-full rounded-xl ${
                               bar.amount > 0
-                                ? 'bg-gradient-to-t from-[#2d6a4f] to-[#74b986]'
+                                ? 'bg-gradient-to-t from-[#134e40] to-[#0eb59a]'
                                 : 'bg-gray-100'
                             }`}
                           />
@@ -645,14 +635,14 @@ const cutoutCard = {
               <div className="space-y-5">
 
                 {/* Recent Transactions */}
-                <div className="bg-[#0e1f17] p-5">
+                <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-black text-white text-sm flex items-center gap-2">
-                      <Clock size={14} className="text-[#74b986]" /> Recent Activity
+                    <h3 className="font-black text-gray-900 text-sm flex items-center gap-2">
+                      <Clock size={14} className="text-[#0eb59a]" /> Recent Activity
                     </h3>
                     <button
                       onClick={() => setActiveTab('Transactions')}
-                      className="text-xs font-bold text-[#74b986] hover:text-[#2d6a4f] transition-colors"
+                      className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors"
                     >
                       View All →
                     </button>
@@ -673,7 +663,7 @@ const cutoutCard = {
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-xs font-bold text-gray-800 truncate leading-tight">{tx.description}</p>
-                            <p className="text-[10px] text-white/60 font-semibold">{tx.date}</p>
+                            <p className="text-[10px] text-gray-400 font-semibold">{tx.date}</p>
                           </div>
                           <span className={`text-xs font-black shrink-0 ${
                             tx.amountNum > 0 ? 'text-emerald-600' : 'text-gray-700'
@@ -691,14 +681,14 @@ const cutoutCard = {
                   initial={{ opacity: 0, x: 15 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="bg-gradient-to-br from-[#2d6a4f] to-[#2d6a4f] rounded-3xl p-5 text-white relative overflow-hidden"
+                  className="bg-gradient-to-br from-[#0d1f2d] to-[#134e40] rounded-3xl p-5 text-white relative overflow-hidden"
                 >
                   <div className="absolute -right-4 -top-4 w-20 h-20 bg-white/5 rounded-full" />
-                  <div className="absolute -right-2 -bottom-4 w-16 h-16 bg-[#74b986]/10 rounded-full" />
+                  <div className="absolute -right-2 -bottom-4 w-16 h-16 bg-[#0eb59a]/10 rounded-full" />
                   <div className="relative z-10">
                     <div className="flex items-center gap-2 mb-3">
-                      <div className="w-8 h-8 bg-[#74b986]/20 rounded-xl flex items-center justify-center">
-                        <Shield size={16} className="text-[#74b986]" />
+                      <div className="w-8 h-8 bg-[#0eb59a]/20 rounded-xl flex items-center justify-center">
+                        <Shield size={16} className="text-[#0eb59a]" />
                       </div>
                       <h4 className="font-black text-sm">Escrow Protection</h4>
                     </div>
@@ -713,7 +703,7 @@ const cutoutCard = {
                         'Platform PMO monitoring',
                       ].map((item, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-xs text-white/70 font-semibold">
-                          <Check size={11} className="text-[#74b986] shrink-0" strokeWidth={3} />
+                          <Check size={11} className="text-[#0eb59a] shrink-0" strokeWidth={3} />
                           {item}
                         </div>
                       ))}
@@ -722,11 +712,11 @@ const cutoutCard = {
                 </motion.div>
 
                 {/* Quick actions */}
-                <div className="bg-[#0e1f17] p-5">
-                  <h3 className="font-black text-white text-sm mb-3">Quick Actions</h3>
+                <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5">
+                  <h3 className="font-black text-gray-900 text-sm mb-3">Quick Actions</h3>
                   <div className="space-y-2">
                     {[
-                      { label: 'Add Funds to Escrow', icon: Plus, action: () => setShowAddFundsModal(true), color: 'text-[#74b986]' },
+                      { label: 'Add Funds to Escrow', icon: Plus, action: () => setShowAddFundsModal(true), color: 'text-[#0eb59a]' },
                       { label: 'View Invoices', icon: FileText, action: () => setActiveTab('Invoices'), color: 'text-blue-500' },
                       { label: 'Download Statement', icon: Download, action: () => {}, color: 'text-purple-500' },
                       { label: 'View Contracts', icon: Lock, action: () => navigate('/contracts'), color: 'text-amber-500' },
@@ -762,13 +752,13 @@ const cutoutCard = {
               {/* Search + Filter */}
               <div className="flex flex-col md:flex-row gap-4">
                 <div className="relative flex-1 max-w-md group">
-                  <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#74b986] transition-colors" />
+                  <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#0eb59a] transition-colors" />
                   <input
                     type="text"
                     placeholder="Search transactions..."
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
-                    className="w-full pl-11 pr-4 py-2.5 bg-white border border-gray-100 rounded-full text-base font-sans font-light focus:outline-none focus:border-[#74b986]/30 focus:shadow-[0_8px_30px_rgba(14,181,154,0.08)] transition-all shadow-[0_8px_30px_rgb(0,0,0,0.03)]"
+                    className="w-full pl-11 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all shadow-sm"
                   />
                 </div>
                 <div className="flex gap-2">
@@ -780,8 +770,8 @@ const cutoutCard = {
                       onClick={() => setFilterStatus(f)}
                       className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                         filterStatus === f
-                          ? 'bg-[#2d6a4f] text-white shadow-md'
-                          : 'bg-white text-gray-500 border border-gray-200 hover:border-[#74b986]/40'
+                          ? 'bg-[#134e40] text-white shadow-md'
+                          : 'bg-white text-gray-500 border border-gray-200 hover:border-[#0eb59a]/40'
                       }`}
                     >
                       {f}
@@ -791,9 +781,9 @@ const cutoutCard = {
               </div>
 
               {/* Transactions Table */}
-              <div className="bg-[#0e1f17] overflow-hidden">
+              <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
                 <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
-                  <h3 className="font-black text-white text-sm">
+                  <h3 className="font-black text-gray-900 text-sm">
                     All Transactions
                     <span className="ml-2 text-xs font-bold text-gray-400 bg-gray-50 px-2 py-0.5 rounded-lg border border-gray-100">
                       {filteredTransactions.length}
@@ -801,7 +791,7 @@ const cutoutCard = {
                   </h3>
                   <motion.button
                     whileHover={{ scale: 1.03 }}
-                    className="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-[#74b986] transition-colors"
+                    className="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-[#0eb59a] transition-colors"
                   >
                     <Download size={13} /> Export CSV
                   </motion.button>
@@ -825,11 +815,11 @@ const cutoutCard = {
                         <div className="flex-1 min-w-0">
                           <p className="font-bold text-gray-800 text-sm truncate">{tx.description}</p>
                           <div className="flex items-center gap-3 mt-0.5">
-                            <p className="text-xs text-white/60 font-semibold">{tx.engagement}</p>
+                            <p className="text-xs text-gray-400 font-semibold">{tx.engagement}</p>
                             {tx.expertAvatar && (
                               <div className="flex items-center gap-1">
                                 <img src={tx.expertAvatar} className="w-4 h-4 rounded-full object-cover" />
-                                <span className="text-[10px] text-white/60 font-semibold">{tx.expert}</span>
+                                <span className="text-[10px] text-gray-400 font-semibold">{tx.expert}</span>
                               </div>
                             )}
                           </div>
@@ -841,7 +831,7 @@ const cutoutCard = {
                           }`}>
                             {tx.amount}
                           </p>
-                          <p className="text-[10px] text-white/60 font-semibold">{tx.date} {tx.time !== '—' ? `· ${tx.time}` : ''}</p>
+                          <p className="text-[10px] text-gray-400 font-semibold">{tx.date} {tx.time !== '—' ? `· ${tx.time}` : ''}</p>
                         </div>
 
                         <div className="shrink-0 flex flex-col items-end gap-1">
@@ -869,13 +859,13 @@ const cutoutCard = {
               className="space-y-4"
             >
               <div className="flex items-center justify-between">
-                <h3 className="font-black text-white text-base">
+                <h3 className="font-black text-gray-900 text-base">
                   All Invoices
                   <span className="ml-2 text-sm font-bold text-gray-400">({invoices.length})</span>
                 </h3>
                 <motion.button
                   whileHover={{ scale: 1.03 }}
-                  className="flex items-center gap-2 text-xs font-bold text-gray-400 hover:text-[#74b986] transition-colors"
+                  className="flex items-center gap-2 text-xs font-bold text-gray-400 hover:text-[#0eb59a] transition-colors"
                 >
                   <Download size={13} /> Export All
                 </motion.button>
@@ -888,7 +878,7 @@ const cutoutCard = {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.07 }}
                   whileHover={{ y: -2, boxShadow: '0 10px 30px rgba(0,0,0,0.06)' }}
-                  className="bg-white/5 rounded-[1.5rem] border border-white/10 p-5 flex items-center gap-5 group transition-all"
+                  className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-5 group transition-all"
                 >
                   {/* Icon */}
                   <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center shrink-0">
@@ -898,12 +888,12 @@ const cutoutCard = {
                   {/* Info */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <h4 className="font-black text-white text-sm truncate">{invoice.title}</h4>
+                      <h4 className="font-black text-gray-900 text-sm truncate">{invoice.title}</h4>
                       <span className={`text-[10px] font-black px-2 py-0.5 rounded-lg border shrink-0 ${getStatusStyle(invoice.status)}`}>
                         {invoice.status}
                       </span>
                     </div>
-                    <div className="flex flex-wrap gap-3 text-xs text-white/60 font-semibold">
+                    <div className="flex flex-wrap gap-3 text-xs text-gray-400 font-semibold">
                       <span>{invoice.id}</span>
                       <span>·</span>
                       <span className="flex items-center gap-1">
@@ -921,7 +911,7 @@ const cutoutCard = {
 
                   {/* Amount */}
                   <div className="text-right shrink-0">
-                    <p className="font-black text-white text-xl">{invoice.amount}</p>
+                    <p className="font-black text-gray-900 text-xl">{invoice.amount}</p>
                     {invoice.status === 'Pending' && (
                       <p className="text-[10px] text-amber-500 font-bold">Due {invoice.dueDate}</p>
                     )}
@@ -933,7 +923,7 @@ const cutoutCard = {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setShowInvoiceModal(invoice)}
-                      className="p-2 rounded-xl bg-gray-50 border border-gray-100 text-gray-400 hover:text-[#74b986] hover:bg-teal-50 transition-all"
+                      className="p-2 rounded-xl bg-gray-50 border border-gray-100 text-gray-400 hover:text-[#0eb59a] hover:bg-teal-50 transition-all"
                     >
                       <Eye size={14} />
                     </motion.button>
@@ -961,13 +951,13 @@ const cutoutCard = {
               className="space-y-5"
             >
               {/* Escrow explainer */}
-              <div className="bg-gradient-to-br from-[#2d6a4f] to-[#2d6a4f] rounded-3xl p-6 text-white relative overflow-hidden">
+              <div className="bg-gradient-to-br from-[#0d1f2d] to-[#134e40] rounded-3xl p-6 text-white relative overflow-hidden">
                 <div className="absolute -right-8 -top-8 w-40 h-40 bg-white/5 rounded-full" />
-                <div className="absolute -left-4 -bottom-4 w-24 h-24 bg-[#74b986]/10 rounded-full" />
+                <div className="absolute -left-4 -bottom-4 w-24 h-24 bg-[#0eb59a]/10 rounded-full" />
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <Shield size={20} className="text-[#74b986]" />
+                      <Shield size={20} className="text-[#0eb59a]" />
                       <h3 className="font-black text-lg">How Escrow Works</h3>
                     </div>
                     <p className="text-white/60 text-sm leading-relaxed mb-4">
@@ -987,8 +977,8 @@ const cutoutCard = {
                           <ChevronRight key={idx} size={14} className="text-white/30" />
                         ) : (
                           <div key={idx} className="flex flex-col items-center gap-1">
-                            <div className="w-7 h-7 bg-[#74b986]/20 border border-[#74b986]/30 rounded-full flex items-center justify-center">
-                              <span className="text-[10px] font-black text-[#74b986]">{item.step}</span>
+                            <div className="w-7 h-7 bg-[#0eb59a]/20 border border-[#0eb59a]/30 rounded-full flex items-center justify-center">
+                              <span className="text-[10px] font-black text-[#0eb59a]">{item.step}</span>
                             </div>
                             <span className="text-[9px] font-bold text-white/50 whitespace-nowrap">{item.label}</span>
                           </div>
@@ -1000,7 +990,7 @@ const cutoutCard = {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => setShowAddFundsModal(true)}
-                    className="flex items-center gap-2 px-5 py-3 bg-[#74b986] hover:bg-[#0ca88e] text-white text-sm font-black rounded-2xl transition-all shadow-lg shrink-0"
+                    className="flex items-center gap-2 px-5 py-3 bg-[#0eb59a] hover:bg-[#0ca88e] text-white text-sm font-black rounded-2xl transition-all shadow-lg shrink-0"
                   >
                     <Plus size={15} /> Add Funds Now
                   </motion.button>
@@ -1015,19 +1005,19 @@ const cutoutCard = {
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.1 }}
-                    className="bg-[#0e1f17] p-6"
+                    className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6"
                   >
                     <div className="flex items-center justify-between mb-5">
                       <div className="flex items-center gap-3">
                         <img src={account.expertAvatar} className="w-11 h-11 rounded-2xl object-cover" />
                         <div>
-                          <h4 className="font-black text-white text-sm">{account.engagement}</h4>
-                          <p className="text-xs text-white/60 font-semibold">with {account.expert}</p>
+                          <h4 className="font-black text-gray-900 text-sm">{account.engagement}</h4>
+                          <p className="text-xs text-gray-400 font-semibold">with {account.expert}</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-2xl font-black text-[#2d6a4f]">{account.balance}</p>
-                        <p className="text-xs text-white/60 font-semibold">current escrow balance</p>
+                        <p className="text-2xl font-black text-[#134e40]">{account.balance}</p>
+                        <p className="text-xs text-gray-400 font-semibold">current escrow balance</p>
                       </div>
                     </div>
 
@@ -1035,7 +1025,7 @@ const cutoutCard = {
                       {[
                         { label: 'Total Value', value: account.totalValue, color: 'text-gray-700' },
                         { label: 'Released', value: account.released, color: 'text-emerald-600' },
-                        { label: 'In Escrow', value: account.balance, color: 'text-[#2d6a4f]' },
+                        { label: 'In Escrow', value: account.balance, color: 'text-[#134e40]' },
                       ].map((item, iIdx) => (
                         <div key={iIdx} className="bg-gray-50 rounded-2xl p-3 border border-gray-100 text-center">
                           <p className={`font-black text-base ${item.color}`}>{item.value}</p>
@@ -1093,7 +1083,7 @@ const cutoutCard = {
 
                     <div className="flex items-center justify-between mb-6">
                       <div>
-                        <h3 className="text-xl font-black text-white">Add Funds to Escrow</h3>
+                        <h3 className="text-xl font-black text-gray-900">Add Funds to Escrow</h3>
                         <p className="text-xs text-gray-400 mt-0.5">Funds are secured immediately on transfer</p>
                       </div>
                       <motion.button
@@ -1120,7 +1110,7 @@ const cutoutCard = {
                             onClick={() => { setSelectedAmount(amount); setCustomAmount(''); }}
                             className={`py-3 rounded-2xl text-sm font-black border-2 transition-all ${
                               selectedAmount === amount
-                                ? 'border-[#74b986] bg-teal-50 text-[#2d6a4f]'
+                                ? 'border-[#0eb59a] bg-teal-50 text-[#134e40]'
                                 : 'border-gray-100 bg-gray-50 text-gray-600 hover:border-gray-200'
                             }`}
                           >
@@ -1135,7 +1125,7 @@ const cutoutCard = {
                           placeholder="Enter custom amount..."
                           value={customAmount}
                           onChange={e => { setCustomAmount(e.target.value); setSelectedAmount(''); }}
-                          className="w-full pl-8 pr-4 py-3 bg-white border-2 border-gray-100 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all"
+                          className="w-full pl-8 pr-4 py-3 bg-white border-2 border-gray-100 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
                         />
                       </div>
                     </div>
@@ -1154,22 +1144,22 @@ const cutoutCard = {
                             onClick={() => setPaymentMethod(method.id)}
                             className={`w-full flex items-center gap-3 p-3.5 rounded-2xl border-2 transition-all text-left ${
                               paymentMethod === method.id
-                                ? 'border-[#74b986] bg-teal-50'
+                                ? 'border-[#0eb59a] bg-teal-50'
                                 : 'border-gray-100 bg-gray-50 hover:border-gray-200'
                             }`}
                           >
                             <span className="text-xl shrink-0">{method.icon}</span>
                             <div className="flex-1">
-                              <p className={`text-sm font-black ${paymentMethod === method.id ? 'text-[#2d6a4f]' : 'text-gray-700'}`}>
+                              <p className={`text-sm font-black ${paymentMethod === method.id ? 'text-[#134e40]' : 'text-gray-700'}`}>
                                 {method.label}
                               </p>
-                              <p className="text-xs text-white/60 font-semibold">{method.desc}</p>
+                              <p className="text-xs text-gray-400 font-semibold">{method.desc}</p>
                             </div>
                             {paymentMethod === method.id && (
                               <motion.div
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
-                                className="w-5 h-5 bg-[#74b986] rounded-full flex items-center justify-center shrink-0"
+                                className="w-5 h-5 bg-[#0eb59a] rounded-full flex items-center justify-center shrink-0"
                               >
                                 <Check size={11} className="text-white" strokeWidth={3} />
                               </motion.div>
@@ -1181,7 +1171,7 @@ const cutoutCard = {
 
                     {/* Security notice */}
                     <div className="flex items-start gap-2 p-3 bg-teal-50 rounded-xl border border-teal-100 mb-5">
-                      <Shield size={14} className="text-[#74b986] shrink-0 mt-0.5" />
+                      <Shield size={14} className="text-[#0eb59a] shrink-0 mt-0.5" />
                       <p className="text-[11px] text-teal-700 leading-relaxed">
                         Funds are transferred to an RBI-compliant escrow account. You retain full control and can request a refund for unused balances.
                       </p>
@@ -1203,7 +1193,7 @@ const cutoutCard = {
                         onClick={handleAddFunds}
                         className={`flex-1 py-3 text-sm font-black rounded-2xl transition-all ${
                           selectedAmount || customAmount
-                            ? 'bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white shadow-lg'
+                            ? 'bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white shadow-lg'
                             : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                         }`}
                       >
@@ -1223,11 +1213,11 @@ const cutoutCard = {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                      className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-[#74b986]"
+                      className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-[#0eb59a]"
                     >
-                      <Check size={36} className="text-[#74b986]" strokeWidth={3} />
+                      <Check size={36} className="text-[#0eb59a]" strokeWidth={3} />
                     </motion.div>
-                    <h3 className="text-xl font-black text-white mb-2">Funds Added!</h3>
+                    <h3 className="text-xl font-black text-gray-900 mb-2">Funds Added!</h3>
                     <p className="text-sm text-gray-400 leading-relaxed">
                       {selectedAmount || `₹${customAmount}`} has been added to your escrow account and is ready for milestone releases.
                     </p>
@@ -1261,7 +1251,7 @@ const cutoutCard = {
                     <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-5 border border-emerald-100">
                       <Unlock size={28} className="text-emerald-500" />
                     </div>
-                    <h3 className="text-xl font-black text-white text-center mb-2">Release Payment</h3>
+                    <h3 className="text-xl font-black text-gray-900 text-center mb-2">Release Payment</h3>
                     <p className="text-sm text-gray-400 text-center mb-5 leading-relaxed">
                       You are releasing payment for the pending milestone in
                       <span className="font-bold text-gray-700"> {showReleaseModal.engagement}</span>
@@ -1277,15 +1267,15 @@ const cutoutCard = {
 
                     <div className="space-y-2 text-xs mb-5">
                       <div className="flex justify-between">
-                        <span className="text-white/60 font-semibold">Milestone</span>
+                        <span className="text-gray-400 font-semibold">Milestone</span>
                         <span className="font-bold text-gray-700">{showReleaseModal.pendingMilestone}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-white/60 font-semibold">Transfer to</span>
+                        <span className="text-gray-400 font-semibold">Transfer to</span>
                         <span className="font-bold text-gray-700">{showReleaseModal.expert}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-white/60 font-semibold">Estimated arrival</span>
+                        <span className="text-gray-400 font-semibold">Estimated arrival</span>
                         <span className="font-bold text-emerald-600">Within 24 hours</span>
                       </div>
                     </div>
@@ -1325,7 +1315,7 @@ const cutoutCard = {
                     >
                       <Check size={36} className="text-emerald-500" strokeWidth={3} />
                     </motion.div>
-                    <h3 className="text-xl font-black text-white mb-2">Payment Released!</h3>
+                    <h3 className="text-xl font-black text-gray-900 mb-2">Payment Released!</h3>
                     <p className="text-sm text-gray-400 leading-relaxed">
                       {showReleaseModal?.balance} will be transferred to {showReleaseModal?.expert} within 24 hours.
                     </p>
@@ -1357,7 +1347,7 @@ const cutoutCard = {
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <p className="text-xs font-black text-gray-400 uppercase tracking-wider mb-0.5">Invoice</p>
-                  <h3 className="text-lg font-black text-white">{showInvoiceModal.id}</h3>
+                  <h3 className="text-lg font-black text-gray-900">{showInvoiceModal.id}</h3>
                 </div>
                 <motion.button
                   whileHover={{ scale: 1.1 }}
@@ -1371,11 +1361,11 @@ const cutoutCard = {
               {/* Invoice details */}
               <div className="bg-gray-50 rounded-2xl border border-gray-100 p-5 mb-5 space-y-3">
                 <div className="flex justify-between text-sm">
-                  <span className="text-white/60 font-semibold">Description</span>
+                  <span className="text-gray-400 font-semibold">Description</span>
                   <span className="font-bold text-gray-800 text-right max-w-[200px]">{showInvoiceModal.title}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-white/60 font-semibold">Expert</span>
+                  <span className="text-gray-400 font-semibold">Expert</span>
                   <div className="flex items-center gap-1.5">
                     {showInvoiceModal.expertAvatar && (
                       <img src={showInvoiceModal.expertAvatar} className="w-5 h-5 rounded-full object-cover" />
@@ -1384,25 +1374,25 @@ const cutoutCard = {
                   </div>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-white/60 font-semibold">Engagement</span>
+                  <span className="text-gray-400 font-semibold">Engagement</span>
                   <span className="font-bold text-gray-800">{showInvoiceModal.engagement}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-white/60 font-semibold">Invoice Date</span>
+                  <span className="text-gray-400 font-semibold">Invoice Date</span>
                   <span className="font-bold text-gray-800">{showInvoiceModal.date}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-white/60 font-semibold">Due Date</span>
+                  <span className="text-gray-400 font-semibold">Due Date</span>
                   <span className="font-bold text-gray-800">{showInvoiceModal.dueDate}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-white/60 font-semibold">Type</span>
+                  <span className="text-gray-400 font-semibold">Type</span>
                   <span className="font-bold text-gray-800">{showInvoiceModal.type}</span>
                 </div>
                 <div className="h-px bg-gray-200 my-1" />
                 <div className="flex justify-between">
-                  <span className="font-black text-white">Total Amount</span>
-                  <span className="font-black text-2xl text-[#2d6a4f]">{showInvoiceModal.amount}</span>
+                  <span className="font-black text-gray-900">Total Amount</span>
+                  <span className="font-black text-2xl text-[#134e40]">{showInvoiceModal.amount}</span>
                 </div>
               </div>
 
@@ -1423,7 +1413,7 @@ const cutoutCard = {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="flex-1 py-3 bg-[#2d6a4f] hover:bg-[#74b986] text-white text-sm font-black rounded-2xl shadow-md transition-all flex items-center justify-center gap-2"
+                  className="flex-1 py-3 bg-[#134e40] hover:bg-[#0eb59a] text-white text-sm font-black rounded-2xl shadow-md transition-all flex items-center justify-center gap-2"
                 >
                   <Download size={14} /> Download PDF
                 </motion.button>

@@ -20,17 +20,17 @@ import ExpertOpportunities from './pages/ExpertOpportunities';
 import ExpertEngagements from './pages/ExpertEngagements';
 import ExpertEarnings from './pages/ExpertEarnings';
 import ExpertProfileBuilder from './pages/ExpertProfileBuilder';
-import CompanyLayout from './components/CompanyLayout';
+
+
 
 import { AuthModalProvider } from './components/AuthModalContext';
 import AuthModal from './components/AuthModal';
 
 const AppContent = () => {
   const location = useLocation();
-  const showNavbar =
-    location.pathname === '/' ||
-    location.pathname === '/privacy-policy' ||
-    location.pathname === '/terms-of-service';
+  const showNavbar = location.pathname === '/' || location.pathname === '/privacy-policy' || location.pathname === '/terms-of-service';
+  const isDashboard = location.pathname === '/company-dashboard' || location.pathname === '/expert-dashboard' || location.pathname === '/requirements' || location.pathname === '/requirements/create' || location.pathname === '/experts' || location.pathname.startsWith('/experts/') || location.pathname.startsWith('/engagements') || location.pathname === '/settings' || location.pathname.startsWith('/expert-opportunities') || location.pathname.startsWith('/expert-engagements') || location.pathname === '/expert-earnings' || location.pathname === '/expert-profile';
+
 
   return (
     <AuthModalProvider>
@@ -39,30 +39,24 @@ const AppContent = () => {
         <AuthModal />
         <main className="main-content">
           <Routes>
-            {/* ── Public routes ── */}
             <Route path="/" element={<Home />} />
             <Route path="/join-company" element={<JoinCompany />} />
             <Route path="/join-expert" element={<JoinExpert />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/privacy-policy" element={<PrivacyDoc />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/company-dashboard" element={<CompanyDashboard />} />
+            <Route path="/requirements" element={<Requirements />} />
+            <Route path="/requirements/create" element={<CreateRequirement />} />
+            <Route path="/experts" element={<ExpertDiscovery />} />
+            <Route path="/experts/:expertId" element={<ExpertProfile />} />
+            <Route path="/engagements/:engagementId" element={<EngagementWorkspace />} />
+            <Route path="/engagements" element={<EngagementWorkspace />} />
+            <Route path="/contracts" element={<Contracts />} />
+            <Route path="/contracts/:contractId" element={<Contracts />} />
+            <Route path="/payments" element={<Payments />} />
+            <Route path="/settings" element={<Settings />} />
 
-            {/* ── Company routes — all share the persistent CompanyLayout sidebar ── */}
-            <Route element={<CompanyLayout />}>
-              <Route path="/company-dashboard" element={<CompanyDashboard />} />
-              <Route path="/requirements" element={<Requirements />} />
-              <Route path="/requirements/create" element={<CreateRequirement />} />
-              <Route path="/experts" element={<ExpertDiscovery />} />
-              <Route path="/experts/:expertId" element={<ExpertProfile />} />
-              <Route path="/engagements" element={<EngagementWorkspace />} />
-              <Route path="/engagements/:engagementId" element={<EngagementWorkspace />} />
-              <Route path="/contracts" element={<Contracts />} />
-              <Route path="/contracts/:contractId" element={<Contracts />} />
-              <Route path="/payments" element={<Payments />} />
-              <Route path="/settings" element={<Settings />} />
-            </Route>
 
-            {/* ── Expert routes ── */}
+
             <Route path="/expert-dashboard" element={<ExpertDashboard />} />
             <Route path="/expert-opportunities" element={<ExpertOpportunities />} />
             <Route path="/expert-opportunities/:opportunityId" element={<ExpertOpportunities />} />
@@ -70,6 +64,8 @@ const AppContent = () => {
             <Route path="/expert-engagements/:engagementId" element={<ExpertEngagements />} />
             <Route path="/expert-earnings" element={<ExpertEarnings />} />
             <Route path="/expert-profile" element={<ExpertProfileBuilder />} />
+            <Route path="/privacy-policy" element={<PrivacyDoc />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
           </Routes>
         </main>
       </div>

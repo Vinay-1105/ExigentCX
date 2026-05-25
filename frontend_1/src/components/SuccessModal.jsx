@@ -22,7 +22,7 @@ const SuccessModal = ({ isOpen, role }) => {
             <div className="relative overflow-hidden bg-white/70 backdrop-blur-2xl border border-white/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] rounded-3xl p-10 max-w-md w-full animate-in zoom-in-95 slide-in-from-bottom-5 duration-700">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/10 rounded-3xl pointer-events-none"></div>
                 <div className="relative z-10 flex flex-col items-center text-center">
-                    <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-500 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-green-500/40 ring-4 ring-white/60 animate-bounce" style={{ animationIterationCount: 1 }}>
+                    <div className="w-20 h-20 bg-gradient-to-br from-teal-400 to-teal-500 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-teal-500/40 ring-4 ring-white/60 animate-bounce" style={{ animationIterationCount: 1 }}>
                         <CheckCircle className="w-10 h-10 text-white" />
                     </div>
                     
@@ -37,7 +37,7 @@ const SuccessModal = ({ isOpen, role }) => {
                     <div className="flex flex-col gap-4 w-full mt-2">
                         <button 
                             onClick={() => navigate(signinPath)}
-                            className="w-full flex items-center justify-center gap-2 py-3.5 px-4 bg-gradient-to-r from-green-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-xl hover:-translate-y-1 active:translate-y-0 active:scale-95"
+                            className="w-full flex items-center justify-center gap-2 py-3.5 px-4 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-xl hover:-translate-y-1 active:translate-y-0 active:scale-95"
                         >
                             Sign In as {role === 'company' ? 'Company' : 'Expert'}
                             <ArrowRight size={18} />

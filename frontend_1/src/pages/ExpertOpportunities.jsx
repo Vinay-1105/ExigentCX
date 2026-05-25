@@ -126,7 +126,7 @@ const ExpertOpportunities = () => {
       skills: ['SaaS Metrics', 'Board Reporting', 'Revenue Forecasting', 'FP&A'],
       description: 'B2B SaaS company looking for a Fractional VP Finance to own our financial planning, board reporting, and revenue operations.',
       logo: 'SP',
-      logoColor: 'from-green-500 to-emerald-400',
+      logoColor: 'from-teal-500 to-emerald-400',
       status: 'normal',
       applicants: 9,
       verified: true,
@@ -285,7 +285,7 @@ const ExpertOpportunities = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#f8fafc]">
 
       {/* Background */}
       <div className="fixed top-0 right-0 w-96 h-96 bg-teal-100/20 rounded-full blur-3xl pointer-events-none" />
@@ -303,7 +303,7 @@ const ExpertOpportunities = () => {
             <div className="flex items-center gap-2 mb-1">
               <button
                 onClick={() => navigate('/expert-dashboard')}
-                className="text-gray-400 hover:text-[#74b986] text-sm font-semibold transition-colors"
+                className="text-gray-400 hover:text-[#0eb59a] text-sm font-semibold transition-colors"
               >
                 Dashboard
               </button>
@@ -331,7 +331,7 @@ const ExpertOpportunities = () => {
                   onClick={() => setViewMode(id)}
                   className={`p-2 rounded-lg transition-all ${
                     viewMode === id
-                      ? 'bg-[#2d6a4f] text-white shadow-sm'
+                      ? 'bg-[#134e40] text-white shadow-sm'
                       : 'text-gray-400 hover:text-gray-600'
                   }`}
                 >
@@ -347,14 +347,14 @@ const ExpertOpportunities = () => {
               onClick={() => setShowFilters(!showFilters)}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all ${
                 showFilters
-                  ? 'bg-[#2d6a4f] text-white border-[#2d6a4f]'
-                  : 'bg-white text-gray-600 border-gray-200 hover:border-[#74b986]/40'
+                  ? 'bg-[#134e40] text-white border-[#134e40]'
+                  : 'bg-white text-gray-600 border-gray-200 hover:border-[#0eb59a]/40'
               }`}
             >
               <SlidersHorizontal size={15} />
               Filters
               {totalActiveFilters > 0 && (
-                <span className="bg-[#74b986] text-white text-[10px] font-black px-1.5 py-0.5 rounded-full">
+                <span className="bg-[#0eb59a] text-white text-[10px] font-black px-1.5 py-0.5 rounded-full">
                   {totalActiveFilters}
                 </span>
               )}
@@ -371,14 +371,14 @@ const ExpertOpportunities = () => {
         >
           <Search
             size={18}
-            className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#74b986] transition-colors"
+            className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#0eb59a] transition-colors"
           />
           <input
             type="text"
             placeholder="Search by title, company, skill, or industry..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full pl-13 pr-12 py-3.5 bg-white border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all shadow-sm"
+            className="w-full pl-13 pr-12 py-3.5 bg-white border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all shadow-sm"
           />
           {searchQuery && (
             <button
@@ -405,8 +405,8 @@ const ExpertOpportunities = () => {
               onClick={() => setActiveFilter(filter)}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                 activeFilter === filter
-                  ? 'bg-[#2d6a4f] text-white shadow-md'
-                  : 'bg-white text-gray-500 border border-gray-200 hover:border-[#74b986]/40 hover:text-[#74b986]'
+                  ? 'bg-[#134e40] text-white shadow-md'
+                  : 'bg-white text-gray-500 border border-gray-200 hover:border-[#0eb59a]/40 hover:text-[#0eb59a]'
               }`}
             >
               {filter}
@@ -439,7 +439,7 @@ const ExpertOpportunities = () => {
                   {/* Header */}
                   <div className="flex items-center justify-between mb-5">
                     <h3 className="font-black text-gray-900 text-sm flex items-center gap-2">
-                      <Filter size={14} className="text-[#74b986]" /> Filters
+                      <Filter size={14} className="text-[#0eb59a]" /> Filters
                     </h3>
                     {totalActiveFilters > 0 && (
                       <motion.button
@@ -461,10 +461,10 @@ const ExpertOpportunities = () => {
                           className="w-full flex items-center justify-between mb-3 group"
                         >
                           <span className="text-xs font-black text-gray-700 uppercase tracking-wider flex items-center gap-2">
-                            <section.icon size={13} className="text-[#74b986]" />
+                            <section.icon size={13} className="text-[#0eb59a]" />
                             {section.label}
                             {activeFilters[section.id]?.length > 0 && (
-                              <span className="bg-[#74b986] text-white text-[9px] font-black px-1.5 py-0.5 rounded-full">
+                              <span className="bg-[#0eb59a] text-white text-[9px] font-black px-1.5 py-0.5 rounded-full">
                                 {activeFilters[section.id].length}
                               </span>
                             )}
@@ -494,7 +494,7 @@ const ExpertOpportunities = () => {
                                     onClick={() => toggleFilter(section.id, option)}
                                     className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all ${
                                       isActive
-                                        ? 'bg-teal-50 text-[#2d6a4f] border border-teal-100'
+                                        ? 'bg-teal-50 text-[#134e40] border border-teal-100'
                                         : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
                                     }`}
                                   >
@@ -503,7 +503,7 @@ const ExpertOpportunities = () => {
                                       <motion.div
                                         initial={{ scale: 0 }}
                                         animate={{ scale: 1 }}
-                                        className="w-4 h-4 bg-[#74b986] rounded-full flex items-center justify-center"
+                                        className="w-4 h-4 bg-[#0eb59a] rounded-full flex items-center justify-center"
                                       >
                                         <Check size={9} className="text-white" strokeWidth={3} />
                                       </motion.div>
@@ -520,7 +520,7 @@ const ExpertOpportunities = () => {
                     {/* Budget */}
                     <div>
                       <p className="text-xs font-black text-gray-700 uppercase tracking-wider mb-3 flex items-center gap-2">
-                        <DollarSign size={13} className="text-[#74b986]" /> Budget Range
+                        <DollarSign size={13} className="text-[#0eb59a]" /> Budget Range
                       </p>
                       <div className="space-y-1.5">
                         {budgetOptions.map(bud => (
@@ -534,7 +534,7 @@ const ExpertOpportunities = () => {
                             }))}
                             className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all ${
                               (bud === 'Any' && !activeFilters.budget) || activeFilters.budget === bud
-                                ? 'bg-teal-50 text-[#2d6a4f] border border-teal-100'
+                                ? 'bg-teal-50 text-[#134e40] border border-teal-100'
                                 : 'text-gray-500 hover:bg-gray-50'
                             }`}
                           >
@@ -543,7 +543,7 @@ const ExpertOpportunities = () => {
                               <motion.div
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
-                                className="w-4 h-4 bg-[#74b986] rounded-full flex items-center justify-center"
+                                className="w-4 h-4 bg-[#0eb59a] rounded-full flex items-center justify-center"
                               >
                                 <Check size={9} className="text-white" strokeWidth={3} />
                               </motion.div>
@@ -576,7 +576,7 @@ const ExpertOpportunities = () => {
                       key={`${key}-${item}`}
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      className="flex items-center gap-1.5 px-3 py-1.5 bg-teal-50 text-[#2d6a4f] text-xs font-bold rounded-xl border border-teal-100"
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-teal-50 text-[#134e40] text-xs font-bold rounded-xl border border-teal-100"
                     >
                       {item}
                       <button onClick={() => {
@@ -596,7 +596,7 @@ const ExpertOpportunities = () => {
               <p className="text-sm font-bold text-gray-500">
                 Showing <span className="text-gray-900 font-black">{filteredOpportunities.length}</span> opportunities
               </p>
-              <select className="text-xs font-bold text-gray-500 bg-white border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#74b986]/20">
+              <select className="text-xs font-bold text-gray-500 bg-white border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20">
                 <option>Best Match</option>
                 <option>Newest First</option>
                 <option>Highest Budget</option>
@@ -620,7 +620,7 @@ const ExpertOpportunities = () => {
                   <motion.button
                     whileHover={{ scale: 1.03 }}
                     onClick={clearAllFilters}
-                    className="px-5 py-2.5 bg-[#2d6a4f] text-white text-sm font-bold rounded-xl"
+                    className="px-5 py-2.5 bg-[#134e40] text-white text-sm font-bold rounded-xl"
                   >
                     Clear Filters
                   </motion.button>
@@ -640,7 +640,7 @@ const ExpertOpportunities = () => {
                     >
                       {/* Card top accent */}
                       {opp.status === 'featured' && (
-                        <div className="h-1 bg-gradient-to-r from-[#2d6a4f] to-[#74b986]" />
+                        <div className="h-1 bg-gradient-to-r from-[#134e40] to-[#0eb59a]" />
                       )}
                       {opp.status === 'new' && (
                         <div className="h-1 bg-gradient-to-r from-blue-400 to-cyan-400" />
@@ -653,7 +653,7 @@ const ExpertOpportunities = () => {
                             {opp.type}
                           </span>
                           {opp.status === 'featured' && (
-                            <span className="text-[10px] font-black text-[#2d6a4f] bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-200 flex items-center gap-1">
+                            <span className="text-[10px] font-black text-[#134e40] bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-200 flex items-center gap-1">
                               <Star size={9} fill="currentColor" /> Featured
                             </span>
                           )}
@@ -662,7 +662,7 @@ const ExpertOpportunities = () => {
                               New
                             </span>
                           )}
-                          <span className="ml-auto text-[10px] font-black text-[#2d6a4f] bg-teal-50 px-2 py-1 rounded-lg border border-teal-100">
+                          <span className="ml-auto text-[10px] font-black text-[#134e40] bg-teal-50 px-2 py-1 rounded-lg border border-teal-100">
                             {opp.match}% Match
                           </span>
                         </div>
@@ -675,7 +675,7 @@ const ExpertOpportunities = () => {
                           <div className="min-w-0">
                             <h3
                               onClick={() => navigate(`/expert-opportunities/${opp.id}`)}
-                              className="font-black text-gray-900 text-sm group-hover:text-[#74b986] transition-colors cursor-pointer leading-tight"
+                              className="font-black text-gray-900 text-sm group-hover:text-[#0eb59a] transition-colors cursor-pointer leading-tight"
                             >
                               {opp.title}
                             </h3>
@@ -692,7 +692,7 @@ const ExpertOpportunities = () => {
                         {/* Meta */}
                         <div className="grid grid-cols-2 gap-2 mb-4">
                           {[
-                            { icon: DollarSign, label: opp.budget, color: 'text-[#74b986]' },
+                            { icon: DollarSign, label: opp.budget, color: 'text-[#0eb59a]' },
                             { icon: Clock, label: opp.commitment, color: 'text-blue-400' },
                             { icon: MapPin, label: opp.location.split(' | ')[0], color: 'text-rose-400' },
                             { icon: Calendar, label: opp.duration, color: 'text-purple-400' },
@@ -739,7 +739,7 @@ const ExpertOpportunities = () => {
                             whileHover={{ scale: 1.03 }}
                             whileTap={{ scale: 0.97 }}
                             onClick={() => setShowApplyModal(opp)}
-                            className="flex-1 py-2.5 bg-[#2d6a4f] hover:bg-[#74b986] text-white text-xs font-black rounded-xl transition-all shadow-sm"
+                            className="flex-1 py-2.5 bg-[#134e40] hover:bg-[#0eb59a] text-white text-xs font-black rounded-xl transition-all shadow-sm"
                           >
                             Apply Now
                           </motion.button>
@@ -747,7 +747,7 @@ const ExpertOpportunities = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => navigate(`/expert-opportunities/${opp.id}`)}
-                            className="px-3 py-2.5 bg-gray-50 border border-gray-100 text-gray-400 hover:text-[#74b986] hover:bg-teal-50 rounded-xl transition-all"
+                            className="px-3 py-2.5 bg-gray-50 border border-gray-100 text-gray-400 hover:text-[#0eb59a] hover:bg-teal-50 rounded-xl transition-all"
                           >
                             <Eye size={14} />
                           </motion.button>
@@ -798,14 +798,14 @@ const ExpertOpportunities = () => {
                               <Zap size={9} fill="currentColor" /> Urgent
                             </span>
                           )}
-                          <span className="ml-auto text-[10px] font-black text-[#2d6a4f] bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-100">
+                          <span className="ml-auto text-[10px] font-black text-[#134e40] bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-100">
                             {opp.match}% Match
                           </span>
                         </div>
 
                         <h3
                           onClick={() => navigate(`/expert-opportunities/${opp.id}`)}
-                          className="font-black text-gray-900 text-base group-hover:text-[#74b986] transition-colors cursor-pointer leading-tight mb-0.5"
+                          className="font-black text-gray-900 text-base group-hover:text-[#0eb59a] transition-colors cursor-pointer leading-tight mb-0.5"
                         >
                           {opp.title}
                         </h3>
@@ -814,7 +814,7 @@ const ExpertOpportunities = () => {
                         </p>
 
                         <div className="flex flex-wrap gap-4 text-xs text-gray-400 font-semibold mb-3">
-                          <span className="flex items-center gap-1.5 text-[#74b986] font-bold">
+                          <span className="flex items-center gap-1.5 text-[#0eb59a] font-bold">
                             <DollarSign size={11} /> {opp.budget}
                           </span>
                           <span className="flex items-center gap-1.5">
@@ -846,7 +846,7 @@ const ExpertOpportunities = () => {
                           whileHover={{ scale: 1.03 }}
                           whileTap={{ scale: 0.97 }}
                           onClick={() => setShowApplyModal(opp)}
-                          className="px-5 py-2.5 bg-[#2d6a4f] hover:bg-[#74b986] text-white text-xs font-black rounded-xl transition-all shadow-sm"
+                          className="px-5 py-2.5 bg-[#134e40] hover:bg-[#0eb59a] text-white text-xs font-black rounded-xl transition-all shadow-sm"
                         >
                           Apply Now
                         </motion.button>
@@ -913,9 +913,9 @@ const ExpertOpportunities = () => {
                       <div className="flex-1 min-w-0">
                         <h4 className="font-black text-gray-900 text-sm leading-tight">{showApplyModal.title}</h4>
                         <p className="text-xs text-gray-500 font-semibold">{showApplyModal.company}</p>
-                        <p className="text-[10px] text-[#74b986] font-black mt-0.5">{showApplyModal.budget}</p>
+                        <p className="text-[10px] text-[#0eb59a] font-black mt-0.5">{showApplyModal.budget}</p>
                       </div>
-                      <span className="text-xs font-black text-[#2d6a4f] bg-teal-100 px-2.5 py-1.5 rounded-xl shrink-0">
+                      <span className="text-xs font-black text-[#134e40] bg-teal-100 px-2.5 py-1.5 rounded-xl shrink-0">
                         {showApplyModal.match}% Match
                       </span>
                     </div>
@@ -937,7 +937,7 @@ const ExpertOpportunities = () => {
                           value={proposedRate}
                           onChange={e => setProposedRate(e.target.value)}
                           placeholder={`Budget: ${showApplyModal.budget}`}
-                          className="w-full pl-8 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all"
+                          className="w-full pl-8 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
                         />
                       </div>
                     </div>
@@ -952,7 +952,7 @@ const ExpertOpportunities = () => {
                         onChange={e => setProposalText(e.target.value)}
                         placeholder={`Hi, I'm a CFO with 18 years of experience at Meesho and OYO. I've led $200M+ in fundraising and have deep expertise in the areas you're looking for...`}
                         rows={5}
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all resize-none"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all resize-none"
                       />
                       <p className="text-[10px] text-gray-400 mt-1 font-semibold text-right">
                         {proposalText.length}/500 characters
@@ -961,7 +961,7 @@ const ExpertOpportunities = () => {
 
                     {/* Availability confirmation */}
                     <div className="bg-teal-50 rounded-2xl p-4 border border-teal-100 mb-5 flex items-start gap-2">
-                      <CheckCircle size={15} className="text-[#74b986] shrink-0 mt-0.5" />
+                      <CheckCircle size={15} className="text-[#0eb59a] shrink-0 mt-0.5" />
                       <p className="text-xs text-teal-700 font-semibold leading-relaxed">
                         By applying, you confirm you are available for <span className="font-black">{showApplyModal.commitment}</span> starting <span className="font-black">immediately</span>.
                         The company will review your profile and respond within 48 hours.
@@ -984,7 +984,7 @@ const ExpertOpportunities = () => {
                         onClick={handleApply}
                         className={`flex-1 py-3 text-sm font-black rounded-2xl transition-all ${
                           proposalText.trim()
-                            ? 'bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white shadow-lg'
+                            ? 'bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white shadow-lg'
                             : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                         }`}
                       >
@@ -1004,15 +1004,15 @@ const ExpertOpportunities = () => {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                      className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-[#74b986]"
+                      className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-[#0eb59a]"
                     >
-                      <Check size={36} className="text-[#74b986]" strokeWidth={3} />
+                      <Check size={36} className="text-[#0eb59a]" strokeWidth={3} />
                     </motion.div>
                     <h3 className="text-xl font-black text-gray-900 mb-2">Proposal Submitted!</h3>
                     <p className="text-sm text-gray-400 leading-relaxed">
                       Your proposal for <span className="font-bold text-gray-700">{showApplyModal.title}</span> at <span className="font-bold text-gray-700">{showApplyModal.company}</span> has been sent. Expect a response within 48 hours.
                     </p>
-                    <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-[#2d6a4f] text-xs font-black rounded-xl border border-teal-100">
+                    <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-[#134e40] text-xs font-black rounded-xl border border-teal-100">
                       <Shield size={12} /> Reviewed by CXO Connect PMO
                     </div>
                   </motion.div>

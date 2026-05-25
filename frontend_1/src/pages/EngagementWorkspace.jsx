@@ -256,7 +256,7 @@ const EngagementWorkspace = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#f8fafc]">
 
       {/* Background */}
       <div className="fixed top-0 right-0 w-96 h-96 bg-teal-100/20 rounded-full blur-3xl pointer-events-none" />
@@ -267,10 +267,10 @@ const EngagementWorkspace = () => {
         <div className="max-w-7xl mx-auto px-6 py-4">
 
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-white/60 mb-3">
-            <button onClick={() => navigate('/company-dashboard')} className="hover:text-[#74b986] font-semibold transition-colors">Dashboard</button>
+          <div className="flex items-center gap-2 text-sm text-gray-400 mb-3">
+            <button onClick={() => navigate('/company-dashboard')} className="hover:text-[#0eb59a] font-semibold transition-colors">Dashboard</button>
             <ChevronRight size={14} />
-            <button onClick={() => navigate('/company-dashboard')} className="hover:text-[#74b986] font-semibold transition-colors">Engagements</button>
+            <button onClick={() => navigate('/company-dashboard')} className="hover:text-[#0eb59a] font-semibold transition-colors">Engagements</button>
             <ChevronRight size={14} />
             <span className="text-gray-700 font-bold">{engagement.title}</span>
           </div>
@@ -298,7 +298,7 @@ const EngagementWorkspace = () => {
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h1 className="text-lg font-black text-white">{engagement.title}</h1>
+                    <h1 className="text-lg font-black text-gray-900">{engagement.title}</h1>
                     <span className={`text-[10px] font-black px-2.5 py-1 rounded-full border flex items-center gap-1 ${engagement.statusColor}`}>
                       <motion.span animate={{ scale: [1, 1.4, 1] }} transition={{ duration: 1.5, repeat: Infinity }}
                         className="w-1.5 h-1.5 rounded-full bg-current"
@@ -306,7 +306,7 @@ const EngagementWorkspace = () => {
                       {engagement.status}
                     </span>
                   </div>
-                  <p className="text-xs text-white/60 font-semibold">
+                  <p className="text-xs text-gray-400 font-semibold">
                     with <span className="font-bold text-gray-600">{engagement.expert.name}</span>
                     <span className="mx-1">·</span>
                     {engagement.expert.title}
@@ -321,15 +321,15 @@ const EngagementWorkspace = () => {
             <div className="flex items-center gap-4">
               <div className="hidden md:block">
                 <div className="flex justify-between text-xs mb-1.5">
-                  <span className="text-white/60 font-semibold">Overall Progress</span>
-                  <span className="font-black text-[#2d6a4f]">{engagement.progress}%</span>
+                  <span className="text-gray-400 font-semibold">Overall Progress</span>
+                  <span className="font-black text-[#134e40]">{engagement.progress}%</span>
                 </div>
                 <div className="w-40 h-2 bg-gray-100 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${engagement.progress}%` }}
                     transition={{ duration: 1.2, ease: 'easeOut' }}
-                    className="h-full bg-gradient-to-r from-[#2d6a4f] to-[#74b986] rounded-full relative overflow-hidden"
+                    className="h-full bg-gradient-to-r from-[#134e40] to-[#0eb59a] rounded-full relative overflow-hidden"
                   >
                     <motion.div
                       animate={{ x: ['-100%', '200%'] }}
@@ -340,8 +340,8 @@ const EngagementWorkspace = () => {
                 </div>
               </div>
               <div className="flex items-center gap-2 bg-teal-50 border border-teal-100 px-4 py-2 rounded-xl">
-                <Shield size={14} className="text-[#74b986]" />
-                <span className="text-xs font-black text-[#2d6a4f]">PMO: {engagement.pmContact}</span>
+                <Shield size={14} className="text-[#0eb59a]" />
+                <span className="text-xs font-black text-[#134e40]">PMO: {engagement.pmContact}</span>
               </div>
             </div>
           </div>
@@ -355,7 +355,7 @@ const EngagementWorkspace = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-4 py-3 text-sm font-bold transition-all relative ${
                   activeTab === tab.id
-                    ? 'text-[#2d6a4f]'
+                    ? 'text-[#134e40]'
                     : 'text-gray-400 hover:text-gray-600'
                 }`}
               >
@@ -364,7 +364,7 @@ const EngagementWorkspace = () => {
                 {activeTab === tab.id && (
                   <motion.div
                     layoutId="wsTabIndicator"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#74b986] rounded-full"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0eb59a] rounded-full"
                   />
                 )}
                 {tab.id === 'Milestones' && milestones.filter(m => m.status === 'pending_approval').length > 0 && (
@@ -398,7 +398,7 @@ const EngagementWorkspace = () => {
                 {/* KPI Cards */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[
-                    { label: 'Total Value', value: engagement.totalValue, icon: TrendingUp, color: 'text-green-500', bg: 'bg-teal-50', border: 'border-l-[#74b986]' },
+                    { label: 'Total Value', value: engagement.totalValue, icon: TrendingUp, color: 'text-teal-500', bg: 'bg-teal-50', border: 'border-l-[#0eb59a]' },
                     { label: 'Escrow Balance', value: engagement.escrowBalance, icon: Lock, color: 'text-amber-500', bg: 'bg-amber-50', border: 'border-l-amber-400' },
                     { label: 'Released', value: engagement.spent, icon: Unlock, color: 'text-emerald-500', bg: 'bg-emerald-50', border: 'border-l-emerald-400' },
                     { label: 'Days Left', value: engagement.daysLeft, icon: Calendar, color: 'text-blue-500', bg: 'bg-blue-50', border: 'border-l-blue-400' },
@@ -414,7 +414,7 @@ const EngagementWorkspace = () => {
                       <div className={`w-8 h-8 ${kpi.bg} rounded-xl flex items-center justify-center mb-3`}>
                         <kpi.icon size={15} className={kpi.color} />
                       </div>
-                      <p className="text-2xl font-black text-white">{kpi.value}</p>
+                      <p className="text-2xl font-black text-gray-900">{kpi.value}</p>
                       <p className="text-[10px] text-gray-400 font-bold mt-1 uppercase tracking-wider">{kpi.label}</p>
                     </motion.div>
                   ))}
@@ -423,17 +423,17 @@ const EngagementWorkspace = () => {
                 {/* Overall Progress */}
                 <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
                   <div className="flex items-center justify-between mb-5">
-                    <h3 className="font-black text-white text-base flex items-center gap-2">
-                      <BarChart2 size={16} className="text-[#74b986]" /> Engagement Progress
+                    <h3 className="font-black text-gray-900 text-base flex items-center gap-2">
+                      <BarChart2 size={16} className="text-[#0eb59a]" /> Engagement Progress
                     </h3>
-                    <span className="text-2xl font-black text-[#2d6a4f]">{engagement.progress}%</span>
+                    <span className="text-2xl font-black text-[#134e40]">{engagement.progress}%</span>
                   </div>
                   <div className="h-3 bg-gray-100 rounded-full overflow-hidden mb-5">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${engagement.progress}%` }}
                       transition={{ duration: 1.5, ease: 'easeOut' }}
-                      className="h-full bg-gradient-to-r from-[#2d6a4f] to-[#74b986] rounded-full relative overflow-hidden"
+                      className="h-full bg-gradient-to-r from-[#134e40] to-[#0eb59a] rounded-full relative overflow-hidden"
                     >
                       <motion.div
                         animate={{ x: ['-100%', '200%'] }}
@@ -446,7 +446,7 @@ const EngagementWorkspace = () => {
                   {/* Timeline */}
                   <div className="flex justify-between text-xs font-semibold text-gray-400">
                     <span className="flex flex-col items-start gap-1">
-                      <span className="text-[#2d6a4f] font-black">Start</span>
+                      <span className="text-[#134e40] font-black">Start</span>
                       {engagement.startDate}
                     </span>
                     <span className="flex flex-col items-center gap-1">
@@ -463,11 +463,11 @@ const EngagementWorkspace = () => {
                 {/* Milestone summary */}
                 <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-black text-white text-base flex items-center gap-2">
-                      <CheckCircle size={16} className="text-[#74b986]" /> Milestone Summary
+                    <h3 className="font-black text-gray-900 text-base flex items-center gap-2">
+                      <CheckCircle size={16} className="text-[#0eb59a]" /> Milestone Summary
                     </h3>
                     <button onClick={() => setActiveTab('Milestones')}
-                      className="text-xs font-bold text-[#74b986] hover:text-[#2d6a4f] transition-colors flex items-center gap-1"
+                      className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors flex items-center gap-1"
                     >
                       View All <ChevronRight size={12} />
                     </button>
@@ -525,8 +525,8 @@ const EngagementWorkspace = () => {
                   transition={{ delay: 0.1 }}
                   className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5"
                 >
-                  <h3 className="font-black text-white text-sm mb-4 flex items-center gap-2">
-                    <Users size={14} className="text-[#74b986]" /> Expert
+                  <h3 className="font-black text-gray-900 text-sm mb-4 flex items-center gap-2">
+                    <Users size={14} className="text-[#0eb59a]" /> Expert
                   </h3>
                   <div className="flex items-center gap-3 mb-4">
                     <div className="relative">
@@ -534,7 +534,7 @@ const EngagementWorkspace = () => {
                       <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-white rounded-full" />
                     </div>
                     <div>
-                      <p className="font-black text-white text-sm">{engagement.expert.name}</p>
+                      <p className="font-black text-gray-900 text-sm">{engagement.expert.name}</p>
                       <p className="text-xs text-gray-500">{engagement.expert.title}</p>
                       <div className="flex items-center gap-1 mt-0.5">
                         <Star size={11} fill="#F59E0B" className="text-amber-400" />
@@ -550,7 +550,7 @@ const EngagementWorkspace = () => {
                       { label: 'Budget', value: engagement.budget },
                     ].map((item, idx) => (
                       <div key={idx} className="flex justify-between">
-                        <span className="text-white/60 font-semibold">{item.label}</span>
+                        <span className="text-gray-400 font-semibold">{item.label}</span>
                         <span className="font-bold text-gray-700">{item.value}</span>
                       </div>
                     ))}
@@ -559,7 +559,7 @@ const EngagementWorkspace = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setActiveTab('Messages')}
-                    className="w-full mt-4 py-2.5 bg-[#2d6a4f] hover:bg-[#74b986] text-white text-xs font-black rounded-xl transition-all flex items-center justify-center gap-2"
+                    className="w-full mt-4 py-2.5 bg-[#134e40] hover:bg-[#0eb59a] text-white text-xs font-black rounded-xl transition-all flex items-center justify-center gap-2"
                   >
                     <MessageSquare size={13} /> Message David
                   </motion.button>
@@ -570,12 +570,12 @@ const EngagementWorkspace = () => {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.15 }}
-                  className="bg-gradient-to-br from-[#2d6a4f] to-[#2d6a4f] rounded-3xl p-5 text-white relative overflow-hidden"
+                  className="bg-gradient-to-br from-[#0d1f2d] to-[#134e40] rounded-3xl p-5 text-white relative overflow-hidden"
                 >
                   <div className="absolute -right-4 -top-4 w-20 h-20 bg-white/5 rounded-full" />
                   <div className="relative z-10">
                     <div className="flex items-center gap-2 mb-3">
-                      <Shield size={16} className="text-[#74b986]" />
+                      <Shield size={16} className="text-[#0eb59a]" />
                       <h3 className="font-black text-sm">PMO Governance</h3>
                     </div>
                     <p className="text-xs text-white/60 mb-3 leading-relaxed">
@@ -603,7 +603,7 @@ const EngagementWorkspace = () => {
                   transition={{ delay: 0.2 }}
                   className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5"
                 >
-                  <h3 className="font-black text-white text-sm mb-3">Quick Actions</h3>
+                  <h3 className="font-black text-gray-900 text-sm mb-3">Quick Actions</h3>
                   <div className="space-y-2">
                     {[
                       { label: 'View Documents', icon: FileText, action: () => setActiveTab('Documents') },
@@ -615,9 +615,9 @@ const EngagementWorkspace = () => {
                         whileHover={{ x: 3 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={item.action}
-                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-[#74b986] transition-all"
+                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-[#0eb59a] transition-all"
                       >
-                        <item.icon size={15} className={item.id === 1 ? 'text-blue-500' : 'text-[#74b986]'} />
+                        <item.icon size={15} className={item.id === 1 ? 'text-blue-500' : 'text-[#0eb59a]'} />
                         {item.label}
                         <ChevronRight size={13} className="ml-auto text-gray-300" />
                       </motion.button>
@@ -706,15 +706,15 @@ const EngagementWorkspace = () => {
                           <div className="flex items-start justify-between mb-3">
                             <div>
                               <div className="flex items-center gap-2 mb-1">
-                                <h4 className="font-black text-white text-base">{ms.title}</h4>
+                                <h4 className="font-black text-gray-900 text-base">{ms.title}</h4>
                                 <span className={`text-[10px] font-black px-2.5 py-1 rounded-lg border ${statusInfo.color}`}>
                                   {statusInfo.label}
                                 </span>
                               </div>
-                              <p className="text-sm text-white/70 leading-relaxed">{ms.desc}</p>
+                              <p className="text-sm text-gray-500 leading-relaxed">{ms.desc}</p>
                             </div>
                             <div className="text-right shrink-0 ml-4">
-                              <p className="font-black text-[#2d6a4f] text-lg">{ms.payment}</p>
+                              <p className="font-black text-[#134e40] text-lg">{ms.payment}</p>
                               <span className={`text-[9px] font-black px-2 py-0.5 rounded-md border ${getPaymentStatus(ms.paymentStatus).color}`}>
                                 {getPaymentStatus(ms.paymentStatus).label}
                               </span>
@@ -722,9 +722,9 @@ const EngagementWorkspace = () => {
                           </div>
 
                           {/* Dates */}
-                          <div className="flex gap-4 text-xs font-semibold text-white/60 mb-4">
+                          <div className="flex gap-4 text-xs font-semibold text-gray-400 mb-4">
                             <span className="flex items-center gap-1.5">
-                              <Calendar size={11} className="text-[#74b986]" /> Due: {ms.dueDate}
+                              <Calendar size={11} className="text-[#0eb59a]" /> Due: {ms.dueDate}
                             </span>
                             {ms.completedDate && (
                               <span className="flex items-center gap-1.5 text-emerald-600">
@@ -752,7 +752,7 @@ const EngagementWorkspace = () => {
                                       <motion.button
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
-                                        className="p-1.5 rounded-lg text-gray-300 hover:text-[#74b986] transition-colors opacity-0 group-hover:opacity-100"
+                                        className="p-1.5 rounded-lg text-gray-300 hover:text-[#0eb59a] transition-colors opacity-0 group-hover:opacity-100"
                                       >
                                         <Download size={13} />
                                       </motion.button>
@@ -810,7 +810,7 @@ const EngagementWorkspace = () => {
                   <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full" />
                 </div>
                 <div>
-                  <p className="font-black text-white text-sm">{engagement.expert.name}</p>
+                  <p className="font-black text-gray-900 text-sm">{engagement.expert.name}</p>
                   <p className="text-xs text-emerald-500 font-semibold">Online · Responds in {engagement.expert.rating > 4.5 ? '< 2 hrs' : '< 4 hrs'}</p>
                 </div>
                 <div className="ml-auto flex items-center gap-2">
@@ -833,7 +833,7 @@ const EngagementWorkspace = () => {
                       className={`flex gap-3 ${isCompany ? 'flex-row-reverse' : ''}`}
                     >
                       {isCompany ? (
-                        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#2d6a4f] to-[#74b986] flex items-center justify-center text-white text-xs font-black shrink-0">
+                        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#134e40] to-[#0eb59a] flex items-center justify-center text-white text-xs font-black shrink-0">
                           AC
                         </div>
                       ) : (
@@ -842,12 +842,12 @@ const EngagementWorkspace = () => {
                       <div className={`max-w-md ${isCompany ? 'items-end' : 'items-start'} flex flex-col gap-1`}>
                         <div className={`px-4 py-3 rounded-2xl text-sm leading-relaxed ${
                           isCompany
-                            ? 'bg-gradient-to-br from-[#2d6a4f] to-[#74b986] text-white rounded-tr-sm'
+                            ? 'bg-gradient-to-br from-[#134e40] to-[#0eb59a] text-white rounded-tr-sm'
                             : 'bg-gray-50 text-gray-700 border border-gray-100 rounded-tl-sm'
                         }`}>
                           {msg.text}
                         </div>
-                        <span className="text-[10px] text-white/60 font-semibold px-1">{msg.time}</span>
+                        <span className="text-[10px] text-gray-400 font-semibold px-1">{msg.time}</span>
                       </div>
                     </motion.div>
                   );
@@ -858,7 +858,7 @@ const EngagementWorkspace = () => {
               <div className="p-4 border-t border-gray-100 bg-gray-50/50">
                 <div className="flex items-end gap-3">
                   <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-                    className="p-2.5 rounded-xl bg-white border border-gray-200 text-gray-400 hover:text-[#74b986] transition-colors shrink-0"
+                    className="p-2.5 rounded-xl bg-white border border-gray-200 text-gray-400 hover:text-[#0eb59a] transition-colors shrink-0"
                   >
                     <Paperclip size={16} />
                   </motion.button>
@@ -869,7 +869,7 @@ const EngagementWorkspace = () => {
                       onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
                       placeholder="Type a message... (Enter to send)"
                       rows={1}
-                      className="w-full px-4 py-3 bg-white border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all resize-none [&::-webkit-scrollbar]:hidden"
+                      className="w-full px-4 py-3 bg-white border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all resize-none [&::-webkit-scrollbar]:hidden"
                     />
                   </div>
                   <motion.button
@@ -879,7 +879,7 @@ const EngagementWorkspace = () => {
                     disabled={!messageText.trim()}
                     className={`p-3 rounded-2xl shrink-0 transition-all ${
                       messageText.trim()
-                        ? 'bg-[#2d6a4f] hover:bg-[#74b986] text-white shadow-md'
+                        ? 'bg-[#134e40] hover:bg-[#0eb59a] text-white shadow-md'
                         : 'bg-gray-100 text-gray-300 cursor-not-allowed'
                     }`}
                   >
@@ -902,14 +902,14 @@ const EngagementWorkspace = () => {
             >
               {/* Upload area */}
               <motion.div
-                whileHover={{ borderColor: '#74b986' }}
+                whileHover={{ borderColor: '#0eb59a' }}
                 className="bg-white rounded-3xl border-2 border-dashed border-gray-200 p-8 text-center cursor-pointer transition-all group"
               >
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   className="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-3 border border-teal-100"
                 >
-                  <Upload size={22} className="text-[#74b986]" />
+                  <Upload size={22} className="text-[#0eb59a]" />
                 </motion.div>
                 <p className="font-black text-gray-700 text-sm mb-1">Upload Document</p>
                 <p className="text-xs text-gray-400">Drag & drop or click to upload — PDF, DOCX, XLSX, PPTX up to 25MB</p>
@@ -920,8 +920,8 @@ const EngagementWorkspace = () => {
                 const catDocs = documents.filter(d => d.category === category);
                 return (
                   <div key={category}>
-                    <h3 className="font-black text-white text-sm mb-3 flex items-center gap-2">
-                      {category === 'Legal' ? <Shield size={15} className="text-blue-500" /> : <FileText size={15} className="text-[#74b986]" />}
+                    <h3 className="font-black text-gray-900 text-sm mb-3 flex items-center gap-2">
+                      {category === 'Legal' ? <Shield size={15} className="text-blue-500" /> : <FileText size={15} className="text-[#0eb59a]" />}
                       {category} Documents
                       <span className="text-xs font-bold text-gray-400 bg-gray-50 px-2 py-0.5 rounded-lg border border-gray-100">
                         {catDocs.length}
@@ -945,7 +945,7 @@ const EngagementWorkspace = () => {
                             </div>
                             <div className="flex-1 min-w-0">
                               <p className="font-bold text-gray-800 text-sm truncate">{doc.name}</p>
-                              <p className="text-xs text-white/60 font-semibold">
+                              <p className="text-xs text-gray-400 font-semibold">
                                 {doc.uploadedBy} · {doc.date} · {doc.size}
                               </p>
                             </div>
@@ -956,7 +956,7 @@ const EngagementWorkspace = () => {
                             )}
                             <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
                               <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
-                                className="p-1.5 rounded-lg text-gray-400 hover:text-[#74b986] hover:bg-teal-50 transition-all"
+                                className="p-1.5 rounded-lg text-gray-400 hover:text-[#0eb59a] hover:bg-teal-50 transition-all"
                               >
                                 <Eye size={14} />
                               </motion.button>
@@ -989,7 +989,7 @@ const EngagementWorkspace = () => {
               {/* Payment Summary */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[
-                  { label: 'Total Engagement Value', value: engagement.totalValue, icon: TrendingUp, color: 'text-green-500', bg: 'bg-teal-50', border: 'border-l-[#74b986]', desc: 'Full contract value' },
+                  { label: 'Total Engagement Value', value: engagement.totalValue, icon: TrendingUp, color: 'text-teal-500', bg: 'bg-teal-50', border: 'border-l-[#0eb59a]', desc: 'Full contract value' },
                   { label: 'Released to Expert', value: engagement.spent, icon: Unlock, color: 'text-emerald-500', bg: 'bg-emerald-50', border: 'border-l-emerald-400', desc: '2 milestones paid' },
                   { label: 'In Escrow', value: engagement.escrowBalance, icon: Lock, color: 'text-amber-500', bg: 'bg-amber-50', border: 'border-l-amber-400', desc: 'Secured by CXO Connect' },
                 ].map((kpi, idx) => (
@@ -1004,7 +1004,7 @@ const EngagementWorkspace = () => {
                     <div className={`w-9 h-9 ${kpi.bg} rounded-xl flex items-center justify-center mb-3`}>
                       <kpi.icon size={17} className={kpi.color} />
                     </div>
-                    <p className="text-2xl font-black text-white">{kpi.value}</p>
+                    <p className="text-2xl font-black text-gray-900">{kpi.value}</p>
                     <p className="text-xs font-bold text-gray-700 mt-0.5">{kpi.label}</p>
                     <p className="text-[10px] text-gray-400 mt-0.5">{kpi.desc}</p>
                   </motion.div>
@@ -1013,9 +1013,9 @@ const EngagementWorkspace = () => {
 
               {/* Escrow info */}
               <div className="bg-teal-50 rounded-2xl border border-teal-100 p-4 flex items-start gap-3">
-                <Shield size={18} className="text-[#74b986] shrink-0 mt-0.5" />
+                <Shield size={18} className="text-[#0eb59a] shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-black text-[#2d6a4f]">Escrow-backed payments</p>
+                  <p className="text-sm font-black text-[#134e40]">Escrow-backed payments</p>
                   <p className="text-xs text-teal-700 mt-0.5 leading-relaxed">
                     All payments are held in escrow by CXO Connect and released only after you approve each milestone. Your money is always secure.
                   </p>
@@ -1025,11 +1025,11 @@ const EngagementWorkspace = () => {
               {/* Payment Table */}
               <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
                 <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
-                  <h3 className="font-black text-white text-sm">Payment Schedule</h3>
+                  <h3 className="font-black text-gray-900 text-sm">Payment Schedule</h3>
                   <motion.button
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
-                    className="flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-[#74b986] transition-colors"
+                    className="flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-[#0eb59a] transition-colors"
                   >
                     <Download size={13} /> Export
                   </motion.button>
@@ -1057,11 +1057,11 @@ const EngagementWorkspace = () => {
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="font-bold text-gray-800 text-sm truncate">{payment.milestone}</p>
-                          <p className="text-xs text-white/60 font-semibold">
+                          <p className="text-xs text-gray-400 font-semibold">
                             {payment.txId !== '—' ? `TX: ${payment.txId}` : 'Pending'} · {payment.date}
                           </p>
                         </div>
-                        <p className="font-black text-white text-base shrink-0">{payment.amount}</p>
+                        <p className="font-black text-gray-900 text-base shrink-0">{payment.amount}</p>
                         <span className={`text-[10px] font-black px-2.5 py-1 rounded-lg border shrink-0 ${payStatus.color}`}>
                           {payStatus.label}
                         </span>
@@ -1105,7 +1105,7 @@ const EngagementWorkspace = () => {
               <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-5 border border-emerald-100">
                 <CheckCircle size={28} className="text-emerald-500" />
               </div>
-              <h3 className="text-xl font-black text-white text-center mb-2">Approve Milestone</h3>
+              <h3 className="text-xl font-black text-gray-900 text-center mb-2">Approve Milestone</h3>
               <p className="text-sm text-gray-400 text-center mb-4 leading-relaxed">
                 You are approving <span className="font-bold text-gray-700">{showApproveModal.title}</span>.
                 This will release <span className="font-bold text-emerald-600">{showApproveModal.payment}</span> from escrow to {engagement.expert.name}.
@@ -1179,7 +1179,7 @@ const EngagementWorkspace = () => {
               <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-5 border border-red-100">
                 <XCircle size={28} className="text-red-500" />
               </div>
-              <h3 className="text-xl font-black text-white text-center mb-2">Reject Milestone</h3>
+              <h3 className="text-xl font-black text-gray-900 text-center mb-2">Reject Milestone</h3>
               <p className="text-sm text-gray-400 text-center mb-5 leading-relaxed">
                 Please provide feedback on what needs to be revised for <span className="font-bold text-gray-700">{showRejectModal.title}</span>.
               </p>
@@ -1245,7 +1245,7 @@ const EngagementWorkspace = () => {
               <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-5 border border-emerald-100">
                 <DollarSign size={28} className="text-emerald-500" />
               </div>
-              <h3 className="text-xl font-black text-white text-center mb-2">Release Payment</h3>
+              <h3 className="text-xl font-black text-gray-900 text-center mb-2">Release Payment</h3>
               <p className="text-sm text-gray-400 text-center mb-2 leading-relaxed">
                 Release escrow payment for
               </p>

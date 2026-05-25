@@ -134,7 +134,7 @@ const ExpertEarnings = () => {
       engagement: 'Series B Funding Strategy',
       company: 'Acme Corp',
       companyLogo: 'AC',
-      logoColor: 'from-[#2d6a4f] to-[#74b986]',
+      logoColor: 'from-[#134e40] to-[#0eb59a]',
       amount: '₹2,00,000',
       date: 'Mar 28, 2025',
       status: 'Paid',
@@ -158,7 +158,7 @@ const ExpertEarnings = () => {
       engagement: 'Series B Funding Strategy',
       company: 'Acme Corp',
       companyLogo: 'AC',
-      logoColor: 'from-[#2d6a4f] to-[#74b986]',
+      logoColor: 'from-[#134e40] to-[#0eb59a]',
       amount: '₹2,50,000',
       date: 'Apr 25, 2025',
       status: 'Pending',
@@ -170,7 +170,7 @@ const ExpertEarnings = () => {
       engagement: 'Series B Funding Strategy',
       company: 'Acme Corp',
       companyLogo: 'AC',
-      logoColor: 'from-[#2d6a4f] to-[#74b986]',
+      logoColor: 'from-[#134e40] to-[#0eb59a]',
       amount: '₹1,50,000',
       date: 'Feb 25, 2025',
       status: 'Paid',
@@ -244,7 +244,7 @@ const ExpertEarnings = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#f8fafc]">
 
       {/* Background */}
       <div className="fixed top-0 right-0 w-96 h-96 bg-teal-100/20 rounded-full blur-3xl pointer-events-none" />
@@ -262,7 +262,7 @@ const ExpertEarnings = () => {
             <div className="flex items-center gap-2 mb-1">
               <button
                 onClick={() => navigate('/expert-dashboard')}
-                className="text-gray-400 hover:text-[#74b986] text-sm font-semibold transition-colors"
+                className="text-gray-400 hover:text-[#0eb59a] text-sm font-semibold transition-colors"
               >
                 Dashboard
               </button>
@@ -289,7 +289,7 @@ const ExpertEarnings = () => {
               whileHover={{ scale: 1.03, boxShadow: '0 8px 30px rgba(20,78,64,0.25)' }}
               whileTap={{ scale: 0.97 }}
               onClick={() => setShowWithdrawModal(true)}
-              className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white text-sm font-bold rounded-xl shadow-lg"
+              className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white text-sm font-bold rounded-xl shadow-lg"
             >
               <Landmark size={15} /> Withdraw Funds
             </motion.button>
@@ -301,11 +301,11 @@ const ExpertEarnings = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.05 }}
-          className="bg-gradient-to-br from-[#2d6a4f] via-[#2d6a4f] to-[#74b986]/80 rounded-3xl p-7 text-white relative overflow-hidden shadow-2xl"
+          className="bg-gradient-to-br from-[#0d1f2d] via-[#134e40] to-[#0eb59a]/80 rounded-3xl p-7 text-white relative overflow-hidden shadow-2xl"
         >
           {/* Decorative circles */}
           <div className="absolute -right-10 -top-10 w-48 h-48 bg-white/5 rounded-full" />
-          <div className="absolute -right-4 -bottom-8 w-32 h-32 bg-[#74b986]/20 rounded-full" />
+          <div className="absolute -right-4 -bottom-8 w-32 h-32 bg-[#0eb59a]/20 rounded-full" />
           <div className="absolute left-1/2 -bottom-16 w-64 h-64 bg-white/3 rounded-full" />
 
           <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6">
@@ -348,14 +348,14 @@ const ExpertEarnings = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 + idx * 0.07 }}
                   className={`flex flex-col gap-1.5 p-3 rounded-2xl ${
-                    item.accent ? 'bg-[#74b986]/20 border border-[#74b986]/30' : 'bg-white/5 border border-white/10'
+                    item.accent ? 'bg-[#0eb59a]/20 border border-[#0eb59a]/30' : 'bg-white/5 border border-white/10'
                   }`}
                 >
                   <div className="flex items-center gap-1.5">
-                    <item.icon size={12} className={item.accent ? 'text-[#74b986]' : 'text-white/50'} />
+                    <item.icon size={12} className={item.accent ? 'text-[#0eb59a]' : 'text-white/50'} />
                     <p className="text-[10px] font-bold text-white/50 uppercase tracking-wide">{item.label}</p>
                   </div>
-                  <p className={`text-lg font-black ${item.accent ? 'text-[#74b986]' : 'text-white'}`}>
+                  <p className={`text-lg font-black ${item.accent ? 'text-[#0eb59a]' : 'text-white'}`}>
                     {item.value}
                   </p>
                   {idx === 2 && (
@@ -375,7 +375,7 @@ const ExpertEarnings = () => {
           className="grid grid-cols-2 lg:grid-cols-4 gap-4"
         >
           {[
-            { label: 'This Month', value: summary.thisMonth, icon: TrendingUp, color: 'text-green-500', bg: 'bg-teal-50', border: 'border-l-[#74b986]', trend: '+12% vs last month' },
+            { label: 'This Month', value: summary.thisMonth, icon: TrendingUp, color: 'text-teal-500', bg: 'bg-teal-50', border: 'border-l-[#0eb59a]', trend: '+12% vs last month' },
             { label: 'In Escrow', value: summary.inEscrow, icon: Lock, color: 'text-amber-500', bg: 'bg-amber-50', border: 'border-l-amber-400', trend: '3 milestones pending' },
             { label: 'Withdrawable', value: summary.availableToWithdraw, icon: Unlock, color: 'text-emerald-500', bg: 'bg-emerald-50', border: 'border-l-emerald-400', trend: 'Available now' },
             { label: 'Active Clients', value: summary.totalEngagements, icon: Building, color: 'text-purple-500', bg: 'bg-purple-50', border: 'border-l-purple-400', trend: '2 engagements' },
@@ -420,7 +420,7 @@ const ExpertEarnings = () => {
               onClick={() => setActiveTab(tab)}
               className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
                 activeTab === tab
-                  ? 'bg-[#2d6a4f] text-white shadow-md'
+                  ? 'bg-[#134e40] text-white shadow-md'
                   : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
               }`}
             >
@@ -449,10 +449,10 @@ const ExpertEarnings = () => {
                 <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="font-black text-gray-900 text-base flex items-center gap-2">
-                      <BarChart2 size={16} className="text-[#74b986]" /> Monthly Earnings
+                      <BarChart2 size={16} className="text-[#0eb59a]" /> Monthly Earnings
                     </h3>
                     <div className="flex items-center gap-2 text-xs font-bold text-gray-400">
-                      <div className="w-3 h-3 rounded-sm bg-gradient-to-t from-[#2d6a4f] to-[#74b986]" />
+                      <div className="w-3 h-3 rounded-sm bg-gradient-to-t from-[#134e40] to-[#0eb59a]" />
                       Milestone Payments
                     </div>
                   </div>
@@ -477,8 +477,8 @@ const ExpertEarnings = () => {
                             className={`w-full rounded-xl ${
                               bar.amount > 0
                                 ? bar.month === 'Apr'
-                                  ? 'bg-gradient-to-t from-[#2d6a4f] to-[#74b986] ring-2 ring-[#74b986]/30'
-                                  : 'bg-gradient-to-t from-[#2d6a4f] to-[#74b986]'
+                                  ? 'bg-gradient-to-t from-[#134e40] to-[#0eb59a] ring-2 ring-[#0eb59a]/30'
+                                  : 'bg-gradient-to-t from-[#134e40] to-[#0eb59a]'
                                 : 'bg-gray-100'
                             }`}
                           />
@@ -509,11 +509,11 @@ const ExpertEarnings = () => {
                 <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-black text-gray-900 text-base flex items-center gap-2">
-                      <Clock size={16} className="text-[#74b986]" /> Recent Activity
+                      <Clock size={16} className="text-[#0eb59a]" /> Recent Activity
                     </h3>
                     <button
                       onClick={() => setActiveTab('Transactions')}
-                      className="text-xs font-bold text-[#74b986] hover:text-[#2d6a4f] transition-colors"
+                      className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors"
                     >
                       View All →
                     </button>
@@ -559,15 +559,15 @@ const ExpertEarnings = () => {
                   className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5"
                 >
                   <h3 className="font-black text-gray-900 text-sm mb-1 flex items-center gap-2">
-                    <Wallet size={15} className="text-[#74b986]" /> Available to Withdraw
+                    <Wallet size={15} className="text-[#0eb59a]" /> Available to Withdraw
                   </h3>
-                  <p className="text-3xl font-black text-[#2d6a4f] mb-1">{summary.availableToWithdraw}</p>
+                  <p className="text-3xl font-black text-[#134e40] mb-1">{summary.availableToWithdraw}</p>
                   <p className="text-xs text-gray-400 font-semibold mb-4">From 2 completed milestones</p>
                   <motion.button
                     whileHover={{ scale: 1.03, boxShadow: '0 8px 25px rgba(20,78,64,0.25)' }}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => setShowWithdrawModal(true)}
-                    className="w-full py-3 bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white text-sm font-black rounded-2xl shadow-lg flex items-center justify-center gap-2 transition-all"
+                    className="w-full py-3 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white text-sm font-black rounded-2xl shadow-lg flex items-center justify-center gap-2 transition-all"
                   >
                     <Landmark size={15} /> Withdraw Now
                   </motion.button>
@@ -581,12 +581,12 @@ const ExpertEarnings = () => {
                   className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5"
                 >
                   <h3 className="font-black text-gray-900 text-sm mb-4 flex items-center gap-2">
-                    <Target size={15} className="text-[#74b986]" /> Upcoming Payments
+                    <Target size={15} className="text-[#0eb59a]" /> Upcoming Payments
                   </h3>
                   <div className="space-y-3">
                     {[
-                      { milestone: 'Investor Deck & Data Room', company: 'Acme Corp', amount: '₹2,50,000', date: 'Apr 30, 2025', logo: 'AC', logoColor: 'from-[#2d6a4f] to-[#74b986]' },
-                      { milestone: 'Investor Outreach', company: 'Acme Corp', amount: '₹3,00,000', date: 'May 31, 2025', logo: 'AC', logoColor: 'from-[#2d6a4f] to-[#74b986]' },
+                      { milestone: 'Investor Deck & Data Room', company: 'Acme Corp', amount: '₹2,50,000', date: 'Apr 30, 2025', logo: 'AC', logoColor: 'from-[#134e40] to-[#0eb59a]' },
+                      { milestone: 'Investor Outreach', company: 'Acme Corp', amount: '₹3,00,000', date: 'May 31, 2025', logo: 'AC', logoColor: 'from-[#134e40] to-[#0eb59a]' },
                       { milestone: 'Due Diligence Report', company: 'TechScale', amount: '₹1,25,000', date: 'May 15, 2025', logo: 'TV', logoColor: 'from-blue-600 to-indigo-500' },
                     ].map((item, idx) => (
                       <motion.div
@@ -603,7 +603,7 @@ const ExpertEarnings = () => {
                           <p className="text-xs font-bold text-gray-800 truncate">{item.milestone}</p>
                           <p className="text-[10px] text-gray-400 font-semibold">{item.company} · {item.date}</p>
                         </div>
-                        <p className="font-black text-[#2d6a4f] text-sm shrink-0">{item.amount}</p>
+                        <p className="font-black text-[#134e40] text-sm shrink-0">{item.amount}</p>
                       </motion.div>
                     ))}
                   </div>
@@ -641,9 +641,9 @@ const ExpertEarnings = () => {
                         whileHover={{ x: 3 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={item.action}
-                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-[#74b986] transition-all"
+                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-[#0eb59a] transition-all"
                       >
-                        <item.icon size={15} className="text-[#74b986]" />
+                        <item.icon size={15} className="text-[#0eb59a]" />
                         {item.label}
                         <ChevronRight size={13} className="ml-auto text-gray-300" />
                       </motion.button>
@@ -666,13 +666,13 @@ const ExpertEarnings = () => {
             >
               {/* Search */}
               <div className="relative group">
-                <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#74b986] transition-colors" />
+                <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#0eb59a] transition-colors" />
                 <input
                   type="text"
                   placeholder="Search transactions..."
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
-                  className="w-full pl-11 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all shadow-sm max-w-md"
+                  className="w-full pl-11 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all shadow-sm max-w-md"
                 />
               </div>
 
@@ -686,7 +686,7 @@ const ExpertEarnings = () => {
                   </h3>
                   <motion.button
                     whileHover={{ scale: 1.03 }}
-                    className="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-[#74b986] transition-colors"
+                    className="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-[#0eb59a] transition-colors"
                   >
                     <Download size={13} /> Export CSV
                   </motion.button>
@@ -755,7 +755,7 @@ const ExpertEarnings = () => {
                 </h3>
                 <motion.button
                   whileHover={{ scale: 1.03 }}
-                  className="flex items-center gap-2 text-xs font-bold text-gray-400 hover:text-[#74b986] transition-colors"
+                  className="flex items-center gap-2 text-xs font-bold text-gray-400 hover:text-[#0eb59a] transition-colors"
                 >
                   <Download size={13} /> Export All
                 </motion.button>
@@ -806,7 +806,7 @@ const ExpertEarnings = () => {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       onClick={() => setShowInvoiceModal(invoice)}
-                      className="p-2 rounded-xl bg-gray-50 border border-gray-100 text-gray-400 hover:text-[#74b986] hover:bg-teal-50 transition-all"
+                      className="p-2 rounded-xl bg-gray-50 border border-gray-100 text-gray-400 hover:text-[#0eb59a] hover:bg-teal-50 transition-all"
                     >
                       <Eye size={14} />
                     </motion.button>
@@ -836,7 +836,7 @@ const ExpertEarnings = () => {
               <div className="lg:col-span-2 space-y-5">
 
                 {/* Withdraw CTA banner */}
-                <div className="bg-gradient-to-br from-[#2d6a4f] to-[#2d6a4f] rounded-3xl p-6 text-white relative overflow-hidden">
+                <div className="bg-gradient-to-br from-[#0d1f2d] to-[#134e40] rounded-3xl p-6 text-white relative overflow-hidden">
                   <div className="absolute -right-8 -top-8 w-40 h-40 bg-white/5 rounded-full" />
                   <div className="relative z-10 flex items-center justify-between">
                     <div>
@@ -848,7 +848,7 @@ const ExpertEarnings = () => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.97 }}
                       onClick={() => setShowWithdrawModal(true)}
-                      className="flex items-center gap-2 px-5 py-3 bg-[#74b986] hover:bg-[#0ca88e] text-white text-sm font-black rounded-2xl transition-all shadow-lg shrink-0"
+                      className="flex items-center gap-2 px-5 py-3 bg-[#0eb59a] hover:bg-[#0ca88e] text-white text-sm font-black rounded-2xl transition-all shadow-lg shrink-0"
                     >
                       <Landmark size={15} /> Withdraw Now
                     </motion.button>
@@ -861,7 +861,7 @@ const ExpertEarnings = () => {
                     <h3 className="font-black text-gray-900 text-base">Payout Accounts</h3>
                     <motion.button
                       whileHover={{ scale: 1.03 }}
-                      className="flex items-center gap-2 text-xs font-bold text-[#74b986] hover:text-[#2d6a4f] transition-colors"
+                      className="flex items-center gap-2 text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors"
                     >
                       <Plus size={13} /> Add Account
                     </motion.button>
@@ -872,7 +872,7 @@ const ExpertEarnings = () => {
                       <motion.div
                         key={account.id}
                         whileHover={{ x: 3 }}
-                        className="flex items-center gap-4 p-4 rounded-2xl border border-gray-100 hover:border-[#74b986]/30 hover:bg-teal-50/30 transition-all cursor-pointer"
+                        className="flex items-center gap-4 p-4 rounded-2xl border border-gray-100 hover:border-[#0eb59a]/30 hover:bg-teal-50/30 transition-all cursor-pointer"
                       >
                         <span className="text-2xl shrink-0">{account.icon}</span>
                         <div className="flex-1">
@@ -884,7 +884,7 @@ const ExpertEarnings = () => {
                               </span>
                             )}
                             {account.default && (
-                              <span className="text-[9px] font-black text-[#2d6a4f] bg-teal-50 px-1.5 py-0.5 rounded-md border border-teal-200">
+                              <span className="text-[9px] font-black text-[#134e40] bg-teal-50 px-1.5 py-0.5 rounded-md border border-teal-200">
                                 Default
                               </span>
                             )}
@@ -932,7 +932,7 @@ const ExpertEarnings = () => {
               <div className="space-y-5">
                 <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5">
                   <h3 className="font-black text-gray-900 text-sm mb-4 flex items-center gap-2">
-                    <Shield size={14} className="text-[#74b986]" /> Payout Policy
+                    <Shield size={14} className="text-[#0eb59a]" /> Payout Policy
                   </h3>
                   <div className="space-y-3">
                     {[
@@ -951,8 +951,8 @@ const ExpertEarnings = () => {
                 </div>
 
                 <div className="bg-teal-50 rounded-2xl border border-teal-100 p-4">
-                  <p className="font-black text-[#2d6a4f] text-sm mb-2 flex items-center gap-2">
-                    <Star size={13} fill="#74b986" className="text-[#74b986]" /> Tax Benefits
+                  <p className="font-black text-[#134e40] text-sm mb-2 flex items-center gap-2">
+                    <Star size={13} fill="#0eb59a" className="text-[#0eb59a]" /> Tax Benefits
                   </p>
                   <p className="text-xs text-teal-700 leading-relaxed">
                     All invoices are GST-compliant. Form 16A is issued each quarter for TDS deductions. Download your tax statement from the Invoices tab.
@@ -1013,7 +1013,7 @@ const ExpertEarnings = () => {
                             onClick={() => setWithdrawAmount(amount)}
                             className={`py-3 rounded-2xl text-sm font-black border-2 transition-all ${
                               withdrawAmount === amount
-                                ? 'border-[#74b986] bg-teal-50 text-[#2d6a4f]'
+                                ? 'border-[#0eb59a] bg-teal-50 text-[#134e40]'
                                 : 'border-gray-100 bg-gray-50 text-gray-600 hover:border-gray-200'
                             }`}
                           >
@@ -1028,7 +1028,7 @@ const ExpertEarnings = () => {
                           placeholder="Enter custom amount..."
                           value={withdrawAmount.startsWith('₹') ? '' : withdrawAmount}
                           onChange={e => setWithdrawAmount(e.target.value)}
-                          className="w-full pl-8 pr-4 py-3 bg-white border-2 border-gray-100 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all"
+                          className="w-full pl-8 pr-4 py-3 bg-white border-2 border-gray-100 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
                         />
                       </div>
                     </div>
@@ -1046,13 +1046,13 @@ const ExpertEarnings = () => {
                             onClick={() => setSelectedPayout(account.id)}
                             className={`w-full flex items-center gap-3 p-3.5 rounded-2xl border-2 transition-all text-left ${
                               selectedPayout === account.id
-                                ? 'border-[#74b986] bg-teal-50'
+                                ? 'border-[#0eb59a] bg-teal-50'
                                 : 'border-gray-100 bg-gray-50 hover:border-gray-200'
                             }`}
                           >
                             <span className="text-xl shrink-0">{account.icon}</span>
                             <div className="flex-1">
-                              <p className={`text-sm font-black ${selectedPayout === account.id ? 'text-[#2d6a4f]' : 'text-gray-700'}`}>
+                              <p className={`text-sm font-black ${selectedPayout === account.id ? 'text-[#134e40]' : 'text-gray-700'}`}>
                                 {account.label}
                               </p>
                               <p className="text-xs text-gray-400 font-semibold">{account.detail}</p>
@@ -1061,7 +1061,7 @@ const ExpertEarnings = () => {
                               <motion.div
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
-                                className="w-5 h-5 bg-[#74b986] rounded-full flex items-center justify-center shrink-0"
+                                className="w-5 h-5 bg-[#0eb59a] rounded-full flex items-center justify-center shrink-0"
                               >
                                 <Check size={11} className="text-white" strokeWidth={3} />
                               </motion.div>
@@ -1073,7 +1073,7 @@ const ExpertEarnings = () => {
 
                     {/* Info */}
                     <div className="flex items-start gap-2 p-3 bg-teal-50 rounded-xl border border-teal-100 mb-5">
-                      <Clock size={14} className="text-[#74b986] shrink-0 mt-0.5" />
+                      <Clock size={14} className="text-[#0eb59a] shrink-0 mt-0.5" />
                       <p className="text-[11px] text-teal-700 leading-relaxed">
                         Funds will appear in your account within <span className="font-black">1-2 business days</span>. TDS of 10% will be deducted as per Income Tax Act.
                       </p>
@@ -1095,7 +1095,7 @@ const ExpertEarnings = () => {
                         onClick={handleWithdraw}
                         className={`flex-1 py-3 text-sm font-black rounded-2xl transition-all ${
                           withdrawAmount
-                            ? 'bg-gradient-to-r from-[#2d6a4f] to-[#74b986] text-white shadow-lg'
+                            ? 'bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white shadow-lg'
                             : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                         }`}
                       >
@@ -1115,9 +1115,9 @@ const ExpertEarnings = () => {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                      className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-[#74b986]"
+                      className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-[#0eb59a]"
                     >
-                      <Check size={36} className="text-[#74b986]" strokeWidth={3} />
+                      <Check size={36} className="text-[#0eb59a]" strokeWidth={3} />
                     </motion.div>
                     <h3 className="text-xl font-black text-gray-900 mb-2">Withdrawal Initiated!</h3>
                     <p className="text-sm text-gray-400 leading-relaxed">
@@ -1126,7 +1126,7 @@ const ExpertEarnings = () => {
                     <motion.div
                       animate={{ scale: [1, 1.05, 1] }}
                       transition={{ duration: 1, repeat: 2 }}
-                      className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-[#2d6a4f] text-xs font-black rounded-xl border border-teal-100"
+                      className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-[#134e40] text-xs font-black rounded-xl border border-teal-100"
                     >
                       <Shield size={12} /> Secured by CXO Connect
                     </motion.div>
@@ -1184,7 +1184,7 @@ const ExpertEarnings = () => {
                 <div className="h-px bg-gray-200 my-1" />
                 <div className="flex justify-between">
                   <span className="font-black text-gray-900">Amount</span>
-                  <span className="font-black text-2xl text-[#2d6a4f]">{showInvoiceModal.amount}</span>
+                  <span className="font-black text-2xl text-[#134e40]">{showInvoiceModal.amount}</span>
                 </div>
               </div>
 
@@ -1203,7 +1203,7 @@ const ExpertEarnings = () => {
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.02 }}
-                  className="flex-1 py-3 bg-[#2d6a4f] hover:bg-[#74b986] text-white text-sm font-black rounded-2xl shadow-md transition-all flex items-center justify-center gap-2"
+                  className="flex-1 py-3 bg-[#134e40] hover:bg-[#0eb59a] text-white text-sm font-black rounded-2xl shadow-md transition-all flex items-center justify-center gap-2"
                 >
                   <Download size={14} /> Download PDF
                 </motion.button>

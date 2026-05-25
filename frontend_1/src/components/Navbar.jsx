@@ -75,38 +75,38 @@ const Navbar = () => {
                     />
                     <span className="text-white font-bold text-xl md:text-2xl lg:text-3xl tracking-wide font-serif whitespace-nowrap">CXO CONNECT</span>
                 </Link>
-                <button className="block md:hidden bg-transparent border-none text-white hover:text-[#74b986] cursor-pointer ml-auto transition-colors" onClick={() => setIsOpen(!isOpen)}>
+                <button className="block md:hidden bg-transparent border-none text-white hover:text-[#0eb59a] cursor-pointer ml-auto transition-colors" onClick={() => setIsOpen(!isOpen)}>
                     {isOpen ? <X size={28} /> : <Menu size={28} />}
                 </button>
             </div>
 
             <div className={`hidden md:flex gap-8 items-center h-full ${isOpen ? '!flex flex-col items-start w-full gap-6 mt-6 pb-4' : ''}`}>
-                <Link to="/" onClick={() => setIsOpen(false)} className={`text-[15px] font-medium tracking-wide transition-colors duration-300 relative cursor-pointer group ${location.pathname === '/' ? 'text-[#74b986]' : 'text-gray-200 hover:text-white'}`}>
+                <Link to="/" onClick={() => setIsOpen(false)} className={`text-[15px] font-medium tracking-wide transition-colors duration-300 relative cursor-pointer group ${location.pathname === '/' ? 'text-[#0eb59a]' : 'text-gray-200 hover:text-white'}`}>
                     Home
-                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#74b986] transition-all duration-300 ${location.pathname === '/' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#0eb59a] transition-all duration-300 ${location.pathname === '/' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
                 </Link>
 
                 <a href="#about-us" onClick={(e) => handleScrollTarget(e, 'about-us')} className="text-[15px] font-medium tracking-wide transition-colors duration-300 relative cursor-pointer text-gray-200 hover:text-white group">
                     About
-                    <span className="absolute -bottom-1 left-0 h-0.5 bg-[#74b986] transition-all duration-300 w-0 group-hover:w-full"></span>
+                    <span className="absolute -bottom-1 left-0 h-0.5 bg-[#0eb59a] transition-all duration-300 w-0 group-hover:w-full"></span>
                 </a>
 
                 <a href="#problems" onClick={(e) => handleScrollTarget(e, 'problems')} className="text-[15px] font-medium tracking-wide transition-colors duration-300 relative cursor-pointer text-gray-200 hover:text-white group">
                     Services
-                    <span className="absolute -bottom-1 left-0 h-0.5 bg-[#74b986] transition-all duration-300 w-0 group-hover:w-full"></span>
+                    <span className="absolute -bottom-1 left-0 h-0.5 bg-[#0eb59a] transition-all duration-300 w-0 group-hover:w-full"></span>
                 </a>
 
                 <a href="#membership" onClick={(e) => handleScrollTarget(e, 'membership')} className="text-[15px] font-medium tracking-wide transition-colors duration-300 relative cursor-pointer text-gray-200 hover:text-white group">
                     Membership
-                    <span className="absolute -bottom-1 left-0 h-0.5 bg-[#74b986] transition-all duration-300 w-0 group-hover:w-full"></span>
+                    <span className="absolute -bottom-1 left-0 h-0.5 bg-[#0eb59a] transition-all duration-300 w-0 group-hover:w-full"></span>
                 </a>
 
                 <a href="#contact-us" onClick={(e) => handleScrollTarget(e, 'contact-us')} className="text-[15px] font-medium tracking-wide transition-colors duration-300 relative cursor-pointer text-gray-200 hover:text-white group">
                     Contact
-                    <span className="absolute -bottom-1 left-0 h-0.5 bg-[#74b986] transition-all duration-300 w-0 group-hover:w-full"></span>
+                    <span className="absolute -bottom-1 left-0 h-0.5 bg-[#0eb59a] transition-all duration-300 w-0 group-hover:w-full"></span>
                 </a>
 
-                <button className="md:ml-8 relative overflow-hidden flex items-center gap-2 text-white font-semibold transition-all duration-500 text-[15px] group px-6 py-2.5 rounded-full bg-[#2d6a4f] hover:bg-[#74b986] border border-[#74b986]/30 hover:border-[#74b986] shadow-[0_0_15px_rgba(14,181,154,0.15)] hover:shadow-[0_0_25px_rgba(14,181,154,0.4)]" onClick={() => { setIsOpen(false); openModal(); }}>
+                <button className="md:ml-8 relative overflow-hidden flex items-center gap-2 text-white font-semibold transition-all duration-500 text-[15px] group px-6 py-2.5 rounded-full bg-[#134e40] hover:bg-[#0eb59a] border border-[#0eb59a]/30 hover:border-[#0eb59a] shadow-[0_0_15px_rgba(14,181,154,0.15)] hover:shadow-[0_0_25px_rgba(14,181,154,0.4)]" onClick={() => { setIsOpen(false); openModal(); }}>
                     <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
                     <UserPlus size={18} className="relative z-10 group-hover:scale-110 transition-transform" />
                     <span className="relative z-10 tracking-wide">Join / Sign In</span>

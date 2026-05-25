@@ -308,18 +308,8 @@ const ExpertDiscovery = () => {
 
   const getCompareExperts = () => compareTray.map(id => experts.find(e => e.id === id)).filter(Boolean);
 
-
-const cutoutCard = {
-  WebkitMask: `radial-gradient(circle at 0 0, transparent 22px, black 22.5px) top left, radial-gradient(circle at 100% 0, transparent 22px, black 22.5px) top right, radial-gradient(circle at 0 100%, transparent 22px, black 22.5px) bottom left, radial-gradient(circle at 100% 100%, transparent 22px, black 22.5px) bottom right`,
-  WebkitMaskSize: '51% 51%',
-  WebkitMaskRepeat: 'no-repeat',
-  mask: `radial-gradient(circle at 0 0, transparent 22px, black 22.5px) top left, radial-gradient(circle at 100% 0, transparent 22px, black 22.5px) top right, radial-gradient(circle at 0 100%, transparent 22px, black 22.5px) bottom left, radial-gradient(circle at 100% 100%, transparent 22px, black 22.5px) bottom right`,
-  maskSize: '51% 51%',
-  maskRepeat: 'no-repeat',
-};
-
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#f8fafc]">
 
       {/* Background */}
       <div className="fixed top-0 right-0 w-96 h-96 bg-teal-100/20 rounded-full blur-3xl pointer-events-none" />
@@ -337,17 +327,17 @@ const cutoutCard = {
             <div className="flex items-center gap-2 mb-1">
               <button
                 onClick={() => navigate('/company-dashboard')}
-                className="text-gray-400 hover:text-[#74b986] text-sm font-semibold transition-colors"
+                className="text-gray-400 hover:text-[#0eb59a] text-sm font-semibold transition-colors"
               >
                 Dashboard
               </button>
               <ChevronRight size={14} className="text-gray-300" />
-              <span className="text-sm font-bold text-white/80">Expert Discovery</span>
+              <span className="text-sm font-bold text-gray-700">Expert Discovery</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">
               Find Experts
             </h1>
-            <p className="text-white/60 text-sm mt-1">
+            <p className="text-gray-400 text-sm mt-1">
               {filteredExperts.length} vetted senior professionals available
             </p>
           </div>
@@ -363,7 +353,7 @@ const cutoutCard = {
                   key={id}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setViewMode(id)}
-                  className={`p-2 rounded-lg transition-all ${viewMode === id ? 'bg-[#2d6a4f] text-white shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
+                  className={`p-2 rounded-lg transition-all ${viewMode === id ? 'bg-[#134e40] text-white shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
                 >
                   <Icon size={16} />
                 </motion.button>
@@ -373,12 +363,12 @@ const cutoutCard = {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => setShowFilters(!showFilters)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all ${showFilters ? 'bg-[#2d6a4f] text-white border-[#2d6a4f]' : 'bg-white text-gray-600 border-gray-200 hover:border-[#74b986]/40'}`}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all ${showFilters ? 'bg-[#134e40] text-white border-[#134e40]' : 'bg-white text-gray-600 border-gray-200 hover:border-[#0eb59a]/40'}`}
             >
               <SlidersHorizontal size={15} />
               Filters
               {totalActiveFilters > 0 && (
-                <span className="bg-[#74b986] text-white text-[10px] font-black px-1.5 py-0.5 rounded-full">
+                <span className="bg-[#0eb59a] text-white text-[10px] font-black px-1.5 py-0.5 rounded-full">
                   {totalActiveFilters}
                 </span>
               )}
@@ -393,13 +383,13 @@ const cutoutCard = {
           transition={{ delay: 0.05 }}
           className="relative mb-6 group"
         >
-          <Search size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#74b986] transition-colors" />
+          <Search size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#0eb59a] transition-colors" />
           <input
             type="text"
             placeholder="Search by name, skill, role, or industry..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full pl-13 pr-12 py-3.5 bg-white border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all shadow-sm"
+            className="w-full pl-13 pr-12 py-3.5 bg-white border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all shadow-sm"
           />
           {searchQuery && (
             <button onClick={() => setSearchQuery('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
@@ -421,12 +411,12 @@ const cutoutCard = {
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
                 className="shrink-0 overflow-hidden"
               >
-                <div className="w-[260px] bg-[#0e1f17] [&]:bg-[#0e1f17] p-5 sticky top-6">
+                <div className="w-[260px] bg-white rounded-3xl border border-gray-100 shadow-sm p-5 sticky top-6">
 
                   {/* Filter Header */}
                   <div className="flex items-center justify-between mb-5">
-                    <h3 className="font-black text-white text-sm flex items-center gap-2">
-                      <Filter size={14} className="text-[#74b986]" /> Filters
+                    <h3 className="font-black text-gray-900 text-sm flex items-center gap-2">
+                      <Filter size={14} className="text-[#0eb59a]" /> Filters
                     </h3>
                     {totalActiveFilters > 0 && (
                       <motion.button
@@ -442,16 +432,16 @@ const cutoutCard = {
                   {/* Filter Sections */}
                   <div className="space-y-4">
                     {filterSections.map((section) => (
-                      <div key={section.id} className="border-b border-white/10 pb-4">
+                      <div key={section.id} className="border-b border-gray-50 pb-4">
                         <button
                           onClick={() => setExpandedFilter(expandedFilter === section.id ? null : section.id)}
                           className="w-full flex items-center justify-between mb-3 group"
                         >
                           <span className="text-xs font-black text-gray-700 uppercase tracking-wider flex items-center gap-2">
-                            <section.icon size={13} className="text-[#74b986]" />
+                            <section.icon size={13} className="text-[#0eb59a]" />
                             {section.label}
                             {activeFilters[section.id]?.length > 0 && (
-                              <span className="bg-[#74b986] text-white text-[9px] font-black px-1.5 py-0.5 rounded-full">
+                              <span className="bg-[#0eb59a] text-white text-[9px] font-black px-1.5 py-0.5 rounded-full">
                                 {activeFilters[section.id].length}
                               </span>
                             )}
@@ -480,7 +470,7 @@ const cutoutCard = {
                                     onClick={() => toggleFilter(section.id, option)}
                                     className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all ${
                                       isActive
-                                        ? 'bg-teal-50 text-[#2d6a4f] border border-teal-100'
+                                        ? 'bg-teal-50 text-[#134e40] border border-teal-100'
                                         : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
                                     }`}
                                   >
@@ -489,7 +479,7 @@ const cutoutCard = {
                                       <motion.div
                                         initial={{ scale: 0 }}
                                         animate={{ scale: 1 }}
-                                        className="w-4 h-4 bg-[#74b986] rounded-full flex items-center justify-center"
+                                        className="w-4 h-4 bg-[#0eb59a] rounded-full flex items-center justify-center"
                                       >
                                         <Check size={9} className="text-white" strokeWidth={3} />
                                       </motion.div>
@@ -504,9 +494,9 @@ const cutoutCard = {
                     ))}
 
                     {/* Experience */}
-                    <div className="border-b border-white/10 pb-4">
+                    <div className="border-b border-gray-50 pb-4">
                       <p className="text-xs font-black text-gray-700 uppercase tracking-wider mb-3 flex items-center gap-2">
-                        <Zap size={13} className="text-[#74b986]" /> Experience
+                        <Zap size={13} className="text-[#0eb59a]" /> Experience
                       </p>
                       <div className="space-y-2">
                         {experienceOptions.map(exp => (
@@ -517,13 +507,13 @@ const cutoutCard = {
                             onClick={() => setActiveFilters(prev => ({ ...prev, experience: exp === 'Any' ? '' : exp }))}
                             className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all ${
                               (exp === 'Any' && !activeFilters.experience) || activeFilters.experience === exp
-                                ? 'bg-teal-50 text-[#2d6a4f] border border-teal-100'
+                                ? 'bg-teal-50 text-[#134e40] border border-teal-100'
                                 : 'text-gray-500 hover:bg-gray-50'
                             }`}
                           >
                             {exp}
                             {((exp === 'Any' && !activeFilters.experience) || activeFilters.experience === exp) && (
-                              <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-4 h-4 bg-[#74b986] rounded-full flex items-center justify-center">
+                              <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-4 h-4 bg-[#0eb59a] rounded-full flex items-center justify-center">
                                 <Check size={9} className="text-white" strokeWidth={3} />
                               </motion.div>
                             )}
@@ -535,7 +525,7 @@ const cutoutCard = {
                     {/* Budget */}
                     <div>
                       <p className="text-xs font-black text-gray-700 uppercase tracking-wider mb-3 flex items-center gap-2">
-                        <DollarSign size={13} className="text-[#74b986]" /> Budget Range
+                        <DollarSign size={13} className="text-[#0eb59a]" /> Budget Range
                       </p>
                       <div className="space-y-2">
                         {budgetOptions.map(bud => (
@@ -546,13 +536,13 @@ const cutoutCard = {
                             onClick={() => setActiveFilters(prev => ({ ...prev, budget: bud === 'Any' ? '' : bud }))}
                             className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all ${
                               (bud === 'Any' && !activeFilters.budget) || activeFilters.budget === bud
-                                ? 'bg-teal-50 text-[#2d6a4f] border border-teal-100'
+                                ? 'bg-teal-50 text-[#134e40] border border-teal-100'
                                 : 'text-gray-500 hover:bg-gray-50'
                             }`}
                           >
                             {bud}
                             {((bud === 'Any' && !activeFilters.budget) || activeFilters.budget === bud) && (
-                              <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-4 h-4 bg-[#74b986] rounded-full flex items-center justify-center">
+                              <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-4 h-4 bg-[#0eb59a] rounded-full flex items-center justify-center">
                                 <Check size={9} className="text-white" strokeWidth={3} />
                               </motion.div>
                             )}
@@ -585,7 +575,7 @@ const cutoutCard = {
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       exit={{ scale: 0.8, opacity: 0 }}
-                      className="flex items-center gap-1.5 px-3 py-1.5 bg-teal-50 text-[#2d6a4f] text-xs font-bold rounded-xl border border-teal-100"
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-teal-50 text-[#134e40] text-xs font-bold rounded-xl border border-teal-100"
                     >
                       {item}
                       <button onClick={() => {
@@ -606,9 +596,9 @@ const cutoutCard = {
             {/* Results count */}
             <div className="flex items-center justify-between mb-4">
               <p className="text-sm font-bold text-gray-500">
-                Showing <span className="text-white font-black">{filteredExperts.length}</span> experts
+                Showing <span className="text-gray-900 font-black">{filteredExperts.length}</span> experts
               </p>
-              <select className="text-xs font-bold text-gray-500 bg-white border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#74b986]/20">
+              <select className="text-xs font-bold text-gray-500 bg-white border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20">
                 <option>Best Match</option>
                 <option>Highest Rated</option>
                 <option>Most Reviews</option>
@@ -622,17 +612,17 @@ const cutoutCard = {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="bg-[#0e1f17] [&]:bg-[#0e1f17] p-16 text-center"
+                  className="bg-white rounded-3xl border border-gray-100 shadow-sm p-16 text-center"
                 >
                   <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <Users size={24} className="text-gray-300" />
                   </div>
                   <h3 className="font-black text-gray-700 text-lg mb-2">No experts found</h3>
-                  <p className="text-white/60 text-sm mb-4">Try adjusting your filters or search query</p>
+                  <p className="text-gray-400 text-sm mb-4">Try adjusting your filters or search query</p>
                   <motion.button
                     whileHover={{ scale: 1.03 }}
                     onClick={clearAllFilters}
-                    className="px-5 py-2.5 bg-[#2d6a4f] text-white text-sm font-bold rounded-xl"
+                    className="px-5 py-2.5 bg-[#134e40] text-white text-sm font-bold rounded-xl"
                   >
                     Clear Filters
                   </motion.button>
@@ -651,7 +641,7 @@ const cutoutCard = {
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.3, delay: idx * 0.05 }}
                       whileHover={{ y: viewMode === 'grid' ? -6 : -2, boxShadow: '0 16px 40px rgba(0,0,0,0.08)' }}
-                      className={`bg-[#0e1f17] [&]:bg-[#0e1f17] overflow-hidden group transition-all duration-300 ${viewMode === 'list' ? 'flex gap-0' : ''}`}
+                      className={`bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden group transition-all duration-300 ${viewMode === 'list' ? 'flex gap-0' : ''}`}
                     >
                       {viewMode === 'grid' ? (
                         // ── GRID CARD ──
@@ -668,7 +658,7 @@ const cutoutCard = {
                                 <Shield size={9} /> Verified
                               </span>
                             )}
-                            <span className="ml-auto text-[10px] font-black text-[#2d6a4f] bg-teal-50 px-2 py-1 rounded-lg border border-teal-100">
+                            <span className="ml-auto text-[10px] font-black text-[#134e40] bg-teal-50 px-2 py-1 rounded-lg border border-teal-100">
                               {expert.match}% Match
                             </span>
                           </div>
@@ -691,17 +681,17 @@ const cutoutCard = {
                             <div className="min-w-0">
                               <h3
                                 onClick={() => navigate(`/experts/${expert.id}`)}
-                                className="font-black text-white text-sm group-hover:text-[#74b986] transition-colors cursor-pointer leading-tight truncate"
+                                className="font-black text-gray-900 text-sm group-hover:text-[#0eb59a] transition-colors cursor-pointer leading-tight truncate"
                               >
                                 {expert.name}
                               </h3>
                               <p className="text-xs font-bold text-gray-600 mt-0.5">{expert.title}</p>
-                              <p className="text-[11px] text-white/50 mt-0.5 truncate">{expert.exRole}</p>
+                              <p className="text-[11px] text-gray-400 mt-0.5 truncate">{expert.exRole}</p>
                             </div>
                           </div>
 
                           {/* Bio */}
-                          <p className="text-xs text-white/50 leading-relaxed mb-4 line-clamp-2">
+                          <p className="text-xs text-gray-400 leading-relaxed mb-4 line-clamp-2">
                             {expert.bio}
                           </p>
 
@@ -710,7 +700,7 @@ const cutoutCard = {
                             {[
                               { icon: Clock, label: expert.availability, color: 'text-blue-400' },
                               { icon: MapPin, label: expert.location.split(' | ')[0], color: 'text-rose-400' },
-                              { icon: DollarSign, label: expert.budget, color: 'text-[#74b986]' },
+                              { icon: DollarSign, label: expert.budget, color: 'text-[#0eb59a]' },
                               { icon: Zap, label: expert.experience, color: 'text-purple-400' },
                             ].map((meta, mIdx) => (
                               <div key={mIdx} className="flex items-center gap-1.5 text-[11px] font-semibold text-gray-500">
@@ -723,23 +713,23 @@ const cutoutCard = {
                           {/* Skills */}
                           <div className="flex flex-wrap gap-1.5 mb-4">
                             {expert.skills.slice(0, 3).map(skill => (
-                              <span key={skill} className="text-[10px] font-bold bg-white/10 text-white/70 border border-white/10 px-2 py-1 rounded-lg">
+                              <span key={skill} className="text-[10px] font-bold bg-gray-50 text-gray-500 border border-gray-100 px-2 py-1 rounded-lg">
                                 {skill}
                               </span>
                             ))}
                             {expert.skills.length > 3 && (
-                              <span className="text-[10px] font-bold bg-white/10 text-white/50 border border-white/10 px-2 py-1 rounded-lg">
+                              <span className="text-[10px] font-bold bg-gray-50 text-gray-400 border border-gray-100 px-2 py-1 rounded-lg">
                                 +{expert.skills.length - 3}
                               </span>
                             )}
                           </div>
 
                           {/* Rating + Response */}
-                          <div className="flex items-center justify-between mb-4 pb-4 border-b border-white/10">
+                          <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-50">
                             <div className="flex items-center gap-1.5">
                               <Star size={13} fill="#F59E0B" className="text-amber-400" />
-                              <span className="font-black text-white text-sm">{expert.rating}</span>
-                              <span className="text-xs text-white/50">({expert.reviews})</span>
+                              <span className="font-black text-gray-900 text-sm">{expert.rating}</span>
+                              <span className="text-xs text-gray-400">({expert.reviews})</span>
                             </div>
                             <span className="text-[11px] font-semibold text-gray-400">
                               Responds {expert.responseTime}
@@ -752,7 +742,7 @@ const cutoutCard = {
                               whileHover={{ scale: 1.03 }}
                               whileTap={{ scale: 0.97 }}
                               onClick={() => navigate(`/experts/${expert.id}`)}
-                              className="flex-1 py-2.5 bg-[#2d6a4f] hover:bg-[#74b986] text-white text-xs font-black rounded-xl transition-all shadow-sm"
+                              className="flex-1 py-2.5 bg-[#134e40] hover:bg-[#0eb59a] text-white text-xs font-black rounded-xl transition-all shadow-sm"
                             >
                               View Profile
                             </motion.button>
@@ -760,7 +750,7 @@ const cutoutCard = {
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                               onClick={() => setShowInviteModal(expert)}
-                              className="px-3 py-2.5 bg-teal-50 hover:bg-teal-100 text-[#2d6a4f] text-xs font-black rounded-xl transition-all border border-teal-100"
+                              className="px-3 py-2.5 bg-teal-50 hover:bg-teal-100 text-[#134e40] text-xs font-black rounded-xl transition-all border border-teal-100"
                             >
                               Invite
                             </motion.button>
@@ -803,34 +793,34 @@ const cutoutCard = {
                             <div className="flex items-center gap-2 mb-1">
                               <h3
                                 onClick={() => navigate(`/experts/${expert.id}`)}
-                                className="font-black text-white text-sm group-hover:text-[#74b986] transition-colors cursor-pointer"
+                                className="font-black text-gray-900 text-sm group-hover:text-[#0eb59a] transition-colors cursor-pointer"
                               >
                                 {expert.name}
                               </h3>
                               {expert.topExpert && <Star size={12} fill="#F59E0B" className="text-amber-400" />}
                               {expert.verified && <Shield size={12} className="text-blue-500" />}
-                              <span className="ml-auto text-[10px] font-black text-[#2d6a4f] bg-teal-50 px-2 py-0.5 rounded-lg">
+                              <span className="ml-auto text-[10px] font-black text-[#134e40] bg-teal-50 px-2 py-0.5 rounded-lg">
                                 {expert.match}% Match
                               </span>
                             </div>
                             <p className="text-xs text-gray-500 font-semibold mb-2">{expert.exRole}</p>
-                            <div className="flex items-center gap-4 text-[11px] text-white/60 font-semibold">
+                            <div className="flex items-center gap-4 text-[11px] text-gray-400 font-semibold">
                               <span className="flex items-center gap-1"><Clock size={10} />{expert.availability}</span>
                               <span className="flex items-center gap-1"><MapPin size={10} />{expert.location.split(' | ')[0]}</span>
-                              <span className="flex items-center gap-1 text-[#74b986] font-bold"><DollarSign size={10} />{expert.budget}</span>
+                              <span className="flex items-center gap-1 text-[#0eb59a] font-bold"><DollarSign size={10} />{expert.budget}</span>
                               <span className="flex items-center gap-1"><Star size={10} fill="#F59E0B" className="text-amber-400" />{expert.rating}</span>
                             </div>
                           </div>
                           <div className="flex items-center gap-2 shrink-0">
                             <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
                               onClick={() => navigate(`/experts/${expert.id}`)}
-                              className="px-4 py-2 bg-[#2d6a4f] hover:bg-[#74b986] text-white text-xs font-black rounded-xl transition-all"
+                              className="px-4 py-2 bg-[#134e40] hover:bg-[#0eb59a] text-white text-xs font-black rounded-xl transition-all"
                             >
                               View Profile
                             </motion.button>
                             <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                               onClick={() => setShowInviteModal(expert)}
-                              className="px-3 py-2 bg-teal-50 text-[#2d6a4f] text-xs font-black rounded-xl border border-teal-100"
+                              className="px-3 py-2 bg-teal-50 text-[#134e40] text-xs font-black rounded-xl border border-teal-100"
                             >
                               Invite
                             </motion.button>
@@ -870,9 +860,9 @@ const cutoutCard = {
           >
             <div className="max-w-[1400px] mx-auto flex items-center justify-between gap-4">
               <div className="flex items-center gap-4">
-                <p className="text-sm font-black text-white">
+                <p className="text-sm font-black text-gray-900">
                   Compare Experts
-                  <span className="ml-2 text-[#74b986]">({compareTray.length}/3)</span>
+                  <span className="ml-2 text-[#0eb59a]">({compareTray.length}/3)</span>
                 </p>
                 <div className="flex gap-3">
                   {compareTray.map(id => {
@@ -885,7 +875,7 @@ const cutoutCard = {
                         className="flex items-center gap-2 bg-teal-50 border border-teal-100 px-3 py-2 rounded-xl"
                       >
                         <img src={expert?.avatar} className="w-6 h-6 rounded-lg object-cover" />
-                        <span className="text-xs font-bold text-[#2d6a4f]">{expert?.name}</span>
+                        <span className="text-xs font-bold text-[#134e40]">{expert?.name}</span>
                         <button onClick={() => toggleCompare(id)} className="text-gray-400 hover:text-red-500 transition-colors">
                           <X size={12} />
                         </button>
@@ -910,7 +900,7 @@ const cutoutCard = {
                   disabled={compareTray.length < 2}
                   className={`px-5 py-2 text-sm font-bold rounded-xl transition-all ${
                     compareTray.length >= 2
-                      ? 'bg-[#2d6a4f] text-white shadow-md'
+                      ? 'bg-[#134e40] text-white shadow-md'
                       : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   }`}
                 >
@@ -939,8 +929,8 @@ const cutoutCard = {
               className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[85vh] overflow-hidden flex flex-col"
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between p-6 border-b border-white/10">
-                <h3 className="font-black text-white text-lg">Expert Comparison</h3>
+              <div className="flex items-center justify-between p-6 border-b border-gray-100">
+                <h3 className="font-black text-gray-900 text-lg">Expert Comparison</h3>
                 <motion.button whileHover={{ scale: 1.1 }} onClick={() => setShowCompareModal(false)}
                   className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all"
                 >
@@ -956,13 +946,13 @@ const cutoutCard = {
                       {/* Header */}
                       <div className="text-center p-4 bg-teal-50 rounded-2xl border border-teal-100">
                         <img src={expert.avatar} className="w-14 h-14 rounded-2xl object-cover mx-auto mb-3 shadow-sm" />
-                        <h4 className="font-black text-white text-sm">{expert.name}</h4>
+                        <h4 className="font-black text-gray-900 text-sm">{expert.name}</h4>
                         <p className="text-xs text-gray-500 mt-0.5">{expert.title}</p>
                         <div className="flex items-center justify-center gap-1 mt-2">
                           <Star size={12} fill="#F59E0B" className="text-amber-400" />
-                          <span className="font-black text-white text-sm">{expert.rating}</span>
+                          <span className="font-black text-gray-900 text-sm">{expert.rating}</span>
                         </div>
-                        <div className="mt-2 text-[10px] font-black text-[#2d6a4f] bg-white px-3 py-1 rounded-full inline-block border border-teal-100">
+                        <div className="mt-2 text-[10px] font-black text-[#134e40] bg-white px-3 py-1 rounded-full inline-block border border-teal-100">
                           {expert.match}% Match
                         </div>
                       </div>
@@ -997,7 +987,7 @@ const cutoutCard = {
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={() => { setShowCompareModal(false); navigate(`/experts/${expert.id}`); }}
-                        className="w-full py-3 bg-[#2d6a4f] hover:bg-[#74b986] text-white text-sm font-black rounded-2xl transition-all shadow-md"
+                        className="w-full py-3 bg-[#134e40] hover:bg-[#0eb59a] text-white text-sm font-black rounded-2xl transition-all shadow-md"
                       >
                         View Full Profile
                       </motion.button>
@@ -1030,22 +1020,22 @@ const cutoutCard = {
               <div className="flex items-center gap-3 p-4 bg-teal-50 rounded-2xl border border-teal-100 mb-6">
                 <img src={showInviteModal.avatar} className="w-12 h-12 rounded-xl object-cover" />
                 <div>
-                  <h4 className="font-black text-white text-sm">{showInviteModal.name}</h4>
+                  <h4 className="font-black text-gray-900 text-sm">{showInviteModal.name}</h4>
                   <p className="text-xs text-gray-500">{showInviteModal.title}</p>
                   <div className="flex items-center gap-1 mt-0.5">
                     <Star size={11} fill="#F59E0B" className="text-amber-400" />
                     <span className="text-xs font-black text-gray-800">{showInviteModal.rating}</span>
                   </div>
                 </div>
-                <span className="ml-auto text-xs font-black text-[#2d6a4f] bg-white px-2.5 py-1 rounded-xl border border-teal-100">
+                <span className="ml-auto text-xs font-black text-[#134e40] bg-white px-2.5 py-1 rounded-xl border border-teal-100">
                   {showInviteModal.match}% Match
                 </span>
               </div>
 
-              <h3 className="text-lg font-black text-white mb-1">
+              <h3 className="text-lg font-black text-gray-900 mb-1">
                 Invite {showInviteModal.name.split(' ')[0]}
               </h3>
-              <p className="text-sm text-white/60 mb-5">
+              <p className="text-sm text-gray-400 mb-5">
                 Select which requirement you'd like to invite this expert for.
               </p>
 
@@ -1059,7 +1049,7 @@ const cutoutCard = {
                     onClick={() => setSelectedRequirement(req.id)}
                     className={`w-full flex items-center justify-between px-4 py-3.5 rounded-2xl border-2 text-sm font-bold transition-all text-left ${
                       selectedRequirement === req.id
-                        ? 'border-[#74b986] bg-teal-50 text-[#2d6a4f]'
+                        ? 'border-[#0eb59a] bg-teal-50 text-[#134e40]'
                         : 'border-gray-100 bg-gray-50 text-gray-600 hover:border-gray-200'
                     }`}
                   >
@@ -1069,7 +1059,7 @@ const cutoutCard = {
                     </span>
                     {selectedRequirement === req.id && (
                       <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}
-                        className="w-5 h-5 bg-[#74b986] rounded-full flex items-center justify-center"
+                        className="w-5 h-5 bg-[#0eb59a] rounded-full flex items-center justify-center"
                       >
                         <Check size={11} className="text-white" strokeWidth={3} />
                       </motion.div>
@@ -1086,7 +1076,7 @@ const cutoutCard = {
                 <textarea
                   placeholder={`Hi ${showInviteModal.name.split(' ')[0]}, we'd love to discuss an opportunity with you...`}
                   rows={3}
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#74b986]/20 focus:border-[#74b986]/40 transition-all resize-none"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all resize-none"
                 />
               </div>
 
@@ -1107,7 +1097,7 @@ const cutoutCard = {
                   onClick={() => { setShowInviteModal(null); setSelectedRequirement(''); }}
                   className={`flex-1 py-3 text-sm font-bold rounded-2xl transition-all ${
                     selectedRequirement
-                      ? 'bg-[#2d6a4f] hover:bg-[#74b986] text-white shadow-lg'
+                      ? 'bg-[#134e40] hover:bg-[#0eb59a] text-white shadow-lg'
                       : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   }`}
                 >
