@@ -20,7 +20,7 @@ export const sendOtpMail = async (email, otp) => {
     
     <!-- Header -->
     <div style="text-align: center; margin-bottom: 30px;">
-      <img src="${process.env.FRONTEND_URL}/logo_light.png" alt="CXO Connect" style="height: 120px; width: auto; display: inline-block;" />
+      <img src="${process.env.FRONTEND_URL}/favicon.png" alt="CXO Connect" style="height: 120px; width: auto; display: inline-block;" />
     </div>
     
     <!-- Content -->
@@ -74,7 +74,7 @@ export const sendMagicLinkMail = async (email, magicLink) => {
     
     <!-- Header -->
     <div style="text-align: center; margin-bottom: 30px;">
-      <img src="${process.env.FRONTEND_URL}/logo_light.png" alt="CXO Connect" style="height: 120px; width: auto; display: inline-block;" />
+      <img src="${process.env.FRONTEND_URL}/favicon.png" alt="CXO Connect" style="height: 120px; width: auto; display: inline-block;" />
     </div>
     
     <!-- Content -->
