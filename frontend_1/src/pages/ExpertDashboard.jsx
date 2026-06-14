@@ -71,75 +71,94 @@ const ExpertDashboard = () => {
   const [profile, setProfile] = useState(null);
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [recommendedOpportunities, setRecommendedOpportunities] = useState([]);
+  const [paymentSummary, setPaymentSummary] = useState(null);
+  const [escrowAccounts, setEscrowAccounts] = useState([]);
 
   useEffect(() => {
     const checkAuthAndFetch = async () => {
       const isDemo = localStorage.getItem('demo_expert') === 'true' || localStorage.getItem('sb-mock-auth') === 'true';
+      let token = "demo-token";
+      if (!isDemo) {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          navigate('/signin?role=expert');
+          return;
+        }
+        token = session.access_token;
+      }
+
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const headers = { 'Authorization': `Bearer ${token}` };
+
+      // Fetch Profile
       if (isDemo) {
         setProfile({ full_name: 'David Chen', key_skills: ['Financial Modeling', 'Investor Relations'] });
         setRecommendedOpportunities(MOCK_RECOMMENDED_OPPORTUNITIES);
         setLoadingProfile(false);
-        return;
-      }
-
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        navigate('/signin?role=expert');
-        return;
-      }
-
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
-      try {
-        const response = await fetch(`${baseUrl}/api/expert/profile`, {
-          headers: {
-            'Authorization': `Bearer ${session.access_token}`
+      } else {
+        try {
+          const response = await fetch(`${baseUrl}/api/expert/profile`, { headers });
+          if (response.ok) {
+            const data = await response.json();
+            setProfile(data);
+            if (data.engagement_types?.availability?.status) {
+              setIsAvailable(data.engagement_types.availability.status === 'Available');
+            }
+          } else {
+            console.warn("No expert profile found, using defaults");
           }
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setProfile(data);
-          if (data.engagement_types?.availability?.status) {
-            setIsAvailable(data.engagement_types.availability.status === 'Available');
-          }
-        } else {
-          console.warn("No expert profile found, using defaults");
+        } catch (err) {
+          console.error("Error fetching expert profile:", err);
+        } finally {
+          setLoadingProfile(false);
         }
-      } catch (err) {
-        console.error("Error fetching expert profile:", err);
-      } finally {
-        setLoadingProfile(false);
-      }
 
-      // Fetch opportunities
-      try {
-        const response = await fetch(`${baseUrl}/api/expert/opportunities`, {
-          headers: {
-            'Authorization': `Bearer ${session.access_token}`
-          }
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          if (data && data.length > 0) {
-            setRecommendedOpportunities(data);
+        // Fetch opportunities
+        try {
+          const response = await fetch(`${baseUrl}/api/expert/opportunities`, { headers });
+          if (response.ok) {
+            const data = await response.json();
+            if (data && data.length > 0) {
+              setRecommendedOpportunities(data);
+            } else {
+              setRecommendedOpportunities(MOCK_RECOMMENDED_OPPORTUNITIES);
+            }
           } else {
             setRecommendedOpportunities(MOCK_RECOMMENDED_OPPORTUNITIES);
           }
-        } else {
+        } catch (err) {
+          console.error("Error fetching opportunities:", err);
           setRecommendedOpportunities(MOCK_RECOMMENDED_OPPORTUNITIES);
         }
+      }
+
+      // Fetch payment summary (both demo and real)
+      try {
+        const response = await fetch(`${baseUrl}/api/payments/summary`, { headers });
+        if (response.ok) {
+          const data = await response.json();
+          setPaymentSummary(data);
+        }
       } catch (err) {
-        console.error("Error fetching opportunities:", err);
-        setRecommendedOpportunities(MOCK_RECOMMENDED_OPPORTUNITIES);
+        console.error("Error fetching payment summary:", err);
+      }
+
+      // Fetch escrows (both demo and real)
+      try {
+        const response = await fetch(`${baseUrl}/api/payments/escrows`, { headers });
+        if (response.ok) {
+          const data = await response.json();
+          setEscrowAccounts(data);
+        }
+      } catch (err) {
+        console.error("Error fetching escrows:", err);
       }
     };
 
     checkAuthAndFetch();
 
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      if (!session) {
+      if (!session && localStorage.getItem('demo_expert') !== 'true') {
         navigate('/signin?role=expert');
       }
     });
@@ -309,9 +328,13 @@ const ExpertDashboard = () => {
       path: '/meetings'              },
   ];
 
+  const activeEngagementsCount = escrowAccounts.length > 0 ? escrowAccounts.length : 2;
+  const totalEarnedStr = paymentSummary ? paymentSummary.totalSpent : '₹12.4L';
+  const trendEarned = paymentSummary ? `+${paymentSummary.pendingRelease} in escrow` : '+₹3.5L this month';
+
   const kpis = [
     {
-      title: 'Active Engagements', value: '2', trend: '+1 this month',
+      title: 'Active Engagements', value: String(activeEngagementsCount), trend: '+1 this month',
       icon: Activity, iconBg: 'bg-teal-50', iconColor: 'text-[#0eb59a]',
       border: 'border-t-4 border-t-[#0eb59a]', numColor: 'text-[#0eb59a]',
       path: '/expert-engagements',
@@ -323,7 +346,7 @@ const ExpertDashboard = () => {
       path: '/expert-opportunities',
     },
     {
-      title: 'Total Earned', value: '₹12.4L', trend: '+₹3.5L this month',
+      title: 'Total Earned', value: totalEarnedStr, trend: trendEarned,
       icon: DollarSign, iconBg: 'bg-amber-50', iconColor: 'text-amber-500',
       border: 'border-t-4 border-t-amber-400', numColor: 'text-amber-500',
       path: '/expert-earnings',
@@ -441,7 +464,30 @@ const ExpertDashboard = () => {
     },
   ];
 
-  const activeEngagements = [
+  const activeEngagements = escrowAccounts.length > 0 ? escrowAccounts.map((ea) => {
+    let progressVal = 0;
+    if (ea.released && ea.totalValue) {
+      const releasedNum = parseFloat(ea.released.replace(/[₹L,+\s]/g, '')) || 0;
+      const totalNum = parseFloat(ea.totalValue.replace(/[₹L,+\s]/g, '')) || 0;
+      if (totalNum > 0) {
+        progressVal = Math.round((releasedNum / totalNum) * 100);
+      }
+    }
+    return {
+      id: ea.id,
+      title: ea.engagement,
+      company: ea.expert === 'Sarah Jenkins' ? 'TechScale Ventures' : 'Acme Corp',
+      companyLogo: ea.expert === 'Sarah Jenkins' ? 'TV' : 'AC',
+      logoColor: ea.expert === 'Sarah Jenkins' ? 'from-emerald-700 to-teal-500' : 'from-[#134e40] to-[#0eb59a]',
+      status: ea.status === 'Active' ? 'IN PROGRESS' : ea.status.toUpperCase(),
+      statusColor: ea.status === 'Active' ? 'text-blue-600 bg-blue-50' : 'text-emerald-600 bg-emerald-50',
+      progress: progressVal,
+      nextMilestone: ea.pendingMilestone || 'None',
+      dueDate: 'Apr 30, 2025',
+      monthlyRate: ea.expert === 'Sarah Jenkins' ? '₹2.5L/mo' : '₹3L/mo',
+      path: `/expert-engagements/${ea.id}`,
+    };
+  }) : [
     {
       id: 1,
       title: 'Series B Funding Strategy',

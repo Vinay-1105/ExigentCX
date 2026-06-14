@@ -643,6 +643,61 @@ export const releaseEscrow = async (req, res) => {
   }
 };
 
+// ================= SUBMIT MILESTONE DELIVERABLE =================
+export const submitMilestone = async (req, res) => {
+  try {
+    const { engagementId, milestoneId, note } = req.body;
+
+    if (!engagementId || !milestoneId) {
+      return res.status(400).json({ error: "Engagement ID and Milestone ID are required" });
+    }
+
+    const milestones = await readJsonFile("milestones.json");
+    const milestone = milestones.find(m => m.id === milestoneId && m.engagement_id === engagementId);
+
+    if (!milestone) {
+      return res.status(404).json({ error: "Milestone not found" });
+    }
+
+    if (milestone.status !== "in_progress") {
+      return res.status(400).json({ error: `Milestone is in status "${milestone.status}" and cannot be submitted` });
+    }
+
+    // Update status to pending_approval (which means submitted, awaiting company approval)
+    milestone.status = "pending_approval";
+    
+    // Add mockup deliverables if empty
+    if (!milestone.deliverables || milestone.deliverables.length === 0) {
+      milestone.deliverables = [
+        { name: "Deliverable_Document.pdf", size: "2.4 MB", type: "pdf" }
+      ];
+    }
+
+    await writeJsonFile("milestones.json", milestones);
+
+    // Create a notification for the company
+    const engagements = await readJsonFile("engagements.json");
+    const engagement = engagements.find(e => e.id === engagementId);
+    if (engagement) {
+      const { companyUserId } = await resolveUserIdsForNotification(engagement, req.user);
+      if (companyUserId) {
+        await createNotification(
+          companyUserId,
+          "Milestone Submitted for Approval",
+          `Expert ${engagement.expert_name} has submitted deliverables for milestone "${milestone.title}". Please review and approve.`,
+          "payment",
+          { engagementId, milestoneId }
+        );
+      }
+    }
+
+    res.json({ success: true, milestone });
+  } catch (err) {
+    console.error("submitMilestone error:", err);
+    res.status(500).json({ error: "Failed to submit milestone deliverable" });
+  }
+};
+
 // ================= GET ENGAGEMENT DETAILS FOR WORKSPACE =================
 export const getEngagementDetails = async (req, res) => {
   try {

@@ -16,6 +16,15 @@ import {
 import { supabase } from '@/lib/supabaseClient';
 import FormalCardBorder from '../components/FormalCardBorder';
 
+const monthlyData = [
+  { month: 'Nov', amount: 150, label: '₹1.5L' },
+  { month: 'Dec', amount: 150, label: '₹1.5L' },
+  { month: 'Jan', amount: 180, label: '₹1.8L' },
+  { month: 'Feb', amount: 150, label: '₹1.5L' },
+  { month: 'Mar', amount: 200, label: '₹2.0L' },
+  { month: 'Apr', amount: 350, label: '₹3.5L' },
+];
+
 const ExpertEarnings = () => {
   const navigate = useNavigate();
 
@@ -133,7 +142,7 @@ const ExpertEarnings = () => {
   ];
   const unreadCount = notifications.filter(n => n.unread).length;
 
-  const summary = {
+  const [summary, setSummary] = useState({
     totalEarned: '₹12,40,000',
     thisMonth: '₹3,50,000',
     inEscrow: '₹5,50,000',
@@ -142,19 +151,9 @@ const ExpertEarnings = () => {
     nextPaymentDate: 'Apr 30, 2025',
     avgMonthly: '₹3.1L',
     totalEngagements: 2,
-  };
+  });
 
-  const monthlyData = [
-    { month: 'Oct', amount: 0, label: '—' },
-    { month: 'Nov', amount: 150, label: '₹1.5L' },
-    { month: 'Dec', amount: 150, label: '₹1.5L' },
-    { month: 'Jan', amount: 200, label: '₹2L' },
-    { month: 'Feb', amount: 300, label: '₹3L' },
-    { month: 'Mar', amount: 350, label: '₹3.5L' },
-    { month: 'Apr', amount: 350, label: '₹3.5L' },
-  ];
-
-  const transactions = [
+  const [transactions, setTransactions] = useState([
     {
       id: 'TXN-007-2025',
       type: 'milestone_received',
@@ -233,9 +232,9 @@ const ExpertEarnings = () => {
       status: 'In Escrow',
       txRef: 'TXN-002-2025',
     },
-  ];
+  ]);
 
-  const invoices = [
+  const [invoices, setInvoices] = useState([
     {
       id: 'INV-EXP-006',
       title: 'Financial Model Development — March 2025',
@@ -284,7 +283,112 @@ const ExpertEarnings = () => {
       status: 'Paid',
       type: 'Milestone Invoice',
     },
-  ];
+  ]);
+
+  const fetchPaymentData = async () => {
+    const isDemo = localStorage.getItem('demo_expert') === 'true' || localStorage.getItem('sb-mock-auth') === 'true';
+    let token = "demo-token";
+    if (!isDemo) {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+      token = session.access_token;
+    }
+    const headers = { 'Authorization': `Bearer ${token}` };
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
+    try {
+      const summaryRes = await fetch(`${baseUrl}/api/payments/summary`, { headers });
+      if (summaryRes.ok) {
+        const data = await summaryRes.json();
+        setSummary({
+          totalEarned: data.totalSpent,
+          thisMonth: data.totalSpent,
+          inEscrow: data.totalBalance,
+          availableToWithdraw: data.totalSpent,
+          nextPayment: data.pendingRelease,
+          nextPaymentDate: 'Within 30 Days',
+          avgMonthly: '₹3.1L',
+          totalEngagements: 2,
+        });
+      }
+
+      const txsRes = await fetch(`${baseUrl}/api/payments/transactions`, { headers });
+      if (txsRes.ok) {
+        const txs = await txsRes.json();
+        const mapped = txs.map(t => {
+          if (t.type === 'milestone_release') {
+            return {
+              id: t.id,
+              type: 'milestone_received',
+              description: `Milestone Payment — ${t.description.replace('Milestone Payment — ', '')}`,
+              engagement: t.engagement,
+              company: 'Acme Corp',
+              amount: "+" + t.amount.replace(/[-]/g, ''),
+              amountNum: Math.abs(t.amountNum),
+              date: t.date,
+              time: t.time,
+              status: 'Received',
+              txRef: t.txRef
+            };
+          } else if (t.type === 'platform_fee') {
+            return {
+              id: t.id,
+              type: 'platform_fee',
+              description: t.description,
+              engagement: t.engagement,
+              company: 'ExigentCX',
+              amount: t.amount,
+              amountNum: t.amountNum,
+              date: t.date,
+              time: t.time,
+              status: 'Deducted',
+              txRef: t.txRef
+            };
+          } else if (t.type === 'escrow_add') {
+            return {
+              id: t.id,
+              type: 'milestone_pending',
+              description: `Milestone Pending — ${t.description.replace('Funds Added to Escrow — ', '')}`,
+              engagement: t.engagement,
+              company: 'Acme Corp',
+              amount: t.amount,
+              amountNum: t.amountNum,
+              date: t.date,
+              time: t.time,
+              status: 'In Escrow',
+              txRef: t.txRef
+            };
+          }
+          return t;
+        });
+        setTransactions(mapped);
+      }
+
+      const invoicesRes = await fetch(`${baseUrl}/api/payments/invoices`, { headers });
+      if (invoicesRes.ok) {
+        const invs = await invoicesRes.json();
+        const mappedInvs = invs.map(inv => ({
+          id: inv.id,
+          title: inv.title,
+          engagement: inv.engagement,
+          company: inv.expert === '—' ? 'ExigentCX' : 'Acme Corp',
+          companyLogo: 'AC',
+          logoColor: 'from-[#134e40] to-[#0eb59a]',
+          amount: inv.amount,
+          date: inv.date,
+          status: inv.status,
+          type: inv.type
+        }));
+        setInvoices(mappedInvs);
+      }
+    } catch (err) {
+      console.error("Error loading expert payment info:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchPaymentData();
+  }, [expertProfile]);
 
   const payoutAccounts = [
     {

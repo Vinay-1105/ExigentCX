@@ -1,5 +1,33 @@
 [
   {
+    "id": "INV-6951",
+    "title": "Milestone Deliverable Submission",
+    "engagement": "Registered Escrow Payout Engagement",
+    "engagement_id": "3",
+    "expert": "Suyash Tripathi",
+    "expertAvatar": "https://i.pravatar.cc/150?u=suyash",
+    "amount": "₹3,00,000",
+    "amountNum": 300000,
+    "date": "Jun 15, 2026",
+    "dueDate": "Jun 15, 2026",
+    "status": "Paid",
+    "type": "Milestone Invoice"
+  },
+  {
+    "id": "INV-2236",
+    "title": "Investor Outreach & Roadshow - Funded",
+    "engagement": "Series B Funding Strategy",
+    "engagement_id": "1",
+    "expert": "David Chen",
+    "expertAvatar": "https://i.pravatar.cc/150?u=david",
+    "amount": "₹10,000",
+    "amountNum": 10000,
+    "date": "Jun 14, 2026",
+    "dueDate": "Jun 14, 2026",
+    "status": "Pending",
+    "type": "Milestone Invoice"
+  },
+  {
     "id": "INV-7085",
     "title": "Escrow Wallet Deposit",
     "engagement": "Series B Funding Strategy",
@@ -316,7 +344,7 @@
     "expertAvatar": "https://i.pravatar.cc/150?u=david",
     "amount": "₹2,50,000",
     "amountNum": 250000,
-    "date": "Jun 8, 2026",
+    "date": "Jun 13, 2026",
     "dueDate": "May 5, 2025",
     "status": "Paid",
     "type": "Milestone Invoice"

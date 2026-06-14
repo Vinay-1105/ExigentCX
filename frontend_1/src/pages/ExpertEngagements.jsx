@@ -91,8 +91,51 @@ const ExpertEngagements = () => {
     { id: 'Payments', icon: CreditCard },
   ];
 
-  // ── ENGAGEMENTS LIST ──
-  const engagementsList = [
+  // ── DYNAMIC STATES ──
+  const [dbEscrowAccounts, setDbEscrowAccounts] = useState([]);
+  const [engagement, setEngagement] = useState({
+    id: selectedEngagement,
+    title: 'Series B Funding Strategy',
+    company: 'Acme Corp',
+    companyLogo: 'AC',
+    logoColor: 'from-[#134e40] to-[#0eb59a]',
+    status: 'IN PROGRESS',
+    statusColor: 'text-blue-600 bg-blue-50 border-blue-200',
+    type: 'Interim',
+    startDate: 'Feb 1, 2025',
+    endDate: 'Jul 31, 2025',
+    duration: '6 months',
+    commitment: '40 hrs/wk',
+    monthlyRate: '₹3L/mo',
+    totalValue: '₹18,00,000',
+    received: '₹3,50,000',
+    pending: '₹2,50,000',
+    progress: 65,
+    nextMilestone: 'Investor Deck & Data Room',
+    daysLeft: 87,
+    pmContact: 'Riya Sharma',
+    pmEmail: 'riya@cxoconnect.com',
+  });
+  const [milestones, setMilestones] = useState([]);
+  const [payments, setPayments] = useState([]);
+  const [loadingEngagement, setLoadingEngagement] = useState(true);
+
+  // Map database escrows to frontend engagementsList
+  const engagementsList = dbEscrowAccounts.length > 0 ? dbEscrowAccounts.map((ea) => {
+    return {
+      id: ea.id,
+      title: ea.engagement,
+      company: ea.expert === 'Sarah Jenkins' ? 'TechScale Ventures' : 'Acme Corp',
+      logo: ea.expert === 'Sarah Jenkins' ? 'TV' : 'AC',
+      logoColor: ea.expert === 'Sarah Jenkins' ? 'from-emerald-700 to-teal-500' : 'from-[#134e40] to-[#0eb59a]',
+      status: ea.status === 'Active' ? 'IN PROGRESS' : ea.status.toUpperCase(),
+      statusColor: ea.status === 'Active' ? 'text-blue-600 bg-blue-50' : 'text-emerald-600 bg-emerald-50',
+      progress: 65,
+      monthlyRate: ea.expert === 'Sarah Jenkins' ? '₹2.5L/mo' : '₹3L/mo',
+      nextAction: ea.pendingMilestone || 'None',
+      dueDate: 'Apr 30, 2025',
+    };
+  }) : [
     {
       id: '1',
       title: 'Series B Funding Strategy',
@@ -118,100 +161,10 @@ const ExpertEngagements = () => {
       monthlyRate: '₹2.5L/mo',
       nextAction: 'Submit Due Diligence Report',
       dueDate: 'May 15, 2025',
-    },
+    }
   ];
 
   const currentEngagement = engagementsList.find(e => e.id === selectedEngagement) || engagementsList[0];
-
-  // ── ENGAGEMENT DETAIL DATA ──
-  const engagement = {
-    id: selectedEngagement,
-    title: currentEngagement.title,
-    company: currentEngagement.company,
-    companyLogo: currentEngagement.logo,
-    logoColor: currentEngagement.logoColor,
-    status: currentEngagement.status,
-    statusColor: currentEngagement.statusColor,
-    type: 'Interim',
-    startDate: 'Feb 1, 2025',
-    endDate: 'Jul 31, 2025',
-    duration: '6 months',
-    commitment: '40 hrs/wk',
-    monthlyRate: currentEngagement.monthlyRate,
-    totalValue: '₹18,00,000',
-    received: '₹3,50,000',
-    pending: '₹2,50,000',
-    progress: currentEngagement.progress,
-    nextMilestone: currentEngagement.nextAction,
-    daysLeft: 87,
-    pmContact: 'Riya Sharma',
-    pmEmail: 'riya@cxoconnect.com',
-  };
-
-  const milestones = [
-    {
-      id: 1,
-      title: 'Discovery & Assessment',
-      desc: 'Initial business assessment, stakeholder interviews, and financial health review',
-      dueDate: 'Feb 28, 2025',
-      completedDate: 'Feb 25, 2025',
-      status: 'approved',
-      payment: '₹1.5L',
-      paymentStatus: 'received',
-      deliverables: [
-        { name: 'Business Assessment Report.pdf', size: '2.4 MB', type: 'pdf' },
-        { name: 'Financial Health Summary.xlsx', size: '1.1 MB', type: 'excel' },
-      ],
-    },
-    {
-      id: 2,
-      title: 'Financial Model Development',
-      desc: 'Build 3-year financial model, unit economics analysis, and fundraising materials',
-      dueDate: 'Mar 31, 2025',
-      completedDate: 'Mar 28, 2025',
-      status: 'approved',
-      payment: '₹2L',
-      paymentStatus: 'received',
-      deliverables: [
-        { name: 'Financial Model v2.xlsx', size: '3.8 MB', type: 'excel' },
-        { name: 'Unit Economics Analysis.pdf', size: '1.6 MB', type: 'pdf' },
-        { name: 'Fundraising Narrative.pptx', size: '5.2 MB', type: 'ppt' },
-      ],
-    },
-    {
-      id: 3,
-      title: 'Investor Deck & Data Room',
-      desc: 'Create investor presentation, prepare data room, and investor outreach list',
-      dueDate: 'Apr 30, 2025',
-      completedDate: null,
-      status: 'in_progress',
-      payment: '₹2.5L',
-      paymentStatus: 'in_escrow',
-      deliverables: [],
-    },
-    {
-      id: 4,
-      title: 'Investor Outreach & Roadshow',
-      desc: 'Lead investor outreach, manage roadshow schedule, and prepare management for meetings',
-      dueDate: 'May 31, 2025',
-      completedDate: null,
-      status: 'upcoming',
-      payment: '₹3L',
-      paymentStatus: 'locked',
-      deliverables: [],
-    },
-    {
-      id: 5,
-      title: 'Term Sheet & Due Diligence Support',
-      desc: 'Negotiate term sheets, support legal due diligence, and close the round',
-      dueDate: 'Jul 31, 2025',
-      completedDate: null,
-      status: 'upcoming',
-      payment: '₹2.5L',
-      paymentStatus: 'locked',
-      deliverables: [],
-    },
-  ];
 
   const documents = [
     { id: 1, name: 'Engagement Agreement.pdf', size: '1.2 MB', type: 'pdf', uploadedBy: 'ExigentCX', date: 'Feb 1, 2025', category: 'Legal' },
@@ -219,14 +172,6 @@ const ExpertEngagements = () => {
     { id: 3, name: 'Financial Model v2.xlsx', size: '3.8 MB', type: 'excel', uploadedBy: 'You', date: 'Mar 28, 2025', category: 'Deliverable' },
     { id: 4, name: 'Business Assessment Report.pdf', size: '2.4 MB', type: 'pdf', uploadedBy: 'You', date: 'Feb 25, 2025', category: 'Deliverable' },
     { id: 5, name: 'Fundraising Narrative.pptx', size: '5.2 MB', type: 'ppt', uploadedBy: 'You', date: 'Mar 28, 2025', category: 'Deliverable' },
-  ];
-
-  const payments = [
-    { id: 1, milestone: 'Discovery & Assessment', amount: '₹1,50,000', date: 'Feb 25, 2025', status: 'received', txId: 'TXN-003-2025' },
-    { id: 2, milestone: 'Financial Model Development', amount: '₹2,00,000', date: 'Mar 28, 2025', status: 'received', txId: 'TXN-005-2025' },
-    { id: 3, milestone: 'Investor Deck & Data Room', amount: '₹2,50,000', date: '—', status: 'in_escrow', txId: 'TXN-007-2025' },
-    { id: 4, milestone: 'Investor Outreach & Roadshow', amount: '₹3,00,000', date: '—', status: 'locked', txId: '—' },
-    { id: 5, milestone: 'Term Sheet & Due Diligence', amount: '₹2,50,000', date: '—', status: 'locked', txId: '—' },
   ];
 
   // ── DATA ARRAYS (ExpertOpportunities) ──
@@ -309,11 +254,86 @@ const ExpertEngagements = () => {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
+  const fetchEscrowAccounts = async () => {
+    const isDemo = localStorage.getItem('demo_expert') === 'true' || localStorage.getItem('sb-mock-auth') === 'true';
+    let token = "demo-token";
+    if (!isDemo) {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+      token = session.access_token;
+    }
+    const headers = { 'Authorization': `Bearer ${token}` };
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
+    try {
+      const res = await fetch(`${baseUrl}/api/payments/escrows`, { headers });
+      if (res.ok) {
+        const data = await res.json();
+        setDbEscrowAccounts(data);
+        if (data.length > 0 && !selectedEngagement) {
+          setSelectedEngagement(data[0].id);
+        }
+      }
+    } catch (err) {
+      console.error("Error loading escrows list:", err);
+    }
+  };
+
+  const fetchEngagementDetails = async (engId) => {
+    const isDemo = localStorage.getItem('demo_expert') === 'true' || localStorage.getItem('sb-mock-auth') === 'true';
+    let token = "demo-token";
+    if (!isDemo) {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+      token = session.access_token;
+    }
+    const headers = { 'Authorization': `Bearer ${token}` };
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
+    try {
+      setLoadingEngagement(true);
+      const res = await fetch(`${baseUrl}/api/payments/engagement/${engId}`, { headers });
+      if (res.ok) {
+        const data = await res.json();
+        
+        // Map backend properties to frontend schema
+        const mappedEngagement = {
+          ...data.engagement,
+          company: data.engagement.expert.name === 'Sarah Jenkins' ? 'TechScale Ventures' : 'Acme Corp',
+          companyLogo: data.engagement.expert.name === 'Sarah Jenkins' ? 'TV' : 'AC',
+          logoColor: data.engagement.expert.name === 'Sarah Jenkins' ? 'from-emerald-700 to-teal-500' : 'from-[#134e40] to-[#0eb59a]',
+          received: data.engagement.spent,
+          pending: data.engagement.escrowBalance
+        };
+
+        setEngagement(mappedEngagement);
+        setMilestones(data.milestones);
+        setPayments(data.payments);
+      }
+    } catch (err) {
+      console.error("Error loading engagement details in expert workspace:", err);
+    } finally {
+      setLoadingEngagement(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEscrowAccounts();
+  }, [profile]);
+
+  useEffect(() => {
+    if (selectedEngagement) {
+      fetchEngagementDetails(selectedEngagement);
+    }
+  }, [selectedEngagement, profile]);
+
   // ── HELPERS ──
   const getMilestoneStatus = (status) => {
     switch (status) {
       case 'approved': return { label: 'Approved', color: 'text-emerald-600 bg-emerald-50 border-emerald-200', icon: CheckCircle };
       case 'submitted': return { label: 'Submitted', color: 'text-blue-600 bg-blue-50 border-blue-200', icon: Clock };
+      case 'pending_approval': return { label: 'Awaiting Approval', color: 'text-blue-600 bg-blue-50 border-blue-200', icon: Clock };
+      case 'pending_admin_release': return { label: 'Awaiting Release', color: 'text-purple-600 bg-purple-50 border-purple-200', icon: Clock };
       case 'in_progress': return { label: 'In Progress', color: 'text-amber-600 bg-amber-50 border-amber-200', icon: Clock };
       case 'upcoming': return { label: 'Upcoming', color: 'text-gray-400 bg-gray-50 border-gray-200', icon: Circle };
       case 'rejected': return { label: 'Needs Revision', color: 'text-red-600 bg-red-50 border-red-200', icon: AlertCircle };
@@ -352,13 +372,49 @@ const ExpertEngagements = () => {
     setMessageText('');
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setSubmitSent(true);
-    setTimeout(() => {
-      setShowSubmitModal(null);
+
+    const isDemo = localStorage.getItem('demo_expert') === 'true' || localStorage.getItem('sb-mock-auth') === 'true';
+    let token = "demo-token";
+    if (!isDemo) {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+      token = session.access_token;
+    }
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
+    try {
+      const res = await fetch(`${baseUrl}/api/payments/milestone/submit`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          engagementId: selectedEngagement,
+          milestoneId: showSubmitModal.id,
+          note: deliverableNote
+        })
+      });
+
+      if (res.ok) {
+        setTimeout(() => {
+          setShowSubmitModal(null);
+          setSubmitSent(false);
+          setDeliverableNote('');
+          fetchEngagementDetails(selectedEngagement);
+        }, 2000);
+      } else {
+        const errorData = await res.json();
+        alert("Failed to submit deliverable: " + (errorData.error || "Unknown error"));
+        setSubmitSent(false);
+      }
+    } catch (err) {
+      console.error("Error submitting milestone deliverable:", err);
+      alert("Error submitting milestone deliverable");
       setSubmitSent(false);
-      setDeliverableNote('');
-    }, 2000);
+    }
   };
 
   return (

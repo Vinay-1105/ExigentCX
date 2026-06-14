@@ -59,16 +59,11 @@
     "status": "completed",
     "paymentStatus": "released",
     "due_date": "Apr 30, 2025",
-    "completed_date": "Jun 8, 2026",
+    "completed_date": "Jun 13, 2026",
     "deliverables": [
       {
-        "name": "Investor Deck Final.pptx",
-        "size": "8.4 MB",
-        "type": "ppt"
-      },
-      {
-        "name": "Data Room Index.pdf",
-        "size": "0.8 MB",
+        "name": "Deliverable_Document.pdf",
+        "size": "2.4 MB",
         "type": "pdf"
       }
     ]
@@ -79,10 +74,10 @@
     "title": "Investor Outreach & Roadshow",
     "desc": "Lead investor outreach, manage roadshow schedule, and prepare management for meetings",
     "amount": 300000,
-    "status": "completed",
-    "paymentStatus": "released",
+    "status": "in_progress",
+    "paymentStatus": "in_escrow",
     "due_date": "May 31, 2025",
-    "completed_date": "Jun 11, 2026",
+    "completed_date": null,
     "deliverables": []
   },
   {
@@ -91,10 +86,10 @@
     "title": "Term Sheet & Due Diligence Support",
     "desc": "Negotiate term sheets, support legal due diligence, and close the round",
     "amount": 250000,
-    "status": "completed",
-    "paymentStatus": "released",
+    "status": "upcoming",
+    "paymentStatus": "locked",
     "due_date": "Jul 31, 2025",
-    "completed_date": "Jun 8, 2026",
+    "completed_date": null,
     "deliverables": []
   },
   {
@@ -119,6 +114,48 @@
     "paymentStatus": "released",
     "due_date": "May 15, 2025",
     "completed_date": "Jun 8, 2026",
+    "deliverables": []
+  },
+  {
+    "id": "m-3-1",
+    "engagement_id": "3",
+    "title": "Deliverable Discovery",
+    "desc": "Discovery session and roadmap planning",
+    "amount": 400000,
+    "status": "completed",
+    "paymentStatus": "released",
+    "due_date": "Jun 10, 2026",
+    "completed_date": "Jun 10, 2026",
+    "deliverables": []
+  },
+  {
+    "id": "m-3-2",
+    "engagement_id": "3",
+    "title": "Milestone Deliverable Submission",
+    "desc": "Complete research phase and document submission",
+    "amount": 300000,
+    "status": "completed",
+    "paymentStatus": "released",
+    "due_date": "Jun 20, 2026",
+    "completed_date": "Jun 15, 2026",
+    "deliverables": [
+      {
+        "name": "Deliverable_Document.pdf",
+        "size": "2.4 MB",
+        "type": "pdf"
+      }
+    ]
+  },
+  {
+    "id": "m-3-3",
+    "engagement_id": "3",
+    "title": "Final Phase Support",
+    "desc": "Final phase wrap-up and handoff",
+    "amount": 300000,
+    "status": "upcoming",
+    "paymentStatus": "locked",
+    "due_date": "Jul 31, 2026",
+    "completed_date": null,
     "deliverables": []
   }
 ]

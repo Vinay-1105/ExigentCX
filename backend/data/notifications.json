@@ -1,5 +1,70 @@
 [
   {
+    "id": "notif-1781375332729-659",
+    "user_id": "00000000-0000-0000-0000-000000000000",
+    "title": "Escrow Release Approved",
+    "description": "Released ₹2,50,000 from escrow for milestone \"Investor Deck & Data Room\" to David Chen.",
+    "type": "payment",
+    "metadata": {
+      "engagementId": "1",
+      "milestoneId": "m-3"
+    },
+    "is_read": false,
+    "created_at": "2026-06-13T18:28:52.729Z"
+  },
+  {
+    "id": "notif-1781375331748-286",
+    "user_id": "00000000-0000-0000-0000-000000000000",
+    "title": "Milestone Submitted for Approval",
+    "description": "Expert David Chen has submitted deliverables for milestone \"Investor Deck & Data Room\". Please review and approve.",
+    "type": "payment",
+    "metadata": {
+      "engagementId": "1",
+      "milestoneId": "m-3"
+    },
+    "is_read": false,
+    "created_at": "2026-06-13T18:28:51.750Z"
+  },
+  {
+    "id": "notif-1781374753447-521",
+    "user_id": "00000000-0000-0000-0000-000000000000",
+    "title": "Milestone Submitted for Approval",
+    "description": "Expert David Chen has submitted deliverables for milestone \"Investor Deck & Data Room\". Please review and approve.",
+    "type": "payment",
+    "metadata": {
+      "engagementId": "1",
+      "milestoneId": "m-3"
+    },
+    "is_read": false,
+    "created_at": "2026-06-13T18:19:13.447Z"
+  },
+  {
+    "id": "notif-1781374044322-115",
+    "user_id": "00000000-0000-0000-0000-000000000000",
+    "title": "Milestone Submitted for Approval",
+    "description": "Expert David Chen has submitted deliverables for milestone \"Investor Deck & Data Room\". Please review and approve.",
+    "type": "payment",
+    "metadata": {
+      "engagementId": "1",
+      "milestoneId": "m-3"
+    },
+    "is_read": false,
+    "created_at": "2026-06-13T18:07:24.322Z"
+  },
+  {
+    "id": "notif-1781373989368-430",
+    "user_id": "00000000-0000-0000-0000-000000000000",
+    "title": "Escrow Release Approved",
+    "description": "Released ₹2,50,000 from escrow for milestone \"Investor Deck & Data Room\" to David Chen.",
+    "type": "payment",
+    "metadata": {
+      "engagementId": "1",
+      "milestoneId": "m-3"
+    },
+    "is_read": false,
+    "created_at": "2026-06-13T18:06:29.368Z"
+  },
+  {
     "id": "notif-1781328874427-525",
     "user_id": "00000000-0000-0000-0000-000000000000",
     "title": "Funds Deposited to Escrow",

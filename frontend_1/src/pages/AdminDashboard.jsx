@@ -67,8 +67,14 @@ const AdminDashboard = () => {
 
   const fetchEscrows = async () => {
     try {
-      const token = "demo-token";
-      const res = await fetch("http://localhost:5000/api/payments/escrows", {
+      const isDemo = localStorage.getItem('sb-mock-auth') === 'true';
+      let token = "admin-token";
+      if (!isDemo) {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) token = session.access_token;
+      }
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const res = await fetch(`${baseUrl}/api/payments/escrows`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -154,9 +160,15 @@ const AdminDashboard = () => {
       triggerToast('No pending milestone to release.', 'warning');
       return;
     }
-    const token = "demo-token";
+    const isDemo = localStorage.getItem('sb-mock-auth') === 'true';
+    let token = "admin-token";
+    if (!isDemo) {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) token = session.access_token;
+    }
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
     try {
-      const res = await fetch("http://localhost:5000/api/payments/escrow/release", {
+      const res = await fetch(`${baseUrl}/api/payments/escrow/release`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

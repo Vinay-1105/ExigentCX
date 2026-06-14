@@ -8,7 +8,8 @@ import {
   createEscrow, 
   requestReleaseEscrow,
   releaseEscrow,
-  getEngagementDetails
+  getEngagementDetails,
+  submitMilestone
 } from "../controllers/paymentController.js";
 
 const router = express.Router();
@@ -25,5 +26,6 @@ router.get("/engagement/:engagementId", getEngagementDetails);
 router.post("/escrow/create", createEscrow);
 router.post("/escrow/request-release", requestReleaseEscrow);
 router.post("/escrow/release", releaseEscrow);
+router.post("/milestone/submit", submitMilestone);
 
 export default router;
