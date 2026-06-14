@@ -9,6 +9,7 @@ import companyRoutes from "./routes/companyRoutes.js";
 import expertRoutes from "./routes/expertRoutes.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
+import contractRoutes from "./routes/contractRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -46,5 +47,6 @@ app.use("/api/company", companyRoutes);
 app.use("/api/expert", expertRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/contracts", contractRoutes);
 
 app.listen(port, () => console.log(`🚀 Server running on port ${port}`));

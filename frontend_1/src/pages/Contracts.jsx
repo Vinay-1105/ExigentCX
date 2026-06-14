@@ -14,6 +14,174 @@ import {
 } from 'lucide-react';
 import FormalCardBorder from '../components/FormalCardBorder';
 
+const staticMockContracts = [
+  {
+    id: 1,
+    title: 'Engagement Agreement — Interim CFO',
+    type: 'Engagement Agreement',
+    status: 'Pending Signature',
+    expert: 'David Chen',
+    expertAvatar: 'https://i.pravatar.cc/150?u=david',
+    expertTitle: 'Interim CFO',
+    engagement: 'Series B Funding Strategy',
+    value: '₹18,00,000',
+    duration: '6 months',
+    startDate: 'Feb 1, 2025',
+    endDate: 'Jul 31, 2025',
+    createdDate: 'Jan 28, 2025',
+    expiresAt: 'Feb 3, 2025',
+    signedByExpert: true,
+    signedByCompany: false,
+    generatedBy: 'ExigentCX Platform',
+    pages: 8,
+    fileSize: '1.2 MB',
+    urgency: 'high',
+  },
+  {
+    id: 2,
+    title: 'Non-Disclosure Agreement — David Chen',
+    type: 'NDA',
+    status: 'Signed',
+    expert: 'David Chen',
+    expertAvatar: 'https://i.pravatar.cc/150?u=david',
+    expertTitle: 'Interim CFO',
+    engagement: 'Series B Funding Strategy',
+    value: '—',
+    duration: '2 years',
+    startDate: 'Feb 1, 2025',
+    endDate: 'Feb 1, 2027',
+    createdDate: 'Jan 28, 2025',
+    expiresAt: null,
+    signedByExpert: true,
+    signedByCompany: true,
+    signedDate: 'Feb 1, 2025',
+    generatedBy: 'ExigentCX Platform',
+    pages: 4,
+    fileSize: '0.6 MB',
+    urgency: null,
+  },
+  {
+    id: 3,
+    title: 'Engagement Agreement — Fractional CMO',
+    type: 'Engagement Agreement',
+    status: 'Signed',
+    expert: 'Sarah Jenkins',
+    expertAvatar: 'https://i.pravatar.cc/150?u=sarah',
+    expertTitle: 'Fractional CMO',
+    engagement: 'Go-to-Market Expansion',
+    value: '₹9,00,000',
+    duration: '3 months',
+    startDate: 'Mar 1, 2025',
+    endDate: 'May 31, 2025',
+    createdDate: 'Feb 25, 2025',
+    expiresAt: null,
+    signedByExpert: true,
+    signedByCompany: true,
+    signedDate: 'Feb 28, 2025',
+    generatedBy: 'ExigentCX Platform',
+    pages: 8,
+    fileSize: '1.1 MB',
+    urgency: null,
+  },
+  {
+    id: 4,
+    title: 'Non-Disclosure Agreement — Sarah Jenkins',
+    type: 'NDA',
+    status: 'Signed',
+    expert: 'Sarah Jenkins',
+    expertAvatar: 'https://i.pravatar.cc/150?u=sarah',
+    expertTitle: 'Fractional CMO',
+    engagement: 'Go-to-Market Expansion',
+    value: '—',
+    duration: '2 years',
+    startDate: 'Feb 28, 2025',
+    endDate: 'Feb 28, 2027',
+    createdDate: 'Feb 25, 2025',
+    expiresAt: null,
+    signedByExpert: true,
+    signedByCompany: true,
+    signedDate: 'Feb 28, 2025',
+    generatedBy: 'ExigentCX Platform',
+    pages: 4,
+    fileSize: '0.6 MB',
+    urgency: null,
+  },
+  {
+    id: 5,
+    title: 'Engagement Agreement — VP Engineering',
+    type: 'Engagement Agreement',
+    status: 'Under Review',
+    expert: 'Priya Patel',
+    expertAvatar: 'https://i.pravatar.cc/150?u=priya',
+    expertTitle: 'Fractional VP Engineering',
+    engagement: 'Tech Infrastructure Scale-up',
+    value: '₹7,20,000',
+    duration: '4 months',
+    startDate: 'May 1, 2025',
+    endDate: 'Aug 31, 2025',
+    createdDate: 'Apr 20, 2025',
+    expiresAt: 'Apr 30, 2025',
+    signedByExpert: false,
+    signedByCompany: false,
+    generatedBy: 'ExigentCX Platform',
+    pages: 8,
+    fileSize: '1.0 MB',
+    urgency: 'medium',
+  },
+  {
+    id: 6,
+    title: 'Advisory Agreement — Interim COO',
+    type: 'Advisory Agreement',
+    status: 'Expired',
+    expert: 'Marcus Johnson',
+    expertAvatar: 'https://i.pravatar.cc/150?u=marcus',
+    expertTitle: 'Interim COO',
+    engagement: 'Operations Restructuring',
+    value: '₹4,50,000',
+    duration: '3 months',
+    startDate: 'Nov 1, 2024',
+    endDate: 'Jan 31, 2025',
+    createdDate: 'Oct 28, 2024',
+    expiresAt: 'Oct 30, 2024',
+    signedByExpert: false,
+    signedByCompany: false,
+    signedDate: null,
+    generatedBy: 'ExigentCX Platform',
+    pages: 6,
+    fileSize: '0.9 MB',
+    urgency: null,
+  },
+];
+
+const mapContractFromDb = (dbContract) => ({
+  id: dbContract.id,
+  title: dbContract.title,
+  type: dbContract.type,
+  status: dbContract.status,
+  expert: dbContract.expert_name || 'Expert',
+  expertAvatar: dbContract.expert_avatar || 'https://i.pravatar.cc/150?u=expert',
+  expertTitle: dbContract.expert_title || 'CXO Advisor',
+  company: dbContract.company_name || 'Client',
+  companyLogo: dbContract.company_logo || 'CO',
+  logoColor: dbContract.logo_color || 'from-[#134e40] to-[#0eb59a]',
+  engagement: dbContract.title.includes('NDA') ? 'Non-Disclosure Agreement' : (dbContract.title.includes('CFO') ? 'Series B Funding Strategy' : (dbContract.title.includes('CMO') ? 'Go-to-Market Expansion' : (dbContract.title.includes('Engineering') ? 'Tech Infrastructure Scale-up' : (dbContract.title.includes('COO') ? 'Operations Restructuring' : 'Consulting Engagement')))),
+  value: dbContract.value,
+  duration: dbContract.duration,
+  startDate: dbContract.start_date,
+  endDate: dbContract.end_date,
+  createdDate: dbContract.created_date,
+  expiresAt: dbContract.expires_at,
+  signedByExpert: dbContract.signed_by_expert,
+  signedByCompany: dbContract.signed_by_company,
+  signedDate: dbContract.signed_date,
+  generatedBy: dbContract.generated_by,
+  pages: dbContract.pages,
+  fileSize: dbContract.file_size,
+  urgency: dbContract.urgency,
+  expert_email: dbContract.expert_email,
+  company_email: dbContract.company_email
+});
+
 const Contracts = () => {
   const navigate = useNavigate();
   const { contractId } = useParams();
@@ -110,153 +278,68 @@ const Contracts = () => {
   // ── DATA ──
   const filters = ['All', 'Pending Signature', 'Signed', 'Under Review', 'Expired'];
 
-  const contracts = [
-    {
-      id: 1,
-      title: 'Engagement Agreement — Interim CFO',
-      type: 'Engagement Agreement',
-      status: 'Pending Signature',
-      expert: 'David Chen',
-      expertAvatar: 'https://i.pravatar.cc/150?u=david',
-      expertTitle: 'Interim CFO',
-      engagement: 'Series B Funding Strategy',
-      value: '₹18,00,000',
-      duration: '6 months',
-      startDate: 'Feb 1, 2025',
-      endDate: 'Jul 31, 2025',
-      createdDate: 'Jan 28, 2025',
-      expiresAt: 'Feb 3, 2025',
-      signedByExpert: true,
-      signedByCompany: false,
-      generatedBy: 'ExigentCX Platform',
-      pages: 8,
-      fileSize: '1.2 MB',
-      urgency: 'high',
-    },
-    {
-      id: 2,
-      title: 'Non-Disclosure Agreement — David Chen',
-      type: 'NDA',
-      status: 'Signed',
-      expert: 'David Chen',
-      expertAvatar: 'https://i.pravatar.cc/150?u=david',
-      expertTitle: 'Interim CFO',
-      engagement: 'Series B Funding Strategy',
-      value: '—',
-      duration: '2 years',
-      startDate: 'Feb 1, 2025',
-      endDate: 'Feb 1, 2027',
-      createdDate: 'Jan 28, 2025',
-      expiresAt: null,
-      signedByExpert: true,
-      signedByCompany: true,
-      signedDate: 'Feb 1, 2025',
-      generatedBy: 'ExigentCX Platform',
-      pages: 4,
-      fileSize: '0.6 MB',
-      urgency: null,
-    },
-    {
-      id: 3,
-      title: 'Engagement Agreement — Fractional CMO',
-      type: 'Engagement Agreement',
-      status: 'Signed',
-      expert: 'Sarah Jenkins',
-      expertAvatar: 'https://i.pravatar.cc/150?u=sarah',
-      expertTitle: 'Fractional CMO',
-      engagement: 'Go-to-Market Expansion',
-      value: '₹9,00,000',
-      duration: '3 months',
-      startDate: 'Mar 1, 2025',
-      endDate: 'May 31, 2025',
-      createdDate: 'Feb 25, 2025',
-      expiresAt: null,
-      signedByExpert: true,
-      signedByCompany: true,
-      signedDate: 'Feb 28, 2025',
-      generatedBy: 'ExigentCX Platform',
-      pages: 8,
-      fileSize: '1.1 MB',
-      urgency: null,
-    },
-    {
-      id: 4,
-      title: 'Non-Disclosure Agreement — Sarah Jenkins',
-      type: 'NDA',
-      status: 'Signed',
-      expert: 'Sarah Jenkins',
-      expertAvatar: 'https://i.pravatar.cc/150?u=sarah',
-      expertTitle: 'Fractional CMO',
-      engagement: 'Go-to-Market Expansion',
-      value: '—',
-      duration: '2 years',
-      startDate: 'Feb 28, 2025',
-      endDate: 'Feb 28, 2027',
-      createdDate: 'Feb 25, 2025',
-      expiresAt: null,
-      signedByExpert: true,
-      signedByCompany: true,
-      signedDate: 'Feb 28, 2025',
-      generatedBy: 'ExigentCX Platform',
-      pages: 4,
-      fileSize: '0.6 MB',
-      urgency: null,
-    },
-    {
-      id: 5,
-      title: 'Engagement Agreement — VP Engineering',
-      type: 'Engagement Agreement',
-      status: 'Under Review',
-      expert: 'Priya Patel',
-      expertAvatar: 'https://i.pravatar.cc/150?u=priya',
-      expertTitle: 'Fractional VP Engineering',
-      engagement: 'Tech Infrastructure Scale-up',
-      value: '₹7,20,000',
-      duration: '4 months',
-      startDate: 'May 1, 2025',
-      endDate: 'Aug 31, 2025',
-      createdDate: 'Apr 20, 2025',
-      expiresAt: 'Apr 30, 2025',
-      signedByExpert: false,
-      signedByCompany: false,
-      generatedBy: 'ExigentCX Platform',
-      pages: 8,
-      fileSize: '1.0 MB',
-      urgency: 'medium',
-    },
-    {
-      id: 6,
-      title: 'Advisory Agreement — Interim COO',
-      type: 'Advisory Agreement',
-      status: 'Expired',
-      expert: 'Marcus Johnson',
-      expertAvatar: 'https://i.pravatar.cc/150?u=marcus',
-      expertTitle: 'Interim COO',
-      engagement: 'Operations Restructuring',
-      value: '₹4,50,000',
-      duration: '3 months',
-      startDate: 'Nov 1, 2024',
-      endDate: 'Jan 31, 2025',
-      createdDate: 'Oct 28, 2024',
-      expiresAt: 'Oct 30, 2024',
-      signedByExpert: false,
-      signedByCompany: false,
-      signedDate: null,
-      generatedBy: 'ExigentCX Platform',
-      pages: 6,
-      fileSize: '0.9 MB',
-      urgency: null,
-    },
-  ];
+  const [contracts, setContracts] = useState(staticMockContracts);
+
+  // Fetch and Real-Time Sync
+  useEffect(() => {
+    const isDemo = localStorage.getItem('demo_company') === 'true';
+    if (isDemo) return;
+
+    let channel;
+
+    const fetchContracts = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) return;
+
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/contracts`, {
+          headers: { 'Authorization': `Bearer ${session.access_token}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setContracts(data.map(mapContractFromDb));
+        }
+      } catch (err) {
+        console.error("Error fetching contracts from backend:", err);
+      }
+    };
+
+    fetchContracts();
+
+    // Subscribe to Postgres changes on 'contracts' table in real-time
+    channel = supabase
+      .channel('contracts-changes')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'contracts' },
+        (payload) => {
+          console.log('Realtime change received in Company contracts:', payload);
+          if (payload.eventType === 'INSERT') {
+            setContracts(prev => [mapContractFromDb(payload.new), ...prev]);
+          } else if (payload.eventType === 'UPDATE') {
+            setContracts(prev => prev.map(c => c.id === payload.new.id ? mapContractFromDb(payload.new) : c));
+          } else if (payload.eventType === 'DELETE') {
+            setContracts(prev => prev.filter(c => c.id !== payload.old.id));
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      if (channel) {
+        supabase.removeChannel(channel);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (contractId) {
-      const match = contracts.find(c => c.id === parseInt(contractId));
+      const match = contracts.find(c => c.id.toString() === contractId.toString());
       if (match) {
         setSelectedContract(match);
       }
     }
-  }, [contractId]);
+  }, [contractId, contracts]);
 
   // ── CONTRACT PREVIEW CONTENT ──
   const contractPreview = `
@@ -337,13 +420,53 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
     review: contracts.filter(c => c.status === 'Under Review').length,
   };
 
-  const handleSign = () => {
-    setSignatureSent(true);
-    setTimeout(() => {
-      setShowSignModal(null);
-      setSignatureSent(false);
-      setSignatureText('');
-    }, 2000);
+  const handleSign = async () => {
+    try {
+      const isDemo = localStorage.getItem('demo_company') === 'true';
+      if (isDemo) {
+        setSignatureSent(true);
+        setTimeout(() => {
+          setContracts(prev => prev.map(c => c.id === showSignModal.id ? {
+            ...c,
+            signedByCompany: true,
+            status: c.signedByExpert ? 'Signed' : 'Pending Signature',
+            signedDate: c.signedByExpert ? 'Today' : null,
+            signature_company: signatureText
+          } : c));
+          setShowSignModal(null);
+          setSignatureSent(false);
+          setSignatureText('');
+        }, 2000);
+        return;
+      }
+
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/contracts/${showSignModal.id}/sign`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({ signatureText })
+      });
+
+      if (res.ok) {
+        setSignatureSent(true);
+        setTimeout(() => {
+          setShowSignModal(null);
+          setSignatureSent(false);
+          setSignatureText('');
+        }, 2000);
+      } else {
+        const err = await res.json();
+        alert(err.error || 'Failed to sign contract');
+      }
+    } catch (err) {
+      console.error('Sign error:', err);
+      alert('Error signing contract');
+    }
   };
 
   return (
