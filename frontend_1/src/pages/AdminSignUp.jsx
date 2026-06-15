@@ -105,7 +105,7 @@ const AdminSignUp = () => {
                 <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#134e40]/20 rounded-full blur-[80px] z-0" />
 
                 {/* Grid Overlay */}
-                <div 
+                <div
                     className="absolute inset-0 opacity-[0.06] z-0 pointer-events-none"
                     style={{
                         backgroundImage: 'linear-gradient(rgba(14, 181, 154, 0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 181, 154, 0.25) 1px, transparent 1px)',
@@ -116,7 +116,7 @@ const AdminSignUp = () => {
                 {/* Header Logo */}
                 <div className="relative z-10 flex items-center gap-3">
                     <Logo variant="dark" className="h-10 md:h-12" />
-                    <span className="text-white font-extrabold text-xl md:text-2xl tracking-[0.15em] font-serif uppercase">
+                    <span className="text-white font-extrabold text-xl md:text-2xl tracking-[0.15em] font-serif ">
                         ExigentCX
                     </span>
                 </div>
@@ -126,11 +126,11 @@ const AdminSignUp = () => {
                     <span className="text-[#0eb59a] font-bold text-xs tracking-[0.3em] uppercase block mb-4">
                         SIGN UP
                     </span>
-                    <h1 
+                    <h1
                         className="text-4xl md:text-5xl font-black text-white leading-[1.15] mb-6"
                         style={{ fontFamily: 'Georgia, serif' }}
                     >
-                        Welcome to the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0eb59a] to-emerald-300 italic font-serif text-center">Platform Administration Panel</span> 
+                        Welcome to the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0eb59a] to-emerald-300 font-serif text-center">Platform Administration Panel</span>
                     </h1>
                     <p className="text-gray-400 text-sm md:text-base font-light leading-relaxed text-center">
                         Manage platform operations, oversee talent vetting, governance, analytics, and moderation.
@@ -152,7 +152,7 @@ const AdminSignUp = () => {
             {/* ── RIGHT PANEL (DARK REGISTRATION FORM) ── */}
             <div className="flex-1 flex flex-col justify-center items-center px-6 md:px-16 py-12 relative overflow-y-auto z-10 bg-[#070908]">
                 {/* Subtle grid pattern with light white stripes */}
-                <div 
+                <div
                     className="absolute inset-0 opacity-[0.03] pointer-events-none"
                     style={{
                         backgroundImage: 'linear-gradient(rgba(255, 255, 255, 1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 1) 1px, transparent 1px)',
