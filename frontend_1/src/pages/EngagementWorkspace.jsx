@@ -119,6 +119,9 @@ const EngagementWorkspace = () => {
   const [milestones, setMilestones] = useState([]);
   const [payments, setPayments] = useState([]);
 
+  const [hasNoEngagement, setHasNoEngagement] = useState(false);
+  const [loadingEngagement, setLoadingEngagement] = useState(true);
+
   const fetchEngagementData = async () => {
     const isDemo = localStorage.getItem('demo_company') === 'true';
     let token = "demo-token";
@@ -130,16 +133,46 @@ const EngagementWorkspace = () => {
     const headers = { 'Authorization': `Bearer ${token}` };
     const baseUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
+    setLoadingEngagement(true);
+
     try {
-      const res = await fetch(`${baseUrl}/api/payments/engagement/${engagementId || '1'}`, { headers });
+      let activeId = engagementId;
+      if (!isDemo && !activeId) {
+        // Fetch escrows list to find the first engagement ID
+        const escrowsRes = await fetch(`${baseUrl}/api/payments/escrows`, { headers });
+        if (escrowsRes.ok) {
+          const escrowsData = await escrowsRes.json();
+          if (escrowsData && escrowsData.length > 0) {
+            activeId = escrowsData[0].id;
+          } else {
+            setHasNoEngagement(true);
+            setLoadingEngagement(false);
+            return;
+          }
+        } else {
+          setHasNoEngagement(true);
+          setLoadingEngagement(false);
+          return;
+        }
+      } else if (isDemo && !activeId) {
+        activeId = '1';
+      }
+
+      const res = await fetch(`${baseUrl}/api/payments/engagement/${activeId}`, { headers });
       if (res.ok) {
         const data = await res.json();
         setEngagement(data.engagement);
         setMilestones(data.milestones);
         setPayments(data.payments);
+        setHasNoEngagement(false);
+      } else {
+        if (!isDemo) setHasNoEngagement(true);
       }
     } catch (err) {
       console.error("Error loading workspace data:", err);
+      if (!isDemo) setHasNoEngagement(true);
+    } finally {
+      setLoadingEngagement(false);
     }
   };
 
@@ -745,7 +778,22 @@ const EngagementWorkspace = () => {
 
         {/* ── PAGE BODY ── */}
         <div className="flex-1 px-6 py-6 pb-16 overflow-y-auto">
-          <AnimatePresence mode="wait">
+          {hasNoEngagement ? (
+            <div className="max-w-md mx-auto py-16 text-center flex flex-col items-center justify-center min-h-[50vh]">
+              <Activity size={48} className="text-[#0eb59a] mb-4 animate-pulse" />
+              <h2 className="text-xl font-black text-gray-900 mb-2">No Active Engagements</h2>
+              <p className="text-sm text-gray-500 mb-6">
+                You do not have any active expert engagements at the moment. Active projects, milestones, and escrow payments will appear here once you contract with an expert.
+              </p>
+              <button
+                onClick={() => navigate('/experts')}
+                className="px-6 py-3 bg-[#134e40] hover:bg-[#0eb59a] text-white text-sm font-bold rounded-xl shadow-md transition-all cursor-pointer border-0"
+              >
+                Browse Experts
+              </button>
+            </div>
+          ) : (
+            <AnimatePresence mode="wait">
 
             {/* ══ TAB 1: OVERVIEW ══ */}
             {activeTab === 'Overview' && (
@@ -1496,6 +1544,7 @@ const EngagementWorkspace = () => {
             )}
 
           </AnimatePresence>
+          )}
         </div>
       </div>
 

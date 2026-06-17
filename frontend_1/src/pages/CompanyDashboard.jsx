@@ -168,6 +168,7 @@ const ExpertCard = ({ expert }) => {
 
 const CompanyDashboard = () => {
   const navigate = useNavigate();
+  const isDemo = localStorage.getItem('demo_company') === 'true';
   const [activeMenu, setActiveMenu] = useState('Dashboard');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -210,6 +211,8 @@ const CompanyDashboard = () => {
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [requirementsCount, setRequirementsCount] = useState(2); // default fallback
   const [activeEngagementsCount, setActiveEngagementsCount] = useState(3); // default fallback
+  const [escrowAccounts, setEscrowAccounts] = useState([]);
+  const [paymentSummary, setPaymentSummary] = useState(null);
 
   // Carousel State
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -287,7 +290,6 @@ const CompanyDashboard = () => {
 
         if (!reqError && reqData) {
           setRequirementsCount(reqData.filter(r => r.status === 'Active').length || 0);
-          setActiveEngagementsCount(reqData.filter(r => r.status === 'Active').length || 0);
         } else if (reqError) {
           console.error("Supabase fetch error:", reqError);
         }
@@ -313,6 +315,37 @@ const CompanyDashboard = () => {
         } catch (err) {
           console.error("Error fetching experts:", err);
           setExperts(MOCK_EXPERTS);
+        }
+
+        // Fetch escrows/active engagements
+        try {
+          const escrowsRes = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/payments/escrows`, {
+            headers: {
+              'Authorization': `Bearer ${session.access_token}`
+            }
+          });
+          if (escrowsRes.ok) {
+            const escrowsData = await escrowsRes.json();
+            setEscrowAccounts(escrowsData);
+            setActiveEngagementsCount(escrowsData.length);
+          }
+        } catch (err) {
+          console.error("Error fetching escrow accounts:", err);
+        }
+
+        // Fetch payment summary
+        try {
+          const summaryRes = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/payments/summary`, {
+            headers: {
+              'Authorization': `Bearer ${session.access_token}`
+            }
+          });
+          if (summaryRes.ok) {
+            const summaryData = await summaryRes.json();
+            setPaymentSummary(summaryData);
+          }
+        } catch (err) {
+          console.error("Error fetching payment summary:", err);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -581,26 +614,80 @@ const CompanyDashboard = () => {
   };
 
   const kpiCards = [
-    { title: 'Active Engagements', value: activeEngagementsCount.toString(), trend: '+1 this month', icon: Activity, iconBg: 'bg-teal-50', iconColor: 'text-[#0eb59a]', border: 'border-t-4 border-t-[#0eb59a]', numColor: 'text-[#0eb59a]', path: '/engagements' },
+    { title: 'Active Engagements', value: isDemo ? activeEngagementsCount.toString() : String(escrowAccounts.length), trend: '+1 this month', icon: Activity, iconBg: 'bg-teal-50', iconColor: 'text-[#0eb59a]', border: 'border-t-4 border-t-[#0eb59a]', numColor: 'text-[#0eb59a]', path: '/engagements' },
     { title: 'Experts Shortlisted', value: '12', trend: '4 new this week', icon: Users, iconBg: 'bg-blue-50', iconColor: 'text-blue-500', border: 'border-t-4 border-t-purple-400', numColor: 'text-purple-500', path: '/experts?filter=shortlisted' },
-    { title: 'Total Spend', value: '₹4.2L', trend: 'On budget', icon: DollarSign, iconBg: 'bg-purple-50', iconColor: 'text-purple-500', border: 'border-t-4 border-t-blue-400', numColor: 'text-blue-500', path: '/payments' },
-    { title: 'Milestones Due', value: '2', trend: 'Next in 3 days', icon: Target, iconBg: 'bg-amber-50', iconColor: 'text-amber-500', border: 'border-t-4 border-t-amber-400', numColor: 'text-amber-500', path: '/engagements?filter=milestones' },
+    { title: 'Total Spend', value: isDemo ? '₹4.2L' : (paymentSummary ? paymentSummary.totalSpent : '₹0'), trend: 'On budget', icon: DollarSign, iconBg: 'bg-purple-50', iconColor: 'text-purple-500', border: 'border-t-4 border-t-blue-400', numColor: 'text-blue-500', path: '/payments' },
+    { title: 'Milestones Due', value: isDemo ? '2' : String(escrowAccounts.filter(ea => ea.pendingMilestoneStatus === 'in_progress' || ea.pendingMilestoneStatus === 'pending_approval').length), trend: 'Next in 3 days', icon: Target, iconBg: 'bg-amber-50', iconColor: 'text-amber-500', border: 'border-t-4 border-t-amber-400', numColor: 'text-amber-500', path: '/engagements?filter=milestones' },
   ];
 
-  const activeEngagements = [
+  const activeEngagements = isDemo ? [
     { title: 'Series B Funding Strategy', expert: 'David Chen', initials: 'DC', expertColor: 'from-blue-600 to-cyan-500', status: 'IN PROGRESS', statusColor: 'text-blue-600 bg-blue-50', progress: 65, nextMilestone: 'Financial Model Draft', deadline: '15 Sep 2024', risk: 'Low', riskColor: 'text-green-700 bg-green-100', path: '/engagements/1' },
     { title: 'Go-to-Market Expansion', expert: 'Sarah Jenkins', initials: 'SJ', expertColor: 'from-purple-500 to-pink-500', status: 'ON TRACK', statusColor: 'text-emerald-600 bg-emerald-50', progress: 40, nextMilestone: 'Campaign Launch', deadline: '2 Oct 2024', risk: 'Low', riskColor: 'text-green-700 bg-green-100', path: '/engagements/2' },
     { title: 'AI Product Scoping', expert: 'Priya Patel', initials: 'PP', expertColor: 'from-[#134e40] to-[#0eb59a]', status: 'REVIEW', statusColor: 'text-amber-600 bg-amber-50', progress: 90, nextMilestone: 'Market Research', deadline: '19 Aug 2024', risk: 'Medium', riskColor: 'text-amber-700 bg-amber-100', path: '/engagements/3' },
-  ];
+  ] : escrowAccounts.map(ea => {
+    let progressVal = 0;
+    if (ea.released && ea.totalValue) {
+      const releasedNum = parseFloat(ea.released.replace(/[₹L,+\s]/g, '')) || 0;
+      const totalNum = parseFloat(ea.totalValue.replace(/[₹L,+\s]/g, '')) || 0;
+      if (totalNum > 0) {
+        progressVal = Math.round((releasedNum / totalNum) * 100);
+      }
+    }
+    return {
+      id: ea.id,
+      title: ea.engagement,
+      expert: ea.expert,
+      initials: ea.expert ? ea.expert.split(' ').map(n => n[0]).join('').toUpperCase() : 'EX',
+      expertColor: 'from-blue-600 to-cyan-500',
+      status: ea.status === 'Active' ? 'IN PROGRESS' : ea.status.toUpperCase(),
+      statusColor: ea.status === 'Active' ? 'text-blue-600 bg-blue-50' : 'text-emerald-600 bg-emerald-50',
+      progress: progressVal,
+      nextMilestone: ea.pendingMilestone || 'None',
+      deadline: 'Apr 30, 2025',
+      risk: 'Low',
+      riskColor: 'text-green-700 bg-green-100',
+      path: `/engagements/${ea.id}`
+    };
+  });
 
-  const pendingActions = [
+  const getDynamicPendingActions = () => {
+    const list = [];
+    escrowAccounts.forEach(ea => {
+      if (ea.pendingMilestoneStatus === 'pending_approval') {
+        list.push({
+          title: `Approve Milestone: ${ea.pendingMilestone}`,
+          project: ea.engagement,
+          type: 'APPROVAL',
+          time: 'Awaiting action',
+          urgent: true,
+          typeColor: 'bg-amber-100 text-amber-700 border-amber-200',
+          dotColor: 'bg-amber-500',
+          path: `/engagements/${ea.id}?tab=milestones`
+        });
+      } else if (ea.pendingMilestoneStatus === 'None' && ea.balanceNum === 0) {
+        list.push({
+          title: `Deposit Escrow: ${ea.pendingMilestone}`,
+          project: ea.engagement,
+          type: 'ESCROW',
+          time: 'Awaiting funding',
+          urgent: true,
+          typeColor: 'bg-rose-100 text-rose-700 border-rose-200',
+          dotColor: 'bg-rose-500',
+          path: `/payments`
+        });
+      }
+    });
+    return list;
+  };
+
+  const pendingActions = isDemo ? [
     { title: 'Approve Milestone: Phase 1', project: 'Marketing Strategy', type: 'APPROVAL', time: '2 hours ago', urgent: true, typeColor: 'bg-amber-100 text-amber-700 border-amber-200', dotColor: 'bg-amber-500', path: '/engagements/1?tab=milestones' },
     { title: 'Review New Candidates', project: 'Interim CFO', type: 'REVIEW', time: '5 hours ago', urgent: false, typeColor: 'bg-blue-100 text-blue-700 border-blue-200', dotColor: 'bg-blue-500', path: '/requirements' },
     { title: 'Sign Contract', project: 'Tech Advisory', type: 'ACTION', time: '1 day ago', urgent: false, typeColor: 'bg-rose-100 text-rose-700 border-rose-200', dotColor: 'bg-purple-500', path: '/contracts/1' },
     { title: 'Escrow Pending', project: 'Project Scoping', type: 'ESCROW', time: '1 day ago', urgent: true, typeColor: 'bg-rose-100 text-rose-700 border-rose-200', dotColor: 'bg-rose-500', path: '/payments' },
     { title: 'Meeting Reminder', project: '1-on-1 with David', type: 'MEETING', time: 'Today 3PM', urgent: false, typeColor: 'bg-teal-100 text-teal-700 border-teal-200', dotColor: 'bg-teal-500', path: '/engagements/1' },
     { title: 'Risk Alert', project: 'Budget Variance detected', type: 'RISK', time: 'Just now', urgent: true, typeColor: 'bg-red-100 text-red-700 border-red-200', dotColor: 'bg-red-500', path: '/analytics' },
-  ];
+  ] : getDynamicPendingActions();
 
   const quickActions = [
     { label: 'Post a Role', icon: Plus, bg: 'bg-teal-50', iconColor: 'text-teal-600', path: '/requirements/create' },
@@ -1322,78 +1409,89 @@ const CompanyDashboard = () => {
                   </div>
                 </div>
 
-                <div className="overflow-x-auto text-left">
-                  <table className="w-full text-sm min-w-[520px] text-left">
-                    <thead>
-                      <tr className="border-b border-gray-100 text-left">
-                        {['Project', 'Milestone', 'Progress', 'Deadline', 'Risk', 'Actions'].map(h => (
-                          <th key={h} className="text-left pb-3 text-[10px] font-bold text-gray-400 uppercase tracking-wider">{h}</th>
+                {activeEngagements.length === 0 ? (
+                  <div className="text-center py-12 px-4 bg-[#f8fafc]/50 rounded-2xl border border-dashed border-gray-200 flex flex-col items-center justify-center">
+                    <Activity size={32} className="text-[#0eb59a] mb-2 animate-pulse" />
+                    <h3 className="font-black text-gray-800 text-sm">No Active Engagements</h3>
+                    <p className="text-gray-400 text-xs max-w-xs mt-1">Once you sign a contract with an expert, your active engagement and milestones will be tracked here.</p>
+                    <button onClick={() => navigate('/experts')} className="mt-4 px-4 py-2 bg-[#134e40] hover:bg-[#0eb59a] text-white text-xs font-black rounded-xl transition-all cursor-pointer">
+                      Find Experts
+                    </button>
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto text-left">
+                    <table className="w-full text-sm min-w-[520px] text-left">
+                      <thead>
+                        <tr className="border-b border-gray-100 text-left">
+                          {['Project', 'Milestone', 'Progress', 'Deadline', 'Risk', 'Actions'].map(h => (
+                            <th key={h} className="text-left pb-3 text-[10px] font-bold text-gray-400 uppercase tracking-wider">{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-50 text-left">
+                        {activeEngagements.map((eng, idx) => (
+                          <motion.tr key={idx}
+                            onClick={() => navigate(eng.path)}
+                            className="cursor-pointer transition-colors duration-150 hover:bg-gray-50 group text-left">
+                            <td className="py-4 pr-3 text-left">
+                              <div className="flex items-center gap-2.5 text-left">
+                                <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${eng.expertColor || 'from-[#134e40] to-[#0eb59a]'} flex items-center justify-center shrink-0`}>
+                                  <span className="text-left text-white text-[9px] font-black">{eng.initials}</span>
+                                </div>
+                                <div className="text-left">
+                                  <p className="text-left font-bold text-gray-800 text-xs group-hover:text-[#134e40] transition-colors leading-tight">{eng.title}</p>
+                                  <p className="text-left text-[10px] text-gray-400 font-medium">Expert: {eng.expert}</p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="py-4 pr-3 text-left">
+                              <span className={`text-left text-[10px] font-black px-2 py-1 rounded-full ${eng.statusColor}`}>{eng.nextMilestone}</span>
+                            </td>
+                            <td className="py-4 pr-3 text-left">
+                              <div className="flex items-center gap-2 min-w-[80px] text-left">
+                                <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                  <motion.div initial={{ width: 0 }} animate={{ width: `${eng.progress}%` }}
+                                    transition={{ duration: 0.8, delay: idx * 0.1, ease: 'easeOut' }}
+                                    className="h-full rounded-full relative overflow-hidden"
+                                    style={{ background: 'linear-gradient(90deg, #134e40, #0eb59a)' }}>
+                                    <motion.div animate={{ x: ['-100%', '200%'] }}
+                                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                                      className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                                  </motion.div>
+                                </div>
+                                <span className="text-left text-[10px] font-black text-[#134e40] shrink-0">{eng.progress}%</span>
+                              </div>
+                            </td>
+                            <td className="py-4 pr-3 text-left">
+                              <div className="flex items-center gap-1 text-[10px] text-gray-500 font-medium text-left">
+                                <Clock size={9} /> {eng.deadline}
+                              </div>
+                            </td>
+                            <td className="py-4 pr-3 text-left">
+                              <span className={`text-left text-[10px] font-black px-2 py-1 rounded-full ${eng.riskColor}`}>{eng.risk}</span>
+                            </td>
+                            <td className="py-4 text-left">
+                              <div className="flex items-center gap-1.5 text-left">
+                                {[
+                                  { icon: Eye, bg: 'bg-teal-50 hover:bg-teal-100', color: 'text-[#0eb59a]', title: 'Workspace', fn: (e) => { e.stopPropagation(); navigate(eng.path); } },
+                                  { icon: MessageSquare, bg: 'bg-blue-50 hover:bg-blue-100', color: 'text-blue-500', title: 'Message', fn: (e) => { e.stopPropagation(); navigate(`${eng.path}?tab=messages`); } },
+                                  { icon: CheckCircle, bg: 'bg-emerald-50 hover:bg-emerald-100', color: 'text-emerald-500', title: 'Approve', fn: (e) => { e.stopPropagation(); navigate(`${eng.path}?tab=milestones`); } },
+                                  { icon: FileText, bg: 'bg-amber-50 hover:bg-amber-100', color: 'text-amber-500', title: 'Invoices', fn: (e) => { e.stopPropagation(); navigate('/payments'); } },
+                                ].map(({ icon: Icon, bg, color, title, fn }, i) => (
+                                  <motion.button key={i} whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}
+                                    onClick={fn} title={title}
+                                    className={`p-1.5 rounded-lg ${bg} ${color} transition-all`}>
+                                    <Icon size={12} />
+                                  </motion.button>
+                                ))}
+                              </div>
+                            </td>
+                          </motion.tr>
                         ))}
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-50 text-left">
-                      {activeEngagements.map((eng, idx) => (
-                        <motion.tr key={idx}
-                          onClick={() => navigate(eng.path)}
-                          className="cursor-pointer transition-colors duration-150 hover:bg-gray-50 group text-left">
-                          <td className="py-4 pr-3 text-left">
-                            <div className="flex items-center gap-2.5 text-left">
-                              <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${eng.expertColor} flex items-center justify-center shrink-0`}>
-                                <span className="text-left text-white text-[9px] font-black">{eng.initials}</span>
-                              </div>
-                              <div className="text-left">
-                                <p className="text-left font-bold text-gray-800 text-xs group-hover:text-[#134e40] transition-colors leading-tight">{eng.title}</p>
-                                <p className="text-left text-[10px] text-gray-400 font-medium">Expert: {eng.expert}</p>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="py-4 pr-3 text-left">
-                            <span className={`text-left text-[10px] font-black px-2 py-1 rounded-full ${eng.statusColor}`}>{eng.nextMilestone}</span>
-                          </td>
-                          <td className="py-4 pr-3 text-left">
-                            <div className="flex items-center gap-2 min-w-[80px] text-left">
-                              <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                                <motion.div initial={{ width: 0 }} animate={{ width: `${eng.progress}%` }}
-                                  transition={{ duration: 0.8, delay: idx * 0.1, ease: 'easeOut' }}
-                                  className="h-full rounded-full relative overflow-hidden"
-                                  style={{ background: 'linear-gradient(90deg, #134e40, #0eb59a)' }}>
-                                  <motion.div animate={{ x: ['-100%', '200%'] }}
-                                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                                    className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-                                </motion.div>
-                              </div>
-                              <span className="text-left text-[10px] font-black text-[#134e40] shrink-0">{eng.progress}%</span>
-                            </div>
-                          </td>
-                          <td className="py-4 pr-3 text-left">
-                            <div className="flex items-center gap-1 text-[10px] text-gray-500 font-medium text-left">
-                              <Clock size={9} /> {eng.deadline}
-                            </div>
-                          </td>
-                          <td className="py-4 pr-3 text-left">
-                            <span className={`text-left text-[10px] font-black px-2 py-1 rounded-full ${eng.riskColor}`}>{eng.risk}</span>
-                          </td>
-                          <td className="py-4 text-left">
-                            <div className="flex items-center gap-1.5 text-left">
-                              {[
-                                { icon: Eye, bg: 'bg-teal-50 hover:bg-teal-100', color: 'text-[#0eb59a]', title: 'Workspace', fn: (e) => { e.stopPropagation(); navigate(eng.path); } },
-                                { icon: MessageSquare, bg: 'bg-blue-50 hover:bg-blue-100', color: 'text-blue-500', title: 'Message', fn: (e) => { e.stopPropagation(); navigate(`${eng.path}?tab=messages`); } },
-                                { icon: CheckCircle, bg: 'bg-emerald-50 hover:bg-emerald-100', color: 'text-emerald-500', title: 'Approve', fn: (e) => { e.stopPropagation(); navigate(`${eng.path}?tab=milestones`); } },
-                                { icon: FileText, bg: 'bg-amber-50 hover:bg-amber-100', color: 'text-amber-500', title: 'Invoices', fn: (e) => { e.stopPropagation(); navigate('/payments'); } },
-                              ].map(({ icon: Icon, bg, color, title, fn }, i) => (
-                                <motion.button key={i} whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}
-                                  onClick={fn} title={title}
-                                  className={`p-1.5 rounded-lg ${bg} ${color} transition-all`}>
-                                  <Icon size={12} />
-                                </motion.button>
-                              ))}
-                            </div>
-                          </td>
-                        </motion.tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
 
               {/* Pending Actions — right 1/3 */}
@@ -1420,37 +1518,44 @@ const CompanyDashboard = () => {
                   </div>
 
                   <div className="flex-1 overflow-y-auto p-3 space-y-2.5 [&::-webkit-scrollbar]:hidden text-left">
-                    {pendingActions.map((action, idx) => (
-                      <div key={idx} onClick={() => navigate(action.path)}
-                        className="p-3.5 rounded-2xl border border-gray-100 bg-gray-50/40 hover:bg-white hover:shadow-sm hover:border-[#0eb59a]/30 transition-all duration-150 cursor-pointer group text-left">
-                        <div className="flex items-center justify-between mb-2 text-left">
-                          <div className="flex items-center gap-1.5 text-left">
-                            <span className={`text-left text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md border ${action.typeColor}`}>
-                              {action.type}
-                            </span>
-                            {action.urgent && (
-                              <motion.div animate={{ scale: [1, 1.3, 1], opacity: [1, 0.5, 1] }}
-                                transition={{ duration: 1.2, repeat: Infinity }}
-                                className={`w-1.5 h-1.5 rounded-full ${action.dotColor}`} />
-                            )}
-                          </div>
-                          <span className="text-left text-[10px] text-gray-300 flex items-center gap-1">
-                            <Clock size={9} /> {action.time}
-                          </span>
-                        </div>
-                        <h4 className="text-left font-black text-gray-700 text-xs mb-1 group-hover:text-gray-900 transition-colors leading-snug">
-                          {action.title}
-                        </h4>
-                        <p className="text-left text-[10px] text-gray-400 flex items-center gap-1.5 mb-3">
-                          <Briefcase size={9} /> {action.project}
-                        </p>
-                        <button
-                          onClick={(e) => { e.stopPropagation(); navigate(action.path); }}
-                          className="w-full py-2 bg-white border border-gray-200 rounded-xl text-[11px] font-black text-gray-500 hover:bg-[#134e40] hover:text-white transition-colors duration-200 shadow-sm text-left px-3">
-                          Take Action
-                        </button>
+                    {pendingActions.length === 0 ? (
+                      <div className="text-center py-12 text-gray-400 text-xs font-semibold flex flex-col items-center justify-center">
+                        <CheckCircle size={24} className="text-[#0eb59a] mb-2" />
+                        No Pending Actions
                       </div>
-                    ))}
+                    ) : (
+                      pendingActions.map((action, idx) => (
+                        <div key={idx} onClick={() => navigate(action.path)}
+                          className="p-3.5 rounded-2xl border border-gray-100 bg-gray-50/40 hover:bg-white hover:shadow-sm hover:border-[#0eb59a]/30 transition-all duration-150 cursor-pointer group text-left">
+                          <div className="flex items-center justify-between mb-2 text-left">
+                            <div className="flex items-center gap-1.5 text-left">
+                              <span className={`text-left text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md border ${action.typeColor}`}>
+                                {action.type}
+                              </span>
+                              {action.urgent && (
+                                <motion.div animate={{ scale: [1, 1.3, 1], opacity: [1, 0.5, 1] }}
+                                  transition={{ duration: 1.2, repeat: Infinity }}
+                                  className={`w-1.5 h-1.5 rounded-full ${action.dotColor}`} />
+                              )}
+                            </div>
+                            <span className="text-left text-[10px] text-gray-300 flex items-center gap-1">
+                              <Clock size={9} /> {action.time}
+                            </span>
+                          </div>
+                          <h4 className="text-left font-black text-gray-700 text-xs mb-1 group-hover:text-gray-900 transition-colors leading-snug">
+                            {action.title}
+                          </h4>
+                          <p className="text-left text-[10px] text-gray-400 flex items-center gap-1.5 mb-3">
+                            <Briefcase size={9} /> {action.project}
+                          </p>
+                          <button
+                            onClick={(e) => { e.stopPropagation(); navigate(action.path); }}
+                            className="w-full py-2 bg-white border border-gray-200 rounded-xl text-[11px] font-black text-gray-500 hover:bg-[#134e40] hover:text-white transition-colors duration-200 shadow-sm text-left px-3">
+                            Take Action
+                          </button>
+                        </div>
+                      ))
+                    )}
                   </div>
 
                   <div className="p-4 border-t border-gray-50 bg-gray-50/30 text-center">

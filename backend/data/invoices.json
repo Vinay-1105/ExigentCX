@@ -1,5 +1,19 @@
 [
   {
+    "id": "INV-8711",
+    "title": "Final Phase Support - Funded",
+    "engagement": "Registered Escrow Payout Engagement",
+    "engagement_id": "3",
+    "expert": "Suyash Tripathi",
+    "expertAvatar": "https://i.pravatar.cc/150?u=suyash",
+    "amount": "₹10,00,000",
+    "amountNum": 1000000,
+    "date": "Jun 17, 2026",
+    "dueDate": "Jun 17, 2026",
+    "status": "Paid",
+    "type": "Milestone Invoice"
+  },
+  {
     "id": "INV-6951",
     "title": "Milestone Deliverable Submission",
     "engagement": "Registered Escrow Payout Engagement",
@@ -344,7 +358,7 @@
     "expertAvatar": "https://i.pravatar.cc/150?u=david",
     "amount": "₹2,50,000",
     "amountNum": 250000,
-    "date": "Jun 13, 2026",
+    "date": "Jun 17, 2026",
     "dueDate": "May 5, 2025",
     "status": "Paid",
     "type": "Milestone Invoice"

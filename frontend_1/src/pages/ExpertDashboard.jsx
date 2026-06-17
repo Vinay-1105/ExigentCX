@@ -67,6 +67,7 @@ const MagneticCard = ({ children, className, onClick, style }) => {
 
 const ExpertDashboard = () => {
   const navigate = useNavigate();
+  const isDemo = localStorage.getItem('demo_expert') === 'true' || localStorage.getItem('sb-mock-auth') === 'true';
 
   const [profile, setProfile] = useState(null);
   const [loadingProfile, setLoadingProfile] = useState(true);
@@ -464,30 +465,7 @@ const ExpertDashboard = () => {
     },
   ];
 
-  const activeEngagements = escrowAccounts.length > 0 ? escrowAccounts.map((ea) => {
-    let progressVal = 0;
-    if (ea.released && ea.totalValue) {
-      const releasedNum = parseFloat(ea.released.replace(/[₹L,+\s]/g, '')) || 0;
-      const totalNum = parseFloat(ea.totalValue.replace(/[₹L,+\s]/g, '')) || 0;
-      if (totalNum > 0) {
-        progressVal = Math.round((releasedNum / totalNum) * 100);
-      }
-    }
-    return {
-      id: ea.id,
-      title: ea.engagement,
-      company: ea.expert === 'Sarah Jenkins' ? 'TechScale Ventures' : 'Acme Corp',
-      companyLogo: ea.expert === 'Sarah Jenkins' ? 'TV' : 'AC',
-      logoColor: ea.expert === 'Sarah Jenkins' ? 'from-emerald-700 to-teal-500' : 'from-[#134e40] to-[#0eb59a]',
-      status: ea.status === 'Active' ? 'IN PROGRESS' : ea.status.toUpperCase(),
-      statusColor: ea.status === 'Active' ? 'text-blue-600 bg-blue-50' : 'text-emerald-600 bg-emerald-50',
-      progress: progressVal,
-      nextMilestone: ea.pendingMilestone || 'None',
-      dueDate: 'Apr 30, 2025',
-      monthlyRate: ea.expert === 'Sarah Jenkins' ? '₹2.5L/mo' : '₹3L/mo',
-      path: `/expert-engagements/${ea.id}`,
-    };
-  }) : [
+  const activeEngagements = isDemo ? [
     {
       id: 1,
       title: 'Series B Funding Strategy',
@@ -516,9 +494,52 @@ const ExpertDashboard = () => {
       monthlyRate: '₹2.5L/mo',
       path: '/expert-engagements/2',
     },
-  ];
+  ] : (escrowAccounts.length > 0 ? escrowAccounts.map((ea) => {
+    return {
+      id: ea.id,
+      title: ea.engagement,
+      company: ea.company || 'Acme Corp',
+      companyLogo: ea.companyLogo || 'AC',
+      logoColor: ea.logoColor || 'from-[#134e40] to-[#0eb59a]',
+      status: ea.status === 'Active' ? 'IN PROGRESS' : ea.status.toUpperCase(),
+      statusColor: ea.status === 'Active' ? 'text-blue-600 bg-blue-50' : 'text-emerald-600 bg-emerald-50',
+      progress: ea.progress !== undefined ? ea.progress : 0,
+      nextMilestone: ea.pendingMilestone || 'None',
+      dueDate: 'Apr 30, 2025',
+      monthlyRate: ea.monthlyRate || '₹3L/mo',
+      path: `/expert-engagements/${ea.id}`,
+    };
+  }) : []);
 
-  const pendingActions = [
+  const getDynamicPendingActions = () => {
+    const list = [];
+    escrowAccounts.forEach(ea => {
+      if (ea.pendingMilestoneStatus === 'in_progress') {
+        list.push({
+          title: `Submit Deliverable: ${ea.pendingMilestone}`,
+          project: ea.engagement,
+          type: 'SUBMIT',
+          time: 'Due soon',
+          urgent: true,
+          typeColor: 'text-amber-700 bg-amber-50 border-amber-100',
+          path: `/expert-engagements/${ea.id}?tab=milestones`
+        });
+      } else if (ea.pendingMilestoneStatus === 'pending_approval') {
+        list.push({
+          title: `Milestone Deliverable Awaiting Client Approval`,
+          project: ea.engagement,
+          type: 'APPROVAL',
+          time: 'Under review',
+          urgent: false,
+          typeColor: 'text-blue-700 bg-blue-50 border-blue-100',
+          path: `/expert-engagements/${ea.id}?tab=milestones`
+        });
+      }
+    });
+    return list;
+  };
+
+  const pendingActions = isDemo ? [
     {
       title: 'Submit Milestone Deliverable',
       project: 'Series B Funding Strategy',
@@ -546,9 +567,9 @@ const ExpertDashboard = () => {
       typeColor: 'text-blue-700 bg-blue-50 border-blue-100',
       path: '/expert-engagements/1?tab=messages',
     },
-  ];
+  ] : getDynamicPendingActions();
 
-  const todaySchedule = [
+  const todaySchedule = isDemo ? [
     {
       type: 'call',
       time: '11:00 AM',
@@ -576,7 +597,7 @@ const ExpertDashboard = () => {
       color: 'bg-amber-500',
       path: '/expert-opportunities/1',
     },
-  ];
+  ] : [];
 
   const performanceStats = [
     {
@@ -1898,59 +1919,66 @@ const ExpertDashboard = () => {
                   </div>
 
                   <div className="flex-1 p-2 space-y-1 overflow-y-auto [&::-webkit-scrollbar]:hidden">
-                    {pendingActions.map((action, idx) => {
-                      const leftBorder = action.type === 'SIGN' 
-                        ? 'border-l-red-400' 
-                        : action.urgent 
-                        ? 'border-l-amber-400' 
-                        : 'border-l-blue-400';
+                    {pendingActions.length === 0 ? (
+                      <div className="text-center py-12 text-gray-400 text-xs font-semibold flex flex-col items-center justify-center">
+                        <CheckCircle size={24} className="text-[#0eb59a] mb-2" />
+                        No Pending Actions
+                      </div>
+                    ) : (
+                      pendingActions.map((action, idx) => {
+                        const leftBorder = action.type === 'SIGN' 
+                          ? 'border-l-red-400' 
+                          : action.urgent 
+                          ? 'border-l-amber-400' 
+                          : 'border-l-blue-400';
 
-                      const actionLabel = {
-                        'SUBMIT': 'Submit Deliverable',
-                        'SIGN': 'Sign Contract',
-                        'MESSAGE': 'Open Message',
-                        'APPROVAL': 'Review Now',
-                        'REVIEW': 'Review',
-                        'ESCROW': 'Release Escrow',
-                        'MEETING': 'Join Meeting',
-                        'RISK': 'View Risk',
-                      }[action.type] || 'Take Action';
+                        const actionLabel = {
+                          'SUBMIT': 'Submit Deliverable',
+                          'SIGN': 'Sign Contract',
+                          'MESSAGE': 'Open Message',
+                          'APPROVAL': 'Review Now',
+                          'REVIEW': 'Review',
+                          'ESCROW': 'Release Escrow',
+                          'MEETING': 'Join Meeting',
+                          'RISK': 'View Risk',
+                        }[action.type] || 'Take Action';
 
-                      return (
-                        <motion.div key={idx}
-                          whileHover={{ scale: 1.01, backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}
-                          whileTap={{ scale: 0.99 }}
-                          onClick={() => navigate(action.path)}
-                          className={`p-5 mx-4 my-2.5 rounded-2xl border border-gray-100 bg-gray-50/30 border-l-4 ${leftBorder} hover:border-[#0eb59a]/20 transition-all cursor-pointer group`}
-                        >
-                          <div className="flex items-center justify-between mb-2">
-                            <span className={`text-[11px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md text-left ${action.typeColor}`}>
-                              {action.type}
-                            </span>
-                            <span className="text-xs text-gray-500 font-bold tracking-wide flex items-center gap-1">
-                              <Clock size={8} /> {action.time}
-                            </span>
-                          </div>
-                          <h4 className="font-black text-gray-700 text-sm mb-1 group-hover:text-gray-900 leading-snug">
-                            {action.title}
-                          </h4>
-                          <p className="text-xs text-gray-500 font-medium mb-3 flex items-center gap-1">
-                            <Briefcase size={8} /> {action.project}
-                          </p>
-                          <motion.button
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.97 }}
-                            onClick={(e) => { 
-                              e.stopPropagation(); 
-                              navigate(action.path); 
-                            }}
-                            className="w-full py-2 bg-white border border-gray-200 rounded-xl text-[11px] font-black text-gray-600 hover:bg-[#134e40] hover:text-white hover:border-[#134e40] transition-all duration-200 shadow-sm text-center cursor-pointer justify-center flex"
+                        return (
+                          <motion.div key={idx}
+                            whileHover={{ scale: 1.01, backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}
+                            whileTap={{ scale: 0.99 }}
+                            onClick={() => navigate(action.path)}
+                            className={`p-5 mx-4 my-2.5 rounded-2xl border border-gray-100 bg-gray-50/30 border-l-4 ${leftBorder} hover:border-[#0eb59a]/20 transition-all cursor-pointer group`}
                           >
-                            {actionLabel}
-                          </motion.button>
-                        </motion.div>
-                      );
-                    })}
+                            <div className="flex items-center justify-between mb-2">
+                              <span className={`text-[11px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md text-left ${action.typeColor}`}>
+                                {action.type}
+                              </span>
+                              <span className="text-xs text-gray-500 font-bold tracking-wide flex items-center gap-1">
+                                <Clock size={8} /> {action.time}
+                              </span>
+                            </div>
+                            <h4 className="font-black text-gray-700 text-sm mb-1 group-hover:text-gray-900 leading-snug">
+                              {action.title}
+                            </h4>
+                            <p className="text-xs text-gray-500 font-medium mb-3 flex items-center gap-1">
+                              <Briefcase size={8} /> {action.project}
+                            </p>
+                            <motion.button
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.97 }}
+                              onClick={(e) => { 
+                                e.stopPropagation(); 
+                                navigate(action.path); 
+                              }}
+                              className="w-full py-2 bg-white border border-gray-200 rounded-xl text-[11px] font-black text-gray-600 hover:bg-[#134e40] hover:text-white hover:border-[#134e40] transition-all duration-200 shadow-sm text-center cursor-pointer justify-center flex border-0 bg-transparent"
+                            >
+                              {actionLabel}
+                            </motion.button>
+                          </motion.div>
+                        );
+                      })
+                    )}
                   </div>
                 </div>
               </div>
@@ -1976,129 +2004,140 @@ const ExpertDashboard = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {activeEngagements.map((eng, idx) => (
-                      <motion.div
-                        key={idx}
-                        whileHover={{ y: -4, boxShadow: '0 12px 24px rgba(19,78,64,0.06)' }}
-                        whileTap={{ scale: 0.99 }}
-                        onClick={() => navigate(eng.path)}
-                        className="bg-[#FAFBF9] rounded-2xl border border-gray-200 p-6 hover:border-[#0eb59a]/30 hover:shadow-lg transition-all duration-300 cursor-pointer group relative overflow-hidden"
-                      >
-                        {/* Hover accent */}
-                        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#134e40] to-[#0eb59a] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  {activeEngagements.length === 0 ? (
+                    <div className="text-center py-12 px-4 bg-[#f8fafc]/50 rounded-2xl border border-dashed border-gray-200 flex flex-col items-center justify-center">
+                      <Activity size={32} className="text-[#0eb59a] mb-2 animate-pulse" />
+                      <h3 className="font-black text-gray-800 text-sm">No Active Engagements</h3>
+                      <p className="text-gray-400 text-xs max-w-xs mt-1">Once a client signs a contract, your active engagement and milestones will appear here.</p>
+                      <button onClick={() => navigate('/expert-opportunities')} className="mt-4 px-4 py-2 bg-[#134e40] hover:bg-[#0eb59a] text-white text-xs font-black rounded-xl transition-all cursor-pointer">
+                        Find Opportunities
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {activeEngagements.map((eng, idx) => (
+                        <motion.div
+                          key={idx}
+                          whileHover={{ y: -4, boxShadow: '0 12px 24px rgba(19,78,64,0.06)' }}
+                          whileTap={{ scale: 0.99 }}
+                          onClick={() => navigate(eng.path)}
+                          className="bg-[#FAFBF9] rounded-2xl border border-gray-200 p-6 hover:border-[#0eb59a]/30 hover:shadow-lg transition-all duration-300 cursor-pointer group relative overflow-hidden"
+                        >
+                          {/* Hover accent */}
+                          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#134e40] to-[#0eb59a] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                        {/* Header row */}
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center gap-2.5">
-                            <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${eng.logoColor || 'from-[#134e40] to-[#0eb59a]'} flex items-center justify-center shadow-sm shrink-0`}>
-                              <span className="text-white font-black text-xs">
-                                {eng.companyLogo}
-                              </span>
+                          {/* Header row */}
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-2.5">
+                              <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${eng.logoColor || 'from-[#134e40] to-[#0eb59a]'} flex items-center justify-center shadow-sm shrink-0`}>
+                                <span className="text-white font-black text-xs">
+                                  {eng.companyLogo}
+                                </span>
+                              </div>
+                              <div>
+                                <h4 className="font-black text-gray-900 text-xs group-hover:text-[#134e40] transition-colors leading-tight">{eng.title}</h4>
+                                <p className="text-[11px] text-gray-400 font-medium mb-2">{eng.company}</p>
+                              </div>
                             </div>
+                            <span className={`text-[9px] font-black px-2 py-1 rounded-full text-left ${eng.statusColor}`}>
+                              {eng.status}
+                            </span>
+                          </div>
+
+                          {/* Milestone + rate info */}
+                          <div className="flex items-center justify-between mb-3 p-2.5 bg-[#f0fdf4] rounded-xl border border-[#0eb59a]/10">
                             <div>
-                              <h4 className="font-black text-gray-900 text-xs group-hover:text-[#134e40] transition-colors leading-tight">{eng.title}</h4>
-                              <p className="text-[11px] text-gray-400 font-medium mb-2">{eng.company}</p>
+                              <p className="text-[8px] text-gray-400 font-black uppercase tracking-wider text-left">Next Milestone</p>
+                              <p className="text-[11px] font-black text-[#134e40] leading-tight mt-0.5 max-w-[110px] truncate text-left"
+                                title={eng.nextMilestone}
+                              >
+                                {eng.nextMilestone}
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-[8px] text-gray-400 font-black uppercase tracking-wider text-left">Monthly Rate</p>
+                              <p className="text-[11px] font-black text-[#0eb59a] mt-0.5 text-left">{eng.monthlyRate}</p>
                             </div>
                           </div>
-                          <span className={`text-[9px] font-black px-2 py-1 rounded-full text-left ${eng.statusColor}`}>
-                            {eng.status}
-                          </span>
-                        </div>
 
-                        {/* Milestone + rate info */}
-                        <div className="flex items-center justify-between mb-3 p-2.5 bg-[#f0fdf4] rounded-xl border border-[#0eb59a]/10">
-                          <div>
-                            <p className="text-[8px] text-gray-400 font-black uppercase tracking-wider text-left">Next Milestone</p>
-                            <p className="text-[11px] font-black text-[#134e40] leading-tight mt-0.5 max-w-[110px] truncate text-left"
-                              title={eng.nextMilestone}
-                            >
-                              {eng.nextMilestone}
-                            </p>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-[8px] text-gray-400 font-black uppercase tracking-wider text-left">Monthly Rate</p>
-                            <p className="text-[11px] font-black text-[#0eb59a] mt-0.5 text-left">{eng.monthlyRate}</p>
-                          </div>
-                        </div>
-
-                        {/* Progress */}
-                        <div className="mb-1">
-                          <div className="flex justify-between text-[11px] mb-1.5">
-                            <span className="text-gray-400 font-bold">Progress</span>
-                            <span className="font-black text-[#134e40]">{eng.progress}%</span>
-                          </div>
-                          <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                            <motion.div
-                              initial={{ width: 0 }}
-                              animate={{ width: `${eng.progress}%` }}
-                              transition={{ duration: 1, ease: 'easeOut', delay: 0.3 }}
-                              style={{ background: 'linear-gradient(90deg, #134e40, #0eb59a)' }}
-                              className="h-full rounded-full relative overflow-hidden"
-                            >
+                          {/* Progress */}
+                          <div className="mb-1">
+                            <div className="flex justify-between text-[11px] mb-1.5">
+                              <span className="text-gray-400 font-bold">Progress</span>
+                              <span className="font-black text-[#134e40]">{eng.progress}%</span>
+                            </div>
+                            <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
                               <motion.div
-                                animate={{ x: ['-100%', '200%'] }}
-                                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                                className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                              />
-                            </motion.div>
+                                initial={{ width: 0 }}
+                                animate={{ width: `${eng.progress}%` }}
+                                transition={{ duration: 1, ease: 'easeOut', delay: 0.3 }}
+                                style={{ background: 'linear-gradient(90deg, #134e40, #0eb59a)' }}
+                                className="h-full rounded-full relative overflow-hidden"
+                              >
+                                <motion.div
+                                  animate={{ x: ['-100%', '200%'] }}
+                                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                                  className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                                />
+                              </motion.div>
+                            </div>
                           </div>
-                        </div>
 
-                        {/* Due date */}
-                        <div className="flex items-center gap-1 mb-4 text-[11px] text-gray-400 font-medium">
-                          <Clock size={9} /> Due: {eng.dueDate}
-                        </div>
+                          {/* Due date */}
+                          <div className="flex items-center gap-1 mb-4 text-[11px] text-gray-400 font-medium">
+                            <Clock size={9} /> Due: {eng.dueDate}
+                          </div>
 
-                        {/* Action buttons */}
-                        <div className="flex items-center gap-2">
-                          <motion.button
-                            whileHover={{ scale: 1.03 }}
-                            whileTap={{ scale: 0.97 }}
-                            onClick={(e) => { 
-                              e.stopPropagation(); 
-                              navigate(eng.path); 
-                            }}
-                            className="flex-1 py-2.5 bg-[#134e40] hover:bg-[#0eb59a] text-white text-[11px] font-black rounded-xl transition-all shadow-sm text-center cursor-pointer justify-center flex"
-                          >
-                            Open Workspace
-                          </motion.button>
-                          
-                          <div className="flex flex-col items-center gap-0.5">
+                          {/* Action buttons */}
+                          <div className="flex items-center gap-2">
                             <motion.button
-                              whileHover={{ scale: 1.08 }}
-                              whileTap={{ scale: 0.92 }}
-                              title="Send Message"
+                              whileHover={{ scale: 1.03 }}
+                              whileTap={{ scale: 0.97 }}
                               onClick={(e) => { 
                                 e.stopPropagation(); 
-                                navigate(`${eng.path}?tab=messages`); 
+                                navigate(eng.path); 
                               }}
-                              className="w-9 h-9 border border-gray-200 rounded-xl hover:border-[#0eb59a] hover:bg-[#f0fdf4] transition-all flex items-center justify-center cursor-pointer shrink-0 text-center"
+                              className="flex-1 py-2.5 bg-[#134e40] hover:bg-[#0eb59a] text-white text-[11px] font-black rounded-xl transition-all shadow-sm text-center cursor-pointer justify-center flex animate-none bg-none border-0"
                             >
-                              <MessageSquare size={13} className="text-gray-400" />
+                              Open Workspace
                             </motion.button>
-                            <span className="text-[8px] text-gray-300 font-bold">Msg</span>
-                          </div>
+                            
+                            <div className="flex flex-col items-center gap-0.5">
+                              <motion.button
+                                whileHover={{ scale: 1.08 }}
+                                whileTap={{ scale: 0.92 }}
+                                title="Send Message"
+                                onClick={(e) => { 
+                                  e.stopPropagation(); 
+                                  navigate(`${eng.path}?tab=messages`); 
+                                }}
+                                className="w-9 h-9 border border-gray-200 rounded-xl hover:border-[#0eb59a] hover:bg-[#f0fdf4] transition-all flex items-center justify-center cursor-pointer shrink-0 text-center bg-transparent shadow-none"
+                              >
+                                <MessageSquare size={13} className="text-gray-400" />
+                              </motion.button>
+                              <span className="text-[8px] text-gray-300 font-bold">Msg</span>
+                            </div>
 
-                          <div className="flex flex-col items-center gap-0.5">
-                            <motion.button
-                              whileHover={{ scale: 1.08 }}
-                              whileTap={{ scale: 0.92 }}
-                              title="View Milestone"
-                              onClick={(e) => { 
-                                e.stopPropagation(); 
-                                navigate(`${eng.path}?tab=milestones`); 
-                              }}
-                              className="w-9 h-9 border border-gray-200 rounded-xl hover:border-amber-300 hover:bg-amber-50 transition-all flex items-center justify-center cursor-pointer shrink-0 text-center"
-                            >
-                              <Target size={13} className="text-gray-400" />
-                            </motion.button>
-                            <span className="text-[8px] text-gray-300 font-bold">Task</span>
+                            <div className="flex flex-col items-center gap-0.5">
+                              <motion.button
+                                whileHover={{ scale: 1.08 }}
+                                whileTap={{ scale: 0.92 }}
+                                title="View Milestone"
+                                onClick={(e) => { 
+                                  e.stopPropagation(); 
+                                  navigate(`${eng.path}?tab=milestones`); 
+                                }}
+                                className="w-9 h-9 border border-gray-200 rounded-xl hover:border-amber-300 hover:bg-amber-50 transition-all flex items-center justify-center cursor-pointer shrink-0 text-center bg-transparent shadow-none"
+                              >
+                                <Target size={13} className="text-gray-400" />
+                              </motion.button>
+                              <span className="text-[8px] text-gray-300 font-bold">Task</span>
+                            </div>
                           </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* Performance Snapshot */}

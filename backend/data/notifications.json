@@ -1,5 +1,31 @@
 [
   {
+    "id": "notif-1781692273299-869",
+    "user_id": "00000000-0000-0000-0000-000000000000",
+    "title": "Escrow Release Approved",
+    "description": "Released ₹2,50,000 from escrow for milestone \"Investor Deck & Data Room\" to David Chen.",
+    "type": "payment",
+    "metadata": {
+      "engagementId": "1",
+      "milestoneId": "m-3"
+    },
+    "is_read": false,
+    "created_at": "2026-06-17T10:31:13.299Z"
+  },
+  {
+    "id": "notif-1781692272368-377",
+    "user_id": "00000000-0000-0000-0000-000000000000",
+    "title": "Milestone Submitted for Approval",
+    "description": "Expert David Chen has submitted deliverables for milestone \"Investor Deck & Data Room\". Please review and approve.",
+    "type": "payment",
+    "metadata": {
+      "engagementId": "1",
+      "milestoneId": "m-3"
+    },
+    "is_read": false,
+    "created_at": "2026-06-17T10:31:12.368Z"
+  },
+  {
     "id": "notif-1781375332729-659",
     "user_id": "00000000-0000-0000-0000-000000000000",
     "title": "Escrow Release Approved",

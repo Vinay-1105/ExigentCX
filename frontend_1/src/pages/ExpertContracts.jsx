@@ -284,11 +284,11 @@ const ExpertContracts = () => {
   ];
   const unreadCount = notifications.filter(n => n.unread).length;
 
-  const [contracts, setContracts] = useState(staticMockContracts);
+  const isDemo = localStorage.getItem('demo_expert') === 'true' || localStorage.getItem('sb-mock-auth') === 'true';
+  const [contracts, setContracts] = useState(isDemo ? staticMockContracts : []);
 
   // Fetch and Real-Time Sync
   useEffect(() => {
-    const isDemo = localStorage.getItem('demo_expert') === 'true' || localStorage.getItem('sb-mock-auth') === 'true';
     if (isDemo) return;
 
     let channel;
