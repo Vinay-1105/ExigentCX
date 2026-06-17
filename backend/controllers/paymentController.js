@@ -314,21 +314,42 @@ export const getEscrows = async (req, res) => {
         }
       });
 
+      const completedCount = engMilestones.filter(m => m.status === "completed").length;
+      const progress = engMilestones.length > 0
+        ? Math.round((completedCount / engMilestones.length) * 100)
+        : 0;
+
       escrowAccounts.push({
         id: eng.id,
         engagement: eng.title,
         expert: eng.expert_name,
         expertAvatar: eng.expert_avatar,
+        company: eng.company_name || "Acme Corp.",
+        companyLogo: eng.company_name ? eng.company_name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase() : "AC",
+        logoColor: eng.company_name === "TechScale Ventures" ? "from-emerald-700 to-teal-500" : "from-[#134e40] to-[#0eb59a]",
+        monthlyRate: eng.monthly_rate || "₹3L/mo",
         balance: formatCurrency(balanceNum),
         balanceNum,
         status: eng.status,
+        progress,
         pendingMilestone,
         pendingMilestoneId,
         pendingMilestoneAmount: formatCurrency(pendingMilestoneAmountVal),
         pendingMilestoneAmountNum: pendingMilestoneAmountVal,
         pendingMilestoneStatus: pendingMilestoneStatusVal,
         totalValue: formatCurrency(eng.total_budget),
-        released: formatCurrency(releasedNum)
+        released: formatCurrency(releasedNum),
+        milestones: engMilestones.map(m => ({
+          id: m.id,
+          title: m.title,
+          desc: m.desc || "",
+          dueDate: m.due_date,
+          completedDate: m.completed_date,
+          status: m.status,
+          payment: formatCurrency(m.amount),
+          paymentStatus: m.paymentStatus,
+          deliverables: m.deliverables || []
+        }))
       });
     }
 
@@ -757,6 +778,9 @@ export const getEngagementDetails = async (req, res) => {
     const workspaceEngagement = {
       id: eng.id,
       title: eng.title,
+      company: eng.company_name || "Acme Corp.",
+      companyLogo: eng.company_name ? eng.company_name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase() : "AC",
+      logoColor: eng.company_name === "TechScale Ventures" ? "from-emerald-700 to-teal-500" : "from-[#134e40] to-[#0eb59a]",
       status: eng.status === "Active" ? "IN PROGRESS" : eng.status.toUpperCase(),
       statusColor: eng.status === "Active" 
         ? "text-blue-600 bg-blue-50 border-blue-200" 
@@ -774,7 +798,8 @@ export const getEngagementDetails = async (req, res) => {
       endDate: "31 Jul 2025",
       duration: "6 months",
       commitment: "40 hrs/wk",
-      budget: "₹3L/mo",
+      budget: eng.monthly_rate || "₹3L/mo",
+      monthlyRate: eng.monthly_rate || "₹3L/mo",
       totalValue: formatCurrency(eng.total_budget),
       escrowBalance: formatCurrency(escrowBalanceNum),
       spent: formatCurrency(spentNum),

@@ -278,11 +278,11 @@ const Contracts = () => {
   // ── DATA ──
   const filters = ['All', 'Pending Signature', 'Signed', 'Under Review', 'Expired'];
 
-  const [contracts, setContracts] = useState(staticMockContracts);
+  const isDemo = localStorage.getItem('demo_company') === 'true';
+  const [contracts, setContracts] = useState(isDemo ? staticMockContracts : []);
 
   // Fetch and Real-Time Sync
   useEffect(() => {
-    const isDemo = localStorage.getItem('demo_company') === 'true';
     if (isDemo) return;
 
     let channel;

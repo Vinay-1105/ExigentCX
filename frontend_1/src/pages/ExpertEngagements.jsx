@@ -21,6 +21,7 @@ import { supabase } from '@/lib/supabaseClient';
 const ExpertEngagements = () => {
   const navigate = useNavigate();
   const { engagementId } = useParams();
+  const isDemo = localStorage.getItem('demo_expert') === 'true' || localStorage.getItem('sb-mock-auth') === 'true';
 
   const [activeTab, setActiveTab] = useState('Overview');
   const [profile, setProfile] = useState(null);
@@ -34,7 +35,7 @@ const ExpertEngagements = () => {
   const [gridOpen, setGridOpen] = useState(false);
   const gridRef = useRef(null);
 
-  const [selectedEngagement, setSelectedEngagement] = useState(engagementId || '1');
+  const [selectedEngagement, setSelectedEngagement] = useState(engagementId || (isDemo ? '1' : null));
   const [messageText, setMessageText] = useState('');
   const [showSubmitModal, setShowSubmitModal] = useState(null);
   const [showEngagementList, setShowEngagementList] = useState(!engagementId);
@@ -120,22 +121,7 @@ const ExpertEngagements = () => {
   const [payments, setPayments] = useState([]);
   const [loadingEngagement, setLoadingEngagement] = useState(true);
 
-  // Map database escrows to frontend engagementsList
-  const engagementsList = dbEscrowAccounts.length > 0 ? dbEscrowAccounts.map((ea) => {
-    return {
-      id: ea.id,
-      title: ea.engagement,
-      company: ea.expert === 'Sarah Jenkins' ? 'TechScale Ventures' : 'Acme Corp',
-      logo: ea.expert === 'Sarah Jenkins' ? 'TV' : 'AC',
-      logoColor: ea.expert === 'Sarah Jenkins' ? 'from-emerald-700 to-teal-500' : 'from-[#134e40] to-[#0eb59a]',
-      status: ea.status === 'Active' ? 'IN PROGRESS' : ea.status.toUpperCase(),
-      statusColor: ea.status === 'Active' ? 'text-blue-600 bg-blue-50' : 'text-emerald-600 bg-emerald-50',
-      progress: 65,
-      monthlyRate: ea.expert === 'Sarah Jenkins' ? '₹2.5L/mo' : '₹3L/mo',
-      nextAction: ea.pendingMilestone || 'None',
-      dueDate: 'Apr 30, 2025',
-    };
-  }) : [
+  const engagementsList = isDemo ? [
     {
       id: '1',
       title: 'Series B Funding Strategy',
@@ -162,7 +148,21 @@ const ExpertEngagements = () => {
       nextAction: 'Submit Due Diligence Report',
       dueDate: 'May 15, 2025',
     }
-  ];
+  ] : dbEscrowAccounts.map((ea) => {
+    return {
+      id: ea.id,
+      title: ea.engagement,
+      company: ea.company || 'Acme Corp',
+      logo: ea.companyLogo || 'AC',
+      logoColor: ea.logoColor || 'from-[#134e40] to-[#0eb59a]',
+      status: ea.status === 'Active' ? 'IN PROGRESS' : ea.status.toUpperCase(),
+      statusColor: ea.status === 'Active' ? 'text-blue-600 bg-blue-50' : 'text-emerald-600 bg-emerald-50',
+      progress: ea.progress !== undefined ? ea.progress : 0,
+      monthlyRate: ea.monthlyRate || '₹3L/mo',
+      nextAction: ea.pendingMilestone || 'None',
+      dueDate: 'Apr 30, 2025',
+    };
+  });
 
   const currentEngagement = engagementsList.find(e => e.id === selectedEngagement) || engagementsList[0];
 
@@ -299,9 +299,9 @@ const ExpertEngagements = () => {
         // Map backend properties to frontend schema
         const mappedEngagement = {
           ...data.engagement,
-          company: data.engagement.expert.name === 'Sarah Jenkins' ? 'TechScale Ventures' : 'Acme Corp',
-          companyLogo: data.engagement.expert.name === 'Sarah Jenkins' ? 'TV' : 'AC',
-          logoColor: data.engagement.expert.name === 'Sarah Jenkins' ? 'from-emerald-700 to-teal-500' : 'from-[#134e40] to-[#0eb59a]',
+          company: data.engagement.company || 'Acme Corp',
+          companyLogo: data.engagement.companyLogo || 'AC',
+          logoColor: data.engagement.logoColor || 'from-[#134e40] to-[#0eb59a]',
           received: data.engagement.spent,
           pending: data.engagement.escrowBalance
         };
@@ -803,9 +803,22 @@ const ExpertEngagements = () => {
           </div>
         </header>
 
-        {/* ── MAIN SCROLLABLE CONTENT ── */}
         <main className="flex-1 overflow-y-auto bg-[#f4f7f5] [&::-webkit-scrollbar]:hidden">
-          {showEngagementList ? (
+          {engagementsList.length === 0 ? (
+            <div className="max-w-md mx-auto px-6 py-16 text-center flex flex-col items-center justify-center min-h-[50vh]">
+              <Activity size={48} className="text-[#0eb59a] mb-4 animate-pulse" />
+              <h2 className="text-xl font-black text-gray-900 mb-2">No Active Engagements</h2>
+              <p className="text-sm text-gray-500 mb-6">
+                You do not have any active client engagements at the moment. Active projects and milestone payments will appear here once you connect with a company and sign a contract.
+              </p>
+              <button
+                onClick={() => navigate('/expert-opportunities')}
+                className="px-6 py-3 bg-[#134e40] hover:bg-[#0eb59a] text-white text-sm font-bold rounded-xl shadow-md transition-all cursor-pointer border-0"
+              >
+                Browse Available Opportunities
+              </button>
+            </div>
+          ) : showEngagementList ? (
             /* ══ LIST VIEW ══ */
             <div className="max-w-5xl mx-auto px-6 py-8 pb-16">
               
@@ -1033,67 +1046,93 @@ const ExpertEngagements = () => {
                     </motion.button>
                   </div>
                   <div className="space-y-3">
-                    {[
-                      {
-                        title: 'Investor Deck & Data Room',
-                        engagement: 'Series B Funding Strategy',
-                        company: 'Acme Corp',
-                        due: 'Apr 30, 2025',
-                        payment: '₹2.5L',
-                        status: 'in_progress',
-                        urgency: 'border-l-amber-400',
-                        engId: '1',
-                      },
-                      {
-                        title: 'Due Diligence Report',
-                        engagement: 'Financial Due Diligence',
-                        company: 'TechScale Ventures',
-                        due: 'May 15, 2025',
-                        payment: '₹2L',
-                        status: 'upcoming',
-                        urgency: 'border-l-gray-300',
-                        engId: '2',
-                      },
-                    ].map((ms, idx) => (
-                      <motion.div
-                        key={idx}
-                        whileHover={{ x: 4, backgroundColor: '#f9fafb' }}
-                        whileTap={{ scale: 0.99 }}
-                        onClick={() => {
-                          setSelectedEngagement(ms.engId);
-                          setShowEngagementList(false);
-                          setActiveTab('Milestones');
-                        }}
-                        className={`flex items-center gap-4 p-4 rounded-2xl border border-gray-100 bg-gray-50/50 border-l-4 ${ms.urgency} cursor-pointer transition-all group`}
-                      >
-                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
-                          ms.status === 'in_progress' ? 'bg-amber-50' : 'bg-gray-100'
-                        }`}>
-                          {ms.status === 'in_progress' ? (
-                            <Clock size={15} className="text-amber-500" />
-                          ) : (
-                            <Circle size={15} className="text-gray-400" />
-                          )}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-black text-gray-800 group-hover:text-[#134e40] transition-colors truncate">
-                            {ms.title}
-                          </p>
-                          <p className="text-xs text-gray-400 font-medium mt-0.5">
-                            {ms.company} · Due {ms.due}
-                          </p>
-                        </div>
-                        <div className="text-right shrink-0">
-                          <p className="text-sm font-black text-[#134e40]">{ms.payment}</p>
-                          <p className={`text-[10px] font-bold mt-0.5 ${
-                            ms.status === 'in_progress' ? 'text-amber-500' : 'text-gray-400'
+                    {(() => {
+                      const upcomingMsList = isDemo ? [
+                        {
+                          title: 'Investor Deck & Data Room',
+                          engagement: 'Series B Funding Strategy',
+                          company: 'Acme Corp',
+                          due: 'Apr 30, 2025',
+                          payment: '₹2.5L',
+                          status: 'in_progress',
+                          urgency: 'border-l-amber-400',
+                          engId: '1',
+                        },
+                        {
+                          title: 'Due Diligence Report',
+                          engagement: 'Financial Due Diligence',
+                          company: 'TechScale Ventures',
+                          due: 'May 15, 2025',
+                          payment: '₹2L',
+                          status: 'upcoming',
+                          urgency: 'border-l-gray-300',
+                          engId: '2',
+                        },
+                      ] : dbEscrowAccounts.flatMap(ea => (ea.milestones || [])
+                          .filter(m => m.status === 'in_progress' || m.status === 'upcoming')
+                          .map(m => ({
+                            title: m.title,
+                            engagement: ea.engagement,
+                            company: ea.company || 'Acme Corp',
+                            due: m.dueDate,
+                            payment: m.payment,
+                            status: m.status,
+                            urgency: m.status === 'in_progress' ? 'border-l-amber-400' : 'border-l-gray-300',
+                            engId: ea.id,
+                          }))
+                      );
+
+                      if (upcomingMsList.length === 0) {
+                        return (
+                          <div className="flex flex-col items-center justify-center py-8 text-center bg-gray-50/50 rounded-2xl border border-dashed border-gray-200">
+                            <CheckCircle size={24} className="text-emerald-500 mb-2" />
+                            <p className="text-xs font-bold text-gray-500">All milestones completed!</p>
+                            <p className="text-[10px] text-gray-400 mt-1">There are no upcoming milestones for your active engagements.</p>
+                          </div>
+                        );
+                      }
+
+                      return upcomingMsList.map((ms, idx) => (
+                        <motion.div
+                          key={idx}
+                          whileHover={{ x: 4, backgroundColor: '#f9fafb' }}
+                          whileTap={{ scale: 0.99 }}
+                          onClick={() => {
+                            setSelectedEngagement(ms.engId);
+                            setShowEngagementList(false);
+                            setActiveTab('Milestones');
+                          }}
+                          className={`flex items-center gap-4 p-4 rounded-2xl border border-gray-100 bg-gray-50/50 border-l-4 ${ms.urgency} cursor-pointer transition-all group`}
+                        >
+                          <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+                            ms.status === 'in_progress' ? 'bg-amber-50' : 'bg-gray-100'
                           }`}>
-                            {ms.status === 'in_progress' ? 'In Progress' : 'Upcoming'}
-                          </p>
-                        </div>
-                        <ChevronRight size={14} className="text-gray-300 group-hover:text-[#0eb59a] transition-colors shrink-0" />
-                      </motion.div>
-                    ))}
+                            {ms.status === 'in_progress' ? (
+                              <Clock size={15} className="text-amber-500" />
+                            ) : (
+                              <Circle size={15} className="text-gray-400" />
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-black text-gray-800 group-hover:text-[#134e40] transition-colors truncate">
+                              {ms.title}
+                            </p>
+                            <p className="text-xs text-gray-400 font-medium mt-0.5">
+                              {ms.company} · Due {ms.due}
+                            </p>
+                          </div>
+                          <div className="text-right shrink-0">
+                            <p className="text-sm font-black text-[#134e40]">{ms.payment}</p>
+                            <p className={`text-[10px] font-bold mt-0.5 ${
+                              ms.status === 'in_progress' ? 'text-amber-500' : 'text-gray-400'
+                            }`}>
+                              {ms.status === 'in_progress' ? 'In Progress' : 'Upcoming'}
+                            </p>
+                          </div>
+                          <ChevronRight size={14} className="text-gray-300 group-hover:text-[#0eb59a] transition-colors shrink-0" />
+                        </motion.div>
+                      ));
+                    })()}
                   </div>
                 </div>
               </motion.div>
