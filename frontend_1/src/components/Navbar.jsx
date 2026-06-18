@@ -1,8 +1,11 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Menu, X, UserPlus } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useAuthModal } from './AuthModalContext';
 import Logo from './Logo';
+
+const MotionLink = motion(Link);
 
 const smoothScrollTo = (targetPosition, duration) => {
     const startPosition = window.scrollY;
@@ -87,80 +90,98 @@ const Navbar = () => {
                         ExigentCX
                     </span>
                 </Link>
-                <button
+                <motion.button
                     className="block md:hidden bg-transparent border-none text-white hover:text-[#0eb59a] cursor-pointer ml-auto transition-colors"
                     onClick={() => setIsOpen(!isOpen)}
+                    whileTap={{ rotate: 90, scale: 0.9 }}
+                    transition={{ duration: 0.2 }}
                 >
                     {isOpen ? <X size={28} /> : <Menu size={28} />}
-                </button>
+                </motion.button>
             </div>
 
             <div className={`hidden md:flex gap-8 items-center h-full ${isOpen ? '!flex flex-col items-start w-full gap-6 mt-6 pb-4' : ''}`}>
-                <Link
+                <MotionLink
                     to="/"
                     onClick={() => setIsOpen(false)}
                     className={`text-[15px] font-medium tracking-wide transition-colors duration-300 relative cursor-pointer group ${location.pathname === '/' ? 'text-[#0eb59a]' : 'text-gray-300 hover:text-white'
                         }`}
+                    whileHover={{ y: -1 }}
+                    transition={{ duration: 0.15 }}
                 >
                     Home
                     <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#0eb59a] transition-all duration-300 ${location.pathname === '/' ? 'w-full' : 'w-0 group-hover:w-full'
                         }`}></span>
-                </Link>
+                </MotionLink>
 
-                <a
+                <motion.a
                     href="#about-platform"
                     onClick={(e) => handleScrollTarget(e, 'about-platform')}
                     className="text-[15px] font-medium tracking-wide transition-colors duration-300 relative cursor-pointer text-gray-300 hover:text-white group"
+                    whileHover={{ y: -1 }}
+                    transition={{ duration: 0.15 }}
                 >
-                    About
+                    Platform
                     <span className="absolute -bottom-1 left-0 h-0.5 bg-[#0eb59a] transition-all duration-300 w-0 group-hover:w-full"></span>
-                </a>
+                </motion.a>
 
-                <a
+                <motion.a
                     href="#services"
                     onClick={(e) => handleScrollTarget(e, 'services')}
                     className="text-[15px] font-medium tracking-wide transition-colors duration-300 relative cursor-pointer text-gray-300 hover:text-white group"
+                    whileHover={{ y: -1 }}
+                    transition={{ duration: 0.15 }}
                 >
                     Services
                     <span className="absolute -bottom-1 left-0 h-0.5 bg-[#0eb59a] transition-all duration-300 w-0 group-hover:w-full"></span>
-                </a>
+                </motion.a>
 
-                <a
+                <motion.a
                     href="#membership"
                     onClick={(e) => handleScrollTarget(e, 'membership')}
                     className="text-[15px] font-medium tracking-wide transition-colors duration-300 relative cursor-pointer text-gray-300 hover:text-white group"
+                    whileHover={{ y: -1 }}
+                    transition={{ duration: 0.15 }}
                 >
                     Membership
                     <span className="absolute -bottom-1 left-0 h-0.5 bg-[#0eb59a] transition-all duration-300 w-0 group-hover:w-full"></span>
-                </a>
+                </motion.a>
 
-                <a
+                <motion.a
                     href="#contact-us"
                     onClick={(e) => handleScrollTarget(e, 'contact-us')}
                     className="text-[15px] font-medium tracking-wide transition-colors duration-300 relative cursor-pointer text-gray-300 hover:text-white group"
+                    whileHover={{ y: -1 }}
+                    transition={{ duration: 0.15 }}
                 >
                     Contact
                     <span className="absolute -bottom-1 left-0 h-0.5 bg-[#0eb59a] transition-all duration-300 w-0 group-hover:w-full"></span>
-                </a>
+                </motion.a>
 
                 <div className="flex flex-row items-center gap-3 w-full md:w-auto mt-4 md:mt-0 md:ml-4 justify-start">
-                    <button
+                    <motion.button
                         className="relative overflow-hidden flex items-center gap-2 text-white font-semibold transition-all duration-500 text-[15px] group px-6 py-2.5 rounded-full bg-[#134e40] hover:bg-[#0eb59a] border border-[#0eb59a]/30 hover:border-[#0eb59a] shadow-[0_0_15px_rgba(14,181,154,0.15)] hover:shadow-[0_0_25px_rgba(14,181,154,0.4)]"
                         onClick={() => { setIsOpen(false); openModal(); }}
+                        whileHover={{ scale: 1.04, boxShadow: "0 0 22px rgba(14,181,154,0.45)" }}
+                        whileTap={{ scale: 0.96 }}
+                        transition={{ duration: 0.18 }}
                     >
                         <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out pointer-events-none"></span>
                         <UserPlus size={18} className="relative z-10 group-hover:scale-110 transition-transform" />
                         <span className="relative z-10 tracking-wide">Join / Sign In</span>
-                    </button>
+                    </motion.button>
 
-                    <button
+                    <motion.button
                         className="relative overflow-hidden flex items-center gap-2 text-white font-semibold transition-all duration-500 text-[15px] group px-6 py-2.5 rounded-full bg-[#134e40] hover:bg-[#0eb59a] border border-[#0eb59a]/30 hover:border-[#0eb59a] shadow-[0_0_15px_rgba(14,181,154,0.15)] hover:shadow-[0_0_25px_rgba(14,181,154,0.4)]"
                         onClick={() => { setIsOpen(false); navigate('/admin-signup'); }}
+                        whileHover={{ scale: 1.04, boxShadow: "0 0 22px rgba(14,181,154,0.45)" }}
+                        whileTap={{ scale: 0.96 }}
+                        transition={{ duration: 0.18 }}
                     >
                         <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out pointer-events-none"></span>
                         <UserPlus size={18} className="relative z-10 group-hover:scale-110 transition-transform" />
                         <span className="relative z-10 tracking-wide">Admin</span>
-                    </button>
+                    </motion.button>
                 </div>
             </div>
         </nav>
