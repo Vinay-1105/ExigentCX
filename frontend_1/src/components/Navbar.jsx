@@ -49,6 +49,16 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 768 && isOpen) {
+                setIsOpen(false);
+            }
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [isOpen]);
+
     if (location.pathname === '/company-dashboard') {
         return null;
     }

@@ -123,13 +123,13 @@ const Home = () => {
                 >
                     <motion.h1
                         variants={heroItemVariants}
-                        className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold tracking-tight mb-8 leading-[1.1] text-[#111827]"
+                        className="text-4xl md:text-7xl lg:text-8xl font-serif font-bold tracking-tight mb-5 leading-[1.1] text-[#111827]"
                     >
                         Elite Expertise.<br /><span className="text-[#134e40]">Leadership on Demand.</span>
                     </motion.h1>
                     <motion.p
                         variants={heroItemVariants}
-                        className="text-lg md:text-2xl font-semibold max-w-3xl mx-auto mb-12 leading-relaxed"
+                        className="text-base md:text-2xl font-semibold max-w-3xl mx-auto mb-8 leading-relaxed"
                         style={{ color: 'rgba(255,255,255,0.95)', textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 1px 6px rgba(0,0,0,0.8)' }}
                     >
                         Connect with vetted CXOs and senior advisors to solve your most critical business challenges on demand and managed by experts.
@@ -161,22 +161,22 @@ const Home = () => {
             {/* Trusted by — tighter padding, mint tint background */}
             <div className="py-10 bg-[#f0fdf4] border-y border-teal-100 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6 mb-8 text-center">
-                    <h2 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 mb-3">Your Expertise, Your Terms.</h2>
+                    <h2 className="text-xl md:text-3xl font-serif font-bold text-gray-900 mb-3">Your Expertise, Your Terms.</h2>
                     <p className="text-gray-600 text-base max-w-2xl mx-auto">Join an exclusive ecosystem of industry leaders. Access high-impact advisory projects with guaranteed milestone-based payouts.</p>
                 </div>
 
                 <div className="relative w-full flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] group">
                     <div className="flex w-fit animate-marquee group-hover:[animation-play-state:paused]">
-                        <div className="flex items-center gap-16 md:gap-24 px-8 md:px-12 w-max">
+                        <div className="flex items-center gap-8 md:gap-24 px-8 md:px-12 w-max">
                             {trustedCompanies.map((company, index) => (
-                                <div key={`company-1-${index}`} className="text-xl md:text-2xl font-bold text-gray-400 hover:text-[#134e40] transition-colors duration-300 cursor-default select-none shrink-0">
+                                <div key={`company-1-${index}`} className="text-base md:text-2xl font-bold text-gray-400 hover:text-[#134e40] transition-colors duration-300 cursor-default select-none shrink-0">
                                     {company}
                                 </div>
                             ))}
                         </div>
-                        <div className="flex items-center gap-16 md:gap-24 px-8 md:px-12 w-max">
+                        <div className="flex items-center gap-8 md:gap-24 px-8 md:px-12 w-max">
                             {trustedCompanies.map((company, index) => (
-                                <div key={`company-2-${index}`} className="text-xl md:text-2xl font-bold text-gray-400 hover:text-[#134e40] transition-colors duration-300 cursor-default select-none shrink-0">
+                                <div key={`company-2-${index}`} className="text-base md:text-2xl font-bold text-gray-400 hover:text-[#134e40] transition-colors duration-300 cursor-default select-none shrink-0">
                                     {company}
                                 </div>
                             ))}
@@ -263,7 +263,7 @@ const Home = () => {
                 {/* How It Works — mint green bg, tighter padding */}
                 <AnimatedSection className="py-10 w-full relative overflow-hidden bg-[#f0fdf4]">
                     <div className="max-w-7xl mx-auto px-6 relative z-10">
-                        <div className="bg-white rounded-[2.5rem] border border-teal-100 shadow-[0_8px_30px_rgb(0,0,0,0.06)] py-10 px-6 lg:px-12 relative overflow-hidden">
+                        <div className="bg-white rounded-[2.5rem] border border-teal-100 shadow-[0_8px_30px_rgb(0,0,0,0.06)] py-6 px-4 lg:px-12 relative overflow-hidden">
                             <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#0eb59a]/5 rounded-full blur-[100px] pointer-events-none"></div>
                             <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#134e40]/5 rounded-full blur-[100px] pointer-events-none"></div>
 
@@ -274,7 +274,7 @@ const Home = () => {
                                 </motion.div>
                             </div>
 
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-0 relative z-10">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-0 relative z-10">
                                 <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-gray-200 to-transparent -translate-x-1/2"></div>
 
                                 {/* For CXOs */}
@@ -347,10 +347,10 @@ const Home = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0a1914] to-[#111827]"></div>
                     </div>
                     <div className="max-w-[100vw] mx-auto relative z-10 flex flex-col items-center overflow-hidden">
-                        <h2 className="text-center text-4xl md:text-5xl text-white mb-14 font-serif font-bold tracking-tight px-6">What problem can we <span className="text-[#0eb59a]">solve together?</span></h2>
+                        <h2 className="text-center text-3xl md:text-5xl text-white mb-14 font-serif font-bold tracking-tight px-6">What problem can we <span className="text-[#0eb59a]">solve together?</span></h2>
 
                         <div className="relative w-full flex items-center justify-center px-4 md:px-0">
-                            <div className="w-full max-w-7xl relative flex justify-center items-center h-[500px]">
+                            <div className="w-full max-w-7xl relative flex justify-center items-center h-[400px] md:h-[500px]">
                                 <AnimatePresence initial={false}>
                                     {slides.map((slide, idx) => {
                                         let position = 'hidden';
@@ -382,7 +382,7 @@ const Home = () => {
                                                 <div className="w-full h-full rounded-[2rem] overflow-hidden relative shadow-2xl group border border-white/10">
                                                     <img src={slide.image} alt={slide.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                                                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90"></div>
-                                                    <div className="absolute bottom-0 left-0 w-full p-10 z-10 flex flex-col justify-end">
+                                                    <div className="absolute bottom-0 left-0 w-full p-5 md:p-10 z-10 flex flex-col justify-end">
                                                         <h3 className="text-3xl text-white mb-4 font-semibold">{slide.title}</h3>
                                                         <p className="text-gray-300 leading-relaxed text-lg line-clamp-3">{slide.content}</p>
                                                     </div>
@@ -393,22 +393,22 @@ const Home = () => {
                                 </AnimatePresence>
 
                                 <motion.button
-                                    className="absolute left-[5%] lg:left-[15%] z-40 pointer-events-auto bg-[#134e40]/80 backdrop-blur-md shadow-2xl text-white rounded-full w-14 h-14 flex items-center justify-center cursor-pointer transition-colors"
+                                    className="absolute left-[5%] lg:left-[15%] z-40 pointer-events-auto bg-[#134e40]/80 backdrop-blur-md shadow-2xl text-white rounded-full w-10 h-10 md:w-14 md:h-14 flex items-center justify-center cursor-pointer transition-colors"
                                     onClick={prevSlide}
                                     whileHover={{ scale: 1.12, boxShadow: "0 0 20px rgba(14,181,154,0.5)", backgroundColor: "#0eb59a" }}
                                     whileTap={{ scale: 0.92 }}
                                     transition={{ duration: 0.15 }}
                                 >
-                                    <ChevronLeft size={28} />
+                                    <ChevronLeft size={22} />
                                 </motion.button>
                                 <motion.button
-                                    className="absolute right-[5%] lg:right-[15%] z-40 pointer-events-auto bg-[#134e40]/80 backdrop-blur-md shadow-2xl text-white rounded-full w-14 h-14 flex items-center justify-center cursor-pointer transition-colors"
+                                    className="absolute right-[5%] lg:right-[15%] z-40 pointer-events-auto bg-[#134e40]/80 backdrop-blur-md shadow-2xl text-white rounded-full w-10 h-10 md:w-14 md:h-14 flex items-center justify-center cursor-pointer transition-colors"
                                     onClick={nextSlide}
                                     whileHover={{ scale: 1.12, boxShadow: "0 0 20px rgba(14,181,154,0.5)", backgroundColor: "#0eb59a" }}
                                     whileTap={{ scale: 0.92 }}
                                     transition={{ duration: 0.15 }}
                                 >
-                                    <ChevronRight size={28} />
+                                    <ChevronRight size={22} />
                                 </motion.button>
                             </div>
                         </div>
@@ -438,7 +438,7 @@ const Home = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-0 md:px-8">
                         <motion.div
-                            className="p-8 rounded-3xl bg-white/5 border border-white/10 flex flex-col items-center text-center hover:bg-white/10 hover:border-[#0eb59a]/30 transition-all duration-300"
+                            className="p-6 sm:p-8 rounded-3xl bg-white/5 border border-white/10 flex flex-col items-center text-center hover:bg-white/10 hover:border-[#0eb59a]/30 transition-all duration-300"
                             whileHover={{ y: -8, boxShadow: "0 20px 50px rgba(14,181,154,0.2)" }}
                             transition={{ duration: 0.25 }}
                         >
@@ -453,7 +453,7 @@ const Home = () => {
                         </motion.div>
 
                         <motion.div
-                            className="p-8 rounded-3xl bg-[#134e40] border border-[#0eb59a]/30 flex flex-col items-center text-center transition-all scale-105 shadow-xl relative overflow-hidden"
+                            className="p-6 sm:p-8 rounded-3xl bg-[#134e40] border border-[#0eb59a]/30 flex flex-col items-center text-center transition-all scale-105 shadow-xl relative overflow-hidden"
                             whileHover={{ y: -8, boxShadow: "0 24px 60px rgba(14,181,154,0.35)" }}
                             transition={{ duration: 0.25 }}
                         >
@@ -469,7 +469,7 @@ const Home = () => {
                         </motion.div>
 
                         <motion.div
-                            className="p-8 rounded-3xl bg-white/5 border border-white/10 flex flex-col items-center text-center hover:bg-white/10 hover:border-[#0eb59a]/30 transition-all duration-300"
+                            className="p-6 sm:p-8 rounded-3xl bg-white/5 border border-white/10 flex flex-col items-center text-center hover:bg-white/10 hover:border-[#0eb59a]/30 transition-all duration-300"
                             whileHover={{ y: -8, boxShadow: "0 20px 50px rgba(14,181,154,0.2)" }}
                             transition={{ duration: 0.25 }}
                         >
@@ -514,12 +514,12 @@ const Home = () => {
                         whileHover={{ y: -6 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                     >
-                        <div className="h-[380px] md:h-[460px] w-full overflow-hidden relative rounded-[2rem] shadow-lg group-hover:shadow-2xl transition-all duration-500">
+                        <div className="h-[300px] sm:h-[380px] md:h-[460px] w-full overflow-hidden relative rounded-[2rem] shadow-lg group-hover:shadow-2xl transition-all duration-500">
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
                             <div className="absolute inset-0 bg-[#0eb59a]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-[5]"></div>
                             <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop" alt="Companies" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-in-out" />
-                            <div className="absolute bottom-0 left-0 p-8 z-20 w-full">
-                                <h4 className="text-3xl text-white mb-2 font-semibold group-hover:text-[#0eb59a] transition-colors">Hire a CXO</h4>
+                            <div className="absolute bottom-0 left-0 p-5 sm:p-8 z-20 w-full">
+                                <h4 className="text-2xl sm:text-3xl text-white mb-2 font-semibold group-hover:text-[#0eb59a] transition-colors">Hire a CXO</h4>
                                 <p className="text-gray-300 mb-6 text-base font-light">Find top-tier fractional executives.</p>
                                 <motion.button
                                     className="bg-white text-[#134e40] px-8 py-3 rounded-full font-bold text-sm group-hover:bg-[#0eb59a] group-hover:text-white transition-colors shadow-lg"
@@ -538,12 +538,12 @@ const Home = () => {
                         whileHover={{ y: -6 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                     >
-                        <div className="h-[380px] md:h-[460px] w-full overflow-hidden relative rounded-[2rem] shadow-lg group-hover:shadow-2xl transition-all duration-500">
+                        <div className="h-[300px] sm:h-[380px] md:h-[460px] w-full overflow-hidden relative rounded-[2rem] shadow-lg group-hover:shadow-2xl transition-all duration-500">
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
                             <div className="absolute inset-0 bg-[#0eb59a]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-[5]"></div>
                             <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" alt="Experts" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-in-out" />
-                            <div className="absolute bottom-0 left-0 p-8 z-20 w-full">
-                                <h4 className="text-3xl text-white mb-2 font-semibold group-hover:text-[#0eb59a] transition-colors">Executive Opportunities</h4>
+                            <div className="absolute bottom-0 left-0 p-5 sm:p-8 z-20 w-full">
+                                <h4 className="text-2xl sm:text-3xl text-white mb-2 font-semibold group-hover:text-[#0eb59a] transition-colors">Executive Opportunities</h4>
                                 <p className="text-gray-300 mb-6 text-base font-light">Discover flexible, high-impact engagements.</p>
                                 <motion.button
                                     className="bg-white text-[#134e40] px-8 py-3 rounded-full font-bold text-sm group-hover:bg-[#0eb59a] group-hover:text-white transition-colors shadow-lg"
@@ -574,14 +574,14 @@ const Home = () => {
                             transition={{ duration: 0.8 }}
                             className="text-left"
                         >
-                            <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-5 tracking-tight">Let's build <br />the <span className="text-[#0eb59a]">future.</span></h2>
+                            <h2 className="text-3xl md:text-6xl font-serif font-bold text-white mb-5 tracking-tight">Let's build <br />the <span className="text-[#0eb59a]">future.</span></h2>
                             <p className="text-gray-300 text-lg font-light mb-10 max-w-lg leading-relaxed">
                                 Join our exclusive network of forward-thinking companies and elite fractional leaders. We're ready to answer your questions.
                             </p>
 
                             <div className="space-y-5">
                                 <motion.div
-                                    className="flex items-center gap-5 bg-white/5 border border-white/10 p-5 rounded-3xl backdrop-blur-md hover:bg-white/10 transition-all duration-300 group"
+                                    className="flex items-center gap-5 bg-white/5 border border-white/10 p-4 sm:p-5 rounded-3xl backdrop-blur-md hover:bg-white/10 transition-all duration-300 group"
                                     whileHover={{ x: 6 }}
                                     transition={{ duration: 0.2 }}
                                 >
@@ -594,7 +594,7 @@ const Home = () => {
                                     </div>
                                 </motion.div>
                                 <motion.div
-                                    className="flex items-center gap-5 bg-white/5 border border-white/10 p-5 rounded-3xl backdrop-blur-md hover:bg-white/10 transition-all duration-300 group"
+                                    className="flex items-center gap-5 bg-white/5 border border-white/10 p-4 sm:p-5 rounded-3xl backdrop-blur-md hover:bg-white/10 transition-all duration-300 group"
                                     whileHover={{ x: 6 }}
                                     transition={{ duration: 0.2 }}
                                 >
@@ -614,7 +614,7 @@ const Home = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.2 }}
-                            className="bg-white/5 border border-white/10 p-8 sm:p-10 rounded-[3rem] backdrop-blur-xl shadow-2xl relative overflow-hidden"
+                            className="bg-white/5 border border-white/10 p-6 sm:p-10 rounded-[3rem] backdrop-blur-xl shadow-2xl relative overflow-hidden"
                         >
                             <div className="absolute top-0 right-0 w-64 h-64 bg-[#0eb59a]/20 rounded-full blur-[80px] pointer-events-none"></div>
                             <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#134e40]/20 rounded-full blur-[80px] pointer-events-none"></div>

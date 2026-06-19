@@ -9,6 +9,7 @@ const TarsChatbot = () => {
     ]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
     const [loadingText, setLoadingText] = useState("Thinking about it...");
     const messagesEndRef = useRef(null);
     // Use a ref to ensure we always have the absolute latest messages for context history
@@ -88,18 +89,50 @@ const TarsChatbot = () => {
             {/* The Floating Button */}
             {!isOpen && (
                 <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                     onClick={() => setIsOpen(true)}
-                    style={{ position: 'fixed', bottom: '30px', right: '30px', backgroundColor: '#000000', color: '#ffffff', cursor: 'pointer', zIndex: 1000 }}
-                    className="hover:-translate-y-1 transition-all flex items-center justify-center gap-3 px-6 py-4 shadow-2xl rounded-full border border-gray-800 group"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    animate={{ width: isHovered ? 'auto' : '56px' }}
+                    transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                    style={{ position: 'fixed', bottom: '30px', right: '30px', zIndex: 1000, cursor: 'pointer', height: '56px', borderRadius: '9999px', overflow: 'hidden' }}
+                    className="bg-[#134e40] border-2 border-[#0eb59a]/40 flex items-center justify-end shadow-2xl"
+                    whileTap={{ scale: 0.93 }}
                 >
-                    <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <img src="/favicon.png" alt="TARS" className="w-full h-full object-cover" />
-                </div>
-                    <span className="font-bold tracking-widest text-sm uppercase">Ask Tars</span>
+                    <AnimatePresence>
+                        {isHovered && (
+                            <motion.span
+                                key="tars-label"
+                                initial={{ opacity: 0, x: 8 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: 8 }}
+                                transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+                                className="font-bold tracking-widest text-sm uppercase text-white pl-5 pr-3 whitespace-nowrap"
+                            >
+                                Ask Tars
+                            </motion.span>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Circle icon with pulsing glow — always visible, anchored right */}
+                    <motion.div
+                        className="relative shrink-0 w-[52px] h-[52px] rounded-full overflow-hidden flex items-center justify-center bg-[#0eb59a]"
+                        animate={{
+                            boxShadow: [
+                                "0 0 0px rgba(14,181,154,0.4)",
+                                "0 0 20px rgba(14,181,154,0.6)",
+                                "0 0 0px rgba(14,181,154,0.4)"
+                            ]
+                        }}
+                        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                        <img src="/favicon.png" alt="TARS" className="w-full h-full object-cover" />
+                        {/* Online indicator dot */}
+                        <span className="absolute bottom-0.5 right-0.5 w-2 h-2 bg-[#0eb59a] rounded-full animate-pulse border border-[#134e40]" />
+                    </motion.div>
                 </motion.div>
             )}
+
+
 
             {/* The Chat Window */}
             <AnimatePresence>
