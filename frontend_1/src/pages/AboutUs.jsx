@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Linkedin, Twitter, Instagram, Star, Zap, Target, Heart } from 'lucide-react';
+import { useAuthModal } from '../components/AuthModalContext';
 import Navbar from '../components/Navbar';
 
 // ── TEAM DATA ──
@@ -242,7 +243,7 @@ const TeamCard = ({ member, delay = 0 }) => {
                     <motion.div
                         animate={{ scale: hovered ? 1.05 : 1 }}
                         transition={{ duration: 0.3 }}
-                        className="relative mb-4"
+                        className="relative mb-6"
                     >
                         <div
                             className="w-20 h-20 rounded-full flex items-center justify-center text-lg font-black overflow-hidden"
@@ -304,9 +305,46 @@ const TeamCard = ({ member, delay = 0 }) => {
     );
 };
 
+// ── COUNT-UP STAT ──
+const CountUpStat = ({ value, inView, large }) => {
+    const [display, setDisplay] = useState('0');
+    const isSymbol = isNaN(Number(value));
+
+    useEffect(() => {
+        if (!inView) return;
+        if (isSymbol) { setDisplay(value); return; }
+        const end = Number(value);
+        const duration = 1200;
+        const start = performance.now();
+        const tick = (now) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setDisplay(String(Math.round(eased * end)));
+            if (progress < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+    }, [inView, value, isSymbol]);
+
+    return (
+        <motion.p
+            className={`${large ? 'text-5xl' : 'text-4xl'} font-black mb-1`}
+            style={{ color: '#D4AF37', fontFamily: 'Georgia, serif' }}
+            initial={{ opacity: 0, scale: isSymbol ? 0.7 : 1 }}
+            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: isSymbol ? 0.7 : 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+        >
+            {display}
+        </motion.p>
+    );
+};
+
 // ── MAIN PAGE ──
 const AboutUs = () => {
     const navigate = useNavigate();
+    const { openModal } = useAuthModal();
+    const statsRef = useRef(null);
+    const statsInView = useInView(statsRef, { once: true, margin: '-80px' });
 
     return (
         <div
@@ -384,32 +422,58 @@ const AboutUs = () => {
             {/* ── FOUNDER QUOTE ── */}
             <section className="relative z-10 px-4 sm:px-8 lg:px-12 pb-16 max-w-6xl mx-auto">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    variants={{
+                        hidden: { opacity: 0, y: 20 },
+                        visible: { opacity: 1, y: 0, transition: { duration: 0.5, staggerChildren: 0.18 } }
+                    }}
+                    initial="hidden"
+                    whileInView="visible"
                     viewport={{ once: true }}
-                    transition={{ duration: 0.7 }}
                     className="relative rounded-3xl p-6 sm:p-10 text-center"
                     style={{
                         background: 'linear-gradient(145deg, rgba(212,175,55,0.06), rgba(14,181,154,0.04))',
                         border: '1px solid rgba(212,175,55,0.15)',
                     }}
                 >
-                    <div className="text-6xl mb-4 leading-none" style={{ color: 'rgba(212,175,55,0.3)', fontFamily: 'Georgia, serif' }}>"</div>
+                    <motion.div
+                        className="text-6xl mb-4 leading-none"
+                        style={{ color: 'rgba(212,175,55,0.3)', fontFamily: 'Georgia, serif' }}
+                        variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.4 } } }}
+                    >"</motion.div>
                     <p className="text-xl sm:text-2xl font-light leading-relaxed mb-6 italic" style={{ color: 'rgba(255,255,255,0.85)', fontFamily: 'Georgia, serif' }}>
-                        India has thousands of world-class CXOs sitting on the sidelines. And thousands of companies that desperately need them, but can't afford full-time. We built ExigentCX to close that gap.
+                        <motion.span
+                            className="block"
+                            variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
+                        >
+                            India has thousands of world-class CXOs sitting on the sidelines. And thousands of companies that desperately need them, but can't afford full-time.
+                        </motion.span>
+                        <motion.span
+                            className="block mt-2"
+                            variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
+                        >
+                            We built ExigentCX to close that gap.
+                        </motion.span>
                     </p>
-                    <div className="h-px w-16 mx-auto mb-4" style={{ background: 'linear-gradient(90deg, transparent, #D4AF37, transparent)' }} />
-                    <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#D4AF37' }}>— The Founders</p>
+                    <motion.div
+                        className="h-px w-16 mx-auto mb-4"
+                        style={{ background: 'linear-gradient(90deg, transparent, #D4AF37, transparent)' }}
+                        variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1, transition: { duration: 0.5 } } }}
+                    />
+                    <motion.p
+                        className="text-sm font-bold uppercase tracking-widest"
+                        style={{ color: '#D4AF37' }}
+                        variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.4 } } }}
+                    >— The Founders</motion.p>
                 </motion.div>
             </section>
 
             {/* ── HONEST STATS ── */}
             <section className="relative z-10 px-4 sm:px-8 lg:px-12 pb-16">
-                <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+                <div ref={statsRef} className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                     {[
                         { value: '5', label: 'Founding Experts', sub: 'Hand-picked, verified CXOs' },
                         { value: '1', label: 'Big Mission', sub: 'Redefining fractional hiring' },
-                        { value: '∞', label: 'Potential', sub: 'And just getting started' },
+                        { value: '∞', label: 'Potential', sub: 'And just getting started', large: true },
                     ].map((stat, idx) => (
                         <motion.div
                             key={idx}
@@ -424,7 +488,7 @@ const AboutUs = () => {
                                 border: '1px solid rgba(212,175,55,0.2)',
                             }}
                         >
-                            <p className="text-4xl font-black mb-1" style={{ color: '#D4AF37', fontFamily: 'Georgia, serif' }}>{stat.value}</p>
+                            <CountUpStat value={stat.value} inView={statsInView} large={!!stat.large} />
                             <p className="text-sm font-black text-white mb-1">{stat.label}</p>
                             <p className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>{stat.sub}</p>
                         </motion.div>
@@ -498,7 +562,8 @@ const AboutUs = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: idx * 0.12, duration: 0.6 }}
-                                whileHover={{ y: -6, boxShadow: '0 20px 50px rgba(14,181,154,0.12)' }}
+                                whileHover="cardHover"
+                                variants={{ cardHover: { y: -6, boxShadow: '0 20px 50px rgba(14,181,154,0.12)' } }}
                                 className="p-7 rounded-2xl relative overflow-hidden"
                                 style={{
                                     background: 'linear-gradient(145deg, #162638, #0e1e2c)',
@@ -509,9 +574,14 @@ const AboutUs = () => {
                                 <div className="absolute top-2 right-2 w-4 h-4 border-t border-r opacity-40" style={{ borderColor: '#D4AF37' }} />
                                 <div className="absolute bottom-2 left-2 w-4 h-4 border-b border-l opacity-40" style={{ borderColor: '#D4AF37' }} />
                                 <div className="absolute bottom-2 right-2 w-4 h-4 border-b border-r opacity-40" style={{ borderColor: '#D4AF37' }} />
-                                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.2)' }}>
+                                <motion.div
+                                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                                    style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.2)' }}
+                                    variants={{ cardHover: { rotate: 8, scale: 1.15 } }}
+                                    transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+                                >
                                     <val.icon size={18} style={{ color: '#D4AF37' }} />
-                                </div>
+                                </motion.div>
                                 <h3 className="text-base font-black text-white mb-3" style={{ fontFamily: 'Georgia, serif' }}>{val.title}</h3>
                                 <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>{val.desc}</p>
                             </motion.div>
@@ -543,6 +613,15 @@ const AboutUs = () => {
                     <p className="text-sm font-semibold text-[#0a1628]/70 mt-1 relative z-10">
                         Connecting India's best fractional CXOs with high-growth companies.
                     </p>
+                    <motion.button
+                        onClick={openModal}
+                        whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(14,181,154,0.5)' }}
+                        whileTap={{ scale: 0.96 }}
+                        transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+                        className="mt-5 px-8 py-3 rounded-full font-black text-sm uppercase tracking-widest relative z-20 bg-[#0a1628] text-[#D4AF37] border-2 border-[#0a1628]/30 hover:bg-[#0eb59a] hover:text-[#0a1628] hover:border-[#0eb59a] transition-all duration-300 cursor-pointer"
+                    >
+                        Join the Network
+                    </motion.button>
 
                     {/* Diamond accent */}
                     <div className="absolute right-8 top-1/2 -translate-y-1/2 text-[#0a1628]/20 text-4xl pointer-events-none">◆</div>

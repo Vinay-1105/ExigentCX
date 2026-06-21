@@ -175,7 +175,7 @@ const JoinExpert = () => {
 		<div className="flex min-h-screen bg-gray-50 flex-col lg:flex-row">
 
 			{/* ── LEFT PANEL ── */}
-			<div className="hidden lg:flex flex-col w-[38%] bg-[#0d1a18] relative overflow-hidden">
+			<div className="hidden lg:flex flex-col w-[38%] bg-[#0d1a18] relative overflow-hidden sticky top-0 h-screen">
 				<div className="absolute inset-0 bg-gradient-to-br from-[#0d1a18] via-[#0f2320] to-[#0d1a18]" />
 				<div className="absolute top-0 left-0 w-80 h-80 bg-[#0eb59a]/8 rounded-full blur-3xl" />
 				<div className="absolute bottom-0 right-0 w-64 h-64 bg-[#134e40]/20 rounded-full blur-3xl" />
@@ -187,8 +187,11 @@ const JoinExpert = () => {
 				/>
 
 				<div className="relative z-10 flex flex-col h-full p-10">
-					<Link to="/" className="flex items-center gap-3 shrink-0">
-						<Logo variant="dark" className="h-10" />
+					<Link to="/" className="flex items-center gap-3 shrink-0 group">
+						<Logo variant="dark" className="h-14" />
+						<span className="text-white font-black text-2xl tracking-[0.1em] font-serif whitespace-nowrap">
+							ExigentCX
+						</span>
 					</Link>
 
 					<div className="flex-1 flex flex-col justify-center mt-8">
@@ -213,6 +216,14 @@ const JoinExpert = () => {
 						</motion.div>
 					</div>
 
+					{/* Back to home — pinned to bottom-left of panel */}
+					<Link
+						to="/"
+						className="absolute bottom-10 left-10 flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 text-white/60 hover:text-[#0eb59a] hover:border-[#0eb59a]/40 hover:bg-[#0eb59a]/5 text-sm font-medium transition-all duration-300 group/back w-fit z-20"
+					>
+						<ChevronLeft size={16} className="group-hover/back:-translate-x-1 transition-transform" />
+						Back to home
+					</Link>
 
 				</div>
 			</div>
