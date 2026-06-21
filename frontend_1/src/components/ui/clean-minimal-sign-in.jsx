@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { LogIn, Lock, Mail } from "lucide-react";
+import { motion } from "framer-motion";
 
 const SignIn2 = ({
   email,
@@ -22,12 +23,28 @@ const SignIn2 = ({
   children
 }) => {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80')] bg-cover bg-center z-1 relative">
-      <div className="absolute inset-0 bg-white/40 backdrop-blur-sm"></div>
-      <div className="relative w-full max-w-sm bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8 flex flex-col items-center border border-white/50 text-black">
-        <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-white mb-6 shadow-lg">
+    <div className="min-h-screen w-full flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&q=80&w=1920')] bg-cover bg-center relative overflow-hidden">
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(13,26,24,0.55) 0%, rgba(14,181,154,0.25) 50%, rgba(13,26,24,0.55) 100%)' }} />
+      <div className="absolute inset-0 backdrop-blur-sm" />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-full max-w-sm bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8 flex flex-col items-center border border-white/50 text-black"
+      >
+        <motion.div
+          animate={{
+            boxShadow: [
+              "0 4px 20px rgba(14,181,154,0.15)",
+              "0 4px 30px rgba(14,181,154,0.35)",
+              "0 4px 20px rgba(14,181,154,0.15)"
+            ]
+          }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          className="flex items-center justify-center w-14 h-14 rounded-2xl bg-white mb-6"
+        >
           <LogIn className="w-7 h-7 text-[#0eb59a]" />
-        </div>
+        </motion.div>
         <h2 className="text-2xl font-semibold mb-2 text-center">
           {title}
         </h2>
@@ -44,12 +61,14 @@ const SignIn2 = ({
               type="email"
               value={email}
               disabled={showOtp}
-              className={`w-full pl-10 pr-3 py-2 rounded-xl border 
-              focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 
-              text-black text-sm transition-all
+              className={`w-full pl-10 pr-3 py-2.5 rounded-xl border-2
+              focus:outline-none focus:ring-4 focus:ring-[#0eb59a]/25 
+              focus:border-[#0eb59a]
+              text-black text-sm font-medium transition-all
+              shadow-sm
               ${showOtp 
-                  ? 'bg-gray-100 border-gray-100 text-gray-400 cursor-not-allowed' 
-                  : 'bg-gray-50/50 border-gray-200'
+                  ? 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed' 
+                  : 'bg-white border-gray-300'
               }`}
               onChange={(e) => !showOtp && setEmail(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && !showOtp && handleSignIn(e)}
@@ -71,7 +90,7 @@ const SignIn2 = ({
                 placeholder="Password"
                 type="password"
                 value={password}
-                className="w-full pl-10 pr-10 py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 bg-gray-50/50 text-black text-sm"
+                className="w-full pl-10 pr-10 py-2.5 rounded-xl border-2 border-gray-300 focus:outline-none focus:ring-4 focus:ring-[#0eb59a]/25 focus:border-[#0eb59a] bg-white text-black text-sm font-medium shadow-sm transition-all"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -79,30 +98,30 @@ const SignIn2 = ({
 
           {role === "expert" && setLoginMethod && (
             <div className="flex flex-col gap-2 mt-2">
-              <label className="text-xs font-semibold text-gray-500">Login Method</label>
-              <div className="flex gap-4 bg-gray-50 p-2 rounded-xl border border-gray-100">
-                <label className="flex items-center gap-2 cursor-pointer text-gray-600 text-xs">
-                  <input
-                    type="radio"
-                    name="method"
-                    value="otp"
-                    checked={loginMethod === "otp"}
-                    onChange={() => setLoginMethod("otp")}
-                    className="accent-[#0eb59a] w-3 h-3"
-                  />
+              <label className="text-xs font-bold text-gray-700">Login Method</label>
+              <div className="flex gap-2 bg-gray-50 p-1.5 rounded-xl border border-gray-100">
+                <button
+                  type="button"
+                  onClick={() => setLoginMethod("otp")}
+                  className={`flex-1 text-xs font-bold py-2 rounded-lg transition-all duration-200 ${
+                    loginMethod === "otp"
+                      ? "bg-[#0eb59a] text-white shadow-md"
+                      : "text-gray-500 hover:text-gray-700"
+                  }`}
+                >
                   OTP
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer text-gray-600 text-xs">
-                  <input
-                    type="radio"
-                    name="method"
-                    value="magiclink"
-                    checked={loginMethod === "magiclink"}
-                    onChange={() => setLoginMethod("magiclink")}
-                    className="accent-[#0eb59a] w-3 h-3"
-                  />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLoginMethod("magiclink")}
+                  className={`flex-1 text-xs font-bold py-2 rounded-lg transition-all duration-200 ${
+                    loginMethod === "magiclink"
+                      ? "bg-[#0eb59a] text-white shadow-md"
+                      : "text-gray-500 hover:text-gray-700"
+                  }`}
+                >
                   Magic Link
-                </label>
+                </button>
               </div>
             </div>
           )}
@@ -112,19 +131,23 @@ const SignIn2 = ({
               <div className="text-xs text-red-500 text-left w-full mb-1">{error}</div>
             )}
             {showPassword && (
-              <button className="text-xs hover:underline font-medium text-gray-600">
+              <button className="text-xs font-medium text-gray-600 hover:text-[#0eb59a] relative group/forgot transition-colors">
                 Forgot password?
+                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-[#0eb59a] group-hover/forgot:w-full transition-all duration-300"></span>
               </button>
             )}
           </div>
         </div>
         {!showOtp && (
-          <button
+          <motion.button
             onClick={handleSignIn}
-            className="w-full bg-gradient-to-b from-[#0eb59a] to-[#0a8c77] text-white font-semibold py-2.5 rounded-xl shadow-lg hover:shadow-xl hover:brightness-105 cursor-pointer transition-all mb-4 mt-2"
+            whileHover={{ scale: 1.02, boxShadow: "0 8px 30px rgba(14,181,154,0.4)" }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.2 }}
+            className="w-full bg-gradient-to-b from-[#0eb59a] to-[#0a8c77] text-white font-semibold py-2.5 rounded-xl shadow-lg cursor-pointer mb-4 mt-2"
           >
             {buttonText}
-          </button>
+          </motion.button>
         )}
         {children}
         {!showOtp && (
@@ -167,14 +190,15 @@ const SignIn2 = ({
               New here?{" "}
               <a
                 href={role === "company" ? "/join-company" : role === "admin" ? "/admin-signup" : "/join-expert"}
-                className="text-[#0eb59a] hover:underline font-semibold"
+                className="text-[#0eb59a] font-semibold relative group/join transition-colors hover:text-[#134e40]"
               >
                 Join as {role === "company" ? "Company" : role === "admin" ? "Admin" : "Expert"}
+                <span className="absolute -bottom-0.5 left-0 w-full h-px bg-[#0eb59a] scale-x-0 group-hover/join:scale-x-100 origin-left transition-transform duration-300"></span>
               </a>
             </p>
           </>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };
