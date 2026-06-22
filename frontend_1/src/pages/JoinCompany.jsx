@@ -4,6 +4,7 @@ import { supabase } from "@/lib/supabaseClient";
 import { CheckCircle2, ChevronRight, ChevronLeft, AlertCircle, Building2, Globe, ShieldCheck, Sparkles } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "../components/ThemeContext";
 import OTPModal from "../components/OTPModal";
 import StatusModal from "../components/StatusModal";
 import SuccessModal from "../components/SuccessModal";
@@ -15,6 +16,8 @@ const STEP_ICONS = [Building2, Sparkles, Globe, ShieldCheck];
 
 const JoinCompany = () => {
 	const navigate = useNavigate();
+	const { theme } = useTheme();
+	const isDark = theme === 'dark';
 	const [currentStep, setCurrentStep] = useState(0);
 	const [loading, setLoading] = useState(false);
 	const [logoPreview, setLogoPreview] = useState(null);
@@ -230,8 +233,8 @@ const JoinCompany = () => {
 	};
 
 	// Shared input class
-	const inputClass = "w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0eb59a] focus:border-[#0eb59a] focus:bg-white transition-all duration-200 text-gray-800 text-sm";
-	const labelClass = "text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5 block";
+	const inputClass = `w-full px-4 py-2.5 ${isDark ? 'bg-white/5 border-white/10 focus:bg-white/10 text-gray-100' : 'bg-gray-50 border-gray-200 focus:bg-white text-gray-800'} rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0eb59a] focus:border-[#0eb59a] transition-all duration-200 text-sm`;
+	const labelClass = `text-xs font-bold ${isDark ? 'text-gray-400' : 'text-gray-500'} uppercase tracking-wider mb-1.5 block`;
 
 	const stepSubtitles = [
 		"Establish your organization's identity",
@@ -241,7 +244,7 @@ const JoinCompany = () => {
 	];
 
 	return (
-		<div className="flex min-h-screen bg-gray-50 flex-col lg:flex-row">
+		<div className="flex min-h-screen bg-gray-50 dark:bg-[#0d1a14] flex-col lg:flex-row">
 
 			{/* ── LEFT PANEL — enhanced ── */}
 			<div className="hidden lg:flex flex-col w-[38%] bg-[#0d1a18] relative overflow-hidden sticky top-0 h-screen">
@@ -301,7 +304,7 @@ const JoinCompany = () => {
 			</div>
 
 			{/* ── RIGHT PANEL — form ── */}
-			<div className="relative flex-1 flex items-start justify-center py-8 px-4 md:px-8 overflow-y-auto">
+			<div className="relative flex-1 flex items-start justify-center py-8 px-4 md:px-8 overflow-y-auto dark:bg-[#0d1a14]">
 				<div className="absolute inset-0 pointer-events-none md:hidden bg-gradient-to-br from-teal-400/10 to-transparent" />
 
 				<div className="relative z-10 w-full max-w-2xl">
@@ -312,14 +315,14 @@ const JoinCompany = () => {
 						animate={{ opacity: 1, y: 0 }}
 						className="mb-5"
 					>
-						<h2 className="text-xl font-black text-gray-900 tracking-tight">Company Onboarding</h2>
-						<p className="text-gray-400 text-sm mt-0.5">Join our network and unlock opportunities for your organization.</p>
+						<h2 className="text-xl font-black text-gray-900 dark:text-white tracking-tight">Company Onboarding</h2>
+						<p className="text-gray-400 dark:text-gray-500 text-sm mt-0.5">Join our network and unlock opportunities for your organization.</p>
 					</motion.div>
 
 					{/* Step progress — circle indicators */}
 					<div className="flex justify-between items-center mb-5 relative">
 						{/* Connector line */}
-						<div className="absolute top-4 left-0 right-0 h-0.5 bg-gray-100 z-0" />
+						<div className="absolute top-4 left-0 right-0 h-0.5 bg-gray-100 dark:bg-white/10 z-0" />
 						<div
 							className="absolute top-4 left-0 h-0.5 bg-[#0eb59a] z-0 transition-all duration-500"
 							style={{ width: `${(currentStep / (JOIN_STEPS.length - 1)) * 100}%` }}
@@ -338,12 +341,12 @@ const JoinCompany = () => {
 									{index < currentStep ? (
 										<CheckCircle2 size={18} className="text-white" />
 									) : (
-										<span className={`text-xs font-black ${index === currentStep ? 'text-[#0eb59a]' : 'text-gray-300'}`}>
+										<span className={`text-xs font-black ${index === currentStep ? 'text-[#0eb59a]' : 'text-gray-300 dark:text-gray-500'}`}>
 											{index + 1}
 										</span>
 									)}
 								</motion.div>
-								<span className={`text-[10px] font-semibold text-center leading-tight ${index === currentStep ? 'text-[#0eb59a]' : index < currentStep ? 'text-gray-400' : 'text-gray-300'}`}>
+								<span className={`text-[10px] font-semibold text-center leading-tight ${index === currentStep ? 'text-[#0eb59a]' : index < currentStep ? 'text-gray-400' : 'text-gray-300 dark:text-gray-500'}`}>
 									{step}
 								</span>
 							</div>
@@ -374,7 +377,7 @@ const JoinCompany = () => {
 						animate={{ opacity: 1, x: 0 }}
 						exit={{ opacity: 0, x: -20 }}
 						transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-						className="bg-white border border-gray-100 shadow-lg shadow-gray-100/80 rounded-2xl p-6 md:p-8"
+						className="bg-white dark:bg-[#0d2318] border border-gray-100 dark:border-white/10 shadow-lg shadow-gray-100/80 dark:shadow-none rounded-2xl p-6 md:p-8"
 					>
 						<form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
@@ -395,7 +398,7 @@ const JoinCompany = () => {
 									<div className="flex flex-col gap-1">
 										<label className={labelClass}>Upload Company Logo *</label>
 										<input type="file" accept=".png, .jpg, .jpeg"
-											className="w-full px-4 py-2.5 bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl cursor-pointer hover:border-[#0eb59a] hover:bg-teal-50/30 transition-all duration-200 text-gray-600 text-sm file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#134e40] file:text-white hover:file:bg-[#0eb59a]"
+											className="w-full px-4 py-2.5 bg-gray-50 dark:bg-white/5 border-2 border-dashed border-gray-200 dark:border-white/10 rounded-xl cursor-pointer hover:border-[#0eb59a] hover:bg-teal-50/30 transition-all duration-200 text-gray-600 dark:text-gray-400 text-sm file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#134e40] file:text-white hover:file:bg-[#0eb59a]"
 											{...register("logo", { required: "Logo is required" })}
 										/>
 										<span className="text-xs text-gray-400 mt-0.5">PNG, JPG up to 2MB</span>
@@ -553,12 +556,12 @@ const JoinCompany = () => {
 										{errors.linkedin && <span className="text-red-500 text-xs">{errors.linkedin.message}</span>}
 									</div>
 
-									<div className="border-t border-gray-100 pt-4">
-										<label className="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-2">Additional Links <span className="text-gray-300 font-normal normal-case">(optional)</span></label>
+									<div className="border-t border-gray-100 dark:border-white/10 pt-4">
+										<label className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider block mb-2">Additional Links <span className="text-gray-300 font-normal normal-case">(optional)</span></label>
 										{additionalLinks.map((link, index) => (
 											<motion.div key={index} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-2 mb-2">
 												<select value={link.platform} onChange={(e) => updateAdditionalLink(index, 'platform', e.target.value)}
-													className="w-36 border border-gray-200 rounded-xl px-2 py-2 text-xs bg-white focus:ring-2 focus:ring-[#0eb59a] focus:outline-none">
+													className="w-36 border border-gray-200 dark:border-white/10 rounded-xl px-2 py-2 text-xs bg-white dark:bg-white/5 focus:ring-2 focus:ring-[#0eb59a] focus:outline-none dark:text-gray-300">
 													<option value="Website">🌐 Website</option>
 													<option value="X">𝕏 X</option>
 													<option value="Instagram">📸 Instagram</option>
@@ -566,8 +569,8 @@ const JoinCompany = () => {
 													<option value="Other">🔗 Other</option>
 												</select>
 												<input type="url" placeholder="https://..." value={link.url} onChange={(e) => updateAdditionalLink(index, 'url', e.target.value)}
-													className="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-[#0eb59a] focus:outline-none" />
-												<button type="button" onClick={() => removeAdditionalLink(index)} className="text-gray-300 hover:text-red-500 transition-colors text-base font-bold">✕</button>
+													className="flex-1 border border-gray-200 dark:border-white/10 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-[#0eb59a] focus:outline-none dark:bg-white/5 dark:text-gray-300" />
+												<button type="button" onClick={() => removeAdditionalLink(index)} className="text-gray-300 dark:text-gray-500 hover:text-red-500 transition-colors text-base font-bold">✕</button>
 											</motion.div>
 										))}
 										{additionalLinks.length < 3 ? (
@@ -575,7 +578,7 @@ const JoinCompany = () => {
 												<span className="text-base">+</span> Add Link
 											</button>
 										) : (
-											<p className="mt-1 text-xs text-gray-300">Maximum 3 links reached</p>
+											<p className="mt-1 text-xs text-gray-300 dark:text-gray-500">Maximum 3 links reached</p>
 										)}
 									</div>
 								</>
@@ -642,19 +645,19 @@ const JoinCompany = () => {
 									<div className="flex flex-col gap-1">
 										<label className={labelClass}>Certificate of Incorporation <span className="text-gray-300 font-normal normal-case">(optional)</span></label>
 										<input type="file" accept=".pdf, .jpg, .jpeg, .png"
-											className="w-full px-4 py-2 bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl cursor-pointer hover:border-[#0eb59a] hover:bg-teal-50/30 transition-all text-gray-500 text-xs file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#134e40] file:text-white hover:file:bg-[#0eb59a]"
+											className="w-full px-4 py-2 bg-gray-50 dark:bg-white/5 border-2 border-dashed border-gray-200 dark:border-white/10 rounded-xl cursor-pointer hover:border-[#0eb59a] hover:bg-teal-50/30 transition-all text-gray-500 dark:text-gray-400 text-xs file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#134e40] file:text-white hover:file:bg-[#0eb59a]"
 											{...register("gstCertificate")}
 										/>
 										<span className="text-xs text-[#0eb59a] font-medium mt-0.5">Uploading your COI helps verify your company faster.</span>
 									</div>
 
-									<div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl border border-gray-100">
+									<div className="flex items-start gap-3 p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10">
 										<input type="checkbox" id="terms"
 											className="mt-0.5 w-4 h-4 accent-[#0eb59a] rounded border-gray-300"
 											{...register("terms", { required: "You must accept the terms and conditions" })}
 										/>
 										<div>
-											<label htmlFor="terms" className="text-xs text-gray-600 cursor-pointer leading-relaxed">
+											<label htmlFor="terms" className="text-xs text-gray-600 dark:text-gray-400 cursor-pointer leading-relaxed">
 												I confirm the information provided is accurate and I agree to the ExigentCX Terms of Service and Privacy Policy.
 											</label>
 											{errors.terms && <span className="text-red-500 text-xs font-medium mt-1 block">{errors.terms.message}</span>}
@@ -664,13 +667,13 @@ const JoinCompany = () => {
 							)}
 
 							{/* Navigation */}
-							<div className="flex justify-between items-center pt-4 border-t border-gray-100 mt-2">
+							<div className="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-white/10 mt-2">
 								{currentStep > 0 ? (
 									<motion.button
 										type="button"
 										whileHover={{ scale: 1.03 }}
 										whileTap={{ scale: 0.97 }}
-										className="px-5 py-2.5 rounded-xl font-bold text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 flex items-center gap-2 transition-all disabled:opacity-50"
+										className="px-5 py-2.5 rounded-xl font-bold text-sm text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 flex items-center gap-2 transition-all disabled:opacity-50"
 										onClick={handleBack} disabled={loading}
 									>
 										<ChevronLeft size={16} /> Back

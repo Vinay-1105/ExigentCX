@@ -259,11 +259,11 @@ const SignIn = () => {
 	};
 
 	return (
-		<div className="relative min-h-screen bg-gray-50 flex items-center justify-center">
+		<div className="relative min-h-screen bg-gray-50 dark:bg-[#0d1a14] flex items-center justify-center">
 			{/* Back Button */}
 			<button
 				onClick={() => navigate("/")}
-				className="absolute top-6 left-6 z-50 flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white hover:bg-teal-50 text-gray-600 hover:text-[#134e40] border border-gray-200 hover:border-teal-200 shadow-sm transition-all duration-300 hover:shadow-md group active:scale-95 min-h-[44px]"
+				className="absolute top-6 left-6 z-50 flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white dark:bg-[#0d2318] hover:bg-teal-50 dark:hover:bg-[#0eb59a]/10 text-gray-600 dark:text-gray-300 hover:text-[#134e40] border border-gray-200 dark:border-white/10 hover:border-teal-200 shadow-sm transition-all duration-300 hover:shadow-md group active:scale-95 min-h-[44px]"
 			>
 				<ArrowLeft size={16} className="group-hover:-translate-x-0.5 transition-transform" />
 				<span className="text-xs font-bold tracking-wider uppercase">Back</span>
@@ -304,9 +304,9 @@ const SignIn = () => {
 									setIdentifier("admin@cxo.com");
 									setPassword("admin12345");
 								}}
-								className="w-full text-xs text-[#0a8c77] hover:text-[#0eb59a] font-bold text-left bg-white border border-[#0eb59a]/25 p-2.5 rounded-xl flex flex-col gap-0.5 hover:shadow-sm transition-all"
+								className="w-full text-xs text-[#0a8c77] hover:text-[#0eb59a] font-bold text-left bg-white dark:bg-white/5 border border-[#0eb59a]/25 dark:border-[#0eb59a]/40 p-2.5 rounded-xl flex flex-col gap-0.5 hover:shadow-sm transition-all"
 							>
-								<span className="text-[9px] text-gray-400 font-medium">Click to fill Admin:</span>
+								<span className="text-[9px] text-gray-400 dark:text-gray-500 font-medium">Click to fill Admin:</span>
 								<span>Email: admin@cxo.com</span>
 								<span>Password: admin12345</span>
 							</button>
@@ -317,9 +317,9 @@ const SignIn = () => {
 									e.preventDefault();
 									setIdentifier("demo@cxo.com");
 								}}
-								className="w-full text-xs text-[#0a8c77] hover:text-[#0eb59a] font-bold text-left bg-white border border-[#0eb59a]/25 p-2.5 rounded-xl flex flex-col gap-0.5 hover:shadow-sm transition-all"
+								className="w-full text-xs text-[#0a8c77] hover:text-[#0eb59a] font-bold text-left bg-white dark:bg-white/5 border border-[#0eb59a]/25 dark:border-[#0eb59a]/40 p-2.5 rounded-xl flex flex-col gap-0.5 hover:shadow-sm transition-all"
 							>
-								<span className="text-[9px] text-gray-400 font-medium">Click to fill Company:</span>
+								<span className="text-[9px] text-gray-400 dark:text-gray-500 font-medium">Click to fill Company:</span>
 								<span>Email: demo@cxo.com</span>
 							</button>
 						)}
@@ -329,9 +329,9 @@ const SignIn = () => {
 									e.preventDefault();
 									setIdentifier("demo@cxo.com");
 								}}
-								className="w-full text-xs text-[#0a8c77] hover:text-[#0eb59a] font-bold text-left bg-white border border-[#0eb59a]/25 p-2.5 rounded-xl flex flex-col gap-0.5 hover:shadow-sm transition-all"
+								className="w-full text-xs text-[#0a8c77] hover:text-[#0eb59a] font-bold text-left bg-white dark:bg-white/5 border border-[#0eb59a]/25 dark:border-[#0eb59a]/40 p-2.5 rounded-xl flex flex-col gap-0.5 hover:shadow-sm transition-all"
 							>
-								<span className="text-[9px] text-gray-400 font-medium">Click to fill Expert:</span>
+								<span className="text-[9px] text-gray-400 dark:text-gray-500 font-medium">Click to fill Expert:</span>
 								<span>Email: demo@cxo.com</span>
 							</button>
 						)}

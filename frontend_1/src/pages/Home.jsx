@@ -159,7 +159,7 @@ const Home = () => {
             </section>
 
             {/* Trusted by — tighter padding, mint tint background */}
-            <div className="py-10 bg-[#f0fdf4] dark:bg-[#0a1f1a] border-y border-teal-100 dark:border-[#0eb59a]/20 overflow-hidden">
+            <div className="py-10 bg-[#f0fdf4] dark:bg-[#0a1f1a] border-y border-teal-100 dark:border-transparent overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6 mb-8 text-center">
                     <h2 className="text-xl md:text-3xl font-serif font-bold text-gray-900 dark:text-white mb-3">Your Expertise, Your Terms.</h2>
                     <p className="text-gray-600 dark:text-gray-400 text-base max-w-2xl mx-auto">Join an exclusive ecosystem of industry leaders. Access high-impact advisory projects with guaranteed milestone-based payouts.</p>
@@ -263,7 +263,7 @@ const Home = () => {
                 {/* How It Works — mint green bg, tighter padding */}
                 <AnimatedSection className="py-10 w-full relative overflow-hidden bg-[#f0fdf4] dark:bg-[#0a1f1a]">
                     <div className="max-w-7xl mx-auto px-6 relative z-10">
-                        <div className="bg-white dark:bg-[#0d2318] rounded-[2.5rem] border border-teal-100 dark:border-[#0eb59a]/15 shadow-[0_8px_30px_rgb(0,0,0,0.06)] py-6 px-4 lg:px-12 relative overflow-hidden">
+                        <div className="bg-white dark:bg-[#0d2318] rounded-[2.5rem] border border-teal-100 dark:border-transparent shadow-[0_8px_30px_rgb(0,0,0,0.06)] py-6 px-4 lg:px-12 relative overflow-hidden">
                             <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#0eb59a]/5 rounded-full blur-[100px] pointer-events-none"></div>
                             <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#134e40]/5 rounded-full blur-[100px] pointer-events-none"></div>
 

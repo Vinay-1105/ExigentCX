@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Linkedin, Twitter, Instagram, Star, Zap, Target, Heart } from 'lucide-react';
 import { useAuthModal } from '../components/AuthModalContext';
+import { useTheme } from '../components/ThemeContext';
 import Navbar from '../components/Navbar';
 
 // ── TEAM DATA ──
@@ -65,7 +66,7 @@ const team = [
 ];
 
 // ── FOUNDER CARD ──
-const FounderCard = ({ member }) => {
+const FounderCard = ({ member, isDark }) => {
     const [hovered, setHovered] = useState(false);
 
     return (
@@ -81,15 +82,19 @@ const FounderCard = ({ member }) => {
             <motion.div
                 animate={{
                     y: hovered ? -10 : 0,
-                    boxShadow: hovered
-                        ? '0 0 50px rgba(14,181,154,0.35), 0 20px 60px rgba(0,0,0,0.5)'
-                        : '0 8px 30px rgba(0,0,0,0.3)',
+                    boxShadow: hovered 
+                        ? (isDark 
+                            ? '0 0 50px rgba(14,181,154,0.35), 0 20px 60px rgba(0,0,0,0.5)' 
+                            : '0 0 30px rgba(14,181,154,0.2), 0 12px 40px rgba(0,0,0,0.12)')
+                        : (isDark 
+                            ? '0 8px 30px rgba(0,0,0,0.3)' 
+                            : '0 4px 20px rgba(0,0,0,0.10)'),
                 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
                 className="relative rounded-2xl overflow-hidden"
                 style={{
-                    background: 'linear-gradient(145deg, #1a2f3a 0%, #0f1f2a 100%)',
-                    border: hovered ? '1px solid rgba(14,181,154,0.6)' : '1px solid rgba(212,175,55,0.3)',
+                    background: isDark ? 'linear-gradient(145deg, #1a2f3a 0%, #0f1f2a 100%)' : 'linear-gradient(145deg, #ffffff 0%, #f8fffe 100%)',
+                    border: hovered ? (isDark ? '1px solid rgba(14,181,154,0.6)' : '1px solid rgba(14,181,154,0.5)') : (isDark ? '1px solid rgba(212,175,55,0.3)' : '1px solid rgba(212,175,55,0.4)'),
                 }}
             >
                 {/* Corner flourishes */}
@@ -129,17 +134,17 @@ const FounderCard = ({ member }) => {
                         <div
                             className="w-28 h-28 rounded-full flex items-center justify-center text-2xl font-black text-white overflow-hidden"
                             style={{
-                                background: 'linear-gradient(135deg, #1e3a4a, #0d2535)',
+                                background: isDark ? 'linear-gradient(135deg, #1e3a4a, #0d2535)' : 'linear-gradient(135deg, #e8f5f2, #d0ede8)',
                                 boxShadow: hovered
                                     ? '0 0 0 3px #0eb59a, 0 0 20px rgba(14,181,154,0.4)'
-                                    : '0 0 0 3px #D4AF37, 0 0 15px rgba(212,175,55,0.2)',
+                                    : (isDark ? '0 0 0 3px #D4AF37, 0 0 15px rgba(212,175,55,0.2)' : '0 0 0 3px #D4AF37, 0 0 15px rgba(212,175,55,0.3)'),
                                 transition: 'box-shadow 0.3s ease',
                             }}
                         >
                             {member.avatar ? (
                                 <img src={member.avatar} alt={member.name} className="w-full h-full object-cover" />
                             ) : (
-                                <span style={{ color: hovered ? '#0eb59a' : '#D4AF37' }}>{member.initials}</span>
+                                <span style={{ color: hovered ? '#0eb59a' : (isDark ? '#D4AF37' : '#134e40') }}>{member.initials}</span>
                             )}
                         </div>
                         {/* Pulse ring */}
@@ -152,7 +157,7 @@ const FounderCard = ({ member }) => {
                     </motion.div>
 
                     {/* Name */}
-                    <h3 className="text-xl font-black text-white mb-1 tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>
+                    <h3 className={`text-xl font-black mb-1 tracking-tight ${isDark ? 'text-white' : 'text-[#1C3627]'}`} style={{ fontFamily: 'Georgia, serif' }}>
                         {member.name}
                     </h3>
 
@@ -196,7 +201,7 @@ const FounderCard = ({ member }) => {
 };
 
 // ── TEAM CARD ──
-const TeamCard = ({ member, delay = 0 }) => {
+const TeamCard = ({ member, delay = 0, isDark }) => {
     const [hovered, setHovered] = useState(false);
 
     return (
@@ -214,14 +219,18 @@ const TeamCard = ({ member, delay = 0 }) => {
                 animate={{
                     y: hovered ? -8 : 0,
                     boxShadow: hovered
-                        ? '0 0 35px rgba(14,181,154,0.2), 0 16px 40px rgba(0,0,0,0.4)'
-                        : '0 6px 24px rgba(0,0,0,0.25)',
+                        ? (isDark
+                            ? '0 0 35px rgba(14,181,154,0.2), 0 16px 40px rgba(0,0,0,0.4)'
+                            : '0 0 20px rgba(14,181,154,0.15), 0 8px 30px rgba(0,0,0,0.10)')
+                        : (isDark
+                            ? '0 6px 24px rgba(0,0,0,0.25)'
+                            : '0 4px 16px rgba(0,0,0,0.08)'),
                 }}
                 transition={{ duration: 0.3 }}
                 className="relative rounded-2xl overflow-hidden"
                 style={{
-                    background: 'linear-gradient(145deg, #162638 0%, #0e1e2c 100%)',
-                    border: hovered ? '1px solid rgba(14,181,154,0.4)' : '1px solid rgba(212,175,55,0.2)',
+                    background: isDark ? 'linear-gradient(145deg, #162638 0%, #0e1e2c 100%)' : 'linear-gradient(145deg, #ffffff 0%, #f8fffe 100%)',
+                    border: hovered ? '1px solid rgba(14,181,154,0.4)' : (isDark ? '1px solid rgba(212,175,55,0.2)' : '1px solid rgba(212,175,55,0.3)'),
                 }}
             >
                 {/* Corner flourishes */}
@@ -248,12 +257,12 @@ const TeamCard = ({ member, delay = 0 }) => {
                         <div
                             className="w-20 h-20 rounded-full flex items-center justify-center text-lg font-black overflow-hidden"
                             style={{
-                                background: 'linear-gradient(135deg, #1e3a4a, #0d2535)',
+                                background: isDark ? 'linear-gradient(135deg, #1e3a4a, #0d2535)' : 'linear-gradient(135deg, #e8f5f2, #d0ede8)',
                                 boxShadow: hovered
                                     ? '0 0 0 2px #0eb59a, 0 0 15px rgba(14,181,154,0.3)'
-                                    : '0 0 0 2px rgba(212,175,55,0.5)',
+                                    : (isDark ? '0 0 0 2px rgba(212,175,55,0.5)' : '0 0 0 2px rgba(19,78,64,0.4)'),
                                 transition: 'box-shadow 0.3s ease',
-                                color: hovered ? '#0eb59a' : '#D4AF37',
+                                color: hovered ? '#0eb59a' : (isDark ? '#D4AF37' : '#134e40'),
                             }}
                         >
                             {member.avatar ? (
@@ -265,7 +274,7 @@ const TeamCard = ({ member, delay = 0 }) => {
                     </motion.div>
 
                     {/* Name */}
-                    <h3 className="text-base font-black text-white mb-1 tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>
+                    <h3 className={`text-base font-black mb-1 tracking-tight ${isDark ? 'text-white' : 'text-[#1C3627]'}`} style={{ fontFamily: 'Georgia, serif' }}>
                         {member.name}
                     </h3>
 
@@ -343,13 +352,15 @@ const CountUpStat = ({ value, inView, large }) => {
 const AboutUs = () => {
     const navigate = useNavigate();
     const { openModal } = useAuthModal();
+    const { theme } = useTheme();
+    const isDark = theme === 'dark';
     const statsRef = useRef(null);
     const statsInView = useInView(statsRef, { once: true, margin: '-80px' });
 
     return (
         <div
             className="min-h-screen relative overflow-hidden"
-            style={{ background: 'linear-gradient(160deg, #0a1628 0%, #0d1f2d 40%, #091820 100%)' }}
+            style={{ background: isDark ? 'linear-gradient(160deg, #0a1628 0%, #0d1f2d 40%, #091820 100%)' : 'linear-gradient(160deg, #f4f7f5 0%, #e8f5f2 40%, #f4f7f5 100%)' }}
         >
             <Navbar />
 
@@ -357,14 +368,14 @@ const AboutUs = () => {
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
-                    backgroundImage: 'radial-gradient(rgba(14,181,154,0.08) 1px, transparent 1px)',
+                    backgroundImage: `radial-gradient(rgba(14,181,154,${isDark ? '0.08' : '0.12'}) 1px, transparent 1px)`,
                     backgroundSize: '32px 32px',
                 }}
             />
 
             {/* Ambient glow blobs */}
-            <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full blur-[120px] pointer-events-none" style={{ background: 'rgba(14,181,154,0.06)' }} />
-            <div className="absolute bottom-1/3 left-0 w-80 h-80 rounded-full blur-[100px] pointer-events-none" style={{ background: 'rgba(212,175,55,0.04)' }} />
+            <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full blur-[120px] pointer-events-none" style={{ background: isDark ? 'rgba(14,181,154,0.06)' : 'rgba(14,181,154,0.10)' }} />
+            <div className="absolute bottom-1/3 left-0 w-80 h-80 rounded-full blur-[100px] pointer-events-none" style={{ background: isDark ? 'rgba(212,175,55,0.04)' : 'rgba(212,175,55,0.08)' }} />
 
             {/* ── HERO ── */}
             <section className="relative z-10 pt-32 pb-20 text-center px-4 sm:px-8 lg:px-12">
@@ -384,7 +395,7 @@ const AboutUs = () => {
 
                     {/* Main heading */}
                     <h1
-                        className="text-3xl sm:text-5xl lg:text-6xl font-black text-white mb-4 tracking-tight"
+                        className={`text-3xl sm:text-5xl lg:text-6xl font-black mb-4 tracking-tight ${isDark ? 'text-white' : 'text-[#1C3627]'}`}
                         style={{ fontFamily: 'Georgia, serif', textShadow: '0 0 60px rgba(14,181,154,0.15)' }}
                     >
                         Meet The Visionaries
@@ -399,7 +410,7 @@ const AboutUs = () => {
                         style={{ background: 'linear-gradient(90deg, transparent, #D4AF37, transparent)' }}
                     />
 
-                    <p className="text-lg font-light max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                    <p className="text-lg font-light max-w-xl mx-auto" style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(28,54,39,0.6)' }}>
                         Building the future of fractional leadership in India.
                     </p>
 
@@ -431,8 +442,8 @@ const AboutUs = () => {
                     viewport={{ once: true }}
                     className="relative rounded-3xl p-6 sm:p-10 text-center"
                     style={{
-                        background: 'linear-gradient(145deg, rgba(212,175,55,0.06), rgba(14,181,154,0.04))',
-                        border: '1px solid rgba(212,175,55,0.15)',
+                        background: isDark ? 'linear-gradient(145deg, rgba(212,175,55,0.06), rgba(14,181,154,0.04))' : 'linear-gradient(145deg, rgba(212,175,55,0.12), rgba(14,181,154,0.08))',
+                        border: isDark ? '1px solid rgba(212,175,55,0.15)' : '1px solid rgba(212,175,55,0.35)',
                     }}
                 >
                     <motion.div
@@ -440,7 +451,7 @@ const AboutUs = () => {
                         style={{ color: 'rgba(212,175,55,0.3)', fontFamily: 'Georgia, serif' }}
                         variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.4 } } }}
                     >"</motion.div>
-                    <p className="text-xl sm:text-2xl font-light leading-relaxed mb-6 italic" style={{ color: 'rgba(255,255,255,0.85)', fontFamily: 'Georgia, serif' }}>
+                    <p className="text-xl sm:text-2xl font-light leading-relaxed mb-6 italic" style={{ color: isDark ? 'rgba(255,255,255,0.85)' : 'rgba(28,54,39,0.85)', fontFamily: 'Georgia, serif' }}>
                         <motion.span
                             className="block"
                             variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
@@ -484,13 +495,14 @@ const AboutUs = () => {
                             whileHover={{ y: -4 }}
                             className="text-center p-6 rounded-2xl"
                             style={{
-                                background: 'linear-gradient(145deg, rgba(26,47,58,0.8), rgba(15,31,42,0.8))',
-                                border: '1px solid rgba(212,175,55,0.2)',
+                                background: isDark ? 'linear-gradient(145deg, rgba(26,47,58,0.8), rgba(15,31,42,0.8))' : 'linear-gradient(145deg, #ffffff, #f8fffe)',
+                                border: isDark ? '1px solid rgba(212,175,55,0.2)' : '1px solid rgba(212,175,55,0.35)',
+                                boxShadow: isDark ? 'none' : '0 4px 20px rgba(0,0,0,0.08)',
                             }}
                         >
                             <CountUpStat value={stat.value} inView={statsInView} large={!!stat.large} />
-                            <p className="text-sm font-black text-white mb-1">{stat.label}</p>
-                            <p className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>{stat.sub}</p>
+                            <p className={`text-sm font-black mb-1 ${isDark ? 'text-white' : 'text-[#1C3627]'}`}>{stat.label}</p>
+                            <p className="text-xs" style={{ color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(28,54,39,0.5)' }}>{stat.sub}</p>
                         </motion.div>
                     ))}
                 </div>
@@ -511,7 +523,7 @@ const AboutUs = () => {
 
                 <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-8 items-center">
                     {founders.map((founder) => (
-                        <FounderCard key={founder.id} member={founder} />
+                        <FounderCard key={founder.id} member={founder} isDark={isDark} />
                     ))}
                 </div>
             </section>
@@ -529,7 +541,7 @@ const AboutUs = () => {
             <section className="relative z-10 px-4 sm:px-8 lg:px-12 pb-20">
                 <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 flex-wrap max-w-6xl mx-auto items-center">
                     {team.map((member, idx) => (
-                        <TeamCard key={member.id} member={member} delay={idx * 0.1} />
+                        <TeamCard key={member.id} member={member} delay={idx * 0.1} isDark={isDark} />
                     ))}
                 </div>
             </section>
@@ -548,7 +560,7 @@ const AboutUs = () => {
                             <span className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: 'rgba(212,175,55,0.6)' }}>What Drives Us</span>
                             <div className="h-px w-12" style={{ background: 'linear-gradient(90deg, #D4AF37, transparent)' }} />
                         </div>
-                        <h2 className="text-3xl font-black text-white" style={{ fontFamily: 'Georgia, serif' }}>Our Values</h2>
+                        <h2 className={`text-3xl font-black ${isDark ? 'text-white' : 'text-[#1C3627]'}`} style={{ fontFamily: 'Georgia, serif' }}>Our Values</h2>
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
                         {[
@@ -566,8 +578,9 @@ const AboutUs = () => {
                                 variants={{ cardHover: { y: -6, boxShadow: '0 20px 50px rgba(14,181,154,0.12)' } }}
                                 className="p-7 rounded-2xl relative overflow-hidden"
                                 style={{
-                                    background: 'linear-gradient(145deg, #162638, #0e1e2c)',
-                                    border: '1px solid rgba(212,175,55,0.15)',
+                                    background: isDark ? 'linear-gradient(145deg, #162638, #0e1e2c)' : '#ffffff',
+                                    border: isDark ? '1px solid rgba(212,175,55,0.15)' : '1px solid rgba(212,175,55,0.4)',
+                                    boxShadow: isDark ? 'none' : '0 4px 20px rgba(0,0,0,0.08)',
                                 }}
                             >
                                 <div className="absolute top-2 left-2 w-4 h-4 border-t border-l opacity-40" style={{ borderColor: '#D4AF37' }} />
@@ -582,8 +595,8 @@ const AboutUs = () => {
                                 >
                                     <val.icon size={18} style={{ color: '#D4AF37' }} />
                                 </motion.div>
-                                <h3 className="text-base font-black text-white mb-3" style={{ fontFamily: 'Georgia, serif' }}>{val.title}</h3>
-                                <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>{val.desc}</p>
+                                <h3 className={`text-base font-black mb-3 ${isDark ? 'text-white' : 'text-[#1C3627]'}`} style={{ fontFamily: 'Georgia, serif' }}>{val.title}</h3>
+                                <p className="text-sm leading-relaxed" style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(28,54,39,0.75)' }}>{val.desc}</p>
                             </motion.div>
                         ))}
                     </div>
