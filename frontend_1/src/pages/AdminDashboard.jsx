@@ -271,7 +271,7 @@ const AdminDashboard = () => {
               { id: 'governance', label: 'Governance', icon: ShieldAlert },
               { id: 'trust', label: 'Trust', icon: Lock }
             ].map(tab => (
-              <button
+              <motion.button
                 key={tab.id}
                 onClick={() => {
                   setActiveTab(tab.id);
@@ -279,6 +279,8 @@ const AdminDashboard = () => {
                     fetchEscrows();
                   }
                 }}
+                whileHover={activeTab !== tab.id ? { x: 3 } : {}}
+                whileTap={{ scale: 0.97 }}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 relative font-medium text-sm group ${
                   activeTab === tab.id 
                     ? 'bg-[#134e40]/45 text-white shadow-[0_0_15px_rgba(14,181,154,0.08)] border border-[#0eb59a]/30'
@@ -286,11 +288,19 @@ const AdminDashboard = () => {
                 }`}
               >
                 {activeTab === tab.id && (
-                  <span className="absolute left-0 top-3 bottom-3 w-1 bg-[#0eb59a] rounded-r-full shadow-[0_0_8px_#0eb59a]" />
+                  <motion.span 
+                    layoutId="activeTab"
+                    className="absolute left-0 top-3 bottom-3 w-1 bg-[#0eb59a] rounded-r-full shadow-[0_0_8px_#0eb59a]" 
+                  />
                 )}
-                <tab.icon className={`w-4 h-4 transition-colors ${activeTab === tab.id ? 'text-[#0eb59a]' : 'text-gray-500 group-hover:text-gray-300'}`} />
+                <motion.div 
+                  className="shrink-0 flex items-center justify-center"
+                  whileHover={activeTab !== tab.id ? { rotate: 8, scale: 1.1 } : {}}
+                >
+                  <tab.icon className={`w-4 h-4 transition-colors ${activeTab === tab.id ? 'text-[#0eb59a]' : 'text-gray-500 group-hover:text-gray-300'}`} />
+                </motion.div>
                 <span>{tab.label}</span>
-              </button>
+              </motion.button>
             ))}
           </nav>
         </div>
@@ -344,19 +354,25 @@ const AdminDashboard = () => {
             {/* Navigation tags */}
             <div className="flex gap-4 border-r border-[#15231c] pr-6 text-xs text-gray-400 font-semibold">
               <span className="text-white border-b-2 border-[#0eb59a] pb-1 cursor-pointer">Overview</span>
-              <span className="hover:text-white transition-colors cursor-pointer" onClick={() => triggerToast('Opening system reports list...')}>Reports</span>
-              <span className="hover:text-white transition-colors cursor-pointer" onClick={() => triggerToast('Real-time feed listener active.')}>Real-time</span>
+              <span className="hover:text-white transition-colors cursor-pointer">Reports</span>
+              <span className="hover:text-white transition-colors cursor-pointer">Real-time</span>
             </div>
 
             <div className="flex items-center gap-3">
               {/* Notification icon */}
-              <button 
+              <motion.button 
                 onClick={() => triggerToast('You have 3 unread system alerts.')}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.92, rotate: -15 }}
                 className="w-9 h-9 rounded-xl border border-[#1b2520] bg-[#0c0f0d] hover:bg-[#134e40]/25 hover:border-[#0eb59a]/30 text-gray-400 hover:text-white flex items-center justify-center transition-colors relative cursor-pointer"
               >
                 <Bell className="w-4 h-4" />
-                <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#0eb59a]" />
-              </button>
+                <motion.span 
+                  animate={{ scale: [1, 1.15, 1], opacity: [1, 0.7, 1] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#0eb59a]" 
+                />
+              </motion.button>
 
               {/* Settings icon */}
               <button 
@@ -392,10 +408,10 @@ const AdminDashboard = () => {
             {activeTab === 'analytics' && (
               <motion.div
                 key="analytics"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0, y: 15, x: 8 }}
+                animate={{ opacity: 1, y: 0, x: 0 }}
+                exit={{ opacity: 0, y: -15, x: -8 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="space-y-8 max-w-6xl mx-auto"
               >
                 {/* Title Section */}
@@ -406,15 +422,21 @@ const AdminDashboard = () => {
                   </div>
                   
                   <div className="flex gap-3">
-                    <button onClick={() => triggerToast('Analytics date window restricted to last 30 days.')} className="px-4 py-2 border border-[#1b2520] bg-[#0c0f0d] hover:border-[#0eb59a]/30 rounded-xl text-xs font-semibold flex items-center gap-2 cursor-pointer transition-colors">
+                    <button onClick={() => {}} className="px-4 py-2 border border-[#1b2520] bg-[#0c0f0d] hover:border-[#0eb59a]/30 rounded-xl text-xs font-semibold flex items-center gap-2 cursor-pointer transition-colors">
                       <Clock className="w-3.5 h-3.5 text-gray-500" />
                       <span>Last 30 Days</span>
                       <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
                     </button>
-                    <button onClick={() => triggerToast('Generating CSV data audit package...')} className="px-4 py-2 bg-[#134e40] hover:bg-[#0eb59a] text-white rounded-xl text-xs font-bold tracking-wide flex items-center gap-1.5 cursor-pointer shadow-md transition-all">
+                    <motion.button 
+                      onClick={() => triggerToast('Generating CSV data audit package...')} 
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.96 }}
+                      transition={{ duration: 0.15 }}
+                      className="px-4 py-2 bg-[#134e40] hover:bg-[#0eb59a] text-white rounded-xl text-xs font-bold tracking-wide flex items-center gap-1.5 cursor-pointer shadow-md transition-all"
+                    >
                       <ExternalLink className="w-3.5 h-3.5" />
                       <span>Export Data</span>
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
 
@@ -426,7 +448,13 @@ const AdminDashboard = () => {
                     { title: 'Success Rate', value: '94.2%', change: '+3.1%', up: true, desc: 'Placement match accuracy' },
                     { title: 'Avg. Margin', value: '18.5%', change: '-2.4%', up: false, desc: 'Platform service commission' }
                   ].map((kpi, idx) => (
-                    <div key={idx} className="bg-[#0c0f0d]/80 border border-[#1b2520] hover:border-[#0eb59a]/35 rounded-2xl p-5 backdrop-blur-md transition-all duration-300 relative group">
+                    <motion.div 
+                      key={idx} 
+                      whileHover={{ y: -4, scale: 1.01 }}
+                      whileTap={{ scale: 0.99 }}
+                      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                      className="bg-[#0c0f0d]/80 border border-[#1b2520] hover:border-[#0eb59a]/35 rounded-2xl p-5 backdrop-blur-md transition-all duration-300 relative group"
+                    >
                       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#0eb59a]/0 to-transparent group-hover:via-[#0eb59a]/40 transition-all duration-700" />
                       <div className="flex justify-between items-start mb-3">
                         <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500">{kpi.title}</span>
@@ -438,7 +466,7 @@ const AdminDashboard = () => {
                       </div>
                       <h3 className="text-2xl font-black font-serif text-white tracking-tight mb-1">{kpi.value}</h3>
                       <p className="text-[10px] text-gray-500">{kpi.desc}</p>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
 
@@ -474,48 +502,132 @@ const AdminDashboard = () => {
                         {/* Jan */}
                         <div className="flex-1 flex flex-col items-center gap-2 z-10 group/bar">
                           <div className="flex items-end gap-1.5 h-36">
-                            <div className="w-3.5 bg-[#134e40] rounded-t hover:bg-[#134e40]/80 transition-colors" style={{ height: '55%' }} title="Demand: 45" />
-                            <div className="w-3.5 bg-[#0eb59a] rounded-t hover:bg-emerald-400 transition-colors" style={{ height: '50%' }} title="Supply: 40" />
+                            <motion.div 
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 79, opacity: 1 }}
+                              transition={{ duration: 0.8, delay: 0 * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                              whileHover={{ opacity: 0.8 }}
+                              className="w-3.5 bg-[#134e40] rounded-t hover:bg-[#134e40]/80 transition-colors" 
+                              title="Demand: 45" 
+                            />
+                            <motion.div 
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 72, opacity: 1 }}
+                              transition={{ duration: 0.8, delay: 0.025 + 0 * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                              whileHover={{ opacity: 0.8 }}
+                              className="w-3.5 bg-[#0eb59a] rounded-t hover:bg-emerald-400 transition-colors" 
+                              title="Supply: 40" 
+                            />
                           </div>
                           <span className="text-[9px] text-gray-500 font-bold tracking-widest font-mono">JAN</span>
                         </div>
                         {/* Feb */}
                         <div className="flex-1 flex flex-col items-center gap-2 z-10 group/bar">
                           <div className="flex items-end gap-1.5 h-36">
-                            <div className="w-3.5 bg-[#134e40] rounded-t" style={{ height: '65%' }} title="Demand: 55" />
-                            <div className="w-3.5 bg-[#0eb59a] rounded-t" style={{ height: '60%' }} title="Supply: 50" />
+                            <motion.div 
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 94, opacity: 1 }}
+                              transition={{ duration: 0.8, delay: 1 * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                              whileHover={{ opacity: 0.8 }}
+                              className="w-3.5 bg-[#134e40] rounded-t" 
+                              title="Demand: 55" 
+                            />
+                            <motion.div 
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 86, opacity: 1 }}
+                              transition={{ duration: 0.8, delay: 0.025 + 1 * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                              whileHover={{ opacity: 0.8 }}
+                              className="w-3.5 bg-[#0eb59a] rounded-t" 
+                              title="Supply: 50" 
+                            />
                           </div>
                           <span className="text-[9px] text-gray-500 font-bold tracking-widest font-mono">FEB</span>
                         </div>
                         {/* Mar */}
                         <div className="flex-1 flex flex-col items-center gap-2 z-10 group/bar">
                           <div className="flex items-end gap-1.5 h-36">
-                            <div className="w-3.5 bg-[#134e40] rounded-t" style={{ height: '80%' }} title="Demand: 70" />
-                            <div className="w-3.5 bg-[#0eb59a] rounded-t" style={{ height: '80%' }} title="Supply: 70" />
+                            <motion.div 
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 115, opacity: 1 }}
+                              transition={{ duration: 0.8, delay: 2 * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                              whileHover={{ opacity: 0.8 }}
+                              className="w-3.5 bg-[#134e40] rounded-t" 
+                              title="Demand: 70" 
+                            />
+                            <motion.div 
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 115, opacity: 1 }}
+                              transition={{ duration: 0.8, delay: 0.025 + 2 * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                              whileHover={{ opacity: 0.8 }}
+                              className="w-3.5 bg-[#0eb59a] rounded-t" 
+                              title="Supply: 70" 
+                            />
                           </div>
                           <span className="text-[9px] text-gray-500 font-bold tracking-widest font-mono">MAR</span>
                         </div>
                         {/* Apr */}
                         <div className="flex-1 flex flex-col items-center gap-2 z-10 group/bar">
                           <div className="flex items-end gap-1.5 h-36">
-                            <div className="w-3.5 bg-[#134e40] rounded-t" style={{ height: '60%' }} title="Demand: 50" />
-                            <div className="w-3.5 bg-[#0eb59a] rounded-t" style={{ height: '58%' }} title="Supply: 48" />
+                            <motion.div 
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 86, opacity: 1 }}
+                              transition={{ duration: 0.8, delay: 3 * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                              whileHover={{ opacity: 0.8 }}
+                              className="w-3.5 bg-[#134e40] rounded-t" 
+                              title="Demand: 50" 
+                            />
+                            <motion.div 
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 84, opacity: 1 }}
+                              transition={{ duration: 0.8, delay: 0.025 + 3 * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                              whileHover={{ opacity: 0.8 }}
+                              className="w-3.5 bg-[#0eb59a] rounded-t" 
+                              title="Supply: 48" 
+                            />
                           </div>
                           <span className="text-[9px] text-gray-500 font-bold tracking-widest font-mono">APR</span>
                         </div>
                         {/* May */}
                         <div className="flex-1 flex flex-col items-center gap-2 z-10 group/bar">
                           <div className="flex items-end gap-1.5 h-36">
-                            <div className="w-3.5 bg-[#134e40] rounded-t" style={{ height: '95%' }} title="Demand: 85" />
-                            <div className="w-3.5 bg-[#0eb59a] rounded-t" style={{ height: '95%' }} title="Supply: 80" />
+                            <motion.div 
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 137, opacity: 1 }}
+                              transition={{ duration: 0.8, delay: 4 * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                              whileHover={{ opacity: 0.8 }}
+                              className="w-3.5 bg-[#134e40] rounded-t" 
+                              title="Demand: 85" 
+                            />
+                            <motion.div 
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 137, opacity: 1 }}
+                              transition={{ duration: 0.8, delay: 0.025 + 4 * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                              whileHover={{ opacity: 0.8 }}
+                              className="w-3.5 bg-[#0eb59a] rounded-t" 
+                              title="Supply: 80" 
+                            />
                           </div>
                           <span className="text-[9px] text-gray-500 font-bold tracking-widest font-mono">MAY</span>
                         </div>
                         {/* Jun */}
                         <div className="flex-1 flex flex-col items-center gap-2 z-10 group/bar">
                           <div className="flex items-end gap-1.5 h-36">
-                            <div className="w-3.5 bg-[#134e40] rounded-t" style={{ height: '90%' }} title="Demand: 80" />
-                            <div className="w-3.5 bg-[#0eb59a] rounded-t" style={{ height: '85%' }} title="Supply: 75" />
+                            <motion.div 
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 130, opacity: 1 }}
+                              transition={{ duration: 0.8, delay: 5 * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                              whileHover={{ opacity: 0.8 }}
+                              className="w-3.5 bg-[#134e40] rounded-t" 
+                              title="Demand: 80" 
+                            />
+                            <motion.div 
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 122, opacity: 1 }}
+                              transition={{ duration: 0.8, delay: 0.025 + 5 * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                              whileHover={{ opacity: 0.8 }}
+                              className="w-3.5 bg-[#0eb59a] rounded-t" 
+                              title="Supply: 75" 
+                            />
                           </div>
                           <span className="text-[9px] text-gray-500 font-bold tracking-widest font-mono">JUN</span>
                         </div>
@@ -684,10 +796,10 @@ const AdminDashboard = () => {
             {activeTab === 'vetting' && (
               <motion.div
                 key="vetting"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0, y: 15, x: 8 }}
+                animate={{ opacity: 1, y: 0, x: 0 }}
+                exit={{ opacity: 0, y: -15, x: -8 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="max-w-6xl mx-auto space-y-6"
               >
                 {/* Title */}
@@ -731,9 +843,12 @@ const AdminDashboard = () => {
                         .map(candidate => {
                           const isSelected = selectedCandidate.id === candidate.id;
                           return (
-                            <div
+                            <motion.div
                               key={candidate.id}
                               onClick={() => handleSelectCandidate(candidate)}
+                              whileHover={{ x: 4 }}
+                              whileTap={{ scale: 0.98 }}
+                              transition={{ duration: 0.2 }}
                               className={`p-4 rounded-xl border transition-all duration-300 cursor-pointer flex justify-between items-center relative overflow-hidden group ${
                                 isSelected 
                                   ? 'bg-[#134e40]/30 border-[#0eb59a] shadow-md shadow-[#0eb59a]/5'
@@ -766,7 +881,7 @@ const AdminDashboard = () => {
                                   {candidate.status}
                                 </span>
                               </div>
-                            </div>
+                            </motion.div>
                           );
                         })}
                     </div>
@@ -800,6 +915,18 @@ const AdminDashboard = () => {
 
                       {/* Vetting Score Pill and Skills */}
                       <div className="space-y-4">
+                        <div className="flex justify-between items-center bg-[#090b0a] border border-[#1b2520] p-3 rounded-xl">
+                          <span className="text-[10px] uppercase tracking-wider font-extrabold text-gray-500">Overall Vetting Score</span>
+                          <motion.span
+                            key={selectedCandidate.id}
+                            initial={{ scale: 0.5, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                            className="px-2.5 py-1 bg-[#134e40]/40 border border-[#0eb59a]/30 rounded-lg text-xs font-black font-mono text-[#0eb59a]"
+                          >
+                            ★ {selectedCandidate.score}/100
+                          </motion.span>
+                        </div>
                         <div>
                           <span className="text-[9px] uppercase tracking-wider font-extrabold text-gray-500 block mb-2">Technical Skills</span>
                           <div className="flex gap-2.5 flex-wrap">
@@ -857,19 +984,25 @@ const AdminDashboard = () => {
 
                     {/* Footer decision buttons */}
                     <div className="grid grid-cols-2 gap-4 mt-6 border-t border-[#15231c] pt-5">
-                      <button
+                      <motion.button
                         onClick={() => handleVettingDecision('Rejected')}
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.96 }}
+                        transition={{ duration: 0.15 }}
                         className="py-2.5 rounded-xl border border-red-500/20 hover:border-red-500 hover:bg-red-500/5 text-red-400 hover:text-white transition-all text-xs font-bold tracking-wider uppercase cursor-pointer"
                       >
                         Reject Applicant
-                      </button>
-                      <button
+                      </motion.button>
+                      <motion.button
                         onClick={() => handleVettingDecision('Approved')}
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.96 }}
+                        transition={{ duration: 0.15 }}
                         className="py-2.5 rounded-xl bg-gradient-to-r from-[#134e40] to-[#0eb59a] border border-[#0eb59a]/20 hover:brightness-115 text-white transition-all text-xs font-bold tracking-wider uppercase cursor-pointer flex items-center justify-center gap-1.5 shadow-md shadow-[#0eb59a]/5"
                       >
                         <Check className="w-3.5 h-3.5" />
                         <span>Approve Talent</span>
-                      </button>
+                      </motion.button>
                     </div>
                   </div>
                 </div>
@@ -912,10 +1045,10 @@ const AdminDashboard = () => {
             {activeTab === 'governance' && (
               <motion.div
                 key="governance"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0, y: 15, x: 8 }}
+                animate={{ opacity: 1, y: 0, x: 0 }}
+                exit={{ opacity: 0, y: -15, x: -8 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="max-w-6xl mx-auto space-y-6"
               >
                 {/* Title Section */}
@@ -1036,13 +1169,16 @@ const AdminDashboard = () => {
 
                         {selectedEscrow && selectedEscrow.pendingMilestoneStatus === "pending_admin_release" && (
                           !escrowReleased ? (
-                            <button
+                            <motion.button
                               onClick={() => handleReleaseEscrow(selectedEscrow.id)}
+                              whileHover={{ scale: 1.03 }}
+                              whileTap={{ scale: 0.96 }}
+                              transition={{ duration: 0.15 }}
                               className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#134e40] to-[#0eb59a] border border-[#0eb59a]/20 hover:brightness-110 text-white font-bold text-xs tracking-wider uppercase transition-all shadow-md shadow-[#0eb59a]/5 cursor-pointer flex items-center justify-center gap-1.5"
                             >
                               <Check className="w-3.5 h-3.5" />
                               <span>Authorize Release</span>
-                            </button>
+                            </motion.button>
                           ) : (
                             <div className="w-full py-2.5 rounded-xl border border-emerald-500/35 bg-emerald-500/10 text-emerald-450 font-bold text-xs tracking-wider uppercase text-center flex items-center justify-center gap-1.5">
                               <CheckCircle2 className="w-3.5 h-3.5" />
@@ -1119,18 +1255,24 @@ const AdminDashboard = () => {
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
-                          <button
+                          <motion.button
                             onClick={() => handleResolveDispute(selectedDispute.id, 'escalate')}
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.96 }}
+                            transition={{ duration: 0.15 }}
                             className="py-2.5 rounded-xl border border-orange-500/20 hover:border-orange-500 bg-orange-500/5 text-orange-400 hover:text-white transition-all text-xs font-bold tracking-wider uppercase cursor-pointer"
                           >
                             Escalate Case
-                          </button>
-                          <button
+                          </motion.button>
+                          <motion.button
                             onClick={() => handleResolveDispute(selectedDispute.id, 'resolve')}
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.96 }}
+                            transition={{ duration: 0.15 }}
                             className="py-2.5 rounded-xl bg-gradient-to-r from-[#134e40] to-[#0eb59a] hover:brightness-110 text-white font-bold text-xs tracking-wider uppercase transition-all shadow-md cursor-pointer"
                           >
                             Resolve Dispute
-                          </button>
+                          </motion.button>
                         </div>
                         <button 
                           onClick={() => setSelectedDispute(null)}
@@ -1237,10 +1379,10 @@ const AdminDashboard = () => {
             {activeTab === 'trust' && (
               <motion.div
                 key="trust"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0, y: 15, x: 8 }}
+                animate={{ opacity: 1, y: 0, x: 0 }}
+                exit={{ opacity: 0, y: -15, x: -8 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="max-w-6xl mx-auto space-y-6"
               >
                 {/* Title */}
@@ -1423,9 +1565,23 @@ const AdminDashboard = () => {
                           <th className="px-6 py-3.5 text-right">Actions</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-[#15231c] text-gray-300">
+                      <motion.tbody 
+                        variants={{
+                          visible: { transition: { staggerChildren: 0.06 } }
+                        }}
+                        initial="hidden"
+                        animate="visible"
+                        className="divide-y divide-[#15231c] text-gray-300"
+                      >
                         {escrows.map((escrow, idx) => (
-                          <tr key={idx} className="hover:bg-[#0c1310]/30 transition-colors">
+                          <motion.tr 
+                            key={idx} 
+                            variants={{
+                              hidden: { opacity: 0, x: -10 },
+                              visible: { opacity: 1, x: 0 }
+                            }}
+                            className="hover:bg-[#0c1310]/30 transition-colors"
+                          >
                             <td className="px-6 py-4 font-mono font-bold text-white">#ENG-{escrow.id}</td>
                             <td className="px-6 py-4 font-semibold text-white">{escrow.expert}</td>
                             <td className="px-6 py-4 text-gray-400 font-medium">{escrow.engagement}</td>
@@ -1444,20 +1600,23 @@ const AdminDashboard = () => {
                               </span>
                             </td>
                             <td className="px-6 py-4 text-right">
-                              <button 
+                              <motion.button 
                                 onClick={() => {
                                   setSelectedEscrow(escrow);
                                   setEscrowReleased(false);
                                   triggerToast(`Selected engagement #ENG-${escrow.id} details.`);
                                 }}
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.96 }}
+                                transition={{ duration: 0.15 }}
                                 className="px-3 py-1.5 border border-[#1b2520] hover:border-[#0eb59a] bg-[#0c0f0d] hover:bg-[#134e40]/20 text-gray-400 hover:text-white rounded-lg text-[9px] font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer"
                               >
                                 View Escrow
-                              </button>
+                              </motion.button>
                             </td>
-                          </tr>
+                          </motion.tr>
                         ))}
-                      </tbody>
+                      </motion.tbody>
                     </table>
                   </div>
 
@@ -1470,13 +1629,13 @@ const AdminDashboard = () => {
                       <button className="w-8 h-8 rounded-lg bg-[#134e40] text-white font-bold border border-[#0eb59a]/35 shadow-md flex items-center justify-center text-xs">
                         1
                       </button>
-                      <button className="w-8 h-8 rounded-lg border border-[#1b2520] flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors cursor-pointer" onClick={() => triggerToast('Page 2 matches pending.')}>
+                      <button className="w-8 h-8 rounded-lg border border-[#1b2520] flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors cursor-pointer" onClick={() => {}}>
                         2
                       </button>
-                      <button className="w-8 h-8 rounded-lg border border-[#1b2520] flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors cursor-pointer" onClick={() => triggerToast('Page 3 matches pending.')}>
+                      <button className="w-8 h-8 rounded-lg border border-[#1b2520] flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors cursor-pointer" onClick={() => {}}>
                         3
                       </button>
-                      <button className="w-8 h-8 rounded-lg border border-[#1b2520] flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors cursor-pointer" onClick={() => triggerToast('Page 2 matches pending.')}>
+                      <button className="w-8 h-8 rounded-lg border border-[#1b2520] flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors cursor-pointer" onClick={() => {}}>
                         &gt;
                       </button>
                     </div>
@@ -1495,11 +1654,11 @@ const AdminDashboard = () => {
             © 2026 TalentMarketplace Admin Portal. All systems operational.
           </div>
           <div className="space-x-4">
-            <span className="hover:text-[#0eb59a] transition-colors cursor-pointer" onClick={() => triggerToast('Opening privacy policy documentation...')}>Data Policy</span>
+            <span className="hover:text-[#0eb59a] transition-colors cursor-pointer">Data Policy</span>
             <span>•</span>
-            <span className="hover:text-[#0eb59a] transition-colors cursor-pointer" onClick={() => triggerToast('Opening compliance audit log dashboard...')}>Audit Logs</span>
+            <span className="hover:text-[#0eb59a] transition-colors cursor-pointer">Audit Logs</span>
             <span>•</span>
-            <span className="hover:text-[#0eb59a] transition-colors cursor-pointer" onClick={() => triggerToast('Opening admin support tickets console...')}>Support</span>
+            <span className="hover:text-[#0eb59a] transition-colors cursor-pointer">Support</span>
           </div>
         </footer>
 
@@ -1509,9 +1668,10 @@ const AdminDashboard = () => {
       <AnimatePresence>
         {showToast && (
           <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            initial={{ opacity: 0, y: 60, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 30, scale: 0.95 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ type: 'spring', stiffness: 350, damping: 28 }}
             className={`fixed bottom-6 right-6 z-50 px-5 py-3.5 rounded-2xl shadow-2xl border flex items-center gap-3 backdrop-blur-xl transition-all max-w-sm ${
               toastType === 'success' 
                 ? 'bg-emerald-950/90 border-emerald-500/25 text-emerald-300 shadow-emerald-500/5' 

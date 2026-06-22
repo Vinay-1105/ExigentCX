@@ -21,18 +21,21 @@ const Toast = ({
   const configs = {
     success: {
       icon: <CheckCircle className="w-5 h-5 text-teal-500" />,
-      bg: "bg-teal-50/90",
-      border: "border-teal-200"
+      bg: "bg-teal-50/90 dark:bg-emerald-950/90",
+      border: "border-teal-200 dark:border-emerald-500/25",
+      text: "text-gray-800 dark:text-emerald-300"
     },
     error: {
       icon: <AlertCircle className="w-5 h-5 text-red-500" />,
-      bg: "bg-red-50/90",
-      border: "border-red-200"
+      bg: "bg-red-50/90 dark:bg-red-950/90",
+      border: "border-red-200 dark:border-red-500/25",
+      text: "text-gray-800 dark:text-red-300"
     },
     info: {
       icon: <AlertCircle className="w-5 h-5 text-blue-500" />,
-      bg: "bg-blue-50/90",
-      border: "border-blue-200"
+      bg: "bg-blue-50/90 dark:bg-blue-950/90",
+      border: "border-blue-200 dark:border-blue-500/25",
+      text: "text-gray-800 dark:text-blue-300"
     }
   };
 
@@ -49,10 +52,10 @@ const Toast = ({
         >
           <div className={`${config.bg} backdrop-blur-xl border ${config.border} p-4 rounded-2xl shadow-2xl flex items-center gap-3`}>
             <div className="flex-shrink-0">{config.icon}</div>
-            <div className="flex-1 text-sm font-semibold text-gray-800">{message}</div>
+            <div className={`flex-1 text-sm font-semibold ${config.text}`}>{message}</div>
             <button 
               onClick={onClose}
-              className="p-1 hover:bg-black/5 rounded-lg transition-colors text-gray-400"
+              className="p-1 hover:bg-black/5 rounded-lg transition-colors text-gray-400 dark:text-gray-500"
             >
               <X className="w-4 h-4" />
             </button>
