@@ -4,6 +4,7 @@ import { Menu, X, UserPlus } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAuthModal } from './AuthModalContext';
 import Logo from './Logo';
+import ThemeToggle from './ThemeToggle';
 
 const MotionLink = motion(Link);
 
@@ -167,6 +168,8 @@ const Navbar = () => {
                     Contact
                     <span className="absolute -bottom-1 left-0 h-0.5 bg-[#0eb59a] transition-all duration-300 w-0 group-hover:w-full"></span>
                 </motion.a>
+
+                <ThemeToggle />
 
                 <div className="flex flex-row items-center gap-3 w-full md:w-auto mt-4 md:mt-0 md:ml-4 justify-start">
                     <motion.button

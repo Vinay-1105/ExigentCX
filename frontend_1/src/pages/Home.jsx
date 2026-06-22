@@ -94,11 +94,11 @@ const Home = () => {
     const prevSlide = () => setCurrentSlide((prev) => (prev === 0 ? maxSlide : prev - 1));
 
     return (
-        <div className="bg-white min-h-screen text-gray-900 font-sans selection:bg-[#0eb59a] selection:text-white pt-20">
+        <div className="bg-white dark:bg-[#0d1a14] min-h-screen text-gray-900 dark:text-gray-100 font-sans selection:bg-[#0eb59a] selection:text-white pt-20">
 
             {/* Hero Section — staggered entrance */}
-            <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-white">
-                <div className="absolute inset-0 z-0 bg-white">
+            <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-white dark:bg-[#0d1a14]">
+                <div className="absolute inset-0 z-0 bg-white dark:bg-[#0d1a14]">
                     <video
                         autoPlay
                         loop
@@ -112,7 +112,7 @@ const Home = () => {
                         Your browser does not support the video tag.
                     </video>
                     <div className="absolute inset-0 bg-white/10"></div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-[#0d1a14] via-transparent to-transparent"></div>
                 </div>
 
                 <motion.div
@@ -123,7 +123,7 @@ const Home = () => {
                 >
                     <motion.h1
                         variants={heroItemVariants}
-                        className="text-4xl md:text-7xl lg:text-8xl font-serif font-bold tracking-tight mb-5 leading-[1.1] text-[#111827]"
+                        className="text-4xl md:text-7xl lg:text-8xl font-serif font-bold tracking-tight mb-5 leading-[1.1] text-[#111827] dark:text-white"
                     >
                         Elite Expertise.<br /><span className="text-[#134e40]">Leadership on Demand.</span>
                     </motion.h1>
@@ -147,7 +147,7 @@ const Home = () => {
                         </motion.button>
                         <motion.button
                             onClick={(e) => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }}
-                            className="px-10 py-4 rounded-full bg-white text-[#134e40] border-2 border-[#134e40] font-semibold text-lg hover:bg-[#134e40] hover:text-white transition-all duration-300 w-full sm:w-auto shadow-sm"
+                            className="px-10 py-4 rounded-full bg-white dark:bg-[#0d1a14] text-[#134e40] dark:text-[#0eb59a] border-2 border-[#134e40] dark:border-[#0eb59a] font-semibold text-lg hover:bg-[#134e40] dark:hover:bg-[#0eb59a] hover:text-white dark:hover:text-[#0d1a14] transition-all duration-300 w-full sm:w-auto shadow-sm"
                             whileHover={{ scale: 1.03 }}
                             whileTap={{ scale: 0.97 }}
                             transition={{ duration: 0.2 }}
@@ -159,24 +159,24 @@ const Home = () => {
             </section>
 
             {/* Trusted by — tighter padding, mint tint background */}
-            <div className="py-10 bg-[#f0fdf4] border-y border-teal-100 overflow-hidden">
+            <div className="py-10 bg-[#f0fdf4] dark:bg-[#0a1f1a] border-y border-teal-100 dark:border-[#0eb59a]/20 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6 mb-8 text-center">
-                    <h2 className="text-xl md:text-3xl font-serif font-bold text-gray-900 mb-3">Your Expertise, Your Terms.</h2>
-                    <p className="text-gray-600 text-base max-w-2xl mx-auto">Join an exclusive ecosystem of industry leaders. Access high-impact advisory projects with guaranteed milestone-based payouts.</p>
+                    <h2 className="text-xl md:text-3xl font-serif font-bold text-gray-900 dark:text-white mb-3">Your Expertise, Your Terms.</h2>
+                    <p className="text-gray-600 dark:text-gray-400 text-base max-w-2xl mx-auto">Join an exclusive ecosystem of industry leaders. Access high-impact advisory projects with guaranteed milestone-based payouts.</p>
                 </div>
 
                 <div className="relative w-full flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] group">
                     <div className="flex w-fit animate-marquee group-hover:[animation-play-state:paused]">
                         <div className="flex items-center gap-8 md:gap-24 px-8 md:px-12 w-max">
                             {trustedCompanies.map((company, index) => (
-                                <div key={`company-1-${index}`} className="text-base md:text-2xl font-bold text-gray-400 hover:text-[#134e40] transition-colors duration-300 cursor-default select-none shrink-0">
+                                <div key={`company-1-${index}`} className="text-base md:text-2xl font-bold text-gray-400 dark:text-gray-500 hover:text-[#134e40] dark:hover:text-[#0eb59a] transition-colors duration-300 cursor-default select-none shrink-0">
                                     {company}
                                 </div>
                             ))}
                         </div>
                         <div className="flex items-center gap-8 md:gap-24 px-8 md:px-12 w-max">
                             {trustedCompanies.map((company, index) => (
-                                <div key={`company-2-${index}`} className="text-base md:text-2xl font-bold text-gray-400 hover:text-[#134e40] transition-colors duration-300 cursor-default select-none shrink-0">
+                                <div key={`company-2-${index}`} className="text-base md:text-2xl font-bold text-gray-400 dark:text-gray-500 hover:text-[#134e40] dark:hover:text-[#0eb59a] transition-colors duration-300 cursor-default select-none shrink-0">
                                     {company}
                                 </div>
                             ))}
@@ -185,7 +185,7 @@ const Home = () => {
                 </div>
 
                 <div className="max-w-7xl mx-auto px-6 mt-8 text-center">
-                    <p className="text-gray-500 text-base"><span className="font-bold text-[#134e40]">50+</span> companies trust our proven recruitment frameworks</p>
+                    <p className="text-gray-500 dark:text-gray-400 text-base"><span className="font-bold text-[#134e40]">50+</span> companies trust our proven recruitment frameworks</p>
                 </div>
             </div>
 
@@ -261,27 +261,27 @@ const Home = () => {
             {/* How It Works & Problems sections merged under #services */}
             <section id="services">
                 {/* How It Works — mint green bg, tighter padding */}
-                <AnimatedSection className="py-10 w-full relative overflow-hidden bg-[#f0fdf4]">
+                <AnimatedSection className="py-10 w-full relative overflow-hidden bg-[#f0fdf4] dark:bg-[#0a1f1a]">
                     <div className="max-w-7xl mx-auto px-6 relative z-10">
-                        <div className="bg-white rounded-[2.5rem] border border-teal-100 shadow-[0_8px_30px_rgb(0,0,0,0.06)] py-6 px-4 lg:px-12 relative overflow-hidden">
+                        <div className="bg-white dark:bg-[#0d2318] rounded-[2.5rem] border border-teal-100 dark:border-[#0eb59a]/15 shadow-[0_8px_30px_rgb(0,0,0,0.06)] py-6 px-4 lg:px-12 relative overflow-hidden">
                             <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#0eb59a]/5 rounded-full blur-[100px] pointer-events-none"></div>
                             <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#134e40]/5 rounded-full blur-[100px] pointer-events-none"></div>
 
                             <div className="text-center mb-10 relative z-10">
                                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 tracking-tight font-serif">How It Works</h2>
-                                    <p className="text-base text-gray-500 font-light">Two distinct journeys, one perfect match</p>
+                                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight font-serif">How It Works</h2>
+                                    <p className="text-base text-gray-500 dark:text-gray-400 font-light">Two distinct journeys, one perfect match</p>
                                 </motion.div>
                             </div>
 
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-0 relative z-10">
-                                <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-gray-200 to-transparent -translate-x-1/2"></div>
+                                <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-gray-200 dark:via-white/10 to-transparent -translate-x-1/2"></div>
 
                                 {/* For CXOs */}
                                 <div className="lg:pr-10 flex flex-col gap-6">
                                     <div className="text-center lg:text-left">
                                         <h3 className="text-2xl font-bold text-[#0eb59a] mb-1 tracking-tight">For CXOs</h3>
-                                        <p className="text-gray-500 text-sm font-light">Your path to meaningful leadership roles</p>
+                                        <p className="text-gray-500 dark:text-gray-400 text-sm font-light">Your path to meaningful leadership roles</p>
                                     </div>
                                     <div className="space-y-5">
                                         {[
@@ -295,12 +295,12 @@ const Home = () => {
                                                 transition={{ duration: 0.25, ease: "easeOut" }}
                                                 className="flex flex-col sm:flex-row items-center sm:items-start gap-4 group text-center sm:text-left"
                                             >
-                                                <div className="shrink-0 w-10 h-10 rounded-xl bg-[#f0fdf4] border border-[#ccfbf1] flex items-center justify-center text-[#0eb59a] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#0eb59a] group-hover:text-white group-hover:shadow-[0_0_12px_rgba(14,181,154,0.5)] transition-all duration-300">
+                                                <div className="shrink-0 w-10 h-10 rounded-xl bg-[#f0fdf4] dark:bg-[#0eb59a]/10 border border-[#ccfbf1] dark:border-[#0eb59a]/20 flex items-center justify-center text-[#0eb59a] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#0eb59a] group-hover:text-white group-hover:shadow-[0_0_12px_rgba(14,181,154,0.5)] transition-all duration-300">
                                                     <Icon size={20} />
                                                 </div>
                                                 <div>
-                                                    <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-[#0eb59a] transition-colors">{title}</h4>
-                                                    <p className="text-gray-600 leading-relaxed text-sm font-light">{desc}</p>
+                                                    <h4 className="text-base font-bold text-gray-900 dark:text-gray-100 mb-1 group-hover:text-[#0eb59a] transition-colors">{title}</h4>
+                                                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm font-light">{desc}</p>
                                                 </div>
                                             </motion.div>
                                         ))}
@@ -311,7 +311,7 @@ const Home = () => {
                                 <div className="lg:pl-10 flex flex-col gap-6 mt-10 lg:mt-0">
                                     <div className="text-center lg:text-left">
                                         <h3 className="text-2xl font-bold text-[#134e40] mb-1 tracking-tight">For Companies</h3>
-                                        <p className="text-gray-500 text-sm font-light">Find your next strategic leader</p>
+                                        <p className="text-gray-500 dark:text-gray-400 text-sm font-light">Find your next strategic leader</p>
                                     </div>
                                     <div className="space-y-5">
                                         {[
@@ -325,12 +325,12 @@ const Home = () => {
                                                 transition={{ duration: 0.25, ease: "easeOut" }}
                                                 className="flex flex-col sm:flex-row items-center sm:items-start gap-4 group text-center sm:text-left"
                                             >
-                                                <div className="shrink-0 w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-[#134e40] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#134e40] group-hover:text-white group-hover:shadow-[0_0_12px_rgba(19,78,64,0.5)] transition-all duration-300">
+                                                <div className="shrink-0 w-10 h-10 rounded-xl bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center text-[#134e40] shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:bg-[#134e40] group-hover:text-white group-hover:shadow-[0_0_12px_rgba(19,78,64,0.5)] transition-all duration-300">
                                                     <Icon size={20} />
                                                 </div>
                                                 <div>
-                                                    <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-[#134e40] transition-colors">{title}</h4>
-                                                    <p className="text-gray-600 leading-relaxed text-sm font-light">{desc}</p>
+                                                    <h4 className="text-base font-bold text-gray-900 dark:text-gray-100 mb-1 group-hover:text-[#134e40] transition-colors">{title}</h4>
+                                                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm font-light">{desc}</p>
                                                 </div>
                                             </motion.div>
                                         ))}
@@ -502,8 +502,8 @@ const Home = () => {
             <AnimatedSection className="py-16 px-6 max-w-7xl mx-auto">
                 <div className="mb-10 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-4">
                     <div>
-                        <h2 className="text-3xl md:text-5xl text-gray-900 font-serif font-bold tracking-tight">Be a part of our story.</h2>
-                        <p className="text-gray-500 font-light text-base md:text-lg mt-3">Whether you're a company looking for leadership or an expert seeking impact — your journey starts here.</p>
+                        <h2 className="text-3xl md:text-5xl text-gray-900 dark:text-white font-serif font-bold tracking-tight">Be a part of our story.</h2>
+                        <p className="text-gray-500 dark:text-gray-400 font-light text-base md:text-lg mt-3">Whether you're a company looking for leadership or an expert seeking impact — your journey starts here.</p>
                     </div>
                 </div>
 

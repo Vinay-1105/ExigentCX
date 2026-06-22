@@ -34,6 +34,7 @@ import AdminDashboard from './pages/AdminDashboard';
 
 
 import { AuthModalProvider } from './components/AuthModalContext';
+import { ThemeProvider } from './components/ThemeContext';
 import AuthModal from './components/AuthModal';
 
 const AppContent = () => {
@@ -140,9 +141,11 @@ const AppContent = () => {
 function App() {
   console.log('App mounted');
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </ThemeProvider>
   );
 }
 
