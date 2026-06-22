@@ -33,7 +33,7 @@ const SectionHeading = ({ icon: Icon, title, number }) => (
             <span className="w-8 h-8 rounded-lg bg-[#134e40] text-white text-sm font-black flex items-center justify-center shrink-0">
                 {number}
             </span>
-            <div className="w-10 h-10 rounded-xl bg-[#f0fdfa] border border-[#ccfbf1] flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-[#f0fdfa] dark:bg-[#0eb59a]/10 border border-[#ccfbf1] dark:border-[#0eb59a]/20 flex items-center justify-center shrink-0">
                 <Icon className="w-5 h-5 text-[#0eb59a]" />
             </div>
         </div>
@@ -58,7 +58,7 @@ const BulletList = ({ items }) => (
                 className="flex items-start gap-3 text-left"
             >
                 <span className="w-2 h-2 rounded-full bg-[#0eb59a] shrink-0 mt-[7px]" />
-                <span className="text-gray-600 text-base leading-[1.7] text-left flex-1">
+                <span className="text-gray-600 dark:text-gray-400 text-base leading-[1.7] text-left flex-1">
                     {item}
                 </span>
             </motion.li>
@@ -72,15 +72,15 @@ const SubHeading = ({ children }) => (
         <h3 className="text-[11px] font-black text-[#134e40] uppercase tracking-[0.15em]">
             {children}
         </h3>
-        <div className="flex-1 h-px bg-gray-100" />
+        <div className="flex-1 h-px bg-gray-100 dark:bg-white/10" />
     </div>
 );
 
 const InfoCard = ({ children, color = 'teal' }) => {
     const styles = {
-        teal: 'bg-[#f0fdfa] border-[#ccfbf1] border-l-[#0eb59a]',
-        amber: 'bg-amber-50 border-amber-200 border-l-amber-400',
-        slate: 'bg-slate-50 border-slate-200 border-l-slate-400',
+        teal: 'bg-[#f0fdfa] dark:bg-[#0eb59a]/10 border-[#ccfbf1] dark:border-[#0eb59a]/20 border-l-[#0eb59a]',
+        amber: 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-500/30 border-l-amber-400 dark:text-amber-300',
+        slate: 'bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 border-l-slate-400 dark:text-gray-300',
     };
     return (
         <div className={`border border-l-4 rounded-2xl p-6 mt-5 text-left ${styles[color]}`}>
@@ -90,12 +90,12 @@ const InfoCard = ({ children, color = 'teal' }) => {
 };
 
 const StyledTable = ({ headers, rows }) => (
-    <div className="overflow-x-auto mt-5 rounded-2xl border border-gray-200 shadow-sm">
+    <div className="overflow-x-auto mt-5 rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm">
         <table className="w-full text-sm table-fixed">
             <thead>
                 <tr>
                     {headers.map((h, i) => (
-                        <th key={i} className="px-5 py-3.5 text-left text-xs font-black text-[#134e40] uppercase tracking-wider border-b border-[#ccfbf1] bg-[#f0fdfa]">
+                        <th key={i} className="px-5 py-3.5 text-left text-xs font-black text-[#134e40] uppercase tracking-wider border-b border-[#ccfbf1] dark:border-[#0eb59a]/20 bg-[#f0fdfa] dark:bg-[#0eb59a]/10">
                             {h}
                         </th>
                     ))}
@@ -108,14 +108,14 @@ const StyledTable = ({ headers, rows }) => (
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: i * 0.05 }}
-                        className="border-b border-gray-100 last:border-0 hover:bg-[#f0fdfa]/50 transition-colors duration-150"
+                        className="border-b border-gray-100 dark:border-white/5 last:border-0 hover:bg-[#f0fdfa]/50 dark:hover:bg-[#0eb59a]/5 transition-colors duration-150"
                     >
                         {row.map((cell, j) => (
                             <td
                                 key={j}
                                 className={`px-5 py-4 text-sm leading-relaxed align-top text-left ${j === 0
-                                        ? 'font-semibold text-gray-800 border-r border-gray-100 w-2/5'
-                                        : 'text-gray-600'
+                                        ? 'font-semibold text-gray-800 dark:text-gray-200 border-r border-gray-100 dark:border-white/5 w-2/5'
+                                        : 'text-gray-600 dark:text-gray-400'
                                     }`}
                             >
                                 {cell}
@@ -133,10 +133,10 @@ const NoticeBox = ({ children }) => (
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="mt-5 flex items-start gap-3 p-4 bg-amber-50 border border-amber-200 border-l-4 border-l-amber-400 rounded-2xl text-left"
+        className="mt-5 flex items-start gap-3 p-4 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-500/30 border-l-4 border-l-amber-400 rounded-2xl text-left"
     >
         <AlertCircle size={20} className="text-amber-500 shrink-0 mt-0.5" />
-        <p className="text-sm font-semibold text-amber-800 leading-relaxed text-left">
+        <p className="text-sm font-semibold text-amber-800 dark:text-amber-300 leading-relaxed text-left">
             {children}
         </p>
     </motion.div>
@@ -151,7 +151,7 @@ const sections = [
         title: 'The Short Version',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left mb-5">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left mb-5">
                     Here's a plain-language summary of our key data practices. The full details follow in each section below.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
@@ -164,9 +164,9 @@ const sections = [
                         { label: 'Sharing', text: 'We share data with verified Professionals (during engagements), payment gateways (Razorpay/Stripe), vetting partners, and legal authorities if required.' },
                         { label: 'Security', text: 'Enterprise-grade encryption, access controls, and PCI-DSS compliant payment processing.' },
                     ].map((item, i) => (
-                        <div key={i} className="p-5 bg-[#f0fdfa] border border-[#ccfbf1] rounded-xl hover:shadow-md transition-all duration-200 hover:border-[#0eb59a]/40">
+                        <div key={i} className="p-5 bg-[#f0fdfa] dark:bg-[#0eb59a]/10 border border-[#ccfbf1] dark:border-[#0eb59a]/20 rounded-xl hover:shadow-md transition-all duration-200 hover:border-[#0eb59a]/40">
                             <p className="text-[11px] font-black text-[#134e40] uppercase tracking-widest mb-2 text-left">{item.label}</p>
-                            <p className="text-sm text-gray-600 leading-[1.65] text-left">{item.text}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 leading-[1.65] text-left">{item.text}</p>
                         </div>
                     ))}
                 </div>
@@ -184,7 +184,7 @@ const sections = [
         content: (
             <>
                 <SubHeading>A. Information You Provide Directly</SubHeading>
-                <p className="text-gray-600 text-base leading-[1.75] text-left font-semibold mt-1">For Companies (Startups, SMEs, Enterprises):</p>
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left font-semibold mt-1">For Companies (Startups, SMEs, Enterprises):</p>
                 <BulletList items={[
                     'Registration details: email, LinkedIn URL, GST number (optional but recommended for invoicing)',
                     'Company profile: industry, size, funding stage, business challenges',
@@ -194,7 +194,7 @@ const sections = [
                     'Communications, NDAs, and contracts signed via the Platform',
                 ]} />
 
-                <p className="text-gray-600 text-base leading-[1.75] text-left font-semibold mt-5">For Professionals (CXOs, Directors, Advisors, Consultants):</p>
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left font-semibold mt-5">For Professionals (CXOs, Directors, Advisors, Consultants):</p>
                 <BulletList items={[
                     'Structured CV builder data: past roles, key outcomes, industries served',
                     'Credentials, certifications, government-issued ID (for vetting), social security/tax numbers',
@@ -203,7 +203,7 @@ const sections = [
                     'Portfolio, case studies, and client reviews',
                 ]} />
 
-                <p className="text-gray-600 text-base leading-[1.75] text-left font-semibold mt-5">For Admin/PMO Team (Internal Users):</p>
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left font-semibold mt-5">For Admin/PMO Team (Internal Users):</p>
                 <BulletList items={[
                     'Vetting notes, interview records, skill tags, dispute resolution logs',
                 ]} />
@@ -233,7 +233,7 @@ const sections = [
         title: 'Legal Basis for Processing (GDPR / India DPDP Act)',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">
                     We process your personal data only when we have a lawful basis to do so:
                 </p>
                 <StyledTable
@@ -255,7 +255,7 @@ const sections = [
         title: 'How We Use Your Information',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">We use your information to:</p>
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">We use your information to:</p>
                 <BulletList items={[
                     'Operate the Marketplace: Create profiles, post requirements, match Companies with Professionals, enable chat and meeting scheduling',
                     'Ensure Trust & Safety: Vet Professionals, verify company details, monitor for fraudulent activity, enforce escrow risk controls',
@@ -293,7 +293,7 @@ const sections = [
         number: '6',
         title: 'Children\'s Privacy',
         content: (
-            <p className="text-gray-600 text-base leading-[1.75] text-left">
+            <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">
                 ExigentCX is strictly for senior professionals and business entities. No one under the age of 18 is permitted to use the Platform. We do not knowingly collect personal information from minors. If we discover such data, we will delete it immediately. Parents or guardians should contact us if they believe a minor has provided us with information.
             </p>
         ),
@@ -305,7 +305,7 @@ const sections = [
         title: 'Sharing Your Personal Information with Third Parties',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">We share your data only in the following circumstances:</p>
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">We share your data only in the following circumstances:</p>
                 <BulletList items={[
                     'Between Companies and Professionals: When you enter an engagement, both parties can see each other\'s profiles, contact details, and engagement workspace activity. Each party acts as a separate data controller.',
                     'Service Providers: We share data with hosting providers (AWS/GCP), payment processors (Razorpay, Stripe), identity verification vendors, email/SMS infrastructure, and analytics tools. These providers are contractually bound to use data only for ExigentCX purposes.',
@@ -326,14 +326,14 @@ const sections = [
         title: 'Where We Process Your Personal Information',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">
                     ExigentCX operates globally. Your data may be stored or processed in India, the United States, or the European Economic Area (EEA) depending on our service providers.
                 </p>
                 <BulletList items={[
                     'For users in the EU/EEA/UK, we ensure adequate safeguards (e.g., EU Standard Contractual Clauses) for data transfers.',
                     'For users in India, data may be transferred only in compliance with the Digital Personal Data Protection (DPDP) Act, 2023.',
                 ]} />
-                <p className="text-gray-600 text-base leading-[1.75] text-left mt-4">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left mt-4">
                     By using ExigentCX, you consent to such cross-border transfers.
                 </p>
             </>
@@ -346,7 +346,7 @@ const sections = [
         title: 'Cookies & Tracking Technologies',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">We use cookies, pixels, and similar technologies to:</p>
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">We use cookies, pixels, and similar technologies to:</p>
                 <StyledTable
                     headers={['Cookie Type', 'Purpose', 'Status']}
                     rows={[
@@ -356,7 +356,7 @@ const sections = [
                         ['Marketing (with consent)', 'Measure ad campaign performance on LinkedIn, Google, etc.', 'Consent required'],
                     ]}
                 />
-                <p className="text-gray-600 text-base leading-[1.75] text-left mt-4">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left mt-4">
                     You can manage cookie preferences via your browser settings or our consent banner. Disabling essential cookies will impact Platform functionality.
                 </p>
             </>
@@ -369,7 +369,7 @@ const sections = [
         title: 'Data Security',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">We implement enterprise-grade security measures:</p>
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">We implement enterprise-grade security measures:</p>
                 <BulletList items={[
                     'Encryption: TLS 1.3 for data in transit; AES-256 for data at rest',
                     'Access Controls: Role-based access (RBAC) for internal Admin/PMO team',
@@ -377,7 +377,7 @@ const sections = [
                     'Regular Audits: Penetration testing, vulnerability scanning, and employee privacy training',
                     'Incident Response: We have a breach notification process compliant with applicable laws',
                 ]} />
-                <p className="text-gray-600 text-base leading-[1.75] text-left mt-4">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left mt-4">
                     While we strive for the highest security standards, no method of transmission over the Internet is 100% secure. You are responsible for keeping your login credentials confidential.
                 </p>
             </>
@@ -390,7 +390,7 @@ const sections = [
         title: 'Your Privacy Rights (India, EU, US)',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">Depending on your location, you may have the following rights:</p>
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">Depending on your location, you may have the following rights:</p>
 
                 <InfoCard color="teal">
                     <p className="text-sm font-black text-[#134e40] uppercase tracking-wider mb-2 text-left">🇮🇳 India (DPDP Act, 2023)</p>
@@ -423,7 +423,7 @@ const sections = [
                     ]} />
                 </InfoCard>
 
-                <p className="text-gray-600 text-base leading-[1.75] text-left mt-4">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left mt-4">
                     To exercise your rights, please contact us using the details in Section 13.
                 </p>
             </>
@@ -453,7 +453,7 @@ const sections = [
         title: 'Contact Us (Grievance Officer & DPO)',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left mb-4">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left mb-4">
                     For any questions, privacy complaints, or to exercise your rights:
                 </p>
                 <div className="space-y-3 mt-4 text-left">
@@ -462,19 +462,19 @@ const sections = [
                             label: 'Customer Support (Privacy Ticket)',
                             email: 'support@cxoconnect.com',
                             note: 'Subject: Privacy Request',
-                            color: 'border-[#0eb59a] bg-[#f0fdfa]'
+                            color: 'border-[#0eb59a] dark:border-[#0eb59a]/20 bg-[#f0fdfa] dark:bg-[#0eb59a]/10'
                         },
                         {
                             label: 'Grievance Officer (India – DPDP Act)',
                             email: 'grievance@cxoconnect.com',
                             note: 'For Indian data protection concerns',
-                            color: 'border-amber-300 bg-amber-50'
+                            color: 'border-amber-300 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-950/40'
                         },
                         {
                             label: 'Data Protection Officer (EU/GDPR)',
                             email: 'dpo@cxoconnect.com',
                             note: 'For EU/EEA/UK privacy requests',
-                            color: 'border-slate-300 bg-slate-50'
+                            color: 'border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-white/5'
                         },
                     ].map((item, i) => (
                         <motion.a
@@ -492,7 +492,7 @@ const sections = [
                         >
                             <div>
                                 <p className="text-xs font-black 
-                        text-gray-500 uppercase tracking-wider mb-1 text-left">
+                        text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1 text-left">
                                     {item.label}
                                 </p>
                                 <p className="text-sm font-bold 
@@ -500,18 +500,18 @@ const sections = [
                         transition-colors text-left">
                                     {item.email}
                                 </p>
-                                <p className="text-[11px] text-gray-400 
+                                <p className="text-[11px] text-gray-400 dark:text-gray-500 
                         mt-0.5 text-left">{item.note}</p>
                             </div>
-                            <Mail size={16} className="text-gray-300 
+                            <Mail size={16} className="text-gray-300 dark:text-gray-500 
                       group-hover:text-[#0eb59a] transition-colors 
                       shrink-0" />
                         </motion.a>
                     ))}
                 </div>
-                <div className="mt-4 p-4 bg-gray-50 rounded-xl 
-                border border-gray-200 text-sm text-gray-500 text-left">
-                    <strong className="text-gray-700">
+                <div className="mt-4 p-4 bg-gray-50 dark:bg-white/5 rounded-xl 
+                border border-gray-200 dark:border-white/10 text-sm text-gray-500 dark:text-gray-400 text-left">
+                    <strong className="text-gray-700 dark:text-gray-300">
                         Response Time:
                     </strong> We will respond within 30 days
                     (or as required by applicable law).
@@ -525,7 +525,7 @@ const sections = [
         number: '14',
         title: 'Changes to This Privacy Policy',
         content: (
-            <p className="text-gray-600 text-base leading-[1.75] text-left">
+            <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">
                 We may update this Policy from time to time to reflect changes in law, our Platform, or industry standards. Material changes will be notified via email (to registered users) or via an in-platform banner at least 14 days before they take effect. The "Last Updated" date at the top of this Policy will be revised accordingly. Your continued use of ExigentCX after changes indicates your acceptance of the revised Policy.
             </p>
         ),
@@ -575,7 +575,7 @@ const PrivacyPolicy = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#f8fafb] font-sans pt-20">
+        <div className="min-h-screen bg-[#f8fafb] dark:bg-[#0f1117] font-sans pt-20">
 
             {/* ── DARK HERO HEADER ── */}
             <section className="relative py-20 bg-[#111827] border-b border-gray-800 overflow-hidden">
@@ -651,8 +651,8 @@ const PrivacyPolicy = () => {
 
                     {/* ── LEFT SIDEBAR — Table of Contents ── */}
                     <aside className="hidden lg:block w-64 shrink-0 sticky top-24 self-start">
-                        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-                            <div className="px-4 py-3 border-b border-gray-100 bg-[#f0fdfa]">
+                        <div className="bg-white dark:bg-[#1a1d23] rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm overflow-hidden">
+                            <div className="px-4 py-3 border-b border-gray-100 dark:border-white/5 bg-[#f0fdfa] dark:bg-[#0eb59a]/10">
                                 <p className="text-xs font-black text-[#134e40] uppercase tracking-widest">
                                     Contents
                                 </p>
@@ -666,7 +666,7 @@ const PrivacyPolicy = () => {
                                         whileTap={{ scale: 0.98 }}
                                         className={`w-full text-left px-3 py-2 text-xs font-medium leading-snug ${activeSection === item.id
                                                 ? 'bg-[#134e40] text-white font-bold border-l-4 border-[#0eb59a] rounded-l-none rounded-r-xl pl-2'
-                                                : 'text-gray-500 hover:bg-[#f0fdfa] hover:text-[#134e40] rounded-xl transition-all duration-150 cursor-pointer'
+                                                : 'text-gray-500 dark:text-gray-400 hover:bg-[#f0fdfa] dark:hover:bg-[#0eb59a]/10 hover:text-[#134e40] rounded-xl transition-all duration-150 cursor-pointer'
                                             }`}
                                     >
                                         {item.label}
@@ -700,9 +700,9 @@ const PrivacyPolicy = () => {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4 }}
-                            className="bg-white rounded-2xl border border-gray-200 shadow-md p-7 mb-6 border-l-4 border-l-[#0eb59a]"
+                            className="bg-white dark:bg-[#1a1d23] rounded-2xl border border-gray-200 dark:border-white/10 shadow-md p-7 mb-6 border-l-4 border-l-[#0eb59a]"
                         >
-                            <p className="text-gray-600 text-base leading-[1.75] text-left">
+                            <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">
                                 By accessing or using ExigentCX including as a Company, Professional,
                                 or Admin/PMO user, you acknowledge that you have read, understood, and
                                 agree to be bound by this Policy. If you do not agree, please do not use
@@ -711,7 +711,7 @@ const PrivacyPolicy = () => {
                         </motion.div>
 
                         {/* All sections */}
-                        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm divide-y divide-gray-100 text-left">
+                        <div className="bg-white dark:bg-[#1a1d23] rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm divide-y divide-gray-100 dark:divide-white/5 text-left">
                             {sections.map((section, index) => (
                                 <motion.section
                                     key={section.id}
@@ -723,7 +723,7 @@ const PrivacyPolicy = () => {
                                         delay: index * 0.04,
                                         ease: 'easeOut'
                                     }}
-                                    className="px-8 py-8 sm:px-10 sm:py-10 scroll-mt-28 group transition-colors duration-200 hover:bg-gray-50/60 relative text-left"
+                                    className="px-8 py-8 sm:px-10 sm:py-10 scroll-mt-28 group transition-colors duration-200 hover:bg-gray-50/60 dark:hover:bg-white/5 relative text-left"
                                 >
                                     <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[#0eb59a] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-r-full" />
                                     <SectionHeading icon={section.icon} title={section.title} number={section.number} />

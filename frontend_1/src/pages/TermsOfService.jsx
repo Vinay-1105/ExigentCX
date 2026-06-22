@@ -44,7 +44,7 @@ const SectionHeading = ({ icon: Icon, title, number }) => (
             <span className="w-8 h-8 rounded-lg bg-[#134e40] text-white text-sm font-black flex items-center justify-center shrink-0">
                 {number}
             </span>
-            <div className="w-10 h-10 rounded-xl bg-[#f0fdfa] border border-[#ccfbf1] flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-[#f0fdfa] dark:bg-[#0eb59a]/10 border border-[#ccfbf1] dark:border-[#0eb59a]/20 flex items-center justify-center shrink-0">
                 <Icon className="w-5 h-5 text-[#0eb59a]" />
             </div>
         </div>
@@ -65,7 +65,7 @@ const BulletList = ({ items }) => (
                 className="flex items-start gap-3 text-left"
             >
                 <span className="w-2 h-2 rounded-full bg-[#0eb59a] shrink-0 mt-[7px]" />
-                <span className="text-gray-600 text-base leading-[1.7] text-left flex-1">{item}</span>
+                <span className="text-gray-600 dark:text-gray-400 text-base leading-[1.7] text-left flex-1">{item}</span>
             </motion.li>
         ))}
     </ul>
@@ -84,7 +84,7 @@ const NumberedList = ({ items }) => (
                 <span className="w-6 h-6 rounded-lg bg-[#134e40] text-white text-xs font-black flex items-center justify-center shrink-0 mt-0.5">
                     {i + 1}
                 </span>
-                <span className="text-gray-600 text-base leading-[1.7] text-left flex-1">{item}</span>
+                <span className="text-gray-600 dark:text-gray-400 text-base leading-[1.7] text-left flex-1">{item}</span>
             </motion.li>
         ))}
     </ul>
@@ -96,16 +96,16 @@ const SubHeading = ({ children }) => (
         <h3 className="text-[11px] font-black text-[#134e40] uppercase tracking-[0.15em]">
             {children}
         </h3>
-        <div className="flex-1 h-px bg-gray-100" />
+        <div className="flex-1 h-px bg-gray-100 dark:bg-white/10" />
     </div>
 );
 
 const InfoCard = ({ children, color = 'teal' }) => {
     const styles = {
-        teal: 'bg-[#f0fdfa] border-[#ccfbf1] border-l-[#0eb59a]',
-        amber: 'bg-amber-50 border-amber-200 border-l-amber-400',
-        slate: 'bg-slate-50 border-slate-200 border-l-slate-400',
-        red: 'bg-red-50 border-red-200 border-l-red-400',
+        teal: 'bg-[#f0fdfa] dark:bg-[#0eb59a]/10 border-[#ccfbf1] dark:border-[#0eb59a]/20 border-l-[#0eb59a]',
+        amber: 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-500/30 border-l-amber-400 dark:text-amber-300',
+        slate: 'bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 border-l-slate-400 dark:text-gray-300',
+        red: 'bg-red-50 dark:bg-red-950/40 border-red-200 dark:border-red-500/30 border-l-red-400 dark:text-red-300',
     };
     return (
         <div className={`border border-l-4 rounded-2xl p-6 mt-5 text-left ${styles[color]}`}>
@@ -115,12 +115,12 @@ const InfoCard = ({ children, color = 'teal' }) => {
 };
 
 const StyledTable = ({ headers, rows }) => (
-    <div className="overflow-x-auto mt-5 rounded-2xl border border-gray-200 shadow-sm">
+    <div className="overflow-x-auto mt-5 rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm">
         <table className="w-full text-sm table-fixed">
             <thead>
-                <tr className="bg-[#f0fdfa]">
+                <tr className="bg-[#f0fdfa] dark:bg-[#0eb59a]/10">
                     {headers.map((h, i) => (
-                        <th key={i} className="px-5 py-3.5 text-left text-xs font-black text-[#134e40] uppercase tracking-wider border-b border-[#ccfbf1]">
+                        <th key={i} className="px-5 py-3.5 text-left text-xs font-black text-[#134e40] uppercase tracking-wider border-b border-[#ccfbf1] dark:border-[#0eb59a]/20">
                             {h}
                         </th>
                     ))}
@@ -133,10 +133,10 @@ const StyledTable = ({ headers, rows }) => (
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: i * 0.05 }}
-                        className="border-b border-gray-100 last:border-0 hover:bg-[#f0fdfa]/50 transition-colors duration-150"
+                        className="border-b border-gray-100 dark:border-white/5 last:border-0 hover:bg-[#f0fdfa]/50 dark:hover:bg-[#0eb59a]/5 transition-colors duration-150"
                     >
                         {row.map((cell, j) => (
-                            <td key={j} className={`px-5 py-4 text-sm leading-relaxed align-top text-left ${j === 0 ? 'font-semibold text-gray-800 border-r border-gray-100 w-2/5' : 'text-gray-600'}`}>
+                            <td key={j} className={`px-5 py-4 text-sm leading-relaxed align-top text-left ${j === 0 ? 'font-semibold text-gray-800 dark:text-gray-200 border-r border-gray-100 dark:border-white/5 w-2/5' : 'text-gray-600 dark:text-gray-400'}`}>
                                 {cell}
                             </td>
                         ))}
@@ -149,13 +149,13 @@ const StyledTable = ({ headers, rows }) => (
 
 const NoticeBox = ({ children, color = 'amber' }) => {
     const styles = {
-        amber: 'bg-amber-50 border-amber-200 border-l-amber-400',
-        red: 'bg-red-50 border-red-200 border-l-red-400',
-        teal: 'bg-[#f0fdfa] border-[#ccfbf1] border-l-[#0eb59a]',
+        amber: 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-500/30 border-l-amber-400',
+        red: 'bg-red-50 dark:bg-red-950/40 border-red-200 dark:border-red-500/30 border-l-red-400',
+        teal: 'bg-[#f0fdfa] dark:bg-[#0eb59a]/10 border-[#ccfbf1] dark:border-[#0eb59a]/20 border-l-[#0eb59a]',
     };
     const textStyles = {
-        amber: 'text-amber-800',
-        red: 'text-red-800',
+        amber: 'text-amber-800 dark:text-amber-300',
+        red: 'text-red-800 dark:text-red-300',
         teal: 'text-[#134e40]',
     };
     const iconStyles = {
@@ -185,7 +185,7 @@ const sections = [
         title: 'Overview & Key Principles',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left mb-4">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left mb-4">
                     ExigentCX provides a trusted, governance-driven marketplace for senior leadership engagement. The Platform is founded on the following key principles:
                 </p>
                 <StyledTable
@@ -227,14 +227,14 @@ const sections = [
         title: 'Eligibility',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">You may not use ExigentCX if any of the following conditions apply:</p>
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">You may not use ExigentCX if any of the following conditions apply:</p>
                 <BulletList items={[
                     'You are under 18 years of age.',
                     'You are unable to form legally binding contracts.',
                     'You are suspended or banned from the Platform.',
                     'You are subject to sanctions under Indian, US, EU, or other applicable law.',
                 ]} />
-                <p className="text-gray-600 text-base leading-[1.75] text-left mt-5">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left mt-5">
                     Companies must have a valid GST (India) or equivalent tax ID where required. Professionals must provide government-issued ID and professional credentials for vetting.
                 </p>
             </>
@@ -281,7 +281,7 @@ const sections = [
         title: 'Role of ExigentCX – Marketplace Only',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">
                     ExigentCX is a technology platform and administrative intermediary, not a party to any engagement between Company and Professional.
                 </p>
                 <BulletList items={[
@@ -301,7 +301,7 @@ const sections = [
         title: 'User Contracts Between Companies & Professionals',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">
                     When a Company invites a Professional and the Professional accepts, the following terms apply:
                 </p>
                 <BulletList items={[
@@ -330,7 +330,7 @@ const sections = [
         title: 'Requirement Posting & Engagement Types',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">Companies may post requirements for the following engagement types:</p>
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">Companies may post requirements for the following engagement types:</p>
                 <StyledTable
                     headers={['Engagement Type', 'Description', 'Typical Duration']}
                     rows={[
@@ -340,7 +340,7 @@ const sections = [
                         ['Managed Transformation', 'PMO-led delivery with multiple experts', '3–18 months'],
                     ]}
                 />
-                <p className="text-gray-600 text-base leading-[1.75] text-left mt-4">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left mt-4">
                     Each requirement must specify: functional area, duration, budget range, and urgency. ExigentCX reserves the right to remove any requirement that violates these Terms.
                 </p>
             </>
@@ -383,7 +383,7 @@ const sections = [
         title: 'Escrow-Based Milestone Payments',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left mb-4">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left mb-4">
                     To ensure trust and payment security, all payments are handled via escrow. The escrow workflow operates as follows:
                 </p>
                 <div className="space-y-3 mt-4">
@@ -405,7 +405,7 @@ const sections = [
                             <span className="w-7 h-7 rounded-xl bg-[#134e40] text-white text-xs font-black flex items-center justify-center shrink-0 mt-0.5">
                                 {item.step}
                             </span>
-                            <p className="text-gray-600 text-base leading-[1.7] text-left flex-1">{item.text}</p>
+                            <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.7] text-left flex-1">{item.text}</p>
                         </motion.div>
                     ))}
                 </div>
@@ -428,7 +428,7 @@ const sections = [
         title: 'Non-Circumvention & Off-Platform Engagements',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">
                     To protect the integrity of the marketplace, the following non-circumvention terms apply:
                 </p>
                 <BulletList items={[
@@ -450,7 +450,7 @@ const sections = [
         title: 'Dispute Resolution & Governance (PMO Layer)',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">
                     ExigentCX provides a managed dispute resolution process overseen by the internal PMO team:
                 </p>
                 <SubHeading>A. Milestone Disputes (Work Quality / Deliverables)</SubHeading>
@@ -485,7 +485,7 @@ const sections = [
         title: 'Admin / PMO Role & Vetting Workflow',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left mb-2">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left mb-2">
                     The ExigentCX Admin/PMO team is responsible for the following platform governance functions:
                 </p>
                 <StyledTable
@@ -540,7 +540,7 @@ const sections = [
         title: 'Prohibited Conduct',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">
                     You agree not to engage in any of the following activities on or in connection with the Platform:
                 </p>
                 <NumberedList items={[
@@ -572,7 +572,7 @@ const sections = [
                 ]} />
 
                 <SubHeading>B. By ExigentCX</SubHeading>
-                <p className="text-gray-600 text-base leading-[1.75] text-left mt-2">We may suspend or terminate your account without prior notice if:</p>
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left mt-2">We may suspend or terminate your account without prior notice if:</p>
                 <BulletList items={[
                     'You breach these Terms.',
                     'You fail to pay fees or cause a chargeback.',
@@ -597,7 +597,7 @@ const sections = [
         title: 'Limitation of Liability',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">To the maximum extent permitted by applicable law:</p>
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">To the maximum extent permitted by applicable law:</p>
                 <BulletList items={[
                     'ExigentCX shall not be liable for any indirect, incidental, special, or consequential damages (including lost profits, loss of reputation, or loss of data).',
                     'Our total aggregate liability to you shall not exceed the total fees paid by you to ExigentCX in the 3 months preceding the claim.',
@@ -615,7 +615,7 @@ const sections = [
         title: 'Indemnification',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">
                     You agree to indemnify and hold harmless ExigentCX, its affiliates, officers, employees, and PMO team from any claims, damages, losses, or expenses (including legal fees) arising from:
                 </p>
                 <BulletList items={[
@@ -634,7 +634,7 @@ const sections = [
         title: 'Warranties & Disclaimers',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">
                     ExigentCX provides the Platform "AS IS" and "AS AVAILABLE" without warranties of any kind. We do not warrant that:
                 </p>
                 <BulletList items={[
@@ -703,7 +703,7 @@ const sections = [
         title: 'Contact Us',
         content: (
             <>
-                <p className="text-gray-600 text-base leading-[1.75] text-left mb-4">
+                <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left mb-4">
                     For questions, complaints, or legal notices, please use the following contacts:
                 </p>
                 <div className="space-y-3">
@@ -712,25 +712,25 @@ const sections = [
                             label: 'Customer Support',
                             email: 'support@cxoconnect.com',
                             note: 'Engagement issues and general queries',
-                            color: 'border-[#0eb59a] bg-[#f0fdfa]',
+                            color: 'border-[#0eb59a] dark:border-[#0eb59a]/20 bg-[#f0fdfa] dark:bg-[#0eb59a]/10',
                         },
                         {
                             label: 'Legal / Terms Inquiries',
                             email: 'legal@cxoconnect.com',
                             note: 'For legal and contractual matters',
-                            color: 'border-amber-300 bg-amber-50',
+                            color: 'border-amber-300 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-950/40',
                         },
                         {
                             label: 'Grievance Officer (India – DPDP Act)',
                             email: 'grievance@cxoconnect.com',
                             note: 'For Indian data protection concerns',
-                            color: 'border-slate-300 bg-slate-50',
+                            color: 'border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-white/5',
                         },
                         {
                             label: 'PMO Governance Escalations',
                             email: 'pmo@cxoconnect.com',
                             note: 'For milestone and dispute escalations',
-                            color: 'border-emerald-300 bg-emerald-50',
+                            color: 'border-emerald-300 dark:border-emerald-500/25 bg-emerald-50 dark:bg-emerald-950/40',
                         },
                     ].map((item, i) => (
                         <motion.a
@@ -741,11 +741,11 @@ const sections = [
                             className={`flex items-center justify-between p-4 rounded-2xl border border-l-4 transition-all cursor-pointer group ${item.color}`}
                         >
                             <div className="text-left">
-                                <p className="text-xs font-black text-gray-500 uppercase tracking-wider mb-1">{item.label}</p>
+                                <p className="text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">{item.label}</p>
                                 <p className="text-sm font-bold text-[#0eb59a] group-hover:text-[#134e40] transition-colors">{item.email}</p>
-                                <p className="text-[11px] text-gray-400 mt-0.5">{item.note}</p>
+                                <p className="text-[11px] text-gray-400 dark:text-gray-500 mt-0.5">{item.note}</p>
                             </div>
-                            <Mail size={16} className="text-gray-300 group-hover:text-[#0eb59a] transition-colors shrink-0" />
+                            <Mail size={16} className="text-gray-300 dark:text-gray-500 group-hover:text-[#0eb59a] transition-colors shrink-0" />
                         </motion.a>
                     ))}
                 </div>
@@ -796,7 +796,7 @@ const TermsOfService = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#f8fafb] font-sans pt-20">
+        <div className="min-h-screen bg-[#f8fafb] dark:bg-[#0f1117] font-sans pt-20">
 
             {/* ── DARK HERO HEADER ── */}
             <section className="relative py-20 bg-[#111827] border-b border-gray-800 overflow-hidden">
@@ -857,8 +857,8 @@ const TermsOfService = () => {
 
                     {/* ── LEFT SIDEBAR — Table of Contents ── */}
                     <aside className="hidden lg:block w-64 shrink-0 sticky top-24 self-start">
-                        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-                            <div className="px-4 py-3 border-b border-gray-100 bg-[#f0fdfa]">
+                        <div className="bg-white dark:bg-[#0d2318] rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm overflow-hidden">
+                            <div className="px-4 py-3 border-b border-gray-100 dark:border-white/5 bg-[#f0fdfa] dark:bg-[#0eb59a]/10">
                                 <p className="text-xs font-black text-[#134e40] uppercase tracking-widest">Contents</p>
                             </div>
                             <nav className="p-2 max-h-[60vh] overflow-y-auto [&::-webkit-scrollbar]:hidden">
@@ -871,7 +871,7 @@ const TermsOfService = () => {
                                         className={`w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-all duration-150 cursor-pointer leading-snug
                       ${activeSection === item.id
                                                 ? 'bg-[#134e40] text-white font-bold border-l-4 border-[#0eb59a] rounded-l-none rounded-r-xl pl-2'
-                                                : 'text-gray-500 hover:bg-[#f0fdfa] hover:text-[#134e40]'
+                                                : 'text-gray-500 dark:text-gray-400 hover:bg-[#f0fdfa] dark:hover:bg-[#0eb59a]/10 hover:text-[#134e40]'
                                             }`}
                                     >
                                         {item.label}
@@ -902,15 +902,15 @@ const TermsOfService = () => {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4 }}
-                            className="bg-white rounded-2xl border border-gray-200 border-l-4 border-l-[#0eb59a] shadow-md p-7 mb-6"
+                            className="bg-white dark:bg-[#1a1d23] rounded-2xl border border-gray-200 dark:border-white/10 border-l-4 border-l-[#0eb59a] shadow-md p-7 mb-6"
                         >
-                            <p className="text-gray-600 text-base leading-[1.75] text-left">
+                            <p className="text-gray-600 dark:text-gray-400 text-base leading-[1.75] text-left">
                                 Welcome to ExigentCX. These Terms of Service ("Terms") govern your access to and use of the ExigentCX website, mobile applications, and related services (collectively, the "Platform"). ExigentCX is a two-sided marketplace connecting Companies (startups, SMEs, enterprises) with Verified Senior Professionals (CXOs, Directors, Advisors, Consultants) for fractional leadership, interim roles, advisory projects, and managed transformation programs.
                             </p>
                         </motion.div>
 
                         {/* All sections */}
-                        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm divide-y divide-gray-100 text-left">
+                        <div className="bg-white dark:bg-[#1a1d23] rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm divide-y divide-gray-100 dark:divide-white/5 text-left">
                             {sections.map((section, index) => (
                                 <motion.section
                                     key={section.id}
@@ -918,7 +918,7 @@ const TermsOfService = () => {
                                     initial={{ opacity: 0, y: 12 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.35, delay: index * 0.03, ease: 'easeOut' }}
-                                    className="px-8 py-8 sm:px-10 sm:py-10 scroll-mt-28 group transition-colors duration-200 hover:bg-gray-50/60 relative text-left"
+                                    className="px-8 py-8 sm:px-10 sm:py-10 scroll-mt-28 group transition-colors duration-200 hover:bg-gray-50/60 dark:hover:bg-white/5 relative text-left"
                                 >
                                     <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[#0eb59a] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-r-full" />
                                     <SectionHeading icon={section.icon} title={section.title} number={section.number} />
