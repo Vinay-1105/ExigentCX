@@ -139,7 +139,7 @@ const SectionHeading = ({ icon: Icon, label, iconBg = 'bg-teal-50', iconColor = 
 
 // ── REUSABLE CARD WRAPPER ──
 const Card = ({ children, className = '' }) => (
-  <div className={`bg-white rounded-2xl relative overflow-hidden ${className}`} style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+  <div className={`bg-white dark:bg-[#1e2028] rounded-2xl relative overflow-hidden ${className}`} style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
 
     {children}
   </div>
@@ -153,7 +153,7 @@ const KpiStrip = ({ items }) => (
         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
         transition={{ delay: idx * 0.06 }}
         whileHover={{ y: -4, transition: { duration: 0.2 } }}
-        className={`bg-white rounded-2xl p-5 border-l-4 ${s.border} cursor-default relative overflow-hidden`}
+        className={`bg-white dark:bg-[#1e2028] rounded-2xl p-5 border-l-4 ${s.border} cursor-default relative overflow-hidden`}
         style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
 
         {s.icon && (
@@ -275,7 +275,7 @@ const Analytics = () => {
   const paymentBreakdown = [
     { label: 'Released', value: 43, color: '#10b981' },
     { label: 'In Escrow', value: 22, color: '#f59e0b' },
-    { label: 'Committed', value: 35, color: '#6366f1' },
+    { label: 'Committed', value: 35, color: '#134e40' },
   ];
 
   const requirementsFunnel = [
@@ -527,7 +527,13 @@ const Analytics = () => {
         </nav>
 
         {/* Separated Settings option pinned to the bottom */}
-        <div className="p-3 border-t border-gray-50 space-y-1">
+        <div className="p-3 border-t border-gray-100/60 dark:border-white/5 space-y-1">
+          <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
+            {isSidebarOpen && (
+              <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Theme</span>
+            )}
+            <ThemeToggle />
+          </div>
           <motion.button
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
@@ -784,7 +790,7 @@ const Analytics = () => {
                             <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
                               <motion.div initial={{ width: 0 }} animate={{ width: `${seg.value}%` }} transition={{ duration: 0.9, delay: 0.5 + idx * 0.1 }} style={{ height: '100%', backgroundColor: seg.color, borderRadius: '999px' }} />
                             </div>
-                            <span className="text-[11px] font-black text-[#1C3627] w-8 text-right">{seg.value}%</span>
+                            <span className="text-[11px] font-black text-[#1C3627] dark:text-white w-8 text-right">{seg.value}%</span>
                           </motion.div>
                         ))}
                       </div>
@@ -799,11 +805,11 @@ const Analytics = () => {
                     <div className="space-y-2.5 mt-4">
                       {requirementsFunnel.map((stage, idx) => (
                         <motion.div key={idx} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.08 }} whileHover={{ x: 4, transition: { duration: 0.15 } }} className="flex items-center gap-3 cursor-default group">
-                          <span className="text-[11px] font-bold text-gray-500 w-20 group-hover:text-[#1C3627] transition-colors text-left">{stage.stage}</span>
+                          <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400 w-20 group-hover:text-[#1C3627] dark:group-hover:text-white transition-colors text-left">{stage.stage}</span>
                           <div className="flex-1 h-2.5 bg-gray-100 rounded-full overflow-hidden">
                             <motion.div initial={{ width: 0 }} animate={{ width: `${(stage.value / requirementsFunnel[0].value) * 100}%` }} transition={{ duration: 1, delay: 0.2 + idx * 0.1, ease: 'easeOut' }} style={{ height: '100%', backgroundColor: stage.color, borderRadius: '999px' }} />
                           </div>
-                          <span className="text-[12px] font-black text-[#1C3627] w-4 text-right">{stage.value}</span>
+                          <span className="text-[12px] font-black text-[#1C3627] dark:text-white w-4 text-right">{stage.value}</span>
                         </motion.div>
                       ))}
                     </div>
@@ -852,13 +858,13 @@ const Analytics = () => {
                   {[
                     { label: 'Avg Time to Hire', value: 12, suffix: ' days', icon: Clock, bg: 'bg-teal-50', color: 'text-[#0eb59a]', border: 'border-l-[#0eb59a]', sub: '↓ 3 days vs last quarter', glow: '#0eb59a' },
                     { label: 'Expert Retention', value: 100, suffix: '%', icon: Award, bg: 'bg-emerald-50', color: 'text-emerald-500', border: 'border-l-emerald-400', sub: 'All experts re-engaged', glow: '#10b981' },
-                    { label: 'Blended ROI', value: 295, suffix: '%', icon: TrendingUp, bg: 'bg-blue-50', color: 'text-blue-500', border: 'border-l-blue-400', sub: 'Across all engagements', glow: '#3B82F6' },
+                    { label: 'Blended ROI', value: 295, suffix: '%', icon: TrendingUp, bg: 'bg-[#134e40]/10', color: 'text-[#134e40]', border: 'border-l-[#134e40]', sub: 'Across all engagements', glow: '#134e40' },
                     { label: 'PMO Score', value: 87, suffix: '%', icon: Shield, bg: 'bg-amber-50', color: 'text-amber-500', border: 'border-l-amber-400', sub: 'Above industry avg 72%', glow: '#F59E0B' },
                   ].map((item, idx) => (
                     <motion.div key={idx}
                       initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
               whileHover={{ y: -5, boxShadow: `0 16px 40px ${item.glow}20`, transition: { duration: 0.2 } }}
-                      className={`bg-white rounded-2xl p-5 border-l-4 ${item.border} cursor-default group relative overflow-hidden`}
+                      className={`bg-white dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-2xl p-5 border-l-4 ${item.border} cursor-default group relative overflow-hidden`}
                       style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
 
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -867,10 +873,10 @@ const Analytics = () => {
                         <div className={`w-9 h-9 ${item.bg} rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-200`}>
                           <item.icon size={17} className={item.color} />
                         </div>
-                        <p className="text-xl sm:text-2xl font-black text-[#1C3627] mb-0.5 text-center">
+                        <p className="text-xl sm:text-2xl font-black text-[#1C3627] dark:text-white mb-0.5 text-center">
                           <AnimatedNumber value={item.value} suffix={item.suffix} />
                         </p>
-                        <p className="text-xs font-bold text-gray-500 mb-1 text-center">{item.label}</p>
+                        <p className="text-xs font-bold text-gray-500 dark:text-gray-400 mb-1 text-center">{item.label}</p>
                         <p className="text-[10px] text-gray-400 text-center dark:text-gray-500">{item.sub}</p>
                       </div>
                     </motion.div>
@@ -884,16 +890,16 @@ const Analytics = () => {
               <motion.div key="engagements" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }} className="space-y-4">
                 <KpiStrip items={[
                   { label: 'Total Engagements', value: '3', border: 'border-l-[#0eb59a]', numColor: 'text-[#134e40]', large: true },
-                  { label: 'Active', value: '2', border: 'border-l-blue-400', numColor: 'text-blue-700', large: true },
+                  { label: 'Active', value: '2', border: 'border-l-[#0eb59a]', numColor: 'text-[#0eb59a]', large: true },
                   { label: 'Completed', value: '1', border: 'border-l-emerald-400', numColor: 'text-emerald-700', large: true },
-                  { label: 'Avg Progress', value: '47%', border: 'border-l-purple-400', numColor: 'text-purple-700', large: true },
+                  { label: 'Avg Progress', value: '47%', border: 'border-l-amber-400', numColor: 'text-amber-600', large: true },
                 ]} />
                 <div className="space-y-4">
                   {engagementsList.map((eng, idx) => (
                     <motion.div key={idx} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }}
                       whileHover={{ y: -4, boxShadow: `0 20px 50px ${eng.color}15`, transition: { duration: 0.2 } }}
                       style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}
-                      className="bg-white rounded-2xl p-5 cursor-default group relative overflow-hidden">
+                      className="bg-white dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-2xl p-5 cursor-default group relative overflow-hidden">
 
                       <div className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: `linear-gradient(90deg, ${eng.color}, transparent)` }} />
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
@@ -902,7 +908,7 @@ const Analytics = () => {
                             <img src={eng.avatar} className="w-11 h-11 rounded-xl object-cover shadow-sm group-hover:shadow-md transition-shadow" alt={eng.expert} />
                             <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-white" style={{ backgroundColor: eng.status === 'In Progress' ? '#10b981' : '#F59E0B' }} />
                           </div>
-                          <div className="text-left"><h4 className="font-black text-[#1C3627] text-sm text-left">{eng.title}</h4><p className="text-xs text-gray-400 mt-0.5 text-left dark:text-gray-500">{eng.expert} · <span style={{ color: eng.color }} className="font-semibold">{eng.role}</span></p></div>
+                          <div className="text-left"><h4 className="font-black text-[#1C3627] dark:text-white text-sm text-left">{eng.title}</h4><p className="text-xs text-gray-400 mt-0.5 text-left dark:text-gray-500">{eng.expert} · <span style={{ color: eng.color }} className="font-semibold">{eng.role}</span></p></div>
                         </div>
                         <div className="flex items-center gap-2">
                           <StatusBadge status={eng.status} />
@@ -936,142 +942,7 @@ const Analytics = () => {
             )}
 
             {/* ══ EXPERTS ══ */}
-            {activeTab === 'Experts' && (
-              <motion.div key="experts" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }} className="space-y-4">
-                <KpiStrip items={[
-                  { label: 'Total Experts', value: String(expertsList.length), border: 'border-l-[#0eb59a]', numColor: 'text-[#134e40]', large: true },
-                  { label: 'Currently Active', value: String(activeExperts.length), border: 'border-l-blue-400', numColor: 'text-blue-700', large: true },
-                  { label: 'Avg Match Score', value: `${expertsAvgMatch}%`, border: 'border-l-amber-400', numColor: 'text-amber-700', large: true },
-                  { label: 'Avg Rating', value: `${expertsAvgRating}★`, border: 'border-l-emerald-400', numColor: 'text-emerald-700', large: true },
-                ]} />
-
-                {/* ── Active Experts ── */}
-                <div className="bg-white rounded-2xl overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                  <div className="px-5 py-4 border-b border-gray-50 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-black text-[#1C3627] text-sm text-left">Active Experts</h3>
-                      <span className="text-[10px] font-black bg-emerald-50 text-emerald-700 border border-emerald-100 px-2 py-0.5 rounded-full">{activeExperts.length} active</span>
-                    </div>
-                    <motion.button whileHover={{ scale: 1.04, x: 2 }} whileTap={{ scale: 0.96 }} onClick={() => navigate('/experts')} className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors flex items-center gap-1 min-h-[44px] md:min-h-0">View All <ChevronRight size={12} /></motion.button>
-                  </div>
-                  {activeExperts.length === 0
-                    ? <p className="text-xs text-gray-400 text-center py-8 dark:text-gray-500">No active experts right now.</p>
-                    : activeExperts.map((expert, idx) => (
-                      <motion.div
-                        key={expert.name}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.05 }}
-                        className={`flex items-center gap-4 px-5 py-4 cursor-default group hover:bg-[#FAFBF9] transition-colors ${idx < activeExperts.length - 1 ? 'border-b border-gray-50' : ''}`}
-                      >
-                        <div className="relative shrink-0">
-                          <img src={expert.avatar} className="w-11 h-11 rounded-xl object-cover shadow-sm group-hover:shadow-md transition-shadow" alt={expert.name} />
-                          <div className={`absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-white ${expert.status === 'Active' ? 'bg-emerald-500' : expert.status === 'Shortlisted' ? 'bg-amber-400' : 'bg-gray-300'}`} />
-                        </div>
-                        <div className="flex-1 min-w-0 text-left">
-                          <p className="font-black text-[#1C3627] text-sm text-left">{expert.name}</p>
-                          <p className="text-xs text-gray-400 font-medium text-left dark:text-gray-500">{expert.role}</p>
-                        </div>
-                        <div className="hidden md:flex items-center gap-5">
-                          {[{ label: 'Rating', value: `${expert.rating}★`, color: 'text-amber-600' }, { label: 'Spend', value: expert.spend, color: 'text-[#1C3627]' }, { label: 'Match', value: `${expert.match}%`, color: 'text-[#134e40]' }].map((item, i) => (
-                            <div key={i} className="text-center min-w-[48px]">
-                              <p className={`text-sm font-black ${item.color} text-center`}>{item.value}</p>
-                              <p className="text-[9px] text-gray-400 uppercase tracking-wide text-center dark:text-gray-500">{item.label}</p>
-                            </div>
-                          ))}
-                        </div>
-                        <StatusBadge status={expert.status} />
-                        <motion.button
-                          whileHover={{ scale: 1.15, backgroundColor: '#F0FDF4' }}
-                          whileTap={{ scale: 0.9 }}
-                          onClick={() => navigate(`/experts/${idx + 1}`)}
-                          className="p-3 md:p-2 rounded-xl bg-gray-50 text-gray-400 hover:text-[#0eb59a] transition-all shrink-0 flex items-center justify-center min-w-[44px] min-h-[44px] md:min-w-0 md:min-h-0 dark:text-gray-500"
-                        >
-                          <Eye size={14} />
-                        </motion.button>
-                      </motion.div>
-                    ))
-                  }
-                </div>
-
-                {/* ── Past / Inactive Experts (collapsible) ── */}
-                {pastExperts.length > 0 && (
-                  <div className="bg-white rounded-2xl overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                    <motion.button
-                      onClick={() => setShowPastExperts(p => !p)}
-                      className="w-full px-5 py-4 flex items-center justify-between cursor-pointer bg-transparent border-0 text-left"
-                      whileHover={{ backgroundColor: '#FAFBF9' }}
-                      whileTap={{ scale: 0.99 }}
-                    >
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-black text-gray-500 text-sm">Past / Inactive Experts</h3>
-                        <span className="text-[10px] font-black bg-gray-100 text-gray-500 border border-gray-200 px-2 py-0.5 rounded-full">{pastExperts.length}</span>
-                      </div>
-                      <motion.div animate={{ rotate: showPastExperts ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                        <ChevronDown size={15} className="text-gray-400 dark:text-gray-500" />
-                      </motion.div>
-                    </motion.button>
-                    <AnimatePresence initial={false}>
-                      {showPastExperts && (
-                        <motion.div
-                          key="past-experts"
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-                          className="overflow-hidden"
-                        >
-                          <div className="border-t border-gray-50">
-                            {pastExperts.map((expert, idx) => (
-                              <div key={expert.name} className={`flex items-center gap-4 px-5 py-4 cursor-default group hover:bg-[#FAFBF9] transition-colors ${idx < pastExperts.length - 1 ? 'border-b border-gray-50' : ''}`}>
-                                <div className="relative shrink-0">
-                                  <img src={expert.avatar} className="w-11 h-11 rounded-xl object-cover shadow-sm group-hover:shadow-md transition-shadow" alt={expert.name} />
-                                  <div className={`absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-white ${expert.status === 'Active' ? 'bg-emerald-500' : expert.status === 'Shortlisted' ? 'bg-amber-400' : 'bg-gray-300'}`} />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <p className="font-black text-[#1C3627] text-sm">{expert.name}</p>
-                                  <p className="text-xs text-gray-400 font-medium dark:text-gray-500">{expert.role}</p>
-                                </div>
-                                <div className="hidden md:flex items-center gap-5">
-                                  {[{ label: 'Rating', value: `${expert.rating}★`, color: 'text-amber-600' }, { label: 'Spend', value: expert.spend, color: 'text-[#1C3627]' }, { label: 'Match', value: `${expert.match}%`, color: 'text-[#134e40]' }].map((item, i) => (
-                                    <div key={i} className="text-center min-w-[48px]">
-                                      <p className={`text-sm font-black ${item.color} text-center`}>{item.value}</p>
-                                      <p className="text-[9px] text-gray-400 uppercase tracking-wide text-center dark:text-gray-500">{item.label}</p>
-                                    </div>
-                                  ))}
-                                </div>
-                                <StatusBadge status={expert.status} />
-                                <motion.button whileHover={{ scale: 1.15, backgroundColor: '#F0FDF4' }} whileTap={{ scale: 0.9 }} onClick={() => navigate(`/experts/${idx + 1}`)} className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:text-[#0eb59a] transition-all shrink-0 dark:text-gray-500"><Eye size={14} /></motion.button>
-                              </div>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                )}
-
-                {/* ── AI Match Score Distribution (active experts only) ── */}
-                <div className="bg-white rounded-2xl p-5" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                  <SectionHeading icon={Target} label="AI Match Score Distribution" />
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-                    {activeExperts.map((expert, idx) => (
-                      <motion.div key={idx} initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: idx * 0.1, type: 'spring', stiffness: 300, damping: 25 }}
-                        whileHover={{ scale: 1.06, boxShadow: '0 12px 30px rgba(14,181,154,0.15)', transition: { duration: 0.2 } }}
-                        className="bg-[#FAFBF9] rounded-2xl p-4 border border-gray-100 text-center cursor-default">
-                        <div className="relative w-16 h-16 mx-auto mb-3">
-                          <DonutChart segments={[{ value: expert.match, color: '#0eb59a' }, { value: 100 - expert.match, color: '#F1F5F2' }]} size={64} strokeWidth={9} />
-                          <div className="absolute inset-0 flex items-center justify-center"><span className="text-[12px] font-black text-[#134e40] text-center">{expert.match}%</span></div>
-                        </div>
-                        <p className="text-[12px] font-black text-[#1C3627] text-center">{expert.name.split(' ')[0]}</p>
-                        <p className="text-[10px] text-gray-400 mt-0.5 text-center dark:text-gray-500">{expert.role}</p>
-                        <span className="inline-block mt-2"><StatusBadge status={expert.status} /></span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            )}
+            
 
             {/* ══ Spend Reports ══ */}
             {activeTab === 'Spend Reports' && (
@@ -1080,7 +951,7 @@ const Analytics = () => {
                   { label: 'Total Committed', value: '₹27.0L', border: 'border-l-[#0eb59a]', numColor: 'text-[#134e40]', sub: 'Projected total spend' },
                   { label: 'Total Spent', value: '₹11.5L', border: 'border-l-emerald-400', numColor: 'text-emerald-700', sub: 'Released milestones', progress: 43, progressColor: '#10b981' },
                   { label: 'In Escrow', value: '₹6.0L', border: 'border-l-amber-400', numColor: 'text-amber-700', sub: 'Secured funds', progress: 22, progressColor: '#f59e0b' },
-                  { label: 'Committed Balance', value: '₹9.5L', border: 'border-l-purple-400', numColor: 'text-purple-700', sub: 'Pending deliverables', progress: 35, progressColor: '#6366f1' },
+                  { label: 'Committed Balance', value: '₹9.5L', border: 'border-l-[#134e40]', numColor: 'text-[#134e40]', sub: 'Pending deliverables', progress: 35, progressColor: '#134e40' },
                 ]} />
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
@@ -1113,7 +984,7 @@ const Analytics = () => {
                         <div key={idx} className="cursor-default text-left">
                           <div className="flex items-center justify-between mb-1">
                             <span className="text-[11px] font-bold text-gray-600 text-left dark:text-gray-300">{item.category}</span>
-                            <span className="text-[11px] font-black text-[#1C3627] text-right">₹{item.amount}L / ₹{item.budget}L</span>
+                            <span className="text-[11px] font-black text-[#1C3627] dark:text-white text-right">₹{item.amount}L / ₹{item.budget}L</span>
                           </div>
                           <ProgressBar value={item.pct} color={item.color} delay={idx * 0.1} />
                           <p className="text-[9px] text-gray-400 mt-1 text-left dark:text-gray-500">{item.pct}% of allocated budget spent</p>
@@ -1123,22 +994,22 @@ const Analytics = () => {
                   </Card>
                 </div>
 
-                <div className="bg-white rounded-2xl overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+                <div className="bg-white dark:bg-[#1e2028] rounded-2xl overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
                   <div className="px-5 py-4 border-b border-gray-50">
                     <h3 className="font-black text-[#1C3627] text-sm text-left">Recent Deliverables & Invoices</h3>
                   </div>
                   {invoiceSummary.map((inv, idx) => (
                     <motion.div key={idx} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.05 }}
-                      className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-5 py-4 ${idx < invoiceSummary.length - 1 ? 'border-b border-gray-50' : ''}`}>
+                      className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-5 py-4 ${idx < invoiceSummary.length - 1 ? 'border-b border-gray-50 dark:border-white/5' : ''}`}>
                       <div className="flex-1 min-w-0 text-left">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-[10px] font-black text-gray-400 bg-gray-50 px-2 py-0.5 rounded-lg border border-gray-200 dark:text-gray-500">{inv.id}</span>
-                          <span className="text-xs font-black text-[#1C3627]">{inv.desc}</span>
+                          <span className="text-[10px] font-black text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-white/5 px-2 py-0.5 rounded-lg border border-gray-200 dark:border-white/10">{inv.id}</span>
+                          <span className="text-xs font-black text-[#1C3627] dark:text-white">{inv.desc}</span>
                         </div>
                         <p className="text-[11px] text-gray-400 text-left dark:text-gray-500">Expert: {inv.expert} · Released: {inv.date}</p>
                       </div>
                       <div className="flex items-center gap-5 self-start sm:self-center">
-                        <span className="font-black text-sm text-[#1C3627]">{inv.amount}</span>
+                        <span className="font-black text-sm text-[#1C3627] dark:text-white">{inv.amount}</span>
                         <StatusBadge status={inv.status} />
                       </div>
                     </motion.div>
@@ -1153,13 +1024,13 @@ const Analytics = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                   {successKpis.map((kpi, idx) => (
                     <motion.div key={idx} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.06 }}
-                      className={`bg-white rounded-2xl p-5 border-l-4 ${kpi.border} cursor-default`}
+                      className={`bg-white dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-2xl p-5 border-l-4 ${kpi.border} cursor-default`}
                       style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
                       <div className={`w-8 h-8 ${kpi.bg} rounded-xl flex items-center justify-center mb-3`}>
                         <kpi.icon size={15} className={kpi.color} />
                       </div>
                       <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 text-left dark:text-gray-500">{kpi.label}</p>
-                      <p className="text-2xl sm:text-3xl font-black text-[#1C3627] mb-1.5 text-left">
+                      <p className="text-2xl sm:text-3xl font-black text-[#1C3627] dark:text-white mb-1.5 text-left">
                         <AnimatedNumber value={kpi.value} suffix="%" />
                       </p>
                       <p className="text-[10px] text-gray-400 text-left dark:text-gray-500">{kpi.sub}</p>
@@ -1173,9 +1044,9 @@ const Analytics = () => {
                     <div className="space-y-3 mt-4">
                       {milestonePerformance.map((item, idx) => (
                         <motion.div key={idx} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.05 }}
-                          className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 bg-[#FAFBF9] border border-gray-100 rounded-2xl last:border-b-0 hover:bg-gray-50/50 transition-colors">
+                          className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 bg-[#FAFBF9] dark:bg-white/5 border border-gray-100 dark:border-white/5 rounded-2xl last:border-b-0 hover:bg-gray-50/50 dark:hover:bg-white/8 transition-colors">
                           <div className="text-left">
-                            <h4 className="font-bold text-xs text-[#1C3627] text-left">{item.title}</h4>
+                            <h4 className="font-bold text-xs text-[#1C3627] dark:text-white text-left">{item.title}</h4>
                             <p className="text-[10px] text-gray-400 text-left dark:text-gray-500">Expert: {item.expert} · Engagement: {item.engagement}</p>
                           </div>
                           <div className="flex items-center gap-4 self-end sm:self-center">
@@ -1216,7 +1087,7 @@ const Analytics = () => {
                                 whileHover={{ scale: 1.02 }}
                                 className="flex items-center gap-3.5 py-0.5 group cursor-default transition-all"
                               >
-                                <span className="text-[10px] font-bold text-gray-500 w-24 pr-2 text-left group-hover:text-gray-900 transition-colors leading-none">{sc.l}</span>
+                                <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400 w-24 pr-2 text-left group-hover:text-gray-900 dark:group-hover:text-white transition-colors leading-none">{sc.l}</span>
                                 <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden relative shadow-inner">
                                   <motion.div
                                     initial={{ width: 0 }}
@@ -1245,15 +1116,15 @@ const Analytics = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                   {[
                     { label: 'Blended ROI Score', value: '295%', border: 'border-l-[#0eb59a]', numColor: 'text-[#134e40]', sub: 'Return on Talent spend' },
-                    { label: 'Talent Acquisition Cost', value: '₹19.0L', border: 'border-l-blue-400', numColor: 'text-blue-700', sub: 'Released + Escrow' },
-                    { label: 'Value Delivered', value: '₹75.0L', border: 'border-l-purple-400', numColor: 'text-purple-700', sub: 'Est. business impact' },
+                    { label: 'Talent Acquisition Cost', value: '₹19.0L', border: 'border-l-[#0eb59a]', numColor: 'text-[#0eb59a]', sub: 'Released + Escrow' },
+                    { label: 'Value Delivered', value: '₹75.0L', border: 'border-l-emerald-400', numColor: 'text-emerald-600', sub: 'Est. business impact' },
                     { label: 'Net Value Created', value: '₹56.0L', border: 'border-l-emerald-400', numColor: 'text-emerald-700', sub: 'Net financial gain' },
                   ].map((s, idx) => (
                     <motion.div key={idx} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.06 }}
-                      className={`bg-white rounded-2xl p-5 border-l-4 ${s.border} cursor-default`}
+                      className={`bg-white dark:bg-[#1e2028] rounded-2xl p-5 border-l-4 ${s.border} cursor-default`}
                       style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
                       <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 text-left dark:text-gray-500">{s.label}</p>
-                      <p className="text-xl sm:text-2xl font-black text-[#1C3627] mb-1.5 text-left">{s.value}</p>
+                      <p className="text-xl sm:text-2xl font-black text-[#1C3627] dark:text-white mb-1.5 text-left">{s.value}</p>
                       <p className="text-[10px] text-gray-400 text-left dark:text-gray-500">{s.sub}</p>
                     </motion.div>
                   ))}
@@ -1275,16 +1146,16 @@ const Analytics = () => {
                             <div>
                               <div className="flex justify-between text-[9px] text-gray-400 mb-1 dark:text-gray-500">
                                 <span className="text-left">Value Delivered</span>
-                                <span className="font-bold text-[#1C3627] text-right">{item.valueDelivered}</span>
+                                <span className="font-bold text-[#1C3627] dark:text-white text-right">{item.valueDelivered}</span>
                               </div>
                               <ProgressBar value={100} color={item.color} delay={idx * 0.1} />
                             </div>
                             <div>
                               <div className="flex justify-between text-[9px] text-gray-400 mb-1 dark:text-gray-500">
                                 <span className="text-left">Acquisition Cost</span>
-                                <span className="font-bold text-[#1C3627] text-right">{item.cost}</span>
+                                <span className="font-bold text-[#1C3627] dark:text-white text-right">{item.cost}</span>
                               </div>
-                              <ProgressBar value={(item.costNum / item.valueNum) * 100} color="#6366f1" delay={idx * 0.15} />
+                              <ProgressBar value={(item.costNum / item.valueNum) * 100} color="#134e40" delay={idx * 0.15} />
                             </div>
                           </div>
                           <p className="text-[9px] text-gray-400 mt-2.5 text-left dark:text-gray-500">Calculated over a {item.period} engagement timeline.</p>
@@ -1313,7 +1184,7 @@ const Analytics = () => {
                             <div key={idx} className="flex items-center gap-2">
                               <div className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: seg.color }} />
                               <span className="text-[10px] text-gray-500 font-semibold flex-1 text-left">{seg.label}</span>
-                              <span className="text-[11px] font-black text-[#1C3627]">{seg.value}%</span>
+                              <span className="text-[11px] font-black text-[#1C3627] dark:text-white">{seg.value}%</span>
                             </div>
                           ))}
                         </div>
@@ -1344,7 +1215,7 @@ const Analytics = () => {
                       </div>
 
                       {/* Net value insight */}
-                      <div className="mt-auto p-3.5 bg-teal-50 border border-teal-100 rounded-xl relative overflow-hidden">
+                      <div className="mt-auto p-3.5 bg-teal-50 dark:bg-[#0eb59a]/10 border border-teal-100 dark:border-[#0eb59a]/20 rounded-xl relative overflow-hidden">
 
                         <div className="relative z-10">
                           <p className="text-[9px] font-black text-teal-600 uppercase tracking-widest mb-1">Net Value Created</p>
@@ -1364,12 +1235,12 @@ const Analytics = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                   {riskSummary.map((kpi, idx) => (
                     <motion.div key={idx} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.06 }}
-                      className="bg-white rounded-2xl p-5 border-l-4 border-l-red-400 cursor-default" style={{ borderLeftColor: idx === 0 || idx === 2 ? '#EF4444' : '#F59E0B', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+                      className="bg-white dark:bg-[#1e2028] rounded-2xl p-5 border-l-4 border-l-red-400 cursor-default" style={{ borderLeftColor: idx === 0 || idx === 2 ? '#EF4444' : '#F59E0B', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
                       <div className={`w-8 h-8 ${kpi.bg} rounded-xl flex items-center justify-center mb-3`}>
                         <kpi.icon size={15} className={kpi.color} />
                       </div>
                       <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 text-left dark:text-gray-500">{kpi.label}</p>
-                      <p className="text-2xl sm:text-3xl font-black text-[#1C3627] mb-1.5 text-left">{kpi.value}</p>
+                      <p className="text-2xl sm:text-3xl font-black text-[#1C3627] dark:text-white mb-1.5 text-left">{kpi.value}</p>
                       <p className="text-[10px] text-gray-400 text-left dark:text-gray-500">{kpi.sub}</p>
                     </motion.div>
                   ))}
@@ -1389,7 +1260,7 @@ const Analytics = () => {
                               </div>
                               <h4 className="font-bold text-xs text-[#1C3627] text-left truncate">{item.title}</h4>
                             </div>
-                            <p className="text-[11px] text-gray-555 font-semibold mb-1 text-left">Engagement: {item.engagement}</p>
+                            <p className="text-[11px] text-gray-500 dark:text-gray-400 font-semibold mb-1 text-left">Engagement: {item.engagement}</p>
                             <p className="text-[10px] text-gray-400 text-left dark:text-gray-500"><span className="font-black text-red-500">Impact:</span> {item.impact}</p>
                             <p className="text-[10px] text-gray-400 mt-0.5 text-left dark:text-gray-500"><span className="font-black text-teal-600">PMO Action:</span> {item.recommendation}</p>
                           </div>
@@ -1416,7 +1287,7 @@ const Analytics = () => {
                           </div>
                           <div className="flex items-center justify-between text-[10px] text-gray-400 mb-1 dark:text-gray-500">
                             <span className="text-left">Budget Utilisation</span>
-                            <span className="font-black text-[#1C3627] text-right">₹{item.spent}L / ₹{item.budget}L</span>
+                            <span className="font-black text-[#1C3627] dark:text-white text-right">₹{item.spent}L / ₹{item.budget}L</span>
                           </div>
                           <ProgressBar value={(item.spent / item.budget) * 100} color={item.color} delay={idx * 0.1} />
                         </div>
@@ -1433,7 +1304,7 @@ const Analytics = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                   {pmoHealth.map((kpi, idx) => (
                     <motion.div key={idx} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.06 }}
-                      className={`bg-white rounded-2xl p-5 border-l-4 ${kpi.border} cursor-default`}
+                      className={`bg-white dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-2xl p-5 border-l-4 ${kpi.border} cursor-default`}
                       style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
                       <div className={`w-8 h-8 ${kpi.bg} rounded-xl flex items-center justify-center mb-3`}>
                         <kpi.icon size={15} className={kpi.color} />
@@ -1472,7 +1343,7 @@ const Analytics = () => {
                         <div key={idx} className="cursor-default text-left">
                           <div className="flex items-center justify-between mb-1">
                             <span className="text-[11px] font-bold text-gray-600 text-left dark:text-gray-300">{item.metric}</span>
-                            <span className="text-[11px] font-black text-[#1C3627] text-right">{item.actual} / {item.target}</span>
+                            <span className="text-[11px] font-black text-[#1C3627] dark:text-white text-right">{item.actual} / {item.target}</span>
                           </div>
                           <ProgressBar value={item.pct} color={item.status === 'On Track' ? '#0eb59a' : '#EF4444'} delay={idx * 0.1} />
                         </div>
