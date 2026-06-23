@@ -129,7 +129,7 @@ const StatusBadge = ({ status }) => {
 
 // ── SECTION HEADING ──
 const SectionHeading = ({ icon: Icon, label, iconBg = 'bg-teal-50', iconColor = 'text-[#0eb59a]' }) => (
-  <h3 className="font-black text-[#1C3627] text-sm flex items-center gap-2 text-left">
+  <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 text-left">
     <div className={`w-6 h-6 ${iconBg} rounded-lg flex items-center justify-center shrink-0`}>
       <Icon size={13} className={iconColor} />
     </div>
@@ -231,7 +231,7 @@ const Analytics = () => {
   const [showPastExperts, setShowPastExperts] = useState(false);
 
   const tabs = [
-    'Overview', 'Engagements', 'Experts',
+    'Overview', 'Engagements',
     'Spend Reports', 'Success Metrics',
     'ROI Tracking', 'Risk Analysis', 'PMO Oversight',
   ];
@@ -258,8 +258,8 @@ const Analytics = () => {
   // ── DATA ──
   const kpis = [
     { label: 'Active Engagements', value: '2', sub: '+1 from last month', icon: Briefcase, iconBg: 'bg-teal-50', iconColor: 'text-[#0eb59a]', numColor: 'text-[#134e40]', border: 'border-l-[#0eb59a]', spark: [1, 1, 2, 2, 2], sparkColor: '#0eb59a', trend: 'up' },
-    { label: 'Experts Hired', value: '5', sub: '+2 this quarter', icon: Users, iconBg: 'bg-blue-50', iconColor: 'text-blue-500', numColor: 'text-blue-700', border: 'border-l-blue-400', spark: [2, 3, 3, 4, 5], sparkColor: '#3B82F6', trend: 'up' },
-    { label: 'Total Spent', value: '₹11.5L', sub: '₹27L committed', icon: DollarSign, iconBg: 'bg-purple-50', iconColor: 'text-purple-500', numColor: 'text-purple-700', border: 'border-l-purple-400', spark: [2, 4, 6, 9, 11.5], sparkColor: '#8B5CF6', trend: 'up' },
+    { label: 'Experts Hired', value: '5', sub: '+2 this quarter', icon: Users, iconBg: 'bg-teal-50', iconColor: 'text-[#0eb59a]', numColor: 'text-[#0eb59a]', border: 'border-l-[#0eb59a]', spark: [2, 3, 3, 4, 5], sparkColor: '#0eb59a', trend: 'up' },
+    { label: 'Total Spent', value: '₹11.5L', sub: '₹27L committed', icon: DollarSign, iconBg: 'bg-[#134e40]/10', iconColor: 'text-[#134e40]', numColor: 'text-[#134e40]', border: 'border-l-[#134e40]', spark: [2, 4, 6, 9, 11.5], sparkColor: '#134e40', trend: 'up' },
     { label: 'Milestones Done', value: '4/8', sub: '50% completion', icon: CheckCircle, iconBg: 'bg-emerald-50', iconColor: 'text-emerald-500', numColor: 'text-emerald-700', border: 'border-l-emerald-400', spark: [1, 1, 2, 3, 4], sparkColor: '#10b981', trend: 'up' },
     { label: 'Expert Rating', value: '4.9★', sub: 'Across all engagements', icon: Star, iconBg: 'bg-amber-50', iconColor: 'text-amber-500', numColor: 'text-amber-700', border: 'border-l-amber-400', spark: [4.5, 4.7, 4.8, 4.9, 4.9], sparkColor: '#F59E0B', trend: 'stable' },
     { label: 'Open Requirements', value: '3', sub: '1 pending review', icon: FileText, iconBg: 'bg-rose-50', iconColor: 'text-rose-500', numColor: 'text-rose-700', border: 'border-l-rose-400', spark: [2, 3, 3, 4, 3], sparkColor: '#F43F5E', trend: 'stable' },
@@ -501,7 +501,7 @@ const Analytics = () => {
                 onClick={() => navigate(item.path)}
                 className={`w-full flex items-center gap-3 px-3 py-2 min-h-[44px] md:min-h-0 rounded-xl transition-all duration-150 relative ${isActive
                   ? 'bg-[#134e40] text-white shadow-md'
-                  : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'
                   }`}
               >
                 {isActive && (
@@ -615,12 +615,7 @@ const Analytics = () => {
                 </motion.button>
               ))}
             </div>
-            <motion.button whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.96 }}
-              onClick={handleExport}
-              className="hidden md:flex items-center gap-1.5 px-3 py-2 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-xs font-bold rounded-xl hover:border-[#0eb59a]/40 hover:text-[#0eb59a] transition-all"
-              style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
-              <Download size={13} /> Export
-            </motion.button>
+            {/* Export button removed */}
             <div className="relative">
               <motion.button whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.92 }}
                 onClick={() => setShowNotifications(!showNotifications)}
@@ -917,9 +912,9 @@ const Analytics = () => {
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                         {[{ label: 'Spend', value: eng.spend }, { label: 'Budget', value: eng.budget }, { label: 'Milestones', value: eng.milestones }, { label: 'Rating', value: eng.rating ? `★ ${eng.rating}` : '—' }].map((item, i) => (
-                          <div key={i} className="bg-[#FAFBF9] rounded-xl p-3 border border-gray-100 text-center">
-                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1 text-center dark:text-gray-500">{item.label}</p>
-                            <p className="text-sm font-black text-[#1C3627] text-center">{item.value}</p>
+                          <div key={i} className="bg-[#FAFBF9] dark:bg-[#252830] rounded-xl p-3 border border-gray-100 dark:border-white/10 text-center">
+                            <p className="text-[10px] font-bold text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-1 text-center">{item.label}</p>
+                            <p className="text-sm font-black text-[#1C3627] dark:text-white text-center">{item.value}</p>
                           </div>
                         ))}
                       </div>
@@ -1072,11 +1067,11 @@ const Analytics = () => {
                     <SectionHeading icon={Users} label="Expert Performance Matrix" />
                     <div className="space-y-4 mt-5">
                       {expertPerformance.map((exp, idx) => (
-                        <div key={idx} className="p-3 bg-[#FAFBF9] border border-gray-100 rounded-xl text-left">
+                        <div key={idx} className="p-3 bg-[#FAFBF9] dark:bg-[#252830] border border-gray-100 dark:border-white/10 rounded-xl text-left">
                           <div className="flex items-center gap-2.5 mb-2.5">
                             <img src={exp.avatar} className="w-8 h-8 rounded-lg object-cover" alt={exp.name} />
                             <div className="text-left">
-                              <h4 className="font-black text-xs text-[#1C3627] leading-none text-left">{exp.name}</h4>
+                              <h4 className="font-black text-xs text-[#1C3627] dark:text-white leading-none text-left">{exp.name}</h4>
                               <p className="text-[10px] text-gray-400 mt-1 text-left dark:text-gray-500">{exp.role}</p>
                             </div>
                             <span className="ml-auto text-xs font-black text-[#0eb59a] bg-teal-50 px-2 py-0.5 rounded-lg border border-teal-100">{exp.overallScore}%</span>
@@ -1137,9 +1132,9 @@ const Analytics = () => {
                       {roiEngagements.map((item, idx) => (
                         <motion.div key={idx} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.1 }}
                           whileHover={{ scale: 1.015, y: -2 }}
-                          className="p-4 bg-gray-50 border border-gray-100 rounded-xl text-left transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md">
+                          className="p-4 bg-gray-50 dark:bg-[#252830] border border-gray-100 dark:border-white/10 rounded-xl text-left transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md dark:hover:shadow-black/20">
                           <div className="flex items-center justify-between mb-3.5">
-                            <span className="text-xs font-black text-[#1C3627] text-left">{item.title}</span>
+                            <span className="text-xs font-black text-[#1C3627] dark:text-white text-left">{item.title}</span>
                             <span className="text-xs font-black text-[#0eb59a] bg-teal-50 px-2 py-0.5 rounded-lg border border-teal-100">{Math.round(((item.valueNum - item.costNum) / item.costNum) * 100)}% ROI</span>
                           </div>
                           <div className="space-y-3">
@@ -1252,13 +1247,13 @@ const Analytics = () => {
                     <div className="space-y-3 mt-4">
                       {riskItems.map((item, idx) => (
                         <motion.div key={idx} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.06 }}
-                          className="p-3.5 bg-gray-50 border border-gray-100 rounded-xl flex flex-col sm:flex-row sm:items-start justify-between gap-3 text-left">
+                          className="p-3.5 bg-gray-50 dark:bg-[#252830] border border-gray-100 dark:border-white/10 rounded-xl flex flex-col sm:flex-row sm:items-start justify-between gap-3 text-left">
                           <div className="flex-1 min-w-0 text-left">
                             <div className="flex items-center gap-2 mb-1.5">
-                              <div className="w-5 h-5 bg-white rounded-md flex items-center justify-center shrink-0 border border-gray-150">
+                              <div className="w-5 h-5 bg-white dark:bg-white/10 rounded-md flex items-center justify-center shrink-0 border border-gray-100 dark:border-white/10">
                                 <item.icon size={10} className="text-gray-500" />
                               </div>
-                              <h4 className="font-bold text-xs text-[#1C3627] text-left truncate">{item.title}</h4>
+                              <h4 className="font-bold text-xs text-[#1C3627] dark:text-white text-left truncate">{item.title}</h4>
                             </div>
                             <p className="text-[11px] text-gray-500 dark:text-gray-400 font-semibold mb-1 text-left">Engagement: {item.engagement}</p>
                             <p className="text-[10px] text-gray-400 text-left dark:text-gray-500"><span className="font-black text-red-500">Impact:</span> {item.impact}</p>
@@ -1277,9 +1272,9 @@ const Analytics = () => {
                     <SectionHeading icon={DollarSign} label="Engagement Budget Health" />
                     <div className="space-y-4 mt-5">
                       {budgetHealth.map((item, idx) => (
-                        <div key={idx} className="p-3.5 bg-[#FAFBF9] border border-gray-100 rounded-xl text-left">
+                        <div key={idx} className="p-3.5 bg-[#FAFBF9] dark:bg-[#252830] border border-gray-100 dark:border-white/10 rounded-xl text-left">
                           <div className="flex items-center justify-between mb-2">
-                            <h4 className="font-bold text-xs text-[#1C3627] text-left">{item.engagement}</h4>
+                            <h4 className="font-bold text-xs text-[#1C3627] dark:text-white text-left">{item.engagement}</h4>
                             <span className={`text-[9px] font-black px-2 py-0.5 rounded-lg border ${item.risk === 'High' ? 'text-red-700 bg-red-50 border-red-200' :
                               item.risk === 'Medium' ? 'text-amber-700 bg-amber-50 border-amber-200' :
                                 'text-emerald-700 bg-emerald-50 border-emerald-200'
@@ -1324,9 +1319,9 @@ const Analytics = () => {
                     <div className="space-y-3 mt-4">
                       {governanceChecklist.map((item, idx) => (
                         <motion.div key={idx} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.05 }}
-                          className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-gray-50 border border-gray-100 rounded-xl text-left">
+                          className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-gray-50 dark:bg-[#252830] border border-gray-100 dark:border-white/10 rounded-xl text-left">
                           <div className="text-left flex-1 min-w-0 pr-3">
-                            <h4 className="font-bold text-[11px] text-[#1C3627] text-left truncate">{item.item}</h4>
+                            <h4 className="font-bold text-[11px] text-[#1C3627] dark:text-white text-left truncate">{item.item}</h4>
                             <p className="text-[9px] text-gray-400 text-left dark:text-gray-500">Checked: {item.date} · Priority: {item.priority}</p>
                           </div>
                           <span className={`text-[9px] font-black px-2 py-0.5 rounded-lg border shrink-0 self-start sm:self-center ${item.status === 'Compliant' ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : 'text-amber-700 bg-amber-50 border-amber-200'
@@ -1356,10 +1351,10 @@ const Analytics = () => {
                     <div className="space-y-3 mt-4">
                       {auditTrail.map((trail, idx) => (
                         <motion.div key={idx} initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.05 }}
-                          className="p-3 bg-[#FAFBF9] border border-gray-100 rounded-xl text-left flex items-start gap-2.5">
+                          className="p-3 bg-[#FAFBF9] dark:bg-[#252830] border border-gray-100 dark:border-white/10 rounded-xl text-left flex items-start gap-2.5">
                           <div className="w-1.5 h-1.5 rounded-full bg-[#0eb59a] shrink-0 mt-1.5" />
                           <div className="text-left flex-1 min-w-0">
-                            <h4 className="font-bold text-[11px] text-[#1C3627] text-left leading-tight">{trail.action}</h4>
+                            <h4 className="font-bold text-[11px] text-[#1C3627] dark:text-white text-left leading-tight">{trail.action}</h4>
                             <p className="text-[9px] text-gray-400 mt-1 text-left dark:text-gray-500">By: {trail.user} · Amount: {trail.amount}</p>
                             <p className="text-[9px] text-gray-400 text-left dark:text-gray-500">{trail.timestamp}</p>
                           </div>
