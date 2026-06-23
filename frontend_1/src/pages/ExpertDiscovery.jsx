@@ -739,7 +739,7 @@ const ExpertDiscovery = () => {
                 className="w-9 h-9 bg-gray-50 dark:bg-white/5 rounded-xl flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 dark:hover:bg-white/10 transition-all relative"
               >
                 <Bell size={17} />
-              </button>
+              </motion.button>
               <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center animate-pulse">3</span>
             </div>
             <button 
