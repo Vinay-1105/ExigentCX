@@ -689,6 +689,84 @@ const ExpertDashboard = () => {
     }
   };
 
+  const handleAcceptInvite = async (notifId) => {
+    const isDemo = localStorage.getItem('demo_expert') === 'true';
+    
+    // Optimistic UI update
+    setNotifications(prev =>
+      prev.map(n => n.id === notifId ? { ...n, is_read: true, unread: false, metadata: { ...n.metadata, status: 'accepted' } } : n)
+    );
+
+    if (isDemo) {
+      alert("Invitation accepted! (Demo Mode - Draft contract created)");
+      return;
+    }
+
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) return;
+
+    try {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+      const response = await fetch(`${baseUrl}/api/expert/invitations/${notifId}/accept`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        alert("Invitation accepted! A draft contract has been created and is ready for your signature.");
+        // Fetch fresh notifications list to capture new contract/role updates
+        const notifRes = await fetch(`${baseUrl}/api/notifications?role=expert`, {
+          headers: { 'Authorization': `Bearer ${session.access_token}` }
+        });
+        if (notifRes.ok) {
+          const freshData = await notifRes.json();
+          setNotifications(freshData.filter(n => n.metadata?.targetRole !== "company"));
+        }
+      } else {
+        const errData = await response.json();
+        alert(`Failed to accept invitation: ${errData.error || 'Unknown error'}`);
+      }
+    } catch (err) {
+      console.error("Error accepting invitation:", err);
+      alert("Error accepting invitation. Please try again.");
+    }
+  };
+
+  const handleDeclineInvite = async (notifId) => {
+    const isDemo = localStorage.getItem('demo_expert') === 'true';
+
+    // Optimistic UI update
+    setNotifications(prev =>
+      prev.map(n => n.id === notifId ? { ...n, is_read: true, unread: false, metadata: { ...n.metadata, status: 'declined' } } : n)
+    );
+
+    if (isDemo) return;
+
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) return;
+
+    try {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+      const response = await fetch(`${baseUrl}/api/expert/invitations/${notifId}/decline`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errData = await response.json();
+        console.error(`Failed to decline invitation: ${errData.error}`);
+      }
+    } catch (err) {
+      console.error("Error declining invitation:", err);
+    }
+  };
+
   const handleMarkAllRead = async () => {
     const isDemo = localStorage.getItem('demo_expert') === 'true';
     
@@ -764,7 +842,7 @@ const ExpertDashboard = () => {
 
       try {
         const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-        const response = await fetch(`${baseUrl}/api/notifications`, {
+        const response = await fetch(`${baseUrl}/api/notifications?role=expert`, {
           headers: {
             'Authorization': `Bearer ${session.access_token}`
           }
@@ -772,7 +850,8 @@ const ExpertDashboard = () => {
 
         if (response.ok && isMounted) {
           const data = await response.json();
-          setNotifications(data);
+          const filtered = data.filter(n => n.metadata?.targetRole !== "company");
+          setNotifications(filtered);
         }
       } catch (err) {
         console.error("Error fetching notifications:", err);
@@ -800,7 +879,10 @@ const ExpertDashboard = () => {
           },
           (payload) => {
             if (isMounted) {
-              setNotifications(prev => [payload.new, ...prev]);
+              const notif = payload.new;
+              if (notif.metadata?.targetRole !== "company") {
+                setNotifications(prev => [notif, ...prev]);
+              }
             }
           }
         );
@@ -1262,9 +1344,45 @@ const ExpertDashboard = () => {
                                   <p className="text-sm font-bold text-[#1C3627] leading-tight text-left">
                                     {notif.title}
                                   </p>
-                                  <p className="text-xs text-gray-400 mt-0.5 leading-relaxed text-left">
+                                  <p className="text-xs text-gray-400 mt-0.5 leading-relaxed text-left font-medium">
                                     {descText}
                                   </p>
+                                  {notif.metadata?.note && (
+                                    <p className="text-[11px] bg-gray-50 border border-gray-100 rounded-xl p-2.5 mt-1.5 italic text-gray-600">
+                                      "{notif.metadata.note}"
+                                    </p>
+                                  )}
+                                  
+                                  {/* Action buttons or status badges */}
+                                  {(notif.title === "New Opportunity Invitation" || notif.type === "match") && (
+                                    <div className="mt-2.5 flex items-center gap-2" onClick={e => e.stopPropagation()}>
+                                      {notif.metadata?.status === "accepted" ? (
+                                        <span className="text-[10px] font-black tracking-wider uppercase bg-teal-50 text-[#0eb59a] border border-teal-100 px-2.5 py-0.5 rounded-md">
+                                          ✓ Accepted
+                                        </span>
+                                      ) : notif.metadata?.status === "declined" ? (
+                                        <span className="text-[10px] font-black tracking-wider uppercase bg-red-50 text-red-500 border border-red-100 px-2.5 py-0.5 rounded-md">
+                                          ✗ Declined
+                                        </span>
+                                      ) : (
+                                        <>
+                                          <button
+                                            onClick={() => handleAcceptInvite(notif.id)}
+                                            className="px-3 py-1 rounded-lg bg-[#0eb59a] hover:bg-[#134e40] text-white text-[10px] font-extrabold shadow-sm active:scale-95 transition-all cursor-pointer border-0"
+                                          >
+                                            Accept
+                                          </button>
+                                          <button
+                                            onClick={() => handleDeclineInvite(notif.id)}
+                                            className="px-3 py-1 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-500 text-[10px] font-extrabold active:scale-95 transition-all bg-white cursor-pointer"
+                                          >
+                                            Decline
+                                          </button>
+                                        </>
+                                      )}
+                                    </div>
+                                  )}
+
                                   <p className="text-[10px] text-gray-300 font-semibold mt-1 text-left">
                                     {timeText}
                                   </p>

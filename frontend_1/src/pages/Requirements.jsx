@@ -510,7 +510,10 @@ const Requirements = () => {
               <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center animate-pulse">3</span>
             </div>
 
-            <button className="w-9 h-9 bg-[#134e40] rounded-xl flex items-center justify-center text-white text-xs font-black hover:ring-2 hover:ring-[#0eb59a] hover:ring-offset-2 transition-all overflow-hidden">
+            <button 
+              onClick={() => navigate('/settings')}
+              className="w-9 h-9 bg-[#134e40] rounded-xl flex items-center justify-center text-white text-xs font-black hover:ring-2 hover:ring-[#0eb59a] hover:ring-offset-2 transition-all overflow-hidden"
+            >
               {companyProfile?.logo_url ? (
                 <img src={companyProfile.logo_url} alt="Logo" className="w-full h-full object-cover" />
               ) : (

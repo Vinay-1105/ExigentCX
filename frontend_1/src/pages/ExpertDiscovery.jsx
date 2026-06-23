@@ -19,6 +19,28 @@ const ExpertDiscovery = () => {
   const navigate = useNavigate();
   const [companyProfile, setCompanyProfile] = useState(null);
 
+  // ── STATE ──
+  const [experts, setExperts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
+  const [viewMode, setViewMode] = useState('grid');
+  const [shortlisted, setShortlisted] = useState([]);
+  const [following, setFollowing] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('cxo_following') || '[]');
+    } catch { return []; }
+  });
+  const [followBurst, setFollowBurst] = useState(null);
+  const [compareTray, setCompareTray] = useState([]);
+  const [showCompareModal, setShowCompareModal] = useState(false);
+  const [showInviteModal, setShowInviteModal] = useState(null);
+  const [requirements, setRequirements] = useState([]);
+  const [selectedRequirement, setSelectedRequirement] = useState('');
+  const [selectedRequirementMatch, setSelectedRequirementMatch] = useState('');
+  const [inviteSent, setInviteSent] = useState(false);
+  const [inviteMessage, setInviteMessage] = useState('');
+
   // Authentication Guard
   useEffect(() => {
     const isDemo = localStorage.getItem('demo_company') === 'true';
@@ -44,9 +66,54 @@ const ExpertDiscovery = () => {
     };
   }, [navigate]);
 
+  // Fetch company requirements
+  useEffect(() => {
+    const fetchRequirements = async () => {
+      const isDemo = localStorage.getItem('demo_company') === 'true';
+      if (isDemo) {
+        setRequirements([
+          { id: '1', title: 'Interim CFO' },
+          { id: '2', title: 'Fractional CMO' },
+          { id: '3', title: 'VP Engineering' },
+          { id: '4', title: 'Advisory Board Member — Sales' },
+        ]);
+        return;
+      }
+
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      try {
+        const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+        const response = await fetch(`${baseUrl}/api/company/requirements`, {
+          headers: {
+            'Authorization': `Bearer ${session.access_token}`
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setRequirements(data || []);
+        } else {
+          // Fallback to Supabase
+          const { data: sbData } = await supabase
+            .from('company_requirements')
+            .select('id, role_title')
+            .eq('company_email', session.user.email);
+          if (sbData) {
+            setRequirements(sbData.map(r => ({ id: r.id, title: r.role_title || 'Untitled' })));
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching requirements:", err);
+      }
+    };
+    fetchRequirements();
+  }, []);
+
   // Fetch experts from backend
   useEffect(() => {
     const fetchExperts = async () => {
+      setLoading(true);
       const isDemo = localStorage.getItem('demo_company') === 'true';
       if (isDemo) {
         setExperts(MOCK_EXPERTS);
@@ -62,7 +129,8 @@ const ExpertDiscovery = () => {
       }
 
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/company/experts`, {
+        const queryParam = selectedRequirementMatch ? `?requirementId=${selectedRequirementMatch}` : '';
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/company/experts${queryParam}`, {
           headers: {
             'Authorization': `Bearer ${session.access_token}`
           }
@@ -70,7 +138,9 @@ const ExpertDiscovery = () => {
         if (response.ok) {
           const data = await response.json();
           if (data && data.length > 0) {
-            setExperts(data);
+            // Sort by match score descending
+            const sorted = [...data].sort((a, b) => (b.match || 0) - (a.match || 0));
+            setExperts(sorted);
           } else {
             setExperts(MOCK_EXPERTS);
           }
@@ -80,14 +150,16 @@ const ExpertDiscovery = () => {
         }
 
         // Fetch company profile
-        const profileRes = await fetch(`${import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/company/profile`, {
-          headers: {
-            'Authorization': `Bearer ${session.access_token}`
+        if (!companyProfile) {
+          const profileRes = await fetch(`${import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/company/profile`, {
+            headers: {
+              'Authorization': `Bearer ${session.access_token}`
+            }
+          });
+          if (profileRes.ok) {
+            const profileData = await profileRes.json();
+            setCompanyProfile(profileData);
           }
-        });
-        if (profileRes.ok) {
-          const profileData = await profileRes.json();
-          setCompanyProfile(profileData);
         }
       } catch (err) {
         console.error("Error fetching experts:", err);
@@ -97,25 +169,59 @@ const ExpertDiscovery = () => {
       }
     };
     fetchExperts();
-  }, []);
+  }, [selectedRequirementMatch]);
 
-  // ── STATE ──
-  const [experts, setExperts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [showFilters, setShowFilters] = useState(false);
-  const [viewMode, setViewMode] = useState('grid');
-  const [shortlisted, setShortlisted] = useState([]);
-  const [following, setFollowing] = useState(() => {
+
+
+  const handleInviteSend = async () => {
+    if (!showInviteModal) return;
+    const isDemo = localStorage.getItem('demo_company') === 'true';
+    if (isDemo) {
+      setInviteSent(true);
+      setTimeout(() => {
+        setShowInviteModal(null);
+        setInviteSent(false);
+        setSelectedRequirement('');
+        setInviteMessage('');
+      }, 2000);
+      return;
+    }
+
     try {
-      return JSON.parse(localStorage.getItem('cxo_following') || '[]');
-    } catch { return []; }
-  });
-  const [followBurst, setFollowBurst] = useState(null);
-  const [compareTray, setCompareTray] = useState([]);
-  const [showCompareModal, setShowCompareModal] = useState(false);
-  const [showInviteModal, setShowInviteModal] = useState(null);
-  const [selectedRequirement, setSelectedRequirement] = useState('');
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+      const response = await fetch(`${baseUrl}/api/company/invite`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+          expertId: showInviteModal.id,
+          requirementId: selectedRequirement,
+          note: inviteMessage
+        })
+      });
+
+      if (response.ok) {
+        setInviteSent(true);
+        setTimeout(() => {
+          setShowInviteModal(null);
+          setInviteSent(false);
+          setSelectedRequirement('');
+          setInviteMessage('');
+        }, 2000);
+      } else {
+        const errData = await response.json();
+        alert(`Failed to send invite: ${errData.error || 'Unknown error'}`);
+      }
+    } catch (err) {
+      console.error("Error sending invite:", err);
+      alert("Error sending invite. Please try again.");
+    }
+  };
   const [expandedFilter, setExpandedFilter] = useState('role');
   const [activeFilters, setActiveFilters] = useState({
     role: [],
@@ -304,12 +410,7 @@ const ExpertDiscovery = () => {
     },
   ];
 
-  const requirements = [
-    { id: 1, title: 'Interim CFO' },
-    { id: 2, title: 'Fractional CMO' },
-    { id: 3, title: 'VP Engineering' },
-    { id: 4, title: 'Advisory Board Member — Sales' },
-  ];
+
 
   const filterSections = [
     {
@@ -601,6 +702,23 @@ const ExpertDiscovery = () => {
               </button>
             )}
           </div>
+
+          {/* Requirement Matchmaking Selector */}
+          <div className="relative shrink-0">
+            <select
+              value={selectedRequirementMatch || ''}
+              onChange={(e) => setSelectedRequirementMatch(e.target.value)}
+              className="pl-3 pr-8 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm font-bold text-gray-700 focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all cursor-pointer appearance-none min-w-[200px]"
+            >
+              <option value="">General Matchmaking</option>
+              {requirements.map((req) => (
+                <option key={req.id} value={req.id}>
+                  Match: {req.title}
+                </option>
+              ))}
+            </select>
+            <ChevronDown size={14} className="absolute right-8 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+          </div>
           <div className="flex items-center gap-3 ml-auto">
             <div className="relative">
               <button className="w-9 h-9 bg-gray-50 rounded-xl flex items-center justify-center text-gray-500 hover:text-[#134e40] transition-all">
@@ -608,7 +726,10 @@ const ExpertDiscovery = () => {
               </button>
               <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center animate-pulse">3</span>
             </div>
-            <button className="w-9 h-9 bg-[#134e40] rounded-xl flex items-center justify-center text-white text-xs font-black hover:ring-2 hover:ring-[#0eb59a] hover:ring-offset-2 transition-all overflow-hidden">
+            <button 
+              onClick={() => navigate('/settings')}
+              className="w-9 h-9 bg-[#134e40] rounded-xl flex items-center justify-center text-white text-xs font-black hover:ring-2 hover:ring-[#0eb59a] hover:ring-offset-2 transition-all overflow-hidden"
+            >
               {companyProfile?.logo_url ? (
                 <img src={companyProfile.logo_url} alt="Logo" className="w-full h-full object-cover" />
               ) : (
@@ -1009,7 +1130,10 @@ const ExpertDiscovery = () => {
                                     </div>
                                     <div className="flex-1 min-w-0">
                                       <h3
-                                        onClick={() => navigate(`/experts/${expert.id}`)}
+                                        onClick={() => {
+                                          const query = selectedRequirementMatch ? `?requirementId=${selectedRequirementMatch}` : '';
+                                          navigate(`/experts/${expert.id}${query}`);
+                                        }}
                                         className="font-black text-[#1C3627] text-sm leading-tight mb-0.5 transition-colors cursor-pointer hover:text-[#0eb59a] text-left"
                                       >
                                         {expert.name}
@@ -1074,7 +1198,11 @@ const ExpertDiscovery = () => {
                                       <motion.button
                                         whileHover={{ scale: 1.03, boxShadow: '0 4px 15px rgba(19,78,64,0.3)' }}
                                         whileTap={{ scale: 0.97 }}
-                                        onClick={(e) => { e.stopPropagation(); navigate(`/experts/${expert.id}`); }}
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          const query = selectedRequirementMatch ? `?requirementId=${selectedRequirementMatch}` : '';
+                                          navigate(`/experts/${expert.id}${query}`);
+                                        }}
                                         className="flex-1 py-2.5 bg-[#134e40] hover:bg-[#0d3f33] text-white text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5"
                                       >
                                         <Eye size={12} />
@@ -1420,7 +1548,11 @@ const ExpertDiscovery = () => {
                       <motion.button
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
-                        onClick={() => { setShowCompareModal(false); navigate(`/experts/${expert.id}`); }}
+                        onClick={() => {
+                          setShowCompareModal(false);
+                          const query = selectedRequirementMatch ? `?requirementId=${selectedRequirementMatch}` : '';
+                          navigate(`/experts/${expert.id}${query}`);
+                        }}
                         className="w-full py-3 bg-[#134e40] hover:bg-[#0eb59a] text-white text-sm font-black rounded-2xl transition-all shadow-md"
                       >
                         View Full Profile
@@ -1450,94 +1582,120 @@ const ExpertDiscovery = () => {
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               className="bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl p-5 sm:p-6 max-w-md w-full overflow-hidden"
             >
-              {/* Expert mini-card */}
-              <div className="flex items-center gap-3 p-4 bg-teal-50 rounded-2xl border border-teal-100 mb-3">
-                <img src={showInviteModal.avatar} className="w-12 h-12 rounded-xl object-cover" />
-                <div>
-                  <h4 className="font-black text-gray-900 text-sm">{showInviteModal.name}</h4>
-                  <p className="text-xs text-gray-500">{showInviteModal.title}</p>
-                  <div className="flex items-center gap-1 mt-0.5">
-                    <Star size={11} fill="#F59E0B" className="text-amber-400" />
-                    <span className="text-xs font-black text-gray-800">{showInviteModal.rating}</span>
-                  </div>
-                </div>
-                <span className="ml-auto text-xs font-black text-[#134e40] bg-white px-2.5 py-1 rounded-xl border border-teal-100">
-                  {showInviteModal.match}% Match
-                </span>
-              </div>
-
-              <h3 className="text-lg font-black text-gray-900 mt-1 mb-0.5">
-                Invite {showInviteModal.name.split(' ')[0]}
-              </h3>
-              <p className="text-sm text-gray-400 mb-3">
-                Select which requirement you'd like to invite this expert for.
-              </p>
-
-              {/* Requirement selector */}
-              <div className="space-y-1.5 mb-3">
-                {requirements.map((req) => (
-                  <motion.button
-                    key={req.id}
-                    whileHover={{ x: 3 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setSelectedRequirement(req.id)}
-                    className={`w-full flex items-center justify-between px-4 py-2.5 rounded-2xl border-2 text-sm font-bold transition-all text-left ${
-                      selectedRequirement === req.id
-                        ? 'border-[#0eb59a] bg-teal-50 text-[#134e40]'
-                        : 'border-gray-100 bg-gray-50 text-gray-600 hover:border-gray-200'
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <Briefcase size={14} />
-                      {req.title}
+              {!inviteSent ? (
+                <>
+                  {/* Expert mini-card */}
+                  <div className="flex items-center gap-3 p-4 bg-teal-50 rounded-2xl border border-teal-100 mb-3">
+                    <img src={showInviteModal.avatar} className="w-12 h-12 rounded-xl object-cover" />
+                    <div>
+                      <h4 className="font-black text-gray-900 text-sm">{showInviteModal.name}</h4>
+                      <p className="text-xs text-gray-500">{showInviteModal.title}</p>
+                      <div className="flex items-center gap-1 mt-0.5">
+                        <Star size={11} fill="#F59E0B" className="text-amber-400" />
+                        <span className="text-xs font-black text-gray-800">{showInviteModal.rating}</span>
+                      </div>
+                    </div>
+                    <span className="ml-auto text-xs font-black text-[#134e40] bg-white px-2.5 py-1 rounded-xl border border-teal-100">
+                      {showInviteModal.match}% Match
                     </span>
-                    {selectedRequirement === req.id && (
-                      <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}
-                        className="w-5 h-5 bg-[#0eb59a] rounded-full flex items-center justify-center"
+                  </div>
+
+                  <h3 className="text-lg font-black text-gray-900 mt-1 mb-0.5">
+                    Invite {showInviteModal.name.split(' ')[0]}
+                  </h3>
+                  <p className="text-sm text-gray-400 mb-3">
+                    Select which requirement you'd like to invite this expert for.
+                  </p>
+
+                  {/* Requirement selector */}
+                  <div className="space-y-1.5 mb-3 max-h-[160px] overflow-y-auto">
+                    {requirements.map((req) => (
+                      <motion.button
+                        key={req.id}
+                        whileHover={{ x: 3 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => setSelectedRequirement(req.id)}
+                        className={`w-full flex items-center justify-between px-4 py-2.5 rounded-2xl border-2 text-sm font-bold transition-all text-left ${
+                          selectedRequirement === req.id
+                            ? 'border-[#0eb59a] bg-teal-50 text-[#134e40]'
+                            : 'border-gray-100 bg-gray-50 text-gray-600 hover:border-gray-200'
+                        }`}
                       >
-                        <Check size={11} className="text-white" strokeWidth={3} />
-                      </motion.div>
-                    )}
-                  </motion.button>
-                ))}
-              </div>
+                        <span className="flex items-center gap-2">
+                          <Briefcase size={14} />
+                          {req.title}
+                        </span>
+                        {selectedRequirement === req.id && (
+                          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}
+                            className="w-5 h-5 bg-[#0eb59a] rounded-full flex items-center justify-center"
+                          >
+                            <Check size={11} className="text-white" strokeWidth={3} />
+                          </motion.div>
+                        )}
+                      </motion.button>
+                    ))}
+                  </div>
 
-              {/* Message */}
-              <div className="mb-3">
-                <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
-                  Personal Message <span className="text-gray-400 font-normal normal-case">(optional)</span>
-                </label>
-                <textarea
-                  placeholder={`Hi ${showInviteModal.name.split(' ')[0]}, we'd love to discuss an opportunity with you...`}
-                  rows={2}
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all resize-none"
-                />
-              </div>
+                  {/* Message */}
+                  <div className="mb-3">
+                    <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                      Personal Message <span className="text-gray-400 font-normal normal-case">(optional)</span>
+                    </label>
+                    <textarea
+                      placeholder={`Hi ${showInviteModal.name.split(' ')[0]}, we'd love to discuss an opportunity with you...`}
+                      rows={2}
+                      value={inviteMessage}
+                      onChange={e => setInviteMessage(e.target.value)}
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all resize-none"
+                    />
+                  </div>
 
-              {/* Buttons */}
-              <div className="flex gap-3 mt-1">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => { setShowInviteModal(null); setSelectedRequirement(''); }}
-                  className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl"
+                  {/* Buttons */}
+                  <div className="flex gap-3 mt-1">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => { setShowInviteModal(null); setSelectedRequirement(''); setInviteMessage(''); }}
+                      className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl"
+                    >
+                      Cancel
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: selectedRequirement ? 1.02 : 1, boxShadow: selectedRequirement ? '0 8px 30px rgba(20,78,64,0.25)' : 'none' }}
+                      whileTap={{ scale: selectedRequirement ? 0.98 : 1 }}
+                      disabled={!selectedRequirement}
+                      onClick={handleInviteSend}
+                      className={`flex-1 py-3 text-sm font-bold rounded-2xl transition-all ${
+                        selectedRequirement
+                          ? 'bg-[#134e40] hover:bg-[#0eb59a] text-white shadow-lg'
+                          : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                      }`}
+                    >
+                      Send Invite
+                    </motion.button>
+                  </div>
+                </>
+              ) : (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="py-12 px-8 text-center"
                 >
-                  Cancel
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: selectedRequirement ? 1.02 : 1, boxShadow: selectedRequirement ? '0 8px 30px rgba(20,78,64,0.25)' : 'none' }}
-                  whileTap={{ scale: selectedRequirement ? 0.98 : 1 }}
-                  disabled={!selectedRequirement}
-                  onClick={() => { setShowInviteModal(null); setSelectedRequirement(''); }}
-                  className={`flex-1 py-3 text-sm font-bold rounded-2xl transition-all ${
-                    selectedRequirement
-                      ? 'bg-[#134e40] hover:bg-[#0eb59a] text-white shadow-lg'
-                      : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  }`}
-                >
-                  Send Invite
-                </motion.button>
-              </div>
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.1 }}
+                    className="w-20 h-20 bg-gradient-to-r from-[#134e40] to-[#0eb59a] rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg shadow-teal-500/30"
+                  >
+                    <Check size={36} color="white" strokeWidth={3} />
+                  </motion.div>
+                  <h3 className="text-2xl font-black text-gray-900 mb-2">Invite Sent!</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">
+                    {showInviteModal.name.split(' ')[0]} will receive your invitation and respond within {showInviteModal.responseTime || 'a few hours'}.
+                  </p>
+                </motion.div>
+              )}
             </motion.div>
           </motion.div>
         )}

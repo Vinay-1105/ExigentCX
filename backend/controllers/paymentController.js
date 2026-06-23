@@ -467,7 +467,9 @@ export const createEscrow = async (req, res) => {
         "Escrow Funded",
         msg,
         "payment",
-        targetMilestone ? { engagementId, milestoneId: targetMilestone.id } : { engagementId }
+        targetMilestone
+          ? { engagementId, milestoneId: targetMilestone.id, targetRole: "expert" }
+          : { engagementId, targetRole: "expert" }
       );
     }
 
@@ -480,7 +482,9 @@ export const createEscrow = async (req, res) => {
         "Funds Deposited to Escrow",
         msg,
         "payment",
-        targetMilestone ? { engagementId, milestoneId: targetMilestone.id } : { engagementId }
+        targetMilestone
+          ? { engagementId, milestoneId: targetMilestone.id, targetRole: "company" }
+          : { engagementId, targetRole: "company" }
       );
     }
 
@@ -643,7 +647,7 @@ export const releaseEscrow = async (req, res) => {
         "Payment Released from Escrow",
         `Congratulations! Acme Corp has approved milestone "${milestone.title}" and released ${formatCurrency(milestone.amount)} from escrow to your wallet (minus 10% platform fee).`,
         "payment",
-        { engagementId, milestoneId }
+        { engagementId, milestoneId, targetRole: "expert" }
       );
     }
 
@@ -653,7 +657,7 @@ export const releaseEscrow = async (req, res) => {
         "Escrow Release Approved",
         `Released ${formatCurrency(milestone.amount)} from escrow for milestone "${milestone.title}" to ${engagement.expert_name}.`,
         "payment",
-        { engagementId, milestoneId }
+        { engagementId, milestoneId, targetRole: "company" }
       );
     }
 
@@ -707,7 +711,7 @@ export const submitMilestone = async (req, res) => {
           "Milestone Submitted for Approval",
           `Expert ${engagement.expert_name} has submitted deliverables for milestone "${milestone.title}". Please review and approve.`,
           "payment",
-          { engagementId, milestoneId }
+          { engagementId, milestoneId, targetRole: "company" }
         );
       }
     }

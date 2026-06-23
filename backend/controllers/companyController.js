@@ -5,6 +5,7 @@ import {
   computeKeywordMatchScore, 
   cosineSimilarity 
 } from "../utils/matchmaker.js";
+import { createNotification } from "../utils/createNotification.js";
 
 // ================= GET COMPANY PROFILE =================
 export const getCompanyProfile = async (req, res) => {
@@ -351,6 +352,118 @@ export const getRegisteredExpertById = async (req, res) => {
     res.json(mapped);
   } catch (err) {
     console.error("getRegisteredExpertById error:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// ================= GET COMPANY REQUIREMENTS =================
+export const getCompanyRequirements = async (req, res) => {
+  try {
+    const email = req.user?.email;
+    if (!email) {
+      return res.status(400).json({ error: "Email not found in token" });
+    }
+
+    const { data, error } = await supabaseAdmin
+      .from("company_requirements")
+      .select("*")
+      .eq("company_email", email)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Error fetching company requirements:", error);
+      return res.status(500).json({ error: "Failed to fetch requirements" });
+    }
+
+    // Map to simple structure expected by selector dropdowns
+    const mapped = data.map(dbReq => ({
+      id: dbReq.id,
+      title: dbReq.role_title || 'Untitled Requirement',
+      status: dbReq.status || 'Draft'
+    }));
+
+    res.json(mapped);
+  } catch (err) {
+    console.error("getCompanyRequirements error:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// ================= SEND INVITATION =================
+export const sendInvitation = async (req, res) => {
+  try {
+    const companyEmail = req.user?.email;
+    const { expertId, requirementId, note } = req.body;
+
+    if (!expertId || !requirementId) {
+      return res.status(400).json({ error: "expertId and requirementId are required" });
+    }
+
+    // 1. Fetch company profile to get company name
+    const { data: company, error: companyErr } = await supabaseAdmin
+      .from("company_applications")
+      .select("company_name, user_id")
+      .eq("admin_email", companyEmail)
+      .maybeSingle();
+
+    if (companyErr) {
+      console.error("Error fetching company application for invite:", companyErr);
+    }
+
+    // 2. Fetch expert details to get their user_id
+    const { data: expert, error: expertErr } = await supabaseAdmin
+      .from("expert_applications")
+      .select("user_id, full_name, email")
+      .eq("id", expertId)
+      .maybeSingle();
+
+    if (expertErr || !expert) {
+      console.error("Error fetching expert for invite:", expertErr);
+      return res.status(404).json({ error: "Expert not found" });
+    }
+
+    const expertUserId = expert.user_id;
+    if (!expertUserId) {
+      return res.status(400).json({ error: "Expert user_id not found" });
+    }
+
+    // 3. Fetch requirement details to get the role title
+    const { data: requirement, error: reqErr } = await supabaseAdmin
+      .from("company_requirements")
+      .select("role_title")
+      .eq("id", requirementId)
+      .maybeSingle();
+
+    if (reqErr || !requirement) {
+      console.error("Error fetching requirement for invite:", reqErr);
+      return res.status(404).json({ error: "Requirement not found" });
+    }
+
+    // 4. Create notification for the expert
+    const title = "New Opportunity Invitation";
+    const desc = `${company?.company_name || 'A company'} has invited you to apply for their "${requirement.role_title || 'CXO Advisor'}" role.`;
+    const companyName = company?.company_name || "Acme Corp.";
+
+    const notification = await createNotification(
+      expertUserId,
+      title,
+      desc,
+      "match",
+      {
+        requirementId,
+        companyName,
+        note: note || "",
+        targetRole: "expert"
+      }
+    );
+
+    if (!notification) {
+      return res.status(500).json({ error: "Failed to create invitation notification" });
+    }
+
+    res.json({ success: true, notification });
+  } catch (err) {
+    console.error("sendInvitation error:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 };

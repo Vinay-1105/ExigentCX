@@ -99,7 +99,12 @@ const ExpertProfile = () => {
   });
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
+  const [requirements, setRequirements] = useState([]);
   const [selectedRequirement, setSelectedRequirement] = useState('');
+  const [selectedRequirementMatch, setSelectedRequirementMatch] = useState(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    return queryParams.get('requirementId') || '';
+  });
   const [message, setMessage] = useState('');
   const [inviteSent, setInviteSent] = useState(false);
 
@@ -231,6 +236,49 @@ const ExpertProfile = () => {
   );
 
   useEffect(() => {
+    const fetchRequirements = async () => {
+      const isDemo = localStorage.getItem('demo_company') === 'true';
+      if (isDemo) {
+        setRequirements([
+          { id: '1', title: 'Interim CFO' },
+          { id: '2', title: 'Fractional CMO' },
+          { id: '3', title: 'VP Engineering' },
+          { id: '4', title: 'Advisory Board Member — Sales' },
+        ]);
+        return;
+      }
+
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      try {
+        const baseUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const response = await fetch(`${baseUrl}/api/company/requirements`, {
+          headers: {
+            'Authorization': `Bearer ${session.access_token}`
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setRequirements(data || []);
+        } else {
+          // Fallback to Supabase
+          const { data: sbData } = await supabase
+            .from('company_requirements')
+            .select('id, role_title')
+            .eq('company_email', session.user.email);
+          if (sbData) {
+            setRequirements(sbData.map(r => ({ id: r.id, title: r.role_title || 'Untitled' })));
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching requirements in profile:", err);
+      }
+    };
+    fetchRequirements();
+  }, []);
+
+  useEffect(() => {
     const fetchExpert = async () => {
       // If expertId is one of the mock IDs (1, 2, 3), use local mock data directly
       if (expertId === '1' || expertId === '2' || expertId === '3') {
@@ -249,7 +297,8 @@ const ExpertProfile = () => {
         }
 
         const baseUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
-        const res = await fetch(`${baseUrl}/api/company/experts/${expertId}`, {
+        const queryParam = selectedRequirementMatch ? `?requirementId=${selectedRequirementMatch}` : '';
+        const res = await fetch(`${baseUrl}/api/company/experts/${expertId}${queryParam}`, {
           headers: {
             Authorization: `Bearer ${session.access_token}`,
           },
@@ -273,7 +322,7 @@ const ExpertProfile = () => {
     if (expertId) {
       fetchExpert();
     }
-  }, [expertId]);
+  }, [expertId, selectedRequirementMatch]);
 
   if (loading) {
     return (
@@ -499,21 +548,53 @@ const ExpertProfile = () => {
     },
   ];
 
-  const requirements = [
-    { id: 1, title: 'Interim CFO' },
-    { id: 2, title: 'Fractional CMO' },
-    { id: 3, title: 'VP Engineering' },
-    { id: 4, title: 'Advisory Board Member — Sales' },
-  ];
+  const handleInviteSend = async () => {
+    const isDemo = localStorage.getItem('demo_company') === 'true';
+    if (isDemo) {
+      setInviteSent(true);
+      setTimeout(() => {
+        setShowInviteModal(false);
+        setInviteSent(false);
+        setSelectedRequirement('');
+        setMessage('');
+      }, 2000);
+      return;
+    }
 
-  const handleInviteSend = () => {
-    setInviteSent(true);
-    setTimeout(() => {
-      setShowInviteModal(false);
-      setInviteSent(false);
-      setSelectedRequirement('');
-      setMessage('');
-    }, 2000);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${baseUrl}/api/company/invite`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+          expertId: expert.id,
+          requirementId: selectedRequirement,
+          note: message
+        })
+      });
+
+      if (response.ok) {
+        setInviteSent(true);
+        setTimeout(() => {
+          setShowInviteModal(false);
+          setInviteSent(false);
+          setSelectedRequirement('');
+          setMessage('');
+        }, 2000);
+      } else {
+        const errData = await response.json();
+        alert(`Failed to send invite: ${errData.error || 'Unknown error'}`);
+      }
+    } catch (err) {
+      console.error("Error sending invite:", err);
+      alert("Error sending invite. Please try again.");
+    }
   };
 
   const handleFollow = () => {
@@ -859,7 +940,10 @@ Bio: ${expert.bio}
                 )}
               </AnimatePresence>
             </div>
-            <button className="w-9 h-9 bg-[#134e40] rounded-xl flex items-center justify-center text-white text-xs font-black hover:ring-2 hover:ring-[#0eb59a] hover:ring-offset-2 transition-all overflow-hidden">
+            <button 
+              onClick={() => navigate('/settings')}
+              className="w-9 h-9 bg-[#134e40] rounded-xl flex items-center justify-center text-white text-xs font-black hover:ring-2 hover:ring-[#0eb59a] hover:ring-offset-2 transition-all overflow-hidden"
+            >
               {companyProfile?.logo_url ? (
                 <img src={companyProfile.logo_url} alt="Logo" className="w-full h-full object-cover" />
               ) : (
@@ -1914,8 +1998,25 @@ Bio: ${expert.bio}
                       className="h-full bg-[#0eb59a] rounded-full"
                     />
                   </div>
+
+                  {/* Requirement Matchmaking Selector */}
+                  <div className="mb-3">
+                    <select
+                      value={selectedRequirementMatch || ''}
+                      onChange={(e) => setSelectedRequirementMatch(e.target.value)}
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:bg-slate-800 focus:border-[#0eb59a] transition-all cursor-pointer"
+                    >
+                      <option value="" className="text-gray-900">General Matchmaking</option>
+                      {requirements.map((req) => (
+                        <option key={req.id} value={req.id} className="text-gray-900">
+                          {req.title}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
                   <p className="text-xs text-white/60 leading-relaxed">
-                    Based on your Interim CFO requirement — skills, industry, and budget alignment.
+                    Based on your {requirements.find(r => String(r.id) === String(selectedRequirementMatch))?.title || 'General'} requirement — skills, industry, and budget alignment.
                   </p>
                 </div>
               </motion.div>

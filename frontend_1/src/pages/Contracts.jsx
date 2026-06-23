@@ -260,7 +260,7 @@ const Contracts = () => {
 
   // Add download handler:
   const handleDownload = (contract) => {
-    const content = `CONTRACT: ${contract.title}\nExpert: ${contract.expert}\nEngagement: ${contract.engagement}\nValue: ${contract.value}\nDuration: ${contract.startDate} to ${contract.endDate}\nStatus: ${contract.status}\n\n${contractPreview}`;
+    const content = `CONTRACT: ${contract.title}\nExpert: ${contract.expert}\nEngagement: ${contract.engagement}\nValue: ${contract.value}\nDuration: ${contract.startDate} to ${contract.endDate}\nStatus: ${contract.status}\n\n${contractPreview.replace('Acme Corp Private Limited', `${companyProfile?.company_name || contract.company || 'Acme Corp'} Private Limited`).replace('David Chen', contract.expert)}`;
     const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -692,18 +692,20 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
               </AnimatePresence>
             </div>
 
-            <motion.div
-              whileHover={{ scale: 1.08, ringWidth: 2, ringColor: '#0eb59a', ringOffsetWidth: 2 }}
+            <motion.button
+              whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.94 }}
-              className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#134e40] to-[#0eb59a] flex items-center justify-center text-white font-black text-xs cursor-pointer shadow-md transition-all duration-200 overflow-hidden"
+              className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#134e40] to-[#0eb59a] flex items-center justify-center text-white font-black text-xs cursor-pointer shadow-md transition-all duration-200 overflow-hidden border-0"
               title="Account"
+              type="button"
+              onClick={() => navigate('/settings')}
             >
               {companyProfile?.logo_url ? (
                 <img src={companyProfile.logo_url} alt="Logo" className="w-full h-full object-cover" />
               ) : (
                 companyProfile?.company_name ? companyProfile.company_name.substring(0, 2).toUpperCase() : 'AC'
               )}
-            </motion.div>
+            </motion.button>
           </div>
         </header>
 
@@ -978,7 +980,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                                       ? <Check size={8} className="text-white" strokeWidth={3} />
                                       : <Clock size={8} className="text-white" />}
                                   </div>
-                                  Acme Corp
+                                  {contract.company || 'Company'}
                                 </motion.div>
                               </div>
 
@@ -1208,7 +1210,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                 <div className="flex items-center gap-3 mt-4 pt-4 border-t border-white/10">
                   {[
                     { label: showViewModal.expert.split(' ')[0], signed: showViewModal.signedByExpert },
-                    { label: 'Acme Corp', signed: showViewModal.signedByCompany },
+                    { label: companyProfile?.company_name || showViewModal.company || 'Company', signed: showViewModal.signedByCompany },
                     { label: 'ExigentCX', signed: true },
                   ].map((party, pIdx) => (
                     <div key={pIdx} className="flex items-center gap-1.5 text-xs font-bold">
@@ -1234,7 +1236,9 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
               <div className="flex-1 overflow-y-auto p-6 [&::-webkit-scrollbar]:hidden">
                 <div className="bg-[#FAFBF9] rounded-2xl border border-gray-100 p-6">
                   <pre className="text-xs text-gray-600 leading-relaxed whitespace-pre-wrap text-left font-mono">
-                    {contractPreview}
+                    {contractPreview
+                      .replace('Acme Corp Private Limited', `${companyProfile?.company_name || showViewModal.company || 'Acme Corp'} Private Limited`)
+                      .replace('David Chen', showViewModal.expert || 'Expert')}
                   </pre>
                 </div>
               </div>

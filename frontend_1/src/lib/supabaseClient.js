@@ -19,7 +19,7 @@ const createMockAuth = (originalAuth = {}) => ({
       data: { 
         session: { 
           user: { id: 'mock-user', email: 'demo@cxo.com', user_metadata: { role } },
-          access_token: 'mock-token',
+          access_token: `${role}-token`,
           expires_at: Math.floor(Date.now() / 1000) + 3600
         } 
       }, 
@@ -31,7 +31,7 @@ const createMockAuth = (originalAuth = {}) => ({
     // Immediately trigger callback with mock session
     callback('SIGNED_IN', { 
       user: { id: 'mock-user', email: 'demo@cxo.com', user_metadata: { role } },
-      access_token: 'mock-token'
+      access_token: `${role}-token`
     });
     return { data: { subscription: { unsubscribe: () => {} } } };
   },

@@ -88,6 +88,7 @@ export const signContract = async (req, res) => {
     // 1. Fetch current contract
     const { data: contract, error: fetchError } = await supabaseAdmin
       .from("contracts")
+      .select("*")
       .eq("id", id)
       .single();
 
@@ -155,7 +156,7 @@ export const signContract = async (req, res) => {
           "Contract Signed by Expert",
           `Expert signed the "${contract.title}". Awaiting your signature.`,
           notificationType,
-          metaPayload
+          { ...metaPayload, targetRole: "company" }
         );
       }
     }
@@ -168,7 +169,7 @@ export const signContract = async (req, res) => {
           "Contract Signed by Client",
           `Client signed the "${contract.title}". Awaiting your signature.`,
           notificationType,
-          metaPayload
+          { ...metaPayload, targetRole: "expert" }
         );
       }
     }
@@ -181,7 +182,7 @@ export const signContract = async (req, res) => {
           "Contract Fully Executed",
           `Your agreement "${contract.title}" is now fully signed and active.`,
           notificationType,
-          metaPayload
+          { ...metaPayload, targetRole: "company" }
         );
       }
       if (expertUserId) {
@@ -190,7 +191,7 @@ export const signContract = async (req, res) => {
           "Contract Fully Executed",
           `Your agreement "${contract.title}" is now fully signed and active.`,
           notificationType,
-          metaPayload
+          { ...metaPayload, targetRole: "expert" }
         );
       }
     }
