@@ -116,7 +116,7 @@ const ExpertCard = ({ expert }) => {
       <p className="text-xs text-gray-400 dark:text-gray-400 font-bold mb-4">{expert.role}</p>
 
       {/* Center-aligned Info rows */}
-      <div className="flex flex-col mb-4 rounded-xl border border-gray-100 dark:border-white/10 bg-gray-50/50 dark:bg-[#1a1d23] overflow-hidden w-full text-center shadow-sm">
+      <div className="flex flex-col mb-4 rounded-xl border border-gray-100 dark:border-white/10 bg-gray-50/50 dark:bg-[#252830] overflow-hidden w-full text-center shadow-sm">
         <div className="text-xs px-3 py-2 flex flex-col items-center">
           <span className="text-[10px] text-gray-400 dark:text-gray-500 font-black tracking-wider uppercase mb-0.5">Rate</span>
           <span className="font-black text-[#134e40] dark:text-gray-300 text-xs">{expert.rate}</span>
@@ -708,7 +708,7 @@ const CompanyDashboard = () => {
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-[#FAFBF9] dark:bg-[#1a1d23] border-r border-gray-200 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-[2px_0_12px_rgba(0,0,0,0.06)] fixed left-0 top-0 h-screen"
+        className="bg-[#FAFBF9] dark:bg-[#252830] border-r border-gray-200 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-[2px_0_12px_rgba(0,0,0,0.06)] fixed left-0 top-0 h-screen"
       >
         <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
           <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/company-dashboard')}>
@@ -837,7 +837,7 @@ const CompanyDashboard = () => {
       >
 
         {/* ── HEADER ── */}
-        <header className="h-16 bg-white dark:bg-[#1a1d23] border-b border-gray-200 dark:border-white/10 flex items-center justify-between px-4 sm:px-6 shrink-0 z-40 sticky top-0 shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
+        <header className="h-16 bg-white dark:bg-[#252830] border-b border-gray-200 dark:border-white/10 flex items-center justify-between px-4 sm:px-6 shrink-0 z-40 sticky top-0 shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
           {/* Left — branding spacer */}
           <div className="flex items-center gap-3" />
 
@@ -1202,11 +1202,11 @@ const CompanyDashboard = () => {
         </header>
 
         {/* ── MAIN CONTENT ── */}
-        <main className="flex-1 overflow-y-auto bg-[#f4f7f5] [&::-webkit-scrollbar]:hidden">
+        <main className="flex-1 overflow-y-auto bg-[#f4f7f5] dark:bg-[#0f1117] [&::-webkit-scrollbar]:hidden">
 
           {/* LIGHT HERO BANNER */}
-          <div className="relative overflow-hidden border-b border-teal-100/60"
-            style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #e8f5f1 50%, #f8fafc 100%)' }}>
+          <div className="relative overflow-hidden border-b border-teal-100/60 dark:border-white/5 bg-gradient-to-br from-[#f0fdf4] via-[#e8f5f1] to-[#f8fafc] dark:bg-none dark:bg-[#252830]"
+            style={{}}>
             <div className="absolute top-0 right-0 w-64 h-32 bg-[#0eb59a]/8 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-1/3 w-48 h-20 bg-[#134e40]/6 rounded-full blur-3xl pointer-events-none" />
 
@@ -1224,17 +1224,17 @@ const CompanyDashboard = () => {
                     </div>
                   </div>
 
-                  <h1 className="text-left text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight" style={{ fontFamily: 'Georgia, serif' }}>
+                  <h1 className="text-left text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight" style={{ fontFamily: 'Georgia, serif' }}>
                     Welcome,{' '}
                     <span className="text-left text-transparent bg-clip-text bg-gradient-to-r from-[#134e40] to-[#0eb59a]">
                       {loadingProfile ? '...' : (companyProfile?.company_name || 'Acme Corp.')}
                     </span>
                   </h1>
 
-                  <p className="text-left text-slate-500 text-sm mt-2 font-medium">
+                  <p className="text-left text-slate-500 dark:text-gray-400 text-sm mt-2 font-medium">
                     You have{' '}
                     <span className="text-left text-amber-500 font-black">3 pending actions</span>{' '}and{' '}
-                    <span className="text-left text-[#134e40] font-black">3 expert matches</span> today.
+                    <span className="text-left text-[#134e40] dark:text-[#0eb59a] font-black">3 expert matches</span> today.
                   </p>
                 </motion.div>
 
@@ -1261,17 +1261,17 @@ const CompanyDashboard = () => {
               {kpiCards.map((kpi, idx) => (
                 <motion.div key={idx} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 * idx }}>
                   <div onClick={() => navigate(kpi.path)}
-                    className={`bg-white dark:bg-[#1a1d23] border border-gray-100 dark:border-white/10 rounded-xl p-5 ${kpi.border} cursor-pointer relative group transition-all duration-200 shadow-[0_4px_20px_rgba(19,78,64,0.07)] hover:shadow-[0_8px_28px_rgba(19,78,64,0.13)] hover:-translate-y-1 flex flex-col items-center justify-center text-center min-h-[160px]`}>
-                    <div className={`absolute top-0 left-0 right-0 h-0.5 rounded-t-xl ${kpi.iconBg} opacity-60`} />
+                    className={`bg-white dark:bg-[#252830] border border-gray-100 dark:border-white/10 rounded-xl p-5 ${kpi.border} cursor-pointer relative group transition-all duration-200 shadow-[0_4px_20px_rgba(19,78,64,0.07)] hover:shadow-[0_8px_28px_rgba(19,78,64,0.13)] hover:-translate-y-1 flex flex-col items-center justify-center text-center min-h-[160px]`}>
+                    <div className={`absolute top-0 left-0 right-0 h-1 rounded-t-xl ${kpi.border.replace('border-t-4 ', '')} opacity-100`} />
 
                     <div className={`w-10 h-10 ${kpi.iconBg} rounded-full flex items-center justify-center shrink-0 mb-3 group-hover:scale-110 transition-transform duration-200 shadow-sm mx-auto`}>
                       <kpi.icon size={18} className={kpi.iconColor} />
                     </div>
                     <span className="text-[10px] font-bold text-gray-400 dark:text-gray-400 uppercase tracking-widest leading-tight mb-1">{kpi.title}</span>
-                    <p className={`text-2xl sm:text-3xl font-black mb-2 tracking-tight ${kpi.numColor} dark:text-white`}>
+                    <p className={`text-2xl sm:text-3xl font-black mb-2 tracking-tight ${kpi.numColor} dark:!text-white`}>
                       {mounted ? <AnimatedCounter value={kpi.value} /> : kpi.value}
                     </p>
-                    <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-gray-500 bg-emerald-50 px-2.5 py-1 rounded-lg">
+                    <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-[#0eb59a] bg-emerald-50 dark:bg-[#0eb59a]/10 px-2.5 py-1 rounded-lg">
                       <ArrowUpRight size={9} /> {kpi.trend}
                     </div>
                   </div>
@@ -1287,11 +1287,11 @@ const CompanyDashboard = () => {
                   whileHover={{ y: -4, boxShadow: '0 12px 30px rgba(0,0,0,0.08)' }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ duration: 0.2 }}
-                  className="relative group flex flex-col items-center gap-2 p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#1a1d23] border border-gray-100 dark:border-white/10 dark:text-gray-300 hover:border-[#0eb59a]/30 cursor-pointer transition-all duration-200 shadow-sm text-center overflow-hidden">
-                  <div className={`w-9 h-9 sm:w-11 sm:h-11 ${action.bg} dark:bg-[#22252e] rounded-xl sm:rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}>
+                  className="relative group flex flex-col items-center gap-2 p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#252830] border border-gray-100 dark:border-white/10 dark:text-gray-300 hover:border-[#0eb59a]/30 hover:dark:bg-[#252830] cursor-pointer transition-all duration-200 shadow-sm dark:shadow-[0_2px_12px_rgba(0,0,0,0.3)] text-center overflow-hidden">
+                  <div className={`w-10 h-10 ${action.bg} dark:bg-white/10 rounded-xl flex items-center justify-center mb-1 group-hover:scale-110 transition-transform duration-200`}>
                     <action.icon size={17} className={action.iconColor} />
                   </div>
-                  <span className="text-left text-[10px] sm:text-[11px] font-bold text-gray-500 group-hover:text-gray-900 text-center leading-tight transition-colors">
+                  <span className="text-xs font-bold text-gray-600 dark:text-gray-200 mt-1 text-center">
                     {action.label}
                   </span>
                   <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-150 whitespace-nowrap pointer-events-none z-50 text-left">
@@ -1308,18 +1308,18 @@ const CompanyDashboard = () => {
               transition={{ duration: 0.4, delay: 0.4 }}
               onMouseEnter={() => setIsCarouselHovered(true)}
               onMouseLeave={() => setIsCarouselHovered(false)}
-              className="bg-white dark:bg-[#1a1d23] rounded-3xl border border-gray-100 dark:border-white/10 p-5 sm:p-6 shadow-[0_2px_16px_rgba(0,0,0,0.06)] text-left relative hover:shadow-[0_4px_24px_rgba(0,0,0,0.09)] transition-shadow duration-300"
+              className="bg-white dark:bg-[#1b1d24] rounded-3xl border border-gray-100 dark:border-white/10 p-5 sm:p-6 shadow-[0_2px_16px_rgba(0,0,0,0.06)] text-left relative hover:shadow-[0_4px_24px_rgba(0,0,0,0.09)] transition-shadow duration-300"
             >
 
               <div className="flex items-center justify-between mb-6 text-left">
                 <div className="text-left">
-                  <h2 className="text-left text-sm sm:text-base font-black text-gray-900 flex items-center gap-2">
+                  <h2 className="text-left text-sm sm:text-base font-black text-gray-900 dark:text-white flex items-center gap-2">
                     <motion.div animate={{ rotate: [0, 15, -15, 0] }} transition={{ duration: 2, repeat: Infinity, repeatDelay: 2 }}>
                       <Zap size={16} fill="#0eb59a" className="text-[#0eb59a]" />
                     </motion.div>
                     Recommended Experts
                   </h2>
-                  <p className="text-left text-xs text-gray-400 mt-0.5 font-medium">Based on your "Interim CFO" requirement</p>
+                  <p className="text-left text-[11px] text-gray-400 dark:text-gray-500 font-medium mt-0.5">Based on your "Interim CFO" requirement</p>
                 </div>
               </div>
 
@@ -1414,10 +1414,10 @@ const CompanyDashboard = () => {
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.5 }} className="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
               {/* Active Engagements — left 2/3 */}
-              <div className="lg:col-span-2 bg-white dark:bg-[#1a1d23] rounded-3xl border border-gray-100 dark:border-white/10 p-5 sm:p-6 shadow-sm text-left relative">
+              <div className="lg:col-span-2 bg-white dark:bg-[#1b1d24] rounded-3xl border border-gray-100 dark:border-white/10 p-5 sm:p-6 shadow-sm text-left relative">
 
                 <div className="flex items-center justify-between mb-5 text-left">
-                  <h2 className="text-left text-sm sm:text-base font-black text-gray-900 flex items-center gap-2">
+                  <h2 className="text-left text-sm sm:text-base font-black text-gray-900 dark:text-white flex items-center gap-2">
                     <Activity size={16} className="text-[#0eb59a]" /> Active Engagements
                   </h2>
                   <div className="flex items-center gap-1.5 text-left">
@@ -1513,9 +1513,9 @@ const CompanyDashboard = () => {
 
               {/* Pending Actions — right 1/3 */}
               <div className="flex flex-col text-left">
-                <div className="bg-white dark:bg-[#1a1d23] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm overflow-hidden flex flex-col max-h-[520px] text-left relative">
+                <div className="bg-white dark:bg-[#1b1d24] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm overflow-hidden flex flex-col max-h-[520px] text-left relative">
 
-                  <div className="p-4 sm:p-5 border-b border-gray-50 bg-gradient-to-b from-amber-50/40 to-white text-left">
+                  <div className="p-4 sm:p-5 border-b border-gray-50 dark:border-white/5 bg-gradient-to-b from-amber-50/40 to-white dark:from-[#1b1d24] dark:to-[#1b1d24] text-left">
                     <div className="flex items-center justify-between text-left">
                       <h2 className="text-left text-sm font-black text-gray-900 dark:text-white flex items-center gap-2">
                         <motion.div animate={{ rotate: [0, 6, -6, 0] }} transition={{ duration: 0.6, repeat: Infinity, repeatDelay: 2.5 }}>
@@ -1543,7 +1543,7 @@ const CompanyDashboard = () => {
                     ) : (
                       pendingActions.map((action, idx) => (
                         <div key={idx} onClick={() => navigate(action.path)}
-                          className="p-3.5 rounded-2xl border border-gray-100 dark:border-white/10 bg-gray-50/40 dark:bg-[#22252e] hover:bg-white hover:shadow-sm hover:border-[#0eb59a]/30 transition-all duration-150 cursor-pointer group text-left">
+                          className="p-3.5 rounded-2xl border border-gray-100 dark:border-white/10 bg-gray-50/40 dark:bg-[#252830] hover:bg-white dark:hover:bg-[#252830] hover:shadow-sm hover:border-[#0eb59a]/30 transition-all duration-150 cursor-pointer group text-left">
                           <div className="flex items-center justify-between mb-2 text-left">
                             <div className="flex items-center gap-1.5 text-left">
                               <span className={`text-left text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md border ${action.typeColor}`}>
@@ -1559,7 +1559,7 @@ const CompanyDashboard = () => {
                               <Clock size={9} /> {action.time}
                             </span>
                           </div>
-                          <h4 className="text-left font-black text-gray-700 dark:text-white text-xs mb-1 group-hover:text-gray-900 transition-colors leading-snug">
+                          <h4 className="text-left font-black text-gray-700 dark:text-gray-100 text-xs mb-1 group-hover:text-gray-900 dark:group-hover:text-white transition-colors leading-snug">
                             {action.title}
                           </h4>
                           <p className="text-left text-[10px] text-gray-400 dark:text-gray-400 flex items-center gap-1.5 mb-3">
@@ -1576,7 +1576,7 @@ const CompanyDashboard = () => {
                   </div>
 
                   <div className="p-4 border-t border-gray-50 bg-gray-50/30 text-center">
-                    <motion.button whileHover={{ scale: 1.02 }} onClick={() => navigate('/notifications')}
+                    <motion.button whileHover={{ scale: 1.02 }} onClick={() => navigate('/company-dashboard')}
                       className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors flex items-center gap-1 mx-auto text-left">
                       View All History <ChevronRight size={12} />
                     </motion.button>
