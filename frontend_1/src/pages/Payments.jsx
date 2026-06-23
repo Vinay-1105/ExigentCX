@@ -1,4 +1,5 @@
 import Logo from '../components/Logo';
+import ThemeToggle from '../components/ThemeToggle';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabaseClient';
@@ -14,7 +15,7 @@ import {
   LayoutDashboard, Bell, Settings, ShieldCheck,
   ChevronLeft, ArrowLeft, LogOut, MessageSquare
 } from 'lucide-react';
-import FormalCardBorder from '../components/FormalCardBorder';
+
 
 const Payments = () => {
   const navigate = useNavigate();
@@ -215,7 +216,7 @@ const Payments = () => {
     switch (type) {
       case 'milestone_release': return { icon: Unlock, color: 'text-red-500', bg: 'bg-red-50' };
       case 'escrow_add': return { icon: Plus, color: 'text-emerald-500', bg: 'bg-emerald-50' };
-      case 'platform_fee': return { icon: Shield, color: 'text-purple-500', bg: 'bg-purple-50' };
+      case 'platform_fee': return { icon: Shield, color: 'text-[#134e40]', bg: 'bg-[#134e40]/10' };
       default: return { icon: DollarSign, color: 'text-gray-400', bg: 'bg-gray-50' };
     }
   };
@@ -318,23 +319,26 @@ const Payments = () => {
   };
 
   return (
-  <div className="min-h-screen bg-[#f4f7f5]">
+  <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0d1a14]">
 
     {/* ── SIDEBAR ── */}
     <motion.aside
       initial={{ width: 260 }}
       animate={{ width: isSidebarOpen ? 260 : 68 }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-      className="bg-white border-r border-gray-100 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+      className="bg-white dark:bg-[#0a1810] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
     >
-      <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 justify-between">
-          <motion.div
-            animate={{ width: isSidebarOpen ? 'auto' : 0, opacity: isSidebarOpen ? 1 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden shrink-0 flex items-center"
-          >
-            <div className="cursor-pointer" onClick={() => window.location.reload()}><Logo variant="dark" className="h-8" /></div>
-          </motion.div>
+      <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
+          <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/company-dashboard')}>
+            <Logo variant="light" className="h-8 shrink-0" />
+            <motion.span
+              animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden whitespace-nowrap text-sm font-black text-[#134e40] dark:text-[#0eb59a] tracking-tight"
+            >
+              ExigentCX
+            </motion.span>
+          </div>
         <motion.button
           animate={{ marginLeft: isSidebarOpen ? 'auto' : 'auto' }}
           whileHover={{ scale: 1.1 }}
@@ -348,7 +352,7 @@ const Payments = () => {
 
       <nav className="flex-1 px-3 py-2 space-y-0.5 overflow-hidden">
         {isSidebarOpen && (
-          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2 mb-2">Main Menu</p>
+          <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest px-2 mb-2">Main Menu</p>
         )}
         {navItems.map((item) => {
           const isActive = item.active || window.location.pathname === item.path || (item.path === '/experts' && window.location.pathname.startsWith('/experts'));
@@ -361,7 +365,7 @@ const Payments = () => {
               className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
                 isActive
                   ? 'bg-[#134e40] text-white shadow-md'
-                  : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'
               }`}
             >
               {isActive && (
@@ -387,7 +391,15 @@ const Payments = () => {
       </nav>
 
       {/* Separated Settings option pinned to the bottom */}
-      <div className="p-3 border-t border-gray-50 space-y-1">
+      <div className="p-3 border-t border-gray-50 dark:border-white/10 space-y-1">
+        {/* Theme Toggle */}
+        <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
+          {isSidebarOpen && (
+            <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Theme</span>
+          )}
+          <ThemeToggle />
+        </div>
+
         <motion.button
           whileHover={{ x: 2, transition: { duration: 0.15 } }}
           whileTap={{ scale: 0.97 }}
@@ -395,7 +407,7 @@ const Payments = () => {
           className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
             window.location.pathname === '/settings'
               ? 'bg-[#134e40] text-white shadow-md'
-              : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+              : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'
           }`}
         >
           {window.location.pathname === '/settings' && (
@@ -449,7 +461,7 @@ const Payments = () => {
       }}
     >
 
-      <header className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-sm px-6 py-3 flex items-center gap-4">
+      <header className="sticky top-0 z-30 bg-white dark:bg-[#0a1810] border-b border-gray-100 dark:border-white/10 shadow-sm px-6 py-3 flex items-center gap-4">
         <div className="flex-1" />
 
 
@@ -558,35 +570,33 @@ const Payments = () => {
         {/* ── KPI CARDS ── */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {[
-            { label: 'Escrow Balance', value: escrowSummary.totalBalance, icon: Wallet, iconBg: 'bg-teal-50', iconColor: 'text-[#0eb59a]', numColor: 'text-[#134e40]', border: 'border-t-4 border-t-[#0eb59a]', sub: 'Secured funds' },
-            { label: 'Total Released', value: escrowSummary.totalSpent, icon: Unlock, iconBg: 'bg-emerald-50', iconColor: 'text-emerald-500', numColor: 'text-emerald-700', border: 'border-t-4 border-t-emerald-400', sub: '4 milestones paid' },
-            { label: 'Pending Release', value: escrowSummary.pendingRelease, icon: Clock, iconBg: 'bg-amber-50', iconColor: 'text-amber-500', numColor: 'text-amber-700', border: 'border-t-4 border-t-amber-400', sub: 'Awaiting approval' },
-            { label: 'Total Committed', value: escrowSummary.totalEngagementValue, icon: Target, iconBg: 'bg-purple-50', iconColor: 'text-purple-500', numColor: 'text-purple-700', border: 'border-t-4 border-t-purple-400', sub: '2 engagements' },
+            { label: 'Escrow Balance', value: escrowSummary.totalBalance, icon: Wallet, iconBg: 'bg-teal-50 dark:bg-[#0eb59a]/10', iconColor: 'text-[#0eb59a]', numColor: 'text-[#134e40] dark:text-[#0eb59a]', border: 'border-t-4 border-t-[#0eb59a]', sub: 'Secured funds' },
+            { label: 'Total Released', value: escrowSummary.totalSpent, icon: Unlock, iconBg: 'bg-emerald-50 dark:bg-emerald-900/20', iconColor: 'text-emerald-500', numColor: 'text-emerald-700 dark:text-emerald-400', border: 'border-t-4 border-t-emerald-400', sub: '4 milestones paid' },
+            { label: 'Pending Release', value: escrowSummary.pendingRelease, icon: Clock, iconBg: 'bg-amber-50 dark:bg-amber-900/20', iconColor: 'text-amber-500', numColor: 'text-amber-700 dark:text-amber-400', border: 'border-t-4 border-t-amber-400', sub: 'Awaiting approval' },
+            { label: 'Total Committed', value: escrowSummary.totalEngagementValue, icon: Target, iconBg: 'bg-[#134e40]/10 dark:bg-[#0eb59a]/10', iconColor: 'text-[#134e40] dark:text-[#0eb59a]', numColor: 'text-[#134e40] dark:text-[#0eb59a]', border: 'border-t-4 border-t-[#134e40] dark:border-t-[#0eb59a]', sub: '2 engagements' },
           ].map((card, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.07 }}
-              whileHover={{ y: -4, boxShadow: '0 12px 30px rgba(0,0,0,0.08)', transition: { duration: 0.2 } }}
-              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
-              className={`bg-white rounded-2xl p-5 ${card.border} cursor-default relative overflow-hidden flex flex-col items-center text-center justify-center`}
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              className={`bg-gradient-to-br from-white to-[#f4f7f5] dark:from-[#0d2318] dark:to-[#0a1e13] rounded-2xl p-5 ${card.border} cursor-default relative overflow-hidden flex flex-col items-center text-center justify-center shadow-[0_4px_20px_rgba(19,78,64,0.07)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.05)] hover:shadow-[0_8px_30px_rgba(19,78,64,0.12)] dark:hover:shadow-[0_8px_30px_rgba(14,181,154,0.08)] transition-shadow`}
             >
-              <FormalCardBorder />
               <div className="flex flex-col items-center gap-1.5 mb-2 relative z-10">
                 <div className={`w-8 h-8 ${card.iconBg} rounded-lg flex items-center justify-center shrink-0`}>
                   <card.icon size={14} className={card.iconColor} />
                 </div>
-                <span className="text-[10px] sm:text-[11px] font-black text-gray-400 uppercase tracking-widest text-center">{card.label}</span>
+                <span className="text-[10px] sm:text-[11px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest text-center">{card.label}</span>
               </div>
               <p className={`text-[24px] sm:text-[28px] font-black ${card.numColor} tracking-tight leading-none text-center mb-1.5 relative z-10`}>{card.value}</p>
-              <p className="text-xs text-gray-400 font-bold text-center relative z-10">{card.sub}</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500 font-bold text-center relative z-10">{card.sub}</p>
             </motion.div>
           ))}
         </div>
 
         {/* ── TABS ── */}
-        <div className="flex gap-1 bg-white rounded-2xl p-1 w-fit" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+        <div className="flex gap-1 bg-white dark:bg-[#0d2318] rounded-2xl p-1 w-fit shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
           {tabs.map(tab => (
             <motion.button
               key={tab}
@@ -596,7 +606,7 @@ const Payments = () => {
               className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all ${
                 activeTab === tab
                   ? 'bg-[#134e40] text-white shadow-md'
-                  : 'text-gray-500 hover:text-[#134e40] hover:bg-gray-50'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-50 dark:hover:bg-white/5'
               }`}
             >
               {tab}
@@ -621,10 +631,10 @@ const Payments = () => {
               <div className="lg:col-span-2 space-y-5">
 
                 {/* Active Escrow Accounts */}
-                <div className="bg-white rounded-2xl p-5 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
-                  <FormalCardBorder />
+                <div className="bg-gradient-to-br from-white to-[#f4f7f5] dark:from-[#0d2318] dark:to-[#0a1e13] rounded-2xl p-5 relative overflow-hidden shadow-[0_4px_20px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.04)]">
+
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-black text-[#1C3627] text-sm flex items-center gap-2 text-left">
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 text-left">
                       <Lock size={14} className="text-[#0eb59a]" /> Active Escrow Accounts
                     </h3>
                     <motion.button
@@ -722,9 +732,9 @@ const Payments = () => {
                 </div>
 
                 {/* Monthly Spend Chart */}
-                <div className="bg-white rounded-2xl p-5 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
-                  <FormalCardBorder />
-                  <h3 className="font-black text-[#1C3627] text-sm flex items-center gap-2 mb-5 text-left">
+                <div className="bg-gradient-to-br from-white to-[#f4f7f5] dark:from-[#0d2318] dark:to-[#0a1e13] rounded-2xl p-5 relative overflow-hidden shadow-[0_4px_20px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.04)]">
+
+                  <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 mb-5 text-left">
                     <BarChart2 size={14} className="text-[#0eb59a]" /> Monthly Spend
                   </h3>
                    <div className="flex items-end gap-3 h-36 mt-6 mb-4">
@@ -770,7 +780,7 @@ const Payments = () => {
 
                 {/* Recent Activity */}
                 <div className="bg-white rounded-2xl p-5 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
-                  <FormalCardBorder />
+
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-black text-[#1C3627] text-sm flex items-center gap-2 text-left">
                       <Clock size={13} className="text-[#0eb59a]" /> Recent Activity
@@ -846,7 +856,7 @@ const Payments = () => {
 
                 {/* Quick Actions */}
                 <div className="bg-white rounded-2xl p-5 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
-                  <FormalCardBorder />
+
                   <h3 className="font-black text-[#1C3627] text-sm mb-3 text-left">Quick Actions</h3>
                   <div className="space-y-1">
                     {[
@@ -893,7 +903,7 @@ const Payments = () => {
                     placeholder="Search transactions..."
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-left text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-white/5 dark:text-gray-200 dark:placeholder-gray-500 border border-gray-200 dark:border-white/10 rounded-xl text-sm text-left text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
                     style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
                   />
                 </div>
@@ -907,7 +917,7 @@ const Payments = () => {
                       className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                         filterStatus === f
                           ? 'bg-[#134e40] text-white shadow-md'
-                          : 'bg-white text-gray-500 border border-gray-200 hover:border-[#0eb59a]/40 hover:text-[#0eb59a]'
+                          : 'bg-white dark:bg-white/5 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-white/10 hover:border-[#0eb59a]/40 hover:text-[#0eb59a]'
                       }`}
                     >
                       {f}
@@ -916,10 +926,10 @@ const Payments = () => {
                 </div>
               </div>
 
-              <div className="bg-white rounded-2xl overflow-hidden relative" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
-                <FormalCardBorder />
-                <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
-                  <h3 className="font-black text-[#1C3627] text-sm text-left">
+              <div className="bg-white dark:bg-[#0d2318] rounded-2xl overflow-hidden relative shadow-[0_4px_20px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.04)]">
+
+                <div className="px-6 py-4 border-b border-gray-50 dark:border-white/10 flex items-center justify-between">
+                  <h3 className="font-black text-[#1C3627] dark:text-white text-sm text-left">
                     All Transactions
                     <span className="ml-2 text-xs font-bold text-gray-400 bg-gray-50 px-2 py-0.5 rounded-lg border border-gray-100">
                       {filteredTransactions.length}
@@ -935,7 +945,7 @@ const Payments = () => {
                   </motion.button>
                 </div>
 
-                <div className="divide-y divide-gray-50">
+                <div className="divide-y divide-gray-50 dark:divide-white/5">
                   {filteredTransactions.map((tx, idx) => {
                     const txIcon = getTxIcon(tx.type);
                     return (
@@ -945,13 +955,13 @@ const Payments = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: idx * 0.05 }}
                         whileHover={{ backgroundColor: '#F9FAFB', transition: { duration: 0.15 } }}
-                        className="flex items-center gap-4 px-6 py-4 cursor-default"
+                        className="flex items-center gap-4 px-6 py-4 cursor-default hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
                       >
                         <div className={`w-9 h-9 ${txIcon.bg} rounded-xl flex items-center justify-center shrink-0`}>
                           <txIcon.icon size={15} className={txIcon.color} />
                         </div>
                         <div className="flex-1 min-w-0 text-left">
-                          <p className="font-bold text-[#1C3627] text-sm truncate text-left">{tx.description}</p>
+                          <p className="font-bold text-[#1C3627] dark:text-white text-sm truncate text-left">{tx.description}</p>
                           <p className="text-xs text-gray-400 font-medium text-left">
                             {tx.engagement} {tx.expert !== '—' ? `· ${tx.expert}` : ''}
                           </p>
@@ -989,7 +999,7 @@ const Payments = () => {
               className="space-y-3"
             >
               <div className="flex items-center justify-between">
-                <h3 className="font-black text-[#1C3627] text-sm text-left">
+                <h3 className="font-black text-[#1C3627] dark:text-white text-sm text-left">
                   All Invoices
                   <span className="ml-2 text-xs font-bold text-gray-400">({invoices.length})</span>
                 </h3>
@@ -1013,19 +1023,19 @@ const Payments = () => {
                   transition={{ delay: idx * 0.07 }}
                   whileHover={{ y: -3, boxShadow: '0 12px 30px rgba(0,0,0,0.07)', transition: { duration: 0.2 } }}
                   style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
-                  className="bg-white rounded-2xl p-5 flex items-center gap-4 group cursor-default relative overflow-hidden"
+                  className="bg-gradient-to-br from-white to-[#f4f7f5] dark:from-[#0d2318] dark:to-[#0a1e13] rounded-2xl p-5 flex items-center gap-4 group cursor-default relative overflow-hidden shadow-[0_4px_20px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.04)] hover:shadow-[0_8px_28px_rgba(19,78,64,0.10)] transition-shadow"
                 >
-                  <FormalCardBorder />
+
                   <motion.div
                     whileHover={{ rotate: -5, scale: 1.05 }}
-                    className="w-11 h-11 bg-blue-50 rounded-xl flex items-center justify-center shrink-0"
+                    className="w-11 h-11 bg-[#0eb59a]/10 dark:bg-[#0eb59a]/15 rounded-xl flex items-center justify-center shrink-0"
                   >
-                    <FileText size={18} className="text-blue-500" />
+                    <FileText size={18} className="text-[#0eb59a]" />
                   </motion.div>
 
                   <div className="flex-1 min-w-0 text-left">
                     <div className="flex items-center gap-2 mb-1">
-                      <h4 className="font-black text-[#1C3627] text-sm truncate text-left">{invoice.title}</h4>
+                      <h4 className="font-black text-[#1C3627] dark:text-white text-sm truncate text-left">{invoice.title}</h4>
                       <span className={`text-[10px] font-black px-2 py-0.5 rounded-lg border shrink-0 ${getStatusStyle(invoice.status)}`}>
                         {invoice.status}
                       </span>
@@ -1147,7 +1157,7 @@ const Payments = () => {
                     className="bg-white rounded-2xl p-5 relative overflow-hidden"
                     style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
                   >
-                    <FormalCardBorder />
+
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-3">
                         <img src={account.expertAvatar} className="w-11 h-11 rounded-xl object-cover shadow-sm" />
@@ -1556,12 +1566,12 @@ const Payments = () => {
             className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden"
           >
             {/* Gradient header */}
-            <div style={{ background: 'linear-gradient(135deg, #1e3a5f, #1d4ed8)', padding: '24px' }}>
+            <div style={{ background: 'linear-gradient(135deg, #134e40, #0eb59a)', padding: '24px' }}>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-blue-200 text-[10px] font-black uppercase tracking-widest text-left">Invoice</p>
+                  <p className="text-white/60 text-[10px] font-black uppercase tracking-widest text-left">Invoice</p>
                   <h3 className="text-white font-black text-lg text-left">{showInvoiceModal.id}</h3>
-                  <p className="text-blue-200 text-xs text-left">{showInvoiceModal.type}</p>
+                  <p className="text-white/60 text-xs text-left">{showInvoiceModal.type}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <motion.button
@@ -1624,10 +1634,10 @@ const Payments = () => {
                   Close
                 </motion.button>
                 <motion.button
-                  whileHover={{ scale: 1.02, boxShadow: '0 8px 20px rgba(29,78,216,0.25)' }}
+                  whileHover={{ scale: 1.02, boxShadow: '0 8px 20px rgba(14,181,154,0.25)' }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleDownloadInvoice(showInvoiceModal)}
-                  className="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-black rounded-2xl shadow-md transition-all flex items-center justify-center gap-2"
+                  className="flex-1 py-3 bg-[#134e40] hover:bg-[#0eb59a] text-white text-sm font-black rounded-2xl shadow-md transition-all flex items-center justify-center gap-2"
                 >
                   <Download size={14} /> Download PDF
                 </motion.button>

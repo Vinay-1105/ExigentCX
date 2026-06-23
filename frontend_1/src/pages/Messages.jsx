@@ -1,4 +1,5 @@
 import Logo from '../components/Logo';
+import ThemeToggle from '../components/ThemeToggle';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabaseClient';
@@ -10,7 +11,7 @@ import {
   CheckCheck, Shield, ChevronDown, Award, Sparkles, X, File, Download,
   CheckCircle, ShieldAlert, ArrowLeft, Settings, UserCircle, Briefcase, Activity, IndianRupee, Info
 } from 'lucide-react';
-import FormalCardBorder from '../components/FormalCardBorder';
+
 
 const Messages = () => {
   const navigate = useNavigate();
@@ -337,28 +338,31 @@ const Messages = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#f4f7f5] text-slate-900 font-sans flex overflow-hidden">
+    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0d1a14] text-slate-900 font-sans flex overflow-hidden">
 
       {/* ── SIDEBAR ── */}
       <motion.aside
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-white border-r border-gray-100 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white dark:bg-[#0a1810] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
-        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 justify-between">
-          <motion.div
-            animate={{ width: isSidebarOpen ? 'auto' : 0, opacity: isSidebarOpen ? 1 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden shrink-0 flex items-center"
-          >
-            <div className="cursor-pointer" onClick={() => window.location.reload()}><Logo variant="dark" className="h-8" /></div>
-          </motion.div>
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
+          <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/company-dashboard')}>
+            <Logo variant="light" className="h-8 shrink-0" />
+            <motion.span
+              animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden whitespace-nowrap text-sm font-black text-[#134e40] dark:text-[#0eb59a] tracking-tight"
+            >
+              ExigentCX
+            </motion.span>
+          </div>
           <motion.button
-            animate={{ marginLeft: isSidebarOpen ? 'auto' : 'auto' }}
-            whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="w-7 h-7 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#134e40] hover:bg-gray-100 transition-all shrink-0"
+            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 transition-all shrink-0"
           >
             {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
           </motion.button>
@@ -401,7 +405,15 @@ const Messages = () => {
         </nav>
 
         {/* Pinned Bottom Option */}
-        <div className="p-3 border-t border-gray-50 space-y-1">
+        <div className="p-3 border-t border-gray-50 dark:border-white/10 space-y-1">
+          {/* Theme Toggle */}
+          <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
+            {isSidebarOpen && (
+              <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Theme</span>
+            )}
+            <ThemeToggle />
+          </div>
+
           <motion.button
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
@@ -531,7 +543,7 @@ const Messages = () => {
         >
 
           {/* Header */}
-          <div className="h-16 bg-white border-b border-gray-150 flex items-center justify-between px-6 shrink-0 z-10 shadow-sm">
+          <div className="h-16 bg-white dark:bg-[#0a1810] border-b border-gray-150 dark:border-white/10 flex items-center justify-between px-6 shrink-0 z-10 shadow-sm">
             <div className="flex items-center gap-3">
               <div className={`w-10 h-10 rounded-full bg-gradient-to-tr ${activeThread.avatarColor} flex items-center justify-center font-bold text-white text-sm shrink-0 shadow-inner`}>
                 {activeThread.initials}
@@ -793,7 +805,7 @@ const Messages = () => {
               <div className="flex-1 overflow-y-auto p-4 space-y-5">
                 {/* Profile Card */}
                 <div className="flex flex-col items-center text-center p-4 bg-slate-50 border border-gray-100 rounded-3xl relative overflow-hidden">
-                  <FormalCardBorder />
+
                   <div className={`w-16 h-16 rounded-full bg-gradient-to-tr ${activeThread.avatarColor} flex items-center justify-center font-bold text-white text-xl shadow-md mb-3`}>
                     {activeThread.initials}
                   </div>
@@ -876,7 +888,7 @@ const Messages = () => {
               exit={{ scale: 0.95, opacity: 0 }}
               className="bg-white rounded-3xl p-6 w-full max-w-md relative overflow-hidden shadow-2xl text-left"
             >
-              <FormalCardBorder />
+
 
               {/* Close Button */}
               <button

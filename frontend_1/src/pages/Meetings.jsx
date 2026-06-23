@@ -1,4 +1,5 @@
 import Logo from '../components/Logo';
+import ThemeToggle from '../components/ThemeToggle';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabaseClient';
@@ -9,7 +10,7 @@ import {
   Bell, LogOut, Video, Clock, AlignLeft, Shield, AlertCircle, Trash2,
   CheckCircle2, HelpCircle, History, Sparkles, Settings, UserCircle, Briefcase, Activity, IndianRupee
 } from 'lucide-react';
-import FormalCardBorder from '../components/FormalCardBorder';
+
 
 const Meetings = () => {
   const navigate = useNavigate();
@@ -150,28 +151,31 @@ const Meetings = () => {
   const currentMeetingsList = activeTab === 'upcoming' ? upcomingMeetings : pastMeetings;
 
   return (
-    <div className="min-h-screen bg-[#f4f7f5] text-slate-900 font-sans flex overflow-hidden">
+    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0d1a14] text-slate-900 font-sans flex overflow-hidden">
 
       {/* ── SIDEBAR ── */}
       <motion.aside
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-white border-r border-gray-100 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white dark:bg-[#0a1810] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
-        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 justify-between">
-          <motion.div
-            animate={{ width: isSidebarOpen ? 'auto' : 0, opacity: isSidebarOpen ? 1 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden shrink-0 flex items-center"
-          >
-            <div className="cursor-pointer" onClick={() => window.location.reload()}><Logo variant="dark" className="h-8" /></div>
-          </motion.div>
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
+          <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/company-dashboard')}>
+            <Logo variant="light" className="h-8 shrink-0" />
+            <motion.span
+              animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden whitespace-nowrap text-sm font-black text-[#134e40] dark:text-[#0eb59a] tracking-tight"
+            >
+              ExigentCX
+            </motion.span>
+          </div>
           <motion.button
-            animate={{ marginLeft: isSidebarOpen ? 'auto' : 'auto' }}
-            whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="w-7 h-7 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#134e40] hover:bg-gray-100 transition-all shrink-0"
+            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 transition-all shrink-0"
           >
             {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
           </motion.button>
@@ -214,7 +218,15 @@ const Meetings = () => {
         </nav>
 
         {/* Settings pinned bottom */}
-        <div className="p-3 border-t border-gray-50 space-y-1">
+        <div className="p-3 border-t border-gray-50 dark:border-white/10 space-y-1">
+          {/* Theme Toggle */}
+          <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
+            {isSidebarOpen && (
+              <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Theme</span>
+            )}
+            <ThemeToggle />
+          </div>
+
           <motion.button
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
@@ -262,7 +274,7 @@ const Meetings = () => {
       >
 
         {/* Top Header */}
-        <header className="h-16 border-b border-gray-150 bg-white flex items-center justify-between px-6 sticky top-0 z-30 shadow-sm shrink-0">
+        <header className="h-16 border-b border-gray-150 dark:border-white/10 bg-white dark:bg-[#0a1810] flex items-center justify-between px-6 sticky top-0 z-30 shadow-sm shrink-0">
           <h1 className="font-black text-[#1C3627] text-lg">Scheduled Meetings ({isExpert ? 'Expert Portal' : 'Client Portal'})</h1>
 
           <div className="flex items-center gap-3">
@@ -359,7 +371,7 @@ const Meetings = () => {
                 transition={{ delay: idx * 0.05 }}
                 className="bg-white rounded-3xl p-5 border border-gray-150 flex flex-col md:flex-row md:items-center justify-between gap-5 relative overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200"
               >
-                <FormalCardBorder />
+
 
                 {/* Meeting details */}
                 <div className="flex-1 space-y-4">
@@ -448,7 +460,7 @@ const Meetings = () => {
                 animate={{ opacity: 1 }}
                 className="bg-white rounded-3xl p-10 border border-gray-150 text-center flex flex-col items-center justify-center gap-4 relative overflow-hidden"
               >
-                <FormalCardBorder />
+
                 <div className="w-12 h-12 bg-slate-50 text-gray-400 rounded-full flex items-center justify-center mb-1">
                   <Calendar size={20} />
                 </div>

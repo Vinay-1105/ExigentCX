@@ -1,3 +1,5 @@
+import Logo from '../components/Logo';
+import ThemeToggle from '../components/ThemeToggle';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/lib/supabaseClient';
@@ -899,7 +901,7 @@ const CreateRequirement = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-[#f8fafc]">
+    <div className="min-h-screen flex bg-[#f8fafc] dark:bg-[#0d1a14]">
 
       {/* LEFT PANEL — Fixed branding */}
       <div className="hidden lg:flex w-[420px] min-h-screen bg-[#134e40] fixed left-0 top-0 bottom-0 flex flex-col overflow-hidden" style={{ zIndex: 20 }}>

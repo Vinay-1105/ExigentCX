@@ -1,4 +1,5 @@
 import Logo from '../components/Logo';
+import ThemeToggle from '../components/ThemeToggle';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '@/lib/supabaseClient';
@@ -12,7 +13,7 @@ import {
   Building, ChevronDown, LayoutDashboard, Bell, Settings,
   ShieldCheck, ChevronLeft, BarChart2, CreditCard, LogOut, MessageSquare
 } from 'lucide-react';
-import FormalCardBorder from '../components/FormalCardBorder';
+
 
 const staticMockContracts = [
   {
@@ -470,29 +471,31 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f7f5]">
+    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0d1a14]">
 
       {/* ── SIDEBAR ── */}
       <motion.aside
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-white border-r border-gray-100 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white border-r border-gray-100 dark:bg-[#0a1810] dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
-        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50">
-          <motion.div
-            animate={{ width: isSidebarOpen ? 'auto' : 0, opacity: isSidebarOpen ? 1 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden shrink-0 flex items-center"
-          >
-            <div className="cursor-pointer" onClick={() => window.location.reload()}><Logo variant="dark" className="h-8" /></div>
-          </motion.div>
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
+          <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/company-dashboard')}>
+            <Logo variant="light" className="h-8 shrink-0" />
+            <motion.span
+              animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden whitespace-nowrap text-sm font-black text-[#134e40] dark:text-[#0eb59a] tracking-tight"
+            >
+              ExigentCX
+            </motion.span>
+          </div>
           <motion.button
-            animate={{ marginLeft: isSidebarOpen ? 'auto' : 0 }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="w-7 h-7 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#134e40] hover:bg-gray-100 transition-all shrink-0"
+            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 transition-all shrink-0"
           >
             {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
           </motion.button>
@@ -537,6 +540,13 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
 
         {/* Separated Settings option pinned to the bottom */}
         <div className="p-3 border-t border-gray-50 space-y-1">
+          <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
+            {isSidebarOpen && (
+              <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Theme</span>
+            )}
+            <ThemeToggle />
+          </div>
+
           <motion.button
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
@@ -609,7 +619,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
       >
 
         {/* ── TOP HEADER ── */}
-        <header className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-sm px-6 py-3 flex items-center gap-4">
+        <header className="sticky top-0 z-30 bg-white border-b border-gray-100 dark:bg-[#0a1810] dark:border-white/10 shadow-sm px-6 py-3 flex items-center gap-4">
           <div className="flex items-center gap-1.5 text-xs text-gray-400 flex-1">
             <button onClick={() => navigate('/company-dashboard')} className="hover:text-[#134e40] font-semibold transition-colors">Dashboard</button>
             <ChevronRight size={12} className="text-gray-300" />
@@ -727,7 +737,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                 style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
                 className={`bg-white rounded-2xl p-4 border-l-4 ${stat.border} cursor-default relative overflow-hidden`}
               >
-                <FormalCardBorder />
+
                 <div className="flex items-center gap-2 mb-2 relative z-10">
                   <div className={`w-6 h-6 ${stat.iconBg} rounded-md flex items-center justify-center shrink-0`}>
                     <stat.icon size={12} className={stat.iconColor} />
@@ -861,7 +871,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
                       className={`bg-white rounded-2xl overflow-hidden group cursor-default relative ${contract.status === 'Expired' ? 'opacity-60' : ''
                         }`}
                     >
-                      <FormalCardBorder />
+
                       <div className="p-5 relative z-10">
                         <div className="flex items-start gap-4">
 

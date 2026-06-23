@@ -1,4 +1,5 @@
 import Logo from '../components/Logo';
+import ThemeToggle from '../components/ThemeToggle';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabaseClient';
@@ -13,7 +14,7 @@ import {
   ShieldCheck, Menu, BarChart2, MessageSquare, Grid,
   Heart, Check
 } from 'lucide-react';
-import FormalCardBorder from '../components/FormalCardBorder';
+
 
 const Requirements = () => {
   const navigate = useNavigate();
@@ -268,42 +269,42 @@ const Requirements = () => {
     switch(status) {
       case 'Active':
         return {
-          bg: 'bg-white',
-          shadow: 'shadow-[0_8px_30px_rgba(0,0,0,0.06)]',
-          border: 'border-gray-100',
+          bg: 'bg-gradient-to-br from-white to-[#f0f7f4] dark:from-[#0d2318] dark:to-[#0a1e13]',
+          shadow: 'shadow-[0_4px_24px_rgba(19,78,64,0.08)] dark:shadow-[0_4px_24px_rgba(14,181,154,0.06)]',
+          border: 'border-[#0eb59a]/15 dark:border-[#0eb59a]/20',
           bar: 'bg-[#0eb59a]',
           barWidth: 'w-1.5',
         };
       case 'Shortlisting':
         return {
-          bg: 'bg-white',
-          shadow: 'shadow-[0_8px_30px_rgba(0,0,0,0.05)]',
-          border: 'border-amber-100',
+          bg: 'bg-gradient-to-br from-white to-amber-50/60 dark:from-[#0d2318] dark:to-[#1a1a0a]',
+          shadow: 'shadow-[0_4px_24px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_24px_rgba(245,158,11,0.06)]',
+          border: 'border-amber-100 dark:border-amber-900/30',
           bar: 'bg-amber-400',
           barWidth: 'w-1.5',
         };
       case 'Draft':
         return {
-          bg: 'bg-[#FAFBF9]',
+          bg: 'bg-[#FAFBF9] dark:bg-[#0d1f16]',
           shadow: 'shadow-none',
-          border: 'border-gray-100',
-          bar: 'bg-slate-300',
+          border: 'border-gray-100 dark:border-white/5',
+          bar: 'bg-slate-300 dark:bg-slate-600',
           barWidth: 'w-1',
         };
       case 'Closed':
         return {
-          bg: 'bg-[#FAFBF9]',
+          bg: 'bg-[#FAFBF9] dark:bg-[#0d1f16]',
           shadow: 'shadow-none',
-          border: 'border-gray-100',
-          bar: 'bg-slate-200',
+          border: 'border-gray-100 dark:border-white/5',
+          bar: 'bg-slate-200 dark:bg-slate-700',
           barWidth: 'w-1',
         };
       default:
         return {
-          bg: 'bg-white',
+          bg: 'bg-white dark:bg-[#0d2318]',
           shadow: 'shadow-sm',
-          border: 'border-gray-100',
-          bar: 'bg-gray-200',
+          border: 'border-gray-100 dark:border-white/10',
+          bar: 'bg-gray-200 dark:bg-gray-600',
           barWidth: 'w-1',
         };
     }
@@ -312,15 +313,15 @@ const Requirements = () => {
   const getTypeBadge = (type) => {
     switch(type) {
       case 'Interim':
-        return 'bg-purple-50 text-purple-700 border border-purple-200 ring-0';
+        return 'bg-[#134e40]/10 text-[#134e40] dark:bg-[#0eb59a]/10 dark:text-[#0eb59a] border border-[#134e40]/20 dark:border-[#0eb59a]/20';
       case 'Fractional':
-        return 'bg-blue-50 text-blue-700 border border-blue-200';
+        return 'bg-teal-50 text-teal-700 dark:bg-teal-900/20 dark:text-teal-400 border border-teal-200 dark:border-teal-800/40';
       case 'Advisory':
-        return 'bg-amber-50 text-amber-700 border border-amber-200';
+        return 'bg-amber-50 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400 border border-amber-200 dark:border-amber-800/40';
       case 'Project':
-        return 'bg-teal-50 text-teal-700 border border-teal-200';
+        return 'bg-[#0eb59a]/10 text-[#0eb59a] dark:bg-[#0eb59a]/15 dark:text-[#0eb59a] border border-[#0eb59a]/20';
       default:
-        return 'bg-gray-50 text-gray-600 border border-gray-200';
+        return 'bg-gray-50 text-gray-600 dark:bg-white/5 dark:text-gray-400 border border-gray-200 dark:border-white/10';
     }
   };
 
@@ -350,24 +351,27 @@ const Requirements = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f4f7f5]">
+    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0d1a14]">
 
       {/* ── SIDEBAR ── */}
       <motion.aside
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-white border-r border-gray-100 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white dark:bg-[#0a1810] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
         {/* Brand */}
-        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 justify-between">
-          <motion.div
-            animate={{ width: isSidebarOpen ? 'auto' : 0, opacity: isSidebarOpen ? 1 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden shrink-0 flex items-center"
-          >
-            <div className="cursor-pointer" onClick={() => window.location.reload()}><Logo variant="dark" className="h-8" /></div>
-          </motion.div>
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
+          <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/company-dashboard')}>
+            <Logo variant="light" className="h-8 shrink-0" />
+            <motion.span
+              animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden whitespace-nowrap text-sm font-black text-[#134e40] dark:text-[#0eb59a] tracking-tight"
+            >
+              ExigentCX
+            </motion.span>
+          </div>
           <motion.button
             animate={{ marginLeft: isSidebarOpen ? 'auto' : 'auto' }}
             whileHover={{ scale: 1.1 }}
@@ -382,7 +386,7 @@ const Requirements = () => {
         {/* Nav */}
         <nav className="flex-1 px-3 py-2 space-y-0.5 overflow-hidden">
           {isSidebarOpen && (
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2 mb-2">Main Menu</p>
+            <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest px-2 mb-2">Main Menu</p>
           )}
           {navItems.map((item) => (
             <motion.button
@@ -393,7 +397,7 @@ const Requirements = () => {
               className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
                 item.active
                   ? 'bg-[#134e40] text-white shadow-md'
-                  : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'
               }`}
             >
               {item.active && (
@@ -418,7 +422,15 @@ const Requirements = () => {
         </nav>
 
         {/* Separated Settings option pinned to the bottom */}
-        <div className="p-3 border-t border-gray-50 space-y-1">
+        <div className="p-3 border-t border-gray-50 dark:border-white/10 space-y-1">
+          {/* Theme Toggle */}
+          <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
+            {isSidebarOpen && (
+              <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Theme</span>
+            )}
+            <ThemeToggle />
+          </div>
+
           <motion.button
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
@@ -426,7 +438,7 @@ const Requirements = () => {
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
               window.location.pathname === '/settings'
                 ? 'bg-[#134e40] text-white shadow-md'
-                : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'
             }`}
           >
             {window.location.pathname === '/settings' && (
@@ -481,7 +493,7 @@ const Requirements = () => {
       >
 
         {/* ── TOP HEADER ── */}
-        <header className="bg-white border-b border-gray-100 px-6 py-3 flex items-center gap-4 shrink-0 shadow-sm">
+        <header className="bg-white dark:bg-[#0a1810] border-b border-gray-100 dark:border-white/10 px-6 py-3 flex items-center gap-4 shrink-0 shadow-sm">
           <div className="relative flex-1 max-w-md">
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input
@@ -489,7 +501,7 @@ const Requirements = () => {
               placeholder="Search requirements..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all"
+              className="w-full pl-9 pr-4 py-2 bg-gray-50 dark:bg-white/5 dark:text-gray-200 dark:placeholder-gray-500 border border-gray-100 dark:border-white/10 rounded-xl text-sm focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all"
             />
           </div>
 
@@ -541,7 +553,7 @@ const Requirements = () => {
 
                 <div>
                   {/* Title */}
-                  <h1 className="text-[32px] font-black text-[#1C3627] tracking-tight leading-none mb-4 text-left">
+                  <h1 className="text-[32px] font-black text-[#1C3627] dark:text-white tracking-tight leading-none mb-4 text-left">
                     My Requirements
                   </h1>
 
@@ -592,9 +604,9 @@ const Requirements = () => {
                     <div className="w-px h-4 bg-gray-200" />
 
                     {/* Experts matched */}
-                    <div className="flex items-center gap-1.5 bg-purple-50 border border-purple-100 px-3 py-1.5 rounded-xl">
-                      <Users size={11} className="text-purple-500" />
-                      <span className="text-purple-600 text-xs font-bold">
+                    <div className="flex items-center gap-1.5 bg-teal-50 dark:bg-[#0eb59a]/10 border border-teal-100 dark:border-[#0eb59a]/20 px-3 py-1.5 rounded-xl">
+                      <Users size={11} className="text-[#0eb59a]" />
+                      <span className="text-[#134e40] dark:text-[#0eb59a] text-xs font-bold">
                         {requirements.reduce((sum, r) => sum + (r.matchedExperts || 0), 0)} Experts Matched
                       </span>
                     </div>
@@ -623,7 +635,7 @@ const Requirements = () => {
 
             {/* ── FILTER ROW ── */}
             <div className="px-8 pb-5 flex items-center gap-2">
-              <div className="flex items-center gap-1.5 bg-[#FAFBF9] border border-gray-100 rounded-xl p-1">
+              <div className="flex items-center gap-1.5 bg-[#FAFBF9] dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-xl p-1">
                 {filters.map(f => (
                   <motion.button
                     key={f}
@@ -632,7 +644,7 @@ const Requirements = () => {
                     className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all duration-150 ${
                       activeFilter === f
                         ? 'bg-[#134e40] text-white shadow-sm'
-                        : 'text-gray-500 hover:text-[#134e40] hover:bg-white'
+                        : 'text-gray-500 dark:text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-white dark:hover:bg-white/10'
                     }`}
                   >
                     {f}
@@ -703,7 +715,7 @@ const Requirements = () => {
                           ${isDimmed ? 'opacity-75' : ''}
                         `}
                       >
-                        <FormalCardBorder />
+
                         {/* Status accent bar — thick, left edge */}
                         <div className={`absolute left-0 top-0 bottom-0 ${cardStyle.barWidth} ${cardStyle.bar} rounded-l-2xl`} />
 
@@ -739,32 +751,32 @@ const Requirements = () => {
 
                               {/* Role title — dominant, left-heavy */}
                               <h3 className={`text-[17px] font-black tracking-tight leading-snug mb-1.5 text-left transition-colors duration-150
-                                ${isSelected ? 'text-[#0eb59a]' : 'text-[#1C3627]'}
-                                ${isDimmed ? 'text-gray-500' : ''}
+                                ${isSelected ? 'text-[#0eb59a]' : 'text-[#1C3627] dark:text-white'}
+                                ${isDimmed ? 'text-gray-500 dark:text-gray-500' : ''}
                               `}>
                                 {req.title}
                               </h3>
 
                               {/* Description — single line, muted */}
-                              <p className="text-[13px] text-gray-400 font-medium leading-relaxed mb-3.5 line-clamp-1 text-left">
+                              <p className="text-[13px] text-gray-400 dark:text-gray-500 font-medium leading-relaxed mb-3.5 line-clamp-1 text-left">
                                 {req.description}
                               </p>
 
                               {/* Meta row — icons + values, single line */}
                               <div className="flex items-center gap-5 mb-4 pl-2 justify-start">
-                                <span className="flex items-center gap-1.5 text-[12px] font-semibold text-gray-700">
+                                <span className="flex items-center gap-1.5 text-[12px] font-semibold text-gray-700 dark:text-gray-300">
                                   <DollarSign size={13} className="text-[#0eb59a] shrink-0" />
                                   {req.budget}
                                 </span>
-                                <span className="flex items-center gap-1.5 text-[12px] font-semibold text-gray-500">
-                                  <Clock size={13} className="text-blue-400 shrink-0" />
+                                <span className="flex items-center gap-1.5 text-[12px] font-semibold text-gray-500 dark:text-gray-400">
+                                  <Clock size={13} className="text-[#0eb59a] shrink-0" />
                                   {req.duration}
                                 </span>
-                                <span className="flex items-center gap-1.5 text-[12px] font-semibold text-gray-500">
-                                  <Target size={13} className="text-purple-400 shrink-0" />
+                                <span className="flex items-center gap-1.5 text-[12px] font-semibold text-gray-500 dark:text-gray-400">
+                                  <Target size={13} className="text-amber-400 shrink-0" />
                                   {req.commitment}
                                 </span>
-                                <span className="flex items-center gap-1.5 text-[12px] font-semibold text-gray-500">
+                                <span className="flex items-center gap-1.5 text-[12px] font-semibold text-gray-500 dark:text-gray-400">
                                   <MapPin size={13} className="text-rose-400 shrink-0" />
                                   {req.location}
                                 </span>
@@ -779,7 +791,7 @@ const Requirements = () => {
                                 {req.skills.map((skill, si) => (
                                   <span
                                     key={si}
-                                    className="text-[11px] font-semibold bg-[#FAFBF9] text-[#1C3627] border border-gray-200 px-2.5 py-1 rounded-lg"
+                                    className="text-[11px] font-semibold bg-[#FAFBF9] dark:bg-white/5 text-[#1C3627] dark:text-gray-300 border border-gray-200 dark:border-white/10 px-2.5 py-1 rounded-lg"
                                   >
                                     {skill}
                                   </span>
@@ -801,9 +813,9 @@ const Requirements = () => {
                                   ].map((m, mi) => (
                                     <div key={mi} className="flex items-center justify-end gap-2">
                                       <span className="text-[11px] text-gray-400 font-medium">{m.label}</span>
-                                      <div className="flex items-center gap-1.5 bg-[#FAFBF9] border border-gray-100 px-2.5 py-1 rounded-lg min-w-[44px] justify-center">
+                                      <div className="flex items-center gap-1.5 bg-[#FAFBF9] dark:bg-white/5 border border-gray-100 dark:border-white/10 px-2.5 py-1 rounded-lg min-w-[44px] justify-center">
                                         <div className={`w-1.5 h-1.5 rounded-full ${m.dot}`} />
-                                        <span className="text-[12px] font-black text-[#1C3627]">{m.val}</span>
+                                        <span className="text-[12px] font-black text-[#1C3627] dark:text-white">{m.val}</span>
                                       </div>
                                     </div>
                                   ))}
@@ -891,12 +903,12 @@ const Requirements = () => {
                 animate={{ width: '38%', opacity: 1 }}
                 exit={{ width: 0, opacity: 0 }}
                 transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-                className="bg-white border-l border-gray-100 shadow-2xl flex flex-col overflow-hidden shrink-0 h-full"
+                className="bg-white dark:bg-[#0d2318] border-l border-gray-100 dark:border-white/10 shadow-2xl flex flex-col overflow-hidden shrink-0 h-full"
               >
                 <div className="flex flex-col h-full overflow-y-auto">
 
                   {/* Drawer Header */}
-                  <div className="sticky top-0 bg-white border-b border-gray-50 px-6 py-4 flex items-start justify-between z-10 shrink-0">
+                  <div className="sticky top-0 bg-white dark:bg-[#0d2318] border-b border-gray-50 dark:border-white/10 px-6 py-4 flex items-start justify-between z-10 shrink-0">
                     <div className="flex-1 min-w-0 pr-3">
                       <div className="flex items-center gap-2 mb-1.5 flex-wrap">
                         <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-lg ${getTypeBadge(selectedRequirement.type)}`}>
@@ -906,7 +918,7 @@ const Requirements = () => {
                           {selectedRequirement.status}
                         </span>
                       </div>
-                      <h2 className="text-base font-black text-[#1C3627] tracking-tight leading-tight">
+                      <h2 className="text-base font-black text-[#1C3627] dark:text-white tracking-tight leading-tight">
                         {selectedRequirement.title}
                       </h2>
                       <p className="text-[11px] text-gray-400 font-medium mt-0.5">
@@ -943,7 +955,7 @@ const Requirements = () => {
                         { label: 'Commitment', value: selectedRequirement.commitment, icon: Clock, iconColor: 'text-purple-500', bg: 'bg-purple-50' },
                         { label: 'Location', value: selectedRequirement.location, icon: MapPin, iconColor: 'text-rose-500', bg: 'bg-rose-50' },
                       ].map((m, mi) => (
-                        <div key={mi} className="bg-[#FAFBF9] rounded-xl p-3 border border-gray-100">
+                        <div key={mi} className="bg-[#FAFBF9] dark:bg-white/5 rounded-xl p-3 border border-gray-100 dark:border-white/10">
                           <div className="flex items-center gap-1.5 mb-1.5">
                             <div className={`w-5 h-5 ${m.bg} rounded-md flex items-center justify-center`}>
                               <m.icon size={10} className={m.iconColor} />
@@ -1053,7 +1065,7 @@ const Requirements = () => {
                   </div>
 
                   {/* Drawer Footer */}
-                  <div className="sticky bottom-0 bg-white border-t border-gray-100 px-6 py-4 flex gap-3 shrink-0">
+                  <div className="sticky bottom-0 bg-white dark:bg-[#0d2318] border-t border-gray-100 dark:border-white/10 px-6 py-4 flex gap-3 shrink-0">
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -1075,7 +1087,7 @@ const Requirements = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => navigate(`/requirements/create?edit=${selectedRequirement.id}`)}
-                      className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#FAFBF9] border border-gray-200 text-gray-600 text-xs font-bold rounded-xl hover:border-[#0eb59a]/40 hover:text-[#134e40] transition-all"
+                      className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#FAFBF9] dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-xs font-bold rounded-xl hover:border-[#0eb59a]/40 hover:text-[#134e40] dark:hover:text-[#0eb59a] transition-all"
                     >
                       <Edit size={13} /> Edit Scope
                     </motion.button>

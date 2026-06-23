@@ -13,7 +13,7 @@ import {
   BarChart, PieChart, Flag, BookOpen, LogOut, MessageSquare, Calendar, ShieldCheck,
   Menu
 } from 'lucide-react';
-import FormalCardBorder from '../components/FormalCardBorder';
+
 
 // ── ANIMATED COUNTER ──
 const AnimatedNumber = ({ value, suffix = '' }) => {
@@ -139,7 +139,7 @@ const SectionHeading = ({ icon: Icon, label, iconBg = 'bg-teal-50', iconColor = 
 // ── REUSABLE CARD WRAPPER ──
 const Card = ({ children, className = '' }) => (
   <div className={`bg-white rounded-2xl relative overflow-hidden ${className}`} style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-    <FormalCardBorder />
+
     {children}
   </div>
 );
@@ -154,7 +154,7 @@ const KpiStrip = ({ items }) => (
         whileHover={{ y: -4, transition: { duration: 0.2 } }}
         className={`bg-white rounded-2xl p-5 border-l-4 ${s.border} cursor-default relative overflow-hidden`}
         style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-        <FormalCardBorder />
+
         {s.icon && (
           <div className={`w-8 h-8 ${s.bg || 'bg-gray-50'} rounded-xl flex items-center justify-center mb-3 relative z-10`}>
             <s.icon size={15} className={s.iconColor || 'text-gray-400'} />
@@ -448,7 +448,7 @@ const Analytics = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f7f5]">
+    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0d1a14]">
 
       {isMobile && isSidebarOpen && (
         <div
@@ -462,22 +462,27 @@ const Analytics = () => {
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : (isMobile ? 0 : 68) }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className={`bg-white border-r border-gray-100 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen ${
+        className={`bg-white dark:bg-[#0a1810] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen ${
           isMobile ? (isSidebarOpen ? 'w-[260px]' : 'w-0 pointer-events-none border-none') : ''
         }`}
       >
-        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 justify-between">
-          <motion.div
-            animate={{ width: isSidebarOpen ? 'auto' : 0, opacity: isSidebarOpen ? 1 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden shrink-0 flex items-center"
-          >
-            <div className="cursor-pointer" onClick={() => window.location.reload()}><Logo variant="dark" className="h-8" /></div>
-          </motion.div>
-          <motion.button animate={{ marginLeft: isSidebarOpen ? 'auto' : 'auto' }}
-            whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
+          <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/company-dashboard')}>
+            <Logo variant="light" className="h-8 shrink-0" />
+            <motion.span
+              animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden whitespace-nowrap text-sm font-black text-[#134e40] dark:text-[#0eb59a] tracking-tight"
+            >
+              ExigentCX
+            </motion.span>
+          </div>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="w-7 h-7 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#134e40] hover:bg-gray-100 transition-all shrink-0">
+            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 transition-all shrink-0"
+          >
             {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
           </motion.button>
         </div>
@@ -581,7 +586,7 @@ const Analytics = () => {
         }}
       >
 
-        <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm px-4 sm:px-6 py-3 flex items-center gap-4">
+        <header className="sticky top-0 z-30 bg-white/90 dark:bg-[#0a1810] backdrop-blur-md border-b border-gray-100 dark:border-white/10 shadow-sm px-4 sm:px-6 py-3 flex items-center gap-4">
           {isMobile && (
             <motion.button
               whileTap={{ scale: 0.95 }}
@@ -704,7 +709,7 @@ const Analytics = () => {
                       transition={{ delay: idx * 0.07 }}
                       whileHover={{ y: -5, boxShadow: '0 16px 40px rgba(0,0,0,0.1)', transition: { duration: 0.2 } }}
                       style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}
-                      className={`bg-white rounded-2xl p-4 border-l-4 ${kpi.border} cursor-default group relative overflow-hidden`}>
+                      className={`bg-white dark:bg-[#0a1810] rounded-2xl p-4 border-l-4 ${kpi.border} cursor-default group relative overflow-hidden border-gray-100 dark:border-white/10`}>
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         style={{ background: `radial-gradient(circle at 0% 50%, ${kpi.sparkColor}10 0%, transparent 70%)` }} />
                       <div className="relative z-10">
@@ -712,7 +717,7 @@ const Analytics = () => {
                           <div className={`w-6 h-6 ${kpi.iconBg} rounded-lg flex items-center justify-center shrink-0`}>
                             <kpi.icon size={12} className={kpi.iconColor} />
                           </div>
-                          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider truncate text-left">{kpi.label}</span>
+                          <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider truncate text-left">{kpi.label}</span>
                         </div>
                         <p className={`text-xl sm:text-2xl font-black ${kpi.numColor} leading-none mb-2 text-left`}>{kpi.value}</p>
                         <Sparkline data={kpi.spark} color={kpi.sparkColor} width={64} height={26} />
@@ -854,7 +859,7 @@ const Analytics = () => {
               whileHover={{ y: -5, boxShadow: `0 16px 40px ${item.glow}20`, transition: { duration: 0.2 } }}
                       className={`bg-white rounded-2xl p-5 border-l-4 ${item.border} cursor-default group relative overflow-hidden`}
                       style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                      <FormalCardBorder />
+
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         style={{ background: `radial-gradient(circle at 0% 100%, ${item.glow}10 0%, transparent 60%)` }} />
                       <div className="relative z-10 flex flex-col items-center text-center">
@@ -888,7 +893,7 @@ const Analytics = () => {
                       whileHover={{ y: -4, boxShadow: `0 20px 50px ${eng.color}15`, transition: { duration: 0.2 } }}
                       style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}
                       className="bg-white rounded-2xl p-5 cursor-default group relative overflow-hidden">
-                      <FormalCardBorder />
+
                       <div className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: `linear-gradient(90deg, ${eng.color}, transparent)` }} />
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                         <div className="flex items-center gap-3">
@@ -1339,7 +1344,7 @@ const Analytics = () => {
 
                       {/* Net value insight */}
                       <div className="mt-auto p-3.5 bg-teal-50 border border-teal-100 rounded-xl relative overflow-hidden">
-                        <FormalCardBorder />
+
                         <div className="relative z-10">
                           <p className="text-[9px] font-black text-teal-600 uppercase tracking-widest mb-1">Net Value Created</p>
                           <p className="text-xl font-black text-[#134e40]">₹56.0L</p>
