@@ -1,5 +1,94 @@
 [
   {
+    "id": "notif-1782238590263-895",
+    "user_id": "00000000-0000-0000-0000-000000000000",
+    "title": "Contract Signed by Expert",
+    "description": "Expert signed the \"Engagement Agreement — Interim CFO\". Awaiting your signature.",
+    "type": "contract",
+    "metadata": {
+      "contractId": "4a03f38d-3f6a-4033-87c2-76408cdc6d2b",
+      "targetRole": "company"
+    },
+    "is_read": false,
+    "created_at": "2026-06-23T18:16:30.264Z"
+  },
+  {
+    "id": "notif-1782238213134-709",
+    "user_id": "00000000-0000-0000-0000-000000000000",
+    "title": "Contract Signed by Expert",
+    "description": "Expert signed the \"Engagement Agreement — Interim CFO\". Awaiting your signature.",
+    "type": "contract",
+    "metadata": {
+      "contractId": "4a03f38d-3f6a-4033-87c2-76408cdc6d2b",
+      "targetRole": "company"
+    },
+    "is_read": false,
+    "created_at": "2026-06-23T18:10:13.134Z"
+  },
+  {
+    "id": "notif-1782238172780-369",
+    "user_id": "00000000-0000-0000-0000-000000000000",
+    "title": "Contract Signed by Expert",
+    "description": "Expert signed the \"Engagement Agreement — Interim CFO\". Awaiting your signature.",
+    "type": "contract",
+    "metadata": {
+      "contractId": "4a03f38d-3f6a-4033-87c2-76408cdc6d2b",
+      "targetRole": "company"
+    },
+    "is_read": false,
+    "created_at": "2026-06-23T18:09:32.780Z"
+  },
+  {
+    "id": "notif-1782237429046-641",
+    "user_id": "00000000-0000-0000-0000-000000000000",
+    "title": "Contract Signed by Expert",
+    "description": "Expert signed the \"Test Agreement\". Awaiting your signature.",
+    "type": "contract",
+    "metadata": {
+      "contractId": "75ef381f-1622-483c-8cf6-f64354dde8cd",
+      "targetRole": "company"
+    },
+    "is_read": false,
+    "created_at": "2026-06-23T17:57:09.046Z"
+  },
+  {
+    "id": "notif-1782237239605-773",
+    "user_id": "00000000-0000-0000-0000-000000000000",
+    "title": "Invitation Accepted",
+    "description": "Expert Suyash Tripathi has accepted your invitation for the \"Interim CFO\" role. A draft contract is now ready for your review.",
+    "type": "contract",
+    "metadata": {
+      "targetRole": "company",
+      "contractId": "24f65d25-3d8b-458a-857b-7d28acb1c8fb"
+    },
+    "is_read": false,
+    "created_at": "2026-06-23T17:53:59.605Z"
+  },
+  {
+    "id": "notif-1782150049531-472",
+    "user_id": "00000000-0000-0000-0000-000000000001",
+    "title": "Test Company Notif",
+    "description": "This should be visible on company dashboard only.",
+    "type": "payment",
+    "metadata": {
+      "targetRole": "company"
+    },
+    "is_read": false,
+    "created_at": "2026-06-22T17:40:49.531Z"
+  },
+  {
+    "id": "notif-1782150049524-914",
+    "user_id": "00000000-0000-0000-0000-000000000002",
+    "title": "Test Expert Notif",
+    "description": "This should be visible on expert dashboard only.",
+    "type": "match",
+    "metadata": {
+      "targetRole": "expert"
+    },
+    "is_read": false,
+    "created_at": "2026-06-22T17:40:49.524Z"
+  },
+  {
     "id": "notif-1781692273299-869",
     "user_id": "00000000-0000-0000-0000-000000000000",
     "title": "Escrow Release Approved",

@@ -680,6 +680,7 @@ const EngagementWorkspace = () => {
               whileTap={{ scale: 0.94 }}
               className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#134e40] to-[#0eb59a] flex items-center justify-center text-white font-black text-xs cursor-pointer shadow-md transition-all duration-200 overflow-hidden"
               title="Account"
+              onClick={() => navigate('/settings')}
             >
               {companyProfile?.logo_url ? (
                 <img src={companyProfile.logo_url} alt="Logo" className="w-full h-full object-cover" />

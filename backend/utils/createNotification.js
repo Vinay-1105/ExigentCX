@@ -34,7 +34,7 @@ async function writeJsonNotifications(data) {
  * @returns {object|null} - The created notification object, or null on error
  */
 export const createNotification = async (userId, title, description, type, metadata = {}) => {
-  if (userId === "00000000-0000-0000-0000-000000000000") {
+  if (userId === "00000000-0000-0000-0000-000000000000" || (userId && userId.startsWith("00000000-0000-0000-0000-"))) {
     try {
       const list = await readJsonNotifications();
       const newNotif = {

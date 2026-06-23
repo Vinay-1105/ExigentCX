@@ -97,7 +97,7 @@ const SignIn = () => {
 					localStorage.setItem('demo_company', 'true');
 					localStorage.setItem('user_role', 'company');
 					localStorage.removeItem('demo_expert');
-					localStorage.removeItem('sb-mock-auth');
+					localStorage.setItem('sb-mock-auth', 'true');
 					localStorage.removeItem('mock-role');
 					navigate("/company-dashboard");
 					return;

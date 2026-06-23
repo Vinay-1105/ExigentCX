@@ -166,10 +166,11 @@ const Payments = () => {
       const invoicesRes = await fetch(`${baseUrl}/api/payments/invoices`, { headers });
       if (invoicesRes.ok) setInvoices(await invoicesRes.json());
 
-      const notifsRes = await fetch(`${baseUrl}/api/notifications`, { headers });
+      const notifsRes = await fetch(`${baseUrl}/api/notifications?role=company`, { headers });
       if (notifsRes.ok) {
         const data = await notifsRes.json();
-        const mapped = data.map(n => {
+        const filtered = data.filter(n => n.metadata?.targetRole !== "expert" && n.title !== "New Opportunity Invitation");
+        const mapped = filtered.map(n => {
           let color = "bg-blue-500";
           if (n.type === "payment") color = "bg-amber-500";
           else if (n.type === "contract") color = "bg-emerald-500";
@@ -554,6 +555,7 @@ const Payments = () => {
               whileTap={{ scale: 0.94 }}
               className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#134e40] to-[#0eb59a] flex items-center justify-center text-white font-black text-xs cursor-pointer shadow-md transition-all duration-200 overflow-hidden"
               title="Account"
+              onClick={() => navigate('/settings')}
             >
               {companyProfile?.logo_url ? (
                 <img src={companyProfile.logo_url} alt="Logo" className="w-full h-full object-cover" />

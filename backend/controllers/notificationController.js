@@ -27,14 +27,30 @@ async function writeJsonNotifications(data) {
 // Fetch notifications for the logged-in user
 export const getNotifications = async (req, res) => {
   const userId = req.user?.id;
+  const role = req.query.role || req.headers["x-user-role"];
 
   if (!userId) {
     return res.status(400).json({ error: "User ID is required" });
   }
 
-  if (userId === "00000000-0000-0000-0000-000000000000") {
+  if (userId === "00000000-0000-0000-0000-000000000000" || userId.startsWith("00000000-0000-0000-0000-")) {
     const list = await readJsonNotifications();
-    return res.json(list);
+    
+    // Filter by specific user ID, or generic mock ID
+    let userFiltered = list.filter(n => n.user_id === userId || n.user_id === "00000000-0000-0000-0000-000000000000");
+
+    // Filter by role if specified, or if mock ID maps to a role
+    const activeRole = role || 
+      (userId === "00000000-0000-0000-0000-000000000001" ? "company" : 
+       userId === "00000000-0000-0000-0000-000000000002" ? "expert" : null);
+
+    if (activeRole === "company") {
+      userFiltered = userFiltered.filter(n => n.metadata?.targetRole !== "expert" && n.title !== "New Opportunity Invitation");
+    } else if (activeRole === "expert") {
+      userFiltered = userFiltered.filter(n => n.metadata?.targetRole !== "company");
+    }
+
+    return res.json(userFiltered);
   }
 
   try {
@@ -49,7 +65,14 @@ export const getNotifications = async (req, res) => {
       throw error;
     }
     
-    res.json(data || []);
+    let filteredData = data || [];
+    if (role === "company") {
+      filteredData = filteredData.filter(n => n.metadata?.targetRole !== "expert" && n.title !== "New Opportunity Invitation");
+    } else if (role === "expert") {
+      filteredData = filteredData.filter(n => n.metadata?.targetRole !== "company");
+    }
+
+    res.json(filteredData);
   } catch (error) {
     console.error("Error fetching notifications:", error);
     res.status(500).json({ error: "Failed to retrieve notifications" });
@@ -65,7 +88,7 @@ export const markAsRead = async (req, res) => {
     return res.status(400).json({ error: "User ID and notification ID are required" });
   }
 
-  if (userId === "00000000-0000-0000-0000-000000000000") {
+  if (userId === "00000000-0000-0000-0000-000000000000" || userId.startsWith("00000000-0000-0000-0000-")) {
     try {
       const list = await readJsonNotifications();
       let updatedNotif = null;
@@ -108,11 +131,23 @@ export const markAllAsRead = async (req, res) => {
     return res.status(400).json({ error: "User ID is required" });
   }
 
-  if (userId === "00000000-0000-0000-0000-000000000000") {
+  if (userId === "00000000-0000-0000-0000-000000000000" || userId.startsWith("00000000-0000-0000-0000-")) {
     try {
       const list = await readJsonNotifications();
-      const count = list.filter(n => !n.is_read).length;
-      const updatedList = list.map(n => ({ ...n, is_read: true }));
+      let count = 0;
+      const updatedList = list.map(n => {
+        const isMatch = n.user_id === userId || 
+          (n.user_id === "00000000-0000-0000-0000-000000000000" && 
+            ((userId === "00000000-0000-0000-0000-000000000001" && n.metadata?.targetRole !== "expert" && n.title !== "New Opportunity Invitation") ||
+             (userId === "00000000-0000-0000-0000-000000000002" && n.metadata?.targetRole !== "company") ||
+             (userId === "00000000-0000-0000-0000-000000000000")));
+             
+        if (isMatch && !n.is_read) {
+          count++;
+          return { ...n, is_read: true };
+        }
+        return n;
+      });
       await writeJsonNotifications(updatedList);
       return res.json({ success: true, count });
     } catch (err) {

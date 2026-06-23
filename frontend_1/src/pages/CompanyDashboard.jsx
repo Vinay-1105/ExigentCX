@@ -472,7 +472,7 @@ const CompanyDashboard = () => {
 
       try {
         const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-        const response = await fetch(`${baseUrl}/api/notifications`, {
+        const response = await fetch(`${baseUrl}/api/notifications?role=company`, {
           headers: {
             'Authorization': `Bearer ${session.access_token}`
           }
@@ -480,8 +480,9 @@ const CompanyDashboard = () => {
 
         if (response.ok && isMounted) {
           const data = await response.json();
-          setNotifications(data);
-          setNotificationCount(data.filter(n => !n.is_read).length);
+          const filtered = data.filter(n => n.metadata?.targetRole !== "expert" && n.title !== "New Opportunity Invitation");
+          setNotifications(filtered);
+          setNotificationCount(filtered.filter(n => !n.is_read).length);
         }
       } catch (err) {
         console.error("Error fetching notifications:", err);
@@ -509,8 +510,11 @@ const CompanyDashboard = () => {
           },
           (payload) => {
             if (isMounted) {
-              setNotifications(prev => [payload.new, ...prev]);
-              setNotificationCount(count => count + 1);
+              const notif = payload.new;
+              if (notif.metadata?.targetRole !== "expert" && notif.title !== "New Opportunity Invitation") {
+                setNotifications(prev => [notif, ...prev]);
+                setNotificationCount(count => count + 1);
+              }
             }
           }
         );
@@ -1185,19 +1189,20 @@ const CompanyDashboard = () => {
               </AnimatePresence>
             </div>
 
-            {/* Avatar */}
-            <motion.div
-              whileHover={{ scale: 1.08, ringWidth: 2, ringColor: '#0eb59a', ringOffsetWidth: 2 }}
+            <motion.button
+              whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.94 }}
-              className="w-9 h-9 rounded-full bg-gradient-to-br from-[#134e40] to-[#0eb59a] flex items-center justify-center text-white font-black text-xs cursor-pointer shadow-md transition-all duration-200 overflow-hidden"
+              className="w-9 h-9 rounded-full bg-gradient-to-br from-[#134e40] to-[#0eb59a] flex items-center justify-center text-white font-black text-xs cursor-pointer shadow-md transition-all duration-200 overflow-hidden border-0"
               title="Account"
+              type="button"
+              onClick={() => navigate('/settings')}
             >
               {companyProfile?.logo_url ? (
                 <img src={companyProfile.logo_url} alt="Logo" className="w-full h-full object-cover" />
               ) : (
                 companyProfile?.company_name ? companyProfile.company_name.substring(0, 2).toUpperCase() : 'AC'
               )}
-            </motion.div>
+            </motion.button>
           </div>
         </header>
 
