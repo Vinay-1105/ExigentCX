@@ -40,7 +40,8 @@ const ThemeToggle = () => {
 
             {/* Sliding circle */}
             <motion.div
-                layout
+                initial={false}
+                animate={{ x: isDark ? 32 : 0 }}
                 transition={{ 
                     type: "spring", 
                     stiffness: 500, 
@@ -48,8 +49,8 @@ const ThemeToggle = () => {
                 }}
                 className={`relative z-20 w-[26px] h-[26px] rounded-full shadow-md flex items-center justify-center ${
                     isDark 
-                        ? 'bg-[#0d1a14] ml-auto' 
-                        : 'bg-white ml-0'
+                        ? 'bg-[#0d1a14]' 
+                        : 'bg-white'
                 }`}
             >
                 {/* Icon inside the sliding circle */}

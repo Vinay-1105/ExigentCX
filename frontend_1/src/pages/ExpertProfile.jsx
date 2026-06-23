@@ -278,7 +278,7 @@ const ExpertProfile = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#f4f7f5] flex items-center justify-center">
+      <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0f1117] flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <RefreshCw size={40} className="text-[#0eb59a] animate-spin" />
           <p className="text-[#134e40] font-bold text-sm">Loading profile details...</p>
@@ -602,13 +602,13 @@ Bio: ${expert.bio}
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0d1a14]">
+    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0f1117]">
 
       {/* ── SIDEBAR ── */}
       <motion.aside
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-white dark:bg-[#0a1810] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white dark:bg-[#1b1d24] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
         <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
           <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/company-dashboard')}>
@@ -648,7 +648,7 @@ Bio: ${expert.bio}
                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
                   isActive
                     ? 'bg-[#134e40] text-white shadow-md'
-                    : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'
                 }`}
               >
                 {isActive && (
@@ -671,7 +671,7 @@ Bio: ${expert.bio}
         </nav>
 
         {/* Separated Settings option pinned to the bottom */}
-        <div className="p-3 border-t border-gray-50 dark:border-white/10 space-y-1">
+        <div className="p-3 border-t border-gray-100/60 dark:border-white/5 space-y-1">
           {/* Theme Toggle */}
           <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
             {isSidebarOpen && (
@@ -687,7 +687,7 @@ Bio: ${expert.bio}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
               window.location.pathname === '/settings'
                 ? 'bg-[#134e40] text-white shadow-md'
-                : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'
             }`}
           >
             {window.location.pathname === '/settings' && (
@@ -746,7 +746,7 @@ Bio: ${expert.bio}
       >
 
         {/* ── TOP HEADER ── */}
-        <header className="sticky top-0 z-30 bg-white dark:bg-[#0a1810] border-b border-gray-100 dark:border-white/10 px-6 py-3 flex items-center gap-4 shadow-sm">
+        <header className="sticky top-0 z-30 bg-white dark:bg-[#1b1d24] border-b border-gray-100 dark:border-white/10 px-6 py-3 flex items-center gap-4 shadow-sm">
           {/* Breadcrumb */}
           <div className="flex items-center gap-1.5 text-xs text-gray-400">
             <button
@@ -809,11 +809,11 @@ Bio: ${expert.bio}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -8, scale: 0.95 }}
                       transition={{ duration: 0.2, ease: 'easeOut' }}
-                      className="absolute right-0 top-11 w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden"
+                      className="absolute right-0 top-11 w-80 bg-white dark:bg-[#1e2028] rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 z-50 overflow-hidden"
                     >
                       {/* Header */}
-                      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-50">
-                        <h4 className="font-black text-[#1C3627] text-sm">Notifications</h4>
+                      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-50 dark:border-white/5">
+                        <h4 className="font-black text-[#1C3627] dark:text-white text-sm">Notifications</h4>
                         <span className="text-[10px] font-bold text-[#0eb59a] cursor-pointer hover:text-[#134e40]">
                           Mark all read
                         </span>
@@ -834,7 +834,7 @@ Bio: ${expert.bio}
                               <Bell size={13} className="text-white" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-xs font-black text-[#1C3627] leading-none mb-1">{notif.title}</p>
+                              <p className="text-xs font-black text-[#1C3627] dark:text-white leading-none mb-1">{notif.title}</p>
                               <p className="text-[11px] text-gray-500 leading-relaxed">{notif.desc}</p>
                               <p className="text-[10px] text-gray-400 font-medium mt-1">{notif.time}</p>
                             </div>
@@ -1056,16 +1056,16 @@ Bio: ${expert.bio}
                   className="space-y-6"
                 >
                   {/* Bio */}
-                  <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6 text-left">
-                    <h3 className="font-black text-[#1C3627] text-[15px] mb-4 flex items-center gap-2 tracking-tight">
+                  <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-transparent dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6 text-left">
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-4 flex items-center gap-2 tracking-tight">
                       <Users size={16} className="text-[#0eb59a]" /> About
                     </h3>
                     <p className="text-gray-600 text-sm leading-relaxed text-left w-full">{expert.bio}</p>
                   </div>
 
                   {/* Highlights */}
-                  <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6">
-                    <h3 className="font-black text-[#1C3627] text-[15px] mb-4 flex items-center gap-2 tracking-tight">
+                  <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-transparent dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6">
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-4 flex items-center gap-2 tracking-tight">
                       <Award size={16} className="text-[#0eb59a]" /> Key Highlights
                     </h3>
                     <div className="space-y-3">
@@ -1089,7 +1089,7 @@ Bio: ${expert.bio}
 
                   {/* Skills */}
                   <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6">
-                    <h3 className="font-black text-[#1C3627] text-[15px] mb-4 flex items-center gap-2 tracking-tight">
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-4 flex items-center gap-2 tracking-tight">
                       <Target size={16} className="text-[#0eb59a]" /> Skills & Expertise
                     </h3>
                     <div className="flex flex-wrap gap-2">
@@ -1101,6 +1101,7 @@ Bio: ${expert.bio}
                           transition={{ delay: idx * 0.04 }}
                           whileHover={{ scale: 1.08, y: -2, transition: { duration: 0.15 } }}
                           whileTap={{ scale: 0.95 }}
+                          className="dark:!bg-white/5 dark:!border-white/10 dark:!text-gray-300"
                           style={{
                             padding: '8px 14px',
                             backgroundColor: '#FAFBF9',
@@ -1132,7 +1133,7 @@ Bio: ${expert.bio}
 
                   {/* Industries */}
                   <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6">
-                    <h3 className="font-black text-[#1C3627] text-[15px] mb-4 flex items-center gap-2 tracking-tight">
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-4 flex items-center gap-2 tracking-tight">
                       <Building size={16} className="text-[#0eb59a]" /> Industry Experience
                     </h3>
                     <div className="flex flex-wrap gap-2">
@@ -1144,6 +1145,7 @@ Bio: ${expert.bio}
                           transition={{ delay: idx * 0.06 }}
                           whileHover={{ scale: 1.06, y: -2, transition: { duration: 0.15 } }}
                           whileTap={{ scale: 0.95 }}
+                          className="dark:!bg-white/5 dark:!border-white/10 dark:!text-gray-300"
                           style={{
                             padding: '8px 16px',
                             backgroundColor: '#FAFBF9',
@@ -1189,27 +1191,27 @@ Bio: ${expert.bio}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: idx * 0.08 }}
                         whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                        className="bg-white dark:bg-[#1e2028] border border-gray-100 dark:border-white/10"
                         style={{
-                          backgroundColor: 'white',
                           borderRadius: '16px',
                           padding: '20px',
                           borderLeft: `4px solid ${stat.borderColor}`,
                           boxShadow: '0 8px 30px rgba(0,0,0,0.06)',
                         }}
                       >
-                        <div style={{ width: '36px', height: '36px', backgroundColor: stat.iconBg, borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px' }}>
-                          <stat.icon size={16} style={{ color: stat.iconColor }} />
+                        <div style={{ width: '36px', height: '36px', backgroundColor: stat.iconBg, borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px' }} className="dark:!bg-white/10">
+                          <stat.icon size={16} style={{ color: stat.iconColor }} className="dark:!text-[#0eb59a]" />
                         </div>
-                        <p style={{ fontSize: '30px', fontWeight: 900, color: stat.numColor, lineHeight: 1, marginBottom: '4px' }}>{stat.value}</p>
-                        <p style={{ fontSize: '12px', fontWeight: 700, color: '#6B7280', marginTop: '4px' }}>{stat.label}</p>
-                        <p style={{ fontSize: '10px', color: '#9CA3AF', marginTop: '2px' }}>{stat.sub}</p>
+                        <p style={{ fontSize: '30px', fontWeight: 900, color: stat.numColor, lineHeight: 1, marginBottom: '4px' }} className="dark:!text-white">{stat.value}</p>
+                        <p style={{ fontSize: '12px', fontWeight: 700, color: '#6B7280', marginTop: '4px' }} className="dark:!text-gray-300">{stat.label}</p>
+                        <p style={{ fontSize: '10px', color: '#9CA3AF', marginTop: '2px' }} className="dark:!text-gray-400">{stat.sub}</p>
                       </motion.div>
                     ))}
                   </div>
 
                   {/* Other Details */}
                   <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6">
-                    <h3 className="font-black text-[#1C3627] text-[15px] mb-4 flex items-center gap-2 tracking-tight">
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-4 flex items-center gap-2 tracking-tight">
                       Other Details
                     </h3>
                     <div className="grid grid-cols-2 gap-3">
@@ -1255,10 +1257,10 @@ Bio: ${expert.bio}
                   {/* Experience Timeline */}
                   {displayExperiences.length > 0 && (
                     <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6 text-left">
-                      <h3 className="font-black text-[#1C3627] text-[15px] mb-6 flex items-center gap-2 tracking-tight">
+                      <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-6 flex items-center gap-2 tracking-tight">
                         <Briefcase size={16} className="text-[#0eb59a]" /> Professional Experience
                       </h3>
-                      <div className="relative pl-6 border-l border-gray-100 space-y-8 ml-3">
+                      <div className="relative pl-6 border-l border-gray-100 dark:border-white/10 space-y-8 ml-3">
                         {displayExperiences.map((exp, idx) => (
                           <div key={idx} className="relative">
                             {/* Timeline dot */}
@@ -1266,7 +1268,7 @@ Bio: ${expert.bio}
                             <div>
                               <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
                                 <h4 className="font-black text-gray-900 text-sm">{exp.role}</h4>
-                                <span className="text-[10px] font-black text-gray-400 bg-gray-50 border border-gray-100 px-2 py-0.5 rounded">
+                                <span className="text-[10px] font-black text-gray-400 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 px-2 py-0.5 rounded">
                                   {exp.startDate} — {exp.current ? 'Present' : exp.endDate}
                                 </span>
                               </div>
@@ -1284,10 +1286,10 @@ Bio: ${expert.bio}
                   {/* Education list */}
                   {displayEducation.length > 0 && (
                     <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6 text-left">
-                      <h3 className="font-black text-[#1C3627] text-[15px] mb-6 flex items-center gap-2 tracking-tight">
+                      <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-6 flex items-center gap-2 tracking-tight">
                         <Award size={16} className="text-[#0eb59a]" /> Education & Credentials
                       </h3>
-                      <div className="relative pl-6 border-l border-gray-100 space-y-8 ml-3">
+                      <div className="relative pl-6 border-l border-gray-100 dark:border-white/10 space-y-8 ml-3">
                         {displayEducation.map((edu, idx) => (
                           <div key={idx} className="relative">
                             {/* Timeline dot */}
@@ -1295,7 +1297,7 @@ Bio: ${expert.bio}
                             <div>
                               <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
                                 <h4 className="font-black text-gray-900 text-sm">{edu.degree}</h4>
-                                <span className="text-[10px] font-black text-gray-400 bg-gray-50 border border-gray-100 px-2 py-0.5 rounded">
+                                <span className="text-[10px] font-black text-gray-400 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 px-2 py-0.5 rounded">
                                   {edu.year}
                                 </span>
                               </div>
@@ -1340,7 +1342,7 @@ Bio: ${expert.bio}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: idx * 0.1 }}
                       whileHover={{ y: -6, boxShadow: '0 20px 50px rgba(0,0,0,0.08)', transition: { duration: 0.2 } }}
-                      className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] p-6 cursor-default"
+                      className="bg-white dark:bg-[#1e2028] rounded-3xl border border-transparent dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] p-6 cursor-default"
                     >
                       {/* Header */}
                       <div className="flex items-start justify-between mb-4">
@@ -1359,7 +1361,7 @@ Bio: ${expert.bio}
                             {cs.role} · {cs.duration}
                           </p>
                         </div>
-                        <div className="w-10 h-10 bg-gray-50 rounded-2xl flex items-center justify-center border border-gray-100">
+                        <div className="w-10 h-10 bg-gray-50 dark:bg-white/5 rounded-2xl flex items-center justify-center border border-gray-100 dark:border-white/10">
                           <Building size={18} className="text-gray-400" />
                         </div>
                       </div>
@@ -1384,7 +1386,7 @@ Bio: ${expert.bio}
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: idx * 0.1 + mIdx * 0.05 }}
-                            className="bg-gray-50 rounded-2xl p-3 border border-gray-100 text-center"
+                            className="bg-gray-50 dark:bg-white/5 rounded-2xl p-3 border border-gray-100 dark:border-white/10 text-center"
                           >
                             <p className="text-lg font-black text-[#134e40]">{metric.value}</p>
                             <p className="text-[10px] text-gray-400 font-bold mt-0.5 leading-tight">{metric.label}</p>
@@ -1416,7 +1418,7 @@ Bio: ${expert.bio}
                   className="space-y-5"
                 >
                   {/* Rating Summary */}
-                  <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
+                  <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-6">
                     <div className="flex items-center gap-8">
                       <div className="text-center shrink-0">
                         <p className="text-6xl font-black text-gray-900">{expert.rating}</p>
@@ -1671,13 +1673,13 @@ Bio: ${expert.bio}
                       <motion.div
                         key={idx}
                         whileHover={{ y: -4, boxShadow: '0 12px 30px rgba(0,0,0,0.08)', transition: { duration: 0.2 } }}
-                        className="flex items-start gap-4 p-4 bg-white rounded-2xl border border-gray-100 cursor-default"
+                        className="flex items-start gap-4 p-4 bg-white dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 cursor-default"
                       >
                         <div className={`w-10 h-10 ${trust.bg} rounded-xl flex items-center justify-center shrink-0`}>
                           <trust.icon size={18} className={trust.iconColor} />
                         </div>
                         <div>
-                          <p className="text-sm font-black text-[#1C3627] mb-1 text-left">{trust.title}</p>
+                          <p className="text-sm font-black text-[#1C3627] dark:text-white mb-1 text-left">{trust.title}</p>
                           <p className="text-xs text-gray-500 leading-relaxed text-left">{trust.desc}</p>
                         </div>
                       </motion.div>
@@ -1922,7 +1924,7 @@ Bio: ${expert.bio}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.35 }}
-                className="bg-white rounded-3xl p-5 relative overflow-hidden"
+                className="bg-white dark:bg-[#1e2028] rounded-3xl border border-transparent dark:border-white/10 p-5 relative overflow-hidden"
                 style={{ boxShadow: '0 8px 30px rgba(0,0,0,0.06)' }}
               >
                 <div className="flex items-center justify-between mb-3">
@@ -1955,7 +1957,7 @@ Bio: ${expert.bio}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 }}
-                className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5 text-center"
+                className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-5 text-center"
               >
                 <p className="text-4xl font-black text-gray-900 mb-1">{expert.completedEngagements}</p>
                 <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">Completed Engagements</p>
@@ -1972,7 +1974,7 @@ Bio: ${expert.bio}
                     </motion.div>
                   ))}
                   {expert.completedEngagements > 8 && (
-                    <div className="w-6 h-6 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center">
+                    <div className="w-6 h-6 rounded-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center">
                       <span className="text-[9px] font-black text-gray-400">+{expert.completedEngagements - 8}</span>
                     </div>
                   )}
@@ -2227,7 +2229,7 @@ Bio: ${expert.bio}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden"
+              className="bg-white dark:bg-[#1e2028] rounded-t-3xl sm:rounded-3xl shadow-2xl border border-transparent dark:border-white/10 p-6 sm:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden"
             >
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">

@@ -319,14 +319,14 @@ const Payments = () => {
   };
 
   return (
-  <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0d1a14]">
+  <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0f1117] dark:text-gray-100">
 
     {/* ── SIDEBAR ── */}
     <motion.aside
       initial={{ width: 260 }}
       animate={{ width: isSidebarOpen ? 260 : 68 }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-      className="bg-white dark:bg-[#0a1810] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+      className="bg-white dark:bg-[#1b1d24] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
     >
       <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
           <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/company-dashboard')}>
@@ -461,7 +461,7 @@ const Payments = () => {
       }}
     >
 
-      <header className="sticky top-0 z-30 bg-white dark:bg-[#0a1810] border-b border-gray-100 dark:border-white/10 shadow-sm px-6 py-3 flex items-center gap-4">
+      <header className="sticky top-0 z-30 bg-white dark:bg-[#1b1d24] border-b border-gray-100 dark:border-white/10 shadow-sm px-6 py-3 flex items-center gap-4">
         <div className="flex-1" />
 
 
@@ -515,10 +515,10 @@ const Payments = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.95 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute right-0 top-11 w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden"
+                    className="absolute right-0 top-11 w-80 bg-white dark:bg-[#1b1d24] rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 z-50 overflow-hidden"
                   >
-                    <div className="flex items-center justify-between px-4 py-3 border-b border-gray-50">
-                      <h4 className="font-black text-[#1C3627] text-sm">Notifications</h4>
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-gray-50 dark:border-white/10">
+                      <h4 className="font-black text-[#1C3627] dark:text-white text-sm">Notifications</h4>
                       <span className="text-[10px] font-bold text-[#0eb59a] cursor-pointer">Mark all read</span>
                     </div>
                     {notifications.map((notif, idx) => (
@@ -527,20 +527,20 @@ const Payments = () => {
                         initial={{ opacity: 0, x: -8 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: idx * 0.05 }}
-                        className={`flex items-start gap-3 px-4 py-3 cursor-pointer border-b border-gray-50 last:border-0 hover:bg-gray-50 transition-colors ${notif.unread ? 'bg-teal-50/20' : ''}`}
+                        className={`flex items-start gap-3 px-4 py-3 cursor-pointer border-b border-gray-50 dark:border-white/5 last:border-0 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors ${notif.unread ? 'bg-teal-50/20 dark:bg-teal-500/5' : ''}`}
                       >
                         <div className={`w-8 h-8 ${notif.color} rounded-xl flex items-center justify-center shrink-0`}>
                           <Bell size={13} className="text-white" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs font-black text-[#1C3627] mb-0.5 text-left">{notif.title}</p>
-                          <p className="text-[11px] text-gray-500 text-left">{notif.desc}</p>
+                          <p className="text-xs font-black text-[#1C3627] dark:text-white mb-0.5 text-left">{notif.title}</p>
+                          <p className="text-[11px] text-gray-500 dark:text-gray-400 text-left">{notif.desc}</p>
                           <p className="text-[10px] text-gray-400 mt-1 text-left">{notif.time}</p>
                         </div>
                         {notif.unread && <div className="w-2 h-2 bg-[#0eb59a] rounded-full shrink-0 mt-1" />}
                       </motion.div>
                     ))}
-                    <div className="px-4 py-3 border-t border-gray-50 text-center">
+                    <div className="px-4 py-3 border-t border-gray-50 dark:border-white/10 text-center">
                       <button className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors">View all notifications →</button>
                     </div>
                   </motion.div>
@@ -655,7 +655,7 @@ const Payments = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: idx * 0.1 }}
                         whileHover={{ y: -3, boxShadow: '0 12px 30px rgba(0,0,0,0.07)', transition: { duration: 0.2 } }}
-                        style={{ backgroundColor: '#FAFBF9', borderRadius: '16px', padding: '20px', border: '1px solid #E5E7EB' }}
+                        className="bg-[#FAFBF9] dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-2xl p-5"
                       >
                         <div className="flex items-start justify-between mb-4">
                           <div className="flex items-center gap-3">
@@ -668,12 +668,12 @@ const Payments = () => {
                               />
                             </div>
                             <div className="text-left">
-                              <p className="font-black text-[#1C3627] text-sm text-left">{account.engagement}</p>
+                              <p className="font-black text-[#1C3627] dark:text-white text-sm text-left">{account.engagement}</p>
                               <p className="text-xs text-gray-400 font-medium text-left">with {account.expert}</p>
                             </div>
                           </div>
                           <div className="text-right">
-                            <p className="text-xl font-black text-[#134e40] text-right">{account.balance}</p>
+                            <p className="text-xl font-black text-[#134e40] dark:text-[#0eb59a] text-right">{account.balance}</p>
                             <p className="text-[10px] text-gray-400 font-medium text-right">in escrow</p>
                           </div>
                         </div>
@@ -682,11 +682,11 @@ const Payments = () => {
                         <div className="mb-3">
                           <div className="flex justify-between text-[11px] mb-1.5">
                             <span className="text-gray-400 font-semibold text-left">Released: {account.released} of {account.totalValue}</span>
-                            <span className="font-black text-[#134e40]">
+                            <span className="font-black text-[#134e40] dark:text-[#0eb59a]">
                               {Math.round((parseInt(account.released.replace(/[₹,]/g, '')) / parseInt(account.totalValue.replace(/[₹,]/g, ''))) * 100)}%
                             </span>
                           </div>
-                          <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="h-2 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
                             <motion.div
                               initial={{ width: 0 }}
                               animate={{ width: `${Math.round((parseInt(account.released.replace(/[₹,]/g, '')) / parseInt(account.totalValue.replace(/[₹,]/g, ''))) * 100)}%` }}
@@ -779,10 +779,10 @@ const Payments = () => {
               <div className="space-y-4">
 
                 {/* Recent Activity */}
-                <div className="bg-white rounded-2xl p-5 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
+                <div className="bg-white dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-2xl p-5 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
 
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-black text-[#1C3627] text-sm flex items-center gap-2 text-left">
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 text-left">
                       <Clock size={13} className="text-[#0eb59a]" /> Recent Activity
                     </h3>
                     <motion.button
@@ -809,10 +809,10 @@ const Payments = () => {
                             <txIcon.icon size={13} className={txIcon.color} />
                           </div>
                           <div className="flex-1 min-w-0 text-left">
-                            <p className="text-xs font-bold text-[#1C3627] truncate text-left">{tx.description}</p>
+                            <p className="text-xs font-bold text-[#1C3627] dark:text-white truncate text-left">{tx.description}</p>
                             <p className="text-[10px] text-gray-400 font-medium text-left">{tx.date}</p>
                           </div>
-                          <span className={`text-xs font-black shrink-0 ${tx.amountNum > 0 ? 'text-emerald-600' : 'text-gray-700'}`}>
+                          <span className={`text-xs font-black shrink-0 ${tx.amountNum > 0 ? 'text-emerald-600' : 'text-gray-700 dark:text-gray-300'}`}>
                             {tx.amount}
                           </span>
                         </motion.div>
@@ -860,22 +860,22 @@ const Payments = () => {
                   <h3 className="font-black text-[#1C3627] text-sm mb-3 text-left">Quick Actions</h3>
                   <div className="space-y-1">
                     {[
-                      { label: 'Add Funds to Escrow', icon: Plus, action: () => setShowAddFundsModal(true), color: 'text-[#0eb59a]', bg: 'bg-teal-50' },
-                      { label: 'View Invoices', icon: FileText, action: () => setActiveTab('Invoices'), color: 'text-blue-500', bg: 'bg-blue-50' },
-                      { label: 'Download Statement', icon: Download, action: handleDownloadStatement, color: 'text-purple-500', bg: 'bg-purple-50' },
-                      { label: 'View Contracts', icon: Lock, action: () => navigate('/contracts'), color: 'text-amber-500', bg: 'bg-amber-50' },
+                      { label: 'Add Funds to Escrow', icon: Plus, action: () => setShowAddFundsModal(true), color: 'text-[#0eb59a]', bg: 'bg-teal-50 dark:bg-[#0eb59a]/10' },
+                      { label: 'View Invoices', icon: FileText, action: () => setActiveTab('Invoices'), color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-500/10' },
+                      { label: 'Download Statement', icon: Download, action: handleDownloadStatement, color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-500/10' },
+                      { label: 'View Contracts', icon: Lock, action: () => navigate('/contracts'), color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-500/10' },
                     ].map((item, idx) => (
                       <motion.button
                         key={idx}
                         whileHover={{ x: 4, backgroundColor: '#FAFBF9', transition: { duration: 0.15 } }}
                         whileTap={{ scale: 0.97 }}
                         onClick={item.action}
-                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group text-left"
+                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group text-left dark:hover:bg-white/5"
                       >
                         <div className={`w-7 h-7 ${item.bg} rounded-lg flex items-center justify-center shrink-0`}>
                           <item.icon size={13} className={item.color} />
                         </div>
-                        <span className="text-xs font-bold text-gray-600 group-hover:text-[#134e40] transition-colors flex-1 text-left">{item.label}</span>
+                        <span className="text-xs font-bold text-gray-600 dark:text-gray-300 group-hover:text-[#134e40] dark:group-hover:text-[#0eb59a] transition-colors flex-1 text-left">{item.label}</span>
                         <ChevronRight size={12} className="text-gray-300 group-hover:text-[#0eb59a] transition-colors" />
                       </motion.button>
                     ))}
@@ -926,12 +926,12 @@ const Payments = () => {
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-[#0d2318] rounded-2xl overflow-hidden relative shadow-[0_4px_20px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.04)]">
+              <div className="bg-white dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-2xl overflow-hidden relative shadow-[0_4px_20px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.04)]">
 
                 <div className="px-6 py-4 border-b border-gray-50 dark:border-white/10 flex items-center justify-between">
                   <h3 className="font-black text-[#1C3627] dark:text-white text-sm text-left">
                     All Transactions
-                    <span className="ml-2 text-xs font-bold text-gray-400 bg-gray-50 px-2 py-0.5 rounded-lg border border-gray-100">
+                    <span className="ml-2 text-xs font-bold text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-white/5 px-2 py-0.5 rounded-lg border border-gray-100 dark:border-white/10">
                       {filteredTransactions.length}
                     </span>
                   </h3>
@@ -1162,7 +1162,7 @@ const Payments = () => {
                       <div className="flex items-center gap-3">
                         <img src={account.expertAvatar} className="w-11 h-11 rounded-xl object-cover shadow-sm" />
                         <div className="text-left">
-                          <h4 className="font-black text-[#1C3627] text-sm text-left">{account.engagement}</h4>
+                          <h4 className="font-black text-[#1C3627] dark:text-white text-sm text-left">{account.engagement}</h4>
                           <p className="text-xs text-gray-400 font-medium text-left">with {account.expert}</p>
                         </div>
                       </div>
@@ -1181,9 +1181,9 @@ const Payments = () => {
                         <motion.div
                           key={iIdx}
                           whileHover={{ scale: 1.03, transition: { duration: 0.15 } }}
-                          style={{ backgroundColor: '#FAFBF9', borderRadius: '12px', padding: '12px', border: '1px solid #E5E7EB', textAlign: 'center' }}
+                          className="bg-[#FAFBF9] dark:bg-[#252830] border border-gray-100 dark:border-white/10 rounded-xl p-3 text-center"
                         >
-                          <p className={`font-black text-sm ${item.color}`}>{item.value}</p>
+                          <p className={`font-black text-sm ${item.color.includes('text-[#134e40]') ? 'text-[#134e40] dark:text-[#0eb59a]' : item.color}`}>{item.value}</p>
                           <p className="text-[10px] text-gray-400 font-bold mt-0.5 uppercase tracking-wide">{item.label}</p>
                         </motion.div>
                       ))}
@@ -1243,7 +1243,7 @@ const Payments = () => {
             exit={{ opacity: 0, scale: 0.9, y: 24 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
             onClick={e => e.stopPropagation()}
-            className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden"
+            className="bg-white dark:bg-[#1b1d24] border border-gray-100 dark:border-white/10 rounded-3xl shadow-2xl max-w-md w-full overflow-hidden"
           >
             <AnimatePresence mode="wait">
               {!addFundsSent ? (
@@ -1294,8 +1294,8 @@ const Payments = () => {
                             onClick={() => { setSelectedAmount(amount); setCustomAmount(''); }}
                             className={`py-3 rounded-xl text-sm font-black border-2 transition-all ${
                               selectedAmount === amount
-                                ? 'border-[#0eb59a] bg-teal-50 text-[#134e40]'
-                                : 'border-gray-100 bg-gray-50 text-gray-600 hover:border-gray-200'
+                                ? 'border-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10 text-[#134e40] dark:text-[#0eb59a]'
+                                : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:border-gray-200'
                             }`}
                           >
                             {amount}
@@ -1309,7 +1309,7 @@ const Payments = () => {
                           placeholder="Custom amount..."
                           value={customAmount}
                           onChange={e => { setCustomAmount(e.target.value); setSelectedAmount(''); }}
-                          className="w-full pl-8 pr-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                          className="w-full pl-8 pr-4 py-3 bg-gray-50 dark:bg-white/5 border-2 border-gray-100 dark:border-white/10 rounded-xl text-sm font-semibold dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                           onFocus={e => e.target.style.borderColor = '#0eb59a'}
                           onBlur={e => e.target.style.borderColor = customAmount ? '#0eb59a' : '#F3F4F6'}
                         />
@@ -1330,13 +1330,13 @@ const Payments = () => {
                             onClick={() => setPaymentMethod(method.id)}
                             className={`w-full flex items-center gap-3 p-3 rounded-xl border-2 transition-all text-left ${
                               paymentMethod === method.id
-                                ? 'border-[#0eb59a] bg-teal-50'
-                                : 'border-gray-100 bg-gray-50 hover:border-gray-200'
+                                ? 'border-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10'
+                                : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 hover:border-gray-200'
                             }`}
                           >
-                            <method.icon size={18} className={`shrink-0 ${paymentMethod === method.id ? 'text-[#0eb59a]' : 'text-gray-400'}`} />
+                            <method.icon size={18} className={`shrink-0 ${paymentMethod === method.id ? 'text-[#0eb59a]' : 'text-gray-400 dark:text-gray-500'}`} />
                             <div className="flex-1 text-left">
-                              <p className={`text-sm font-black text-left ${paymentMethod === method.id ? 'text-[#134e40]' : 'text-gray-700'}`}>
+                              <p className={`text-sm font-black text-left ${paymentMethod === method.id ? 'text-[#134e40] dark:text-[#0eb59a]' : 'text-gray-700 dark:text-gray-300'}`}>
                                 {method.label}
                               </p>
                               <p className="text-xs text-gray-400 font-medium text-left">{method.desc}</p>
@@ -1356,7 +1356,7 @@ const Payments = () => {
                     </div>
 
                     {/* Security notice */}
-                    <div className="flex items-start gap-2 p-3 bg-teal-50 rounded-xl border border-teal-100 mb-5">
+                    <div className="flex items-start gap-2 p-3 bg-teal-50 dark:bg-[#0eb59a]/10 rounded-xl border border-teal-100 dark:border-[#0eb59a]/20 mb-5">
                       <Shield size={13} className="text-[#0eb59a] shrink-0 mt-0.5" />
                       <p className="text-[11px] text-teal-700 leading-relaxed text-left">
                         Funds transferred to an RBI-compliant escrow. You retain full control and can request refunds for unused balances.
@@ -1368,7 +1368,7 @@ const Payments = () => {
                         whileHover={{ scale: 1.02, backgroundColor: '#F3F4F6' }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => { setShowAddFundsModal(false); setSelectedAmount(''); setCustomAmount(''); }}
-                        className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl transition-all"
+                        className="flex-1 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-sm font-bold rounded-2xl transition-all"
                       >
                         Cancel
                       </motion.button>
@@ -1380,7 +1380,7 @@ const Payments = () => {
                         style={{
                           flex: 1,
                           padding: '12px',
-                          background: (selectedAmount || customAmount) ? 'linear-gradient(135deg, #134e40, #0eb59a)' : '#F3F4F6',
+                          background: (selectedAmount || customAmount) ? 'linear-gradient(135deg, #134e40, #0eb59a)' : 'transparent', backgroundColor: (selectedAmount || customAmount) ? undefined : 'rgba(255,255,255,0.05)',
                           color: (selectedAmount || customAmount) ? 'white' : '#9CA3AF',
                           border: 'none',
                           borderRadius: '16px',
@@ -1421,7 +1421,7 @@ const Payments = () => {
                   >
                     <Check size={36} color="white" strokeWidth={3} />
                   </motion.div>
-                  <h3 className="text-xl font-black text-[#1C3627] mb-2">Funds Added!</h3>
+                  <h3 className="text-xl font-black text-[#1C3627] dark:text-white mb-2">Funds Added!</h3>
                   <p className="text-sm text-gray-500 leading-relaxed">
                     {selectedAmount || `₹${customAmount}`} has been added to your escrow and is ready for milestone releases.
                   </p>
@@ -1449,7 +1449,7 @@ const Payments = () => {
             exit={{ opacity: 0, scale: 0.9, y: 24 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
             onClick={e => e.stopPropagation()}
-            className="bg-white rounded-3xl shadow-2xl max-w-sm w-full overflow-hidden"
+            className="bg-white dark:bg-[#1b1d24] border border-gray-100 dark:border-white/10 rounded-3xl shadow-2xl max-w-sm w-full overflow-hidden"
           >
             <AnimatePresence mode="wait">
               {!releaseSent ? (
@@ -1473,9 +1473,9 @@ const Payments = () => {
 
                   <div className="p-6">
                     {/* Amount display */}
-                    <div className="bg-[#134e40]/5 rounded-2xl p-5 border border-[#134e40]/10 text-center mb-5">
+                    <div className="bg-[#134e40]/5 dark:bg-[#0eb59a]/5 rounded-2xl p-5 border border-[#134e40]/10 dark:border-[#0eb59a]/10 text-center mb-5">
                       <p className="text-[10px] font-black text-[#134e40] uppercase tracking-widest mb-1">Requesting Release to {showReleaseModal.expert}</p>
-                      <p className="text-4xl font-black text-[#134e40]">{showReleaseModal.pendingMilestoneAmount}</p>
+                      <p className="text-4xl font-black text-[#134e40] dark:text-[#0eb59a]">{showReleaseModal.pendingMilestoneAmount}</p>
                     </div>
 
                     <div className="space-y-2 text-xs mb-5">
@@ -1486,7 +1486,7 @@ const Payments = () => {
                       ].map((item, idx) => (
                         <div key={idx} className="flex justify-between py-1.5 border-b border-gray-50 last:border-0">
                           <span className="text-gray-400 font-semibold text-left">{item.label}</span>
-                          <span className={`font-bold text-right ${item.label === 'Escrow Agent (Admin)' ? 'text-amber-600' : 'text-[#1C3627]'}`}>
+                          <span className={`font-bold text-right ${item.label === 'Escrow Agent (Admin)' ? 'text-amber-600' : 'text-[#1C3627] dark:text-white'}`}>
                             {item.value}
                           </span>
                         </div>
@@ -1498,7 +1498,7 @@ const Payments = () => {
                         whileHover={{ scale: 1.02, backgroundColor: '#F3F4F6' }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => setShowReleaseModal(null)}
-                        className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl transition-all"
+                        className="flex-1 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-sm font-bold rounded-2xl transition-all"
                       >
                         Cancel
                       </motion.button>
@@ -1535,7 +1535,7 @@ const Payments = () => {
                   >
                     <Check size={36} color="white" strokeWidth={3} />
                   </motion.div>
-                  <h3 className="text-xl font-black text-[#1C3627] mb-2">Release Requested!</h3>
+                  <h3 className="text-xl font-black text-[#1C3627] dark:text-white mb-2">Release Requested!</h3>
                   <p className="text-sm text-gray-500 leading-relaxed">
                     A release request for {showReleaseModal?.pendingMilestoneAmount} has been sent to the Escrow Agent (Admin) for final authorization.
                   </p>
@@ -1563,7 +1563,7 @@ const Payments = () => {
             exit={{ opacity: 0, scale: 0.93, y: 24 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
             onClick={e => e.stopPropagation()}
-            className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden"
+            className="bg-white dark:bg-[#1b1d24] border border-gray-100 dark:border-white/10 rounded-3xl shadow-2xl max-w-md w-full overflow-hidden"
           >
             {/* Gradient header */}
             <div style={{ background: 'linear-gradient(135deg, #134e40, #0eb59a)', padding: '24px' }}>
@@ -1595,7 +1595,7 @@ const Payments = () => {
             </div>
 
             <div className="p-6">
-              <div className="bg-[#FAFBF9] rounded-xl border border-gray-100 p-4 mb-5 space-y-3">
+              <div className="bg-[#FAFBF9] dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 p-4 mb-5 space-y-3">
                 {[
                   { label: 'Description', value: showInvoiceModal.title },
                   { label: 'Expert', value: showInvoiceModal.expert },
@@ -1603,14 +1603,14 @@ const Payments = () => {
                   { label: 'Invoice Date', value: showInvoiceModal.date },
                   { label: 'Due Date', value: showInvoiceModal.dueDate },
                 ].map((item, idx) => (
-                  <div key={idx} className={`flex justify-between text-xs py-1.5 ${idx < 4 ? 'border-b border-gray-100' : ''}`}>
+                  <div key={idx} className={`flex justify-between text-xs py-1.5 ${idx < 4 ? 'border-b border-gray-100 dark:border-white/10' : ''}`}>
                     <span className="text-gray-400 font-semibold text-left">{item.label}</span>
-                    <span className="font-bold text-[#1C3627] text-right max-w-[60%]">{item.value}</span>
+                    <span className="font-bold text-[#1C3627] dark:text-white text-right max-w-[60%]">{item.value}</span>
                   </div>
                 ))}
                 <div className="flex justify-between pt-2">
-                  <span className="font-black text-[#1C3627] text-sm">Total Amount</span>
-                  <span className="font-black text-2xl text-[#134e40]">{showInvoiceModal.amount}</span>
+                  <span className="font-black text-[#1C3627] dark:text-white text-sm">Total Amount</span>
+                  <span className="font-black text-2xl text-[#134e40] dark:text-[#0eb59a]">{showInvoiceModal.amount}</span>
                 </div>
               </div>
 
@@ -1629,7 +1629,7 @@ const Payments = () => {
                   whileHover={{ scale: 1.02, backgroundColor: '#F3F4F6' }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setShowInvoiceModal(null)}
-                  className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl transition-all"
+                  className="flex-1 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-sm font-bold rounded-2xl transition-all"
                 >
                   Close
                 </motion.button>

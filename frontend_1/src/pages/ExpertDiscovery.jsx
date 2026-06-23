@@ -102,6 +102,13 @@ const ExpertDiscovery = () => {
 
   // ── STATE ──
   const [experts, setExperts] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications] = useState([
+    { id: 1, type: 'match', title: 'New Expert Match', desc: 'Sarah Jenkins matches your Interim CFO requirement at 98%', time: '2 min ago', unread: true, color: 'bg-teal-500' },
+    { id: 2, type: 'invite', title: 'Invite Accepted', desc: 'David Chen accepted your invitation for CFO role', time: '1 hour ago', unread: true, color: 'bg-blue-500' },
+    { id: 3, type: 'milestone', title: 'Milestone Due', desc: 'Financial Model Draft milestone is due in 3 days', time: '3 hours ago', unread: false, color: 'bg-amber-500' },
+  ]);
+  const unreadCount = notifications.filter(n => n.unread).length;
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilters, setShowFilters] = useState(false);
@@ -444,22 +451,22 @@ const ExpertDiscovery = () => {
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-[10px] font-black text-[#1C3627]">{percent}%</span>
+            <span className="text-xs font-black text-[#1C3627] dark:text-white">{percent}%</span>
           </div>
         </div>
-        <span className="text-[9px] font-semibold text-gray-400 text-center leading-tight max-w-[56px]">{label}</span>
+        <span className="text-[10px] font-semibold text-gray-400 dark:text-gray-300 text-center leading-tight max-w-[56px]">{label}</span>
       </div>
     );
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0d1a14]">
+    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0f1117]">
 
       <motion.aside
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-white dark:bg-[#0a1810] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white dark:bg-[#1b1d24] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
         {/* Brand */}
         <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
@@ -499,7 +506,7 @@ const ExpertDiscovery = () => {
                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
                   isActive
                     ? 'bg-[#134e40] text-white shadow-md'
-                    : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'
                 }`}
               >
                 {isActive && (
@@ -525,7 +532,7 @@ const ExpertDiscovery = () => {
         </nav>
 
         {/* Separated Settings option pinned to the bottom */}
-        <div className="p-3 border-t border-gray-50 dark:border-white/10 space-y-1">
+        <div className="p-3 border-t border-gray-100/60 dark:border-white/5 space-y-1">
           {/* Theme Toggle */}
           <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
             {isSidebarOpen && (
@@ -541,7 +548,7 @@ const ExpertDiscovery = () => {
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
               window.location.pathname === '/settings'
                 ? 'bg-[#134e40] text-white shadow-md'
-                : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'
             }`}
           >
             {window.location.pathname === '/settings' && (
@@ -596,7 +603,7 @@ const ExpertDiscovery = () => {
       >
 
         {/* ── TOP HEADER ── */}
-        <header className="sticky top-0 z-30 bg-white dark:bg-[#0a1810] border-b border-gray-100 dark:border-white/10 px-6 py-3 flex items-center gap-4 shadow-sm">
+        <header className="sticky top-0 z-30 bg-white dark:bg-[#1b1d24] border-b border-gray-100 dark:border-white/10 px-6 py-3 flex items-center gap-4 shadow-sm">
           <div className="relative flex-1 max-w-lg">
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input
@@ -604,7 +611,7 @@ const ExpertDiscovery = () => {
               placeholder="Search by name, skill, role, or industry..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all"
+              className="w-full pl-9 pr-4 py-2 bg-gray-50 dark:bg-white/5 dark:text-gray-200 dark:placeholder-gray-500 border border-gray-100 dark:border-white/10 rounded-xl text-sm focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all"
             />
             {searchQuery && (
               <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
@@ -613,11 +620,74 @@ const ExpertDiscovery = () => {
             )}
           </div>
           <div className="flex items-center gap-3 ml-auto">
-            <div className="relative">
-              <button className="w-9 h-9 bg-gray-50 rounded-xl flex items-center justify-center text-gray-500 hover:text-[#134e40] transition-all">
+            <div className="relative z-30">
+              <motion.button
+                onClick={() => setShowNotifications(!showNotifications)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-9 h-9 bg-gray-50 dark:bg-white/5 rounded-xl flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 dark:hover:bg-white/10 transition-all relative"
+              >
                 <Bell size={17} />
-              </button>
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center animate-pulse">3</span>
+                {unreadCount > 0 && (
+                  <motion.span
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center"
+                  >
+                    {unreadCount}
+                  </motion.span>
+                )}
+              </motion.button>
+
+              {/* Notification dropdown */}
+              <AnimatePresence>
+                {showNotifications && (
+                  <>
+                    {/* Backdrop */}
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setShowNotifications(false)}
+                    />
+                    <motion.div
+                      initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                      transition={{ duration: 0.2, ease: 'easeOut' }}
+                      className="absolute right-0 top-11 w-80 bg-white dark:bg-[#1e2028] rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 z-50 overflow-hidden"
+                    >
+                      {/* Header */}
+                      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-50 dark:border-white/5">
+                        <h4 className="font-black text-[#1C3627] dark:text-white text-sm">Notifications</h4>
+                        <span className="text-[10px] font-bold text-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10 px-2 py-0.5 rounded-md">
+                          {unreadCount} New
+                        </span>
+                      </div>
+
+                      {/* List */}
+                      <div className="divide-y divide-gray-50 dark:divide-white/5 max-h-64 overflow-y-auto">
+                        {notifications.map(notif => (
+                          <button
+                            key={notif.id}
+                            className="w-full flex items-start gap-3 p-3 hover:bg-gray-50 dark:hover:bg-white/5 transition-all text-left"
+                          >
+                            <div className={`w-2 h-2 rounded-full ${notif.color} mt-1.5 shrink-0`} />
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-black text-[#1C3627] dark:text-white leading-none mb-1">{notif.title}</p>
+                              <p className="text-[11px] text-gray-500 dark:text-gray-400 line-clamp-2">{notif.desc}</p>
+                              <span className="text-[9px] text-gray-400 mt-1 block">{notif.time}</span>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Footer */}
+                      <button className="block w-full py-2.5 bg-gray-50 dark:bg-white/5 hover:bg-gray-100/80 dark:hover:bg-white/10 text-[10px] font-black text-[#134e40] dark:text-[#0eb59a] text-center uppercase tracking-widest border-t border-gray-50 dark:border-white/5">
+                        Mark All As Read
+                      </button>
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
             </div>
             <button className="w-9 h-9 bg-[#134e40] rounded-xl flex items-center justify-center text-white text-xs font-black hover:ring-2 hover:ring-[#0eb59a] hover:ring-offset-2 transition-all overflow-hidden">
               {companyProfile?.logo_url ? (
@@ -638,7 +708,7 @@ const ExpertDiscovery = () => {
 
               {/* Left — Title + live stats */}
               <div>
-                <h1 className="text-[28px] font-black text-[#1C3627] tracking-tight leading-none mb-3">
+                <h1 className="text-[28px] font-black text-[#1C3627] dark:text-white tracking-tight leading-none mb-3">
                   Find Experts
                 </h1>
                 <div className="flex items-center gap-2 flex-wrap">
@@ -772,11 +842,11 @@ const ExpertDiscovery = () => {
                     transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                     className="shrink-0 overflow-hidden"
                   >
-                    <div className="w-[240px] bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sticky top-4">
+                    <div className="w-[240px] bg-white dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-5 sticky top-4">
 
                       {/* Filter Header */}
                       <div className="flex items-center justify-between mb-5">
-                        <h3 className="font-black text-[#1C3627] text-sm flex items-center gap-2">
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2">
                           <Filter size={13} className="text-[#0eb59a]" /> Filters
                         </h3>
                         {totalActiveFilters > 0 && (
@@ -797,7 +867,7 @@ const ExpertDiscovery = () => {
                               onClick={() => setExpandedFilter(expandedFilter === section.id ? null : section.id)}
                               className="w-full flex items-center justify-between mb-2"
                             >
-                              <span className="text-[10px] font-black text-gray-600 uppercase tracking-widest flex items-center gap-1.5">
+                              <span className="text-[10px] font-black text-gray-600 dark:text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
                                 <section.icon size={11} className="text-[#0eb59a]" />
                                 {section.label}
                                 {activeFilters[section.id]?.length > 0 && (
@@ -830,7 +900,7 @@ const ExpertDiscovery = () => {
                                         className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                                           isActive
                                             ? 'bg-teal-50 text-[#134e40] border border-teal-100'
-                                            : 'text-gray-500 hover:bg-gray-50'
+                                            : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5'
                                         }`}
                                       >
                                         {option}
@@ -914,10 +984,10 @@ const ExpertDiscovery = () => {
 
                 {/* Results bar */}
                 <div className="flex items-center justify-between mb-4">
-                  <p className="text-sm font-bold text-gray-500">
-                    Showing <span className="text-[#1C3627] font-black">{filteredExperts.length}</span> experts
+                  <p className="text-sm font-bold text-gray-500 dark:text-gray-400">
+                    Showing <span className="text-[#1C3627] dark:text-white font-black">{filteredExperts.length}</span> experts
                   </p>
-                  <select className="text-xs font-bold text-gray-500 bg-white border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20">
+                  <select className="text-xs font-bold text-gray-500 dark:text-gray-300 bg-white dark:bg-[#1e2028] border border-gray-200 dark:border-white/10 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20">
                     <option>Best Match</option>
                     <option>Highest Rated</option>
                     <option>Most Reviews</option>
@@ -976,10 +1046,10 @@ const ExpertDiscovery = () => {
                               {/* ── BASE CARD ── */}
                               <motion.div
                                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                                className={`bg-white rounded-2xl border transition-all duration-200 overflow-hidden relative cursor-pointer
+                                className={`bg-white dark:bg-[#1e2028] rounded-2xl border transition-all duration-200 overflow-hidden relative cursor-pointer
                                   ${isHovered
-                                    ? 'border-[#0eb59a]/40 shadow-[0_12px_40px_rgba(14,181,154,0.12)]'
-                                    : 'border-gray-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:border-gray-200'
+                                    ? 'border-[#0eb59a]/40 shadow-[0_12px_40px_rgba(14,181,154,0.12)] dark:shadow-[0_12px_40px_rgba(14,181,154,0.08)]'
+                                    : 'border-gray-100 dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:border-gray-200 dark:hover:border-[#0eb59a]/30'
                                   }
                                 `}
                               >
@@ -994,7 +1064,7 @@ const ExpertDiscovery = () => {
                                       </span>
                                     )}
                                     {expert.verified && (
-                                      <span className="flex items-center gap-1 text-[9px] font-black text-blue-700 bg-blue-50 px-2 py-1 rounded-lg border border-blue-100">
+                                      <span className="flex items-center gap-1 text-[9px] font-black text-[#134e40] dark:text-[#0eb59a] bg-[#134e40]/10 dark:bg-[#0eb59a]/10 px-2 py-1 rounded-lg border border-[#134e40]/20 dark:border-[#0eb59a]/20">
                                         <Shield size={8} /> Verified
                                       </span>
                                     )}
@@ -1021,17 +1091,17 @@ const ExpertDiscovery = () => {
                                     <div className="flex-1 min-w-0">
                                       <h3
                                         onClick={() => navigate(`/experts/${expert.id}`)}
-                                        className="font-black text-[#1C3627] text-sm leading-tight mb-0.5 transition-colors cursor-pointer hover:text-[#0eb59a] text-left"
+                                        className="font-black text-[#1C3627] dark:text-white text-sm leading-tight mb-0.5 transition-colors cursor-pointer hover:text-[#0eb59a] text-left"
                                       >
                                         {expert.name}
                                       </h3>
-                                      <p className="text-xs font-bold text-gray-600 text-left">{expert.title}</p>
-                                      <p className="text-[11px] text-gray-400 mt-0.5 truncate text-left">{expert.exRole}</p>
+                                      <p className="text-sm font-bold text-gray-700 dark:text-gray-200 text-left">{expert.title}</p>
+                                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate text-left">{expert.exRole}</p>
                                     </div>
                                   </div>
 
                                   {/* Bio */}
-                                  <p className="text-xs text-gray-400 leading-relaxed mb-4 line-clamp-2 text-left">
+                                  <p className="text-xs text-gray-500 dark:text-gray-300 leading-relaxed mb-4 line-clamp-2 text-left">
                                     {expert.bio}
                                   </p>
 
@@ -1043,7 +1113,7 @@ const ExpertDiscovery = () => {
                                       { icon: DollarSign, label: expert.budget, color: 'text-[#0eb59a]' },
                                       { icon: Zap, label: expert.experience, color: 'text-purple-400' },
                                     ].map((m, mi) => (
-                                      <div key={mi} className="flex items-center gap-1.5 text-[11px] font-semibold text-gray-500">
+                                      <div key={mi} className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 dark:text-gray-300">
                                         <m.icon size={11} className={`${m.color} shrink-0`} />
                                         <span className="truncate">{m.label}</span>
                                       </div>
@@ -1053,22 +1123,22 @@ const ExpertDiscovery = () => {
                                   {/* Skills */}
                                   <div className="flex flex-wrap gap-1.5 mb-4">
                                     {expert.skills.slice(0, 3).map(skill => (
-                                      <span key={skill} className="text-[10px] font-semibold bg-[#FAFBF9] text-[#1C3627] border border-gray-200 px-2 py-0.5 rounded-md">
+                                      <span key={skill} className="text-xs font-semibold bg-[#FAFBF9] dark:bg-[#252830] text-[#1C3627] dark:text-gray-300 border border-gray-200 dark:border-white/10 px-2 py-0.5 rounded-md hover:bg-[#0eb59a]/10 hover:text-[#0eb59a] transition-colors">
                                         {skill}
                                       </span>
                                     ))}
                                     {expert.skills.length > 3 && (
-                                      <span className="text-[10px] font-semibold bg-[#FAFBF9] text-gray-400 border border-gray-200 px-2 py-0.5 rounded-md">
+                                      <span className="text-xs font-semibold bg-[#FAFBF9] dark:bg-[#252830] text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-white/10 px-2 py-0.5 rounded-md">
                                         +{expert.skills.length - 3}
                                       </span>
                                     )}
                                   </div>
 
                                   {/* Rating + response */}
-                                  <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-50">
+                                  <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-50 dark:border-white/5">
                                     <div className="flex items-center gap-1">
                                       <Star size={12} fill="#F59E0B" className="text-amber-400" />
-                                      <span className="font-black text-[#1C3627] text-sm">{expert.rating}</span>
+                                      <span className="font-black text-[#1C3627] dark:text-white text-sm">{expert.rating}</span>
                                       <span className="text-xs text-gray-400">({expert.reviews})</span>
                                     </div>
                                     <span className="text-[10px] font-medium text-gray-400">
@@ -1107,7 +1177,7 @@ const ExpertDiscovery = () => {
                                         className={`flex-1 py-2.5 rounded-xl border text-xs font-black transition-all duration-300 flex items-center justify-center gap-1.5 relative overflow-hidden ${
                                           following.includes(expert.id)
                                             ? 'bg-[#0eb59a] text-white border-[#0eb59a] shadow-md shadow-[#0eb59a]/20'
-                                            : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-teal-50 hover:text-[#134e40] hover:border-teal-300'
+                                            : 'bg-gray-50 dark:bg-white/5 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-white/10 hover:bg-teal-50 dark:hover:bg-[#0eb59a]/10 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:border-teal-300'
                                         }`}
                                       >
                                         {/* Shimmer effect when following */}
@@ -1153,7 +1223,7 @@ const ExpertDiscovery = () => {
                                         className={`flex-1 py-2 rounded-xl border text-xs font-black transition-all flex items-center justify-center gap-1.5 ${
                                           shortlisted.includes(expert.id)
                                             ? 'bg-rose-50 text-rose-500 border-rose-200'
-                                            : 'bg-gray-50 text-gray-400 border-gray-100 hover:bg-rose-50 hover:text-rose-400 hover:border-rose-200'
+                                            : 'bg-gray-50 dark:bg-white/5 text-gray-400 dark:text-gray-500 border-gray-100 dark:border-white/10 hover:bg-rose-50 hover:text-rose-400 hover:border-rose-200'
                                         }`}
                                       >
                                         <motion.div
@@ -1174,8 +1244,8 @@ const ExpertDiscovery = () => {
                                           compareTray.includes(expert.id)
                                             ? 'bg-blue-50 text-blue-600 border-blue-200'
                                             : compareTray.length >= 3
-                                            ? 'bg-gray-50 text-gray-200 border-gray-100 cursor-not-allowed'
-                                            : 'bg-gray-50 text-gray-400 border-gray-100 hover:bg-blue-50 hover:text-blue-500 hover:border-blue-200'
+                                            ? 'bg-gray-50 dark:bg-white/5 text-gray-200 dark:text-gray-600 border-gray-100 dark:border-white/5 cursor-not-allowed'
+                                            : 'bg-gray-50 dark:bg-white/5 text-gray-400 dark:text-gray-400 border-gray-100 dark:border-white/10 hover:bg-[#0eb59a]/10 hover:text-[#0eb59a] hover:border-[#0eb59a]/30'
                                         }`}
                                       >
                                         <BarChart2 size={12} />
@@ -1196,14 +1266,14 @@ const ExpertDiscovery = () => {
                                     animate={{ opacity: 1, scale: 1, x: 0 }}
                                     exit={{ opacity: 0, scale: 0.92, x: panelSide === 'right' ? -10 : 10 }}
                                     transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-                                    className="absolute top-0 z-[100] w-[280px] bg-[#FAFBF9] rounded-2xl border border-gray-100 shadow-2xl shadow-[#134e40]/10 p-5 pointer-events-none"
+                                    className="absolute top-0 z-[100] w-[280px] bg-[#FAFBF9] dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 shadow-2xl shadow-[#134e40]/10 dark:shadow-black/30 p-5 pointer-events-none"
                                     style={{
                                       [panelSide === 'right' ? 'left' : 'right']: 'calc(100% + 12px)',
                                     }}
                                   >
 
                                     {/* Panel header */}
-                                    <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-100">
+                                    <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-100 dark:border-white/10">
                                       <img
                                         src={expert.avatar}
                                         alt={expert.name}
@@ -1211,13 +1281,13 @@ const ExpertDiscovery = () => {
                                         style={{ borderRadius: '8px 0px 8px 8px' }}
                                       />
                                       <div>
-                                        <p className="text-xs font-black text-[#1C3627] leading-none">{expert.name}</p>
-                                        <p className="text-[10px] text-gray-400 mt-0.5">{expert.title}</p>
+                                        <p className="text-sm font-black text-[#1C3627] dark:text-white leading-none">{expert.name}</p>
+                                        <p className="text-xs text-gray-400 dark:text-gray-300 mt-0.5">{expert.title}</p>
                                       </div>
                                     </div>
 
                                     {/* SVG Radial Rings */}
-                                    <div className="flex items-center justify-center gap-6 mb-4 pb-4 border-b border-gray-100">
+                                    <div className="flex items-center justify-center gap-6 mb-4 pb-4 border-b border-gray-100 dark:border-white/10">
                                       <RadialRing
                                         percent={expert.match}
                                         color="#0eb59a"
@@ -1239,7 +1309,7 @@ const ExpertDiscovery = () => {
                                       <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">Industries</p>
                                       <div className="flex flex-wrap gap-1.5">
                                         {expert.industries.map(ind => (
-                                          <span key={ind} className="text-[10px] font-semibold bg-white text-[#134e40] border border-[#134e40]/15 px-2 py-0.5 rounded-md">
+                                          <span key={ind} className="text-[10px] font-semibold bg-white dark:bg-white/5 text-[#134e40] dark:text-[#0eb59a] border border-[#134e40]/15 dark:border-white/10 px-2 py-0.5 rounded-md">
                                             {ind}
                                           </span>
                                         ))}
@@ -1251,7 +1321,7 @@ const ExpertDiscovery = () => {
                                       <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">Engagement Types</p>
                                       <div className="flex flex-wrap gap-1.5">
                                         {expert.engagementTypes.map(type => (
-                                          <span key={type} className="text-[10px] font-semibold bg-teal-50 text-teal-700 border border-teal-100 px-2 py-0.5 rounded-md">
+                                          <span key={type} className="text-[10px] font-semibold bg-teal-50 dark:bg-[#0eb59a]/10 text-teal-700 dark:text-[#0eb59a] border border-teal-100 dark:border-[#0eb59a]/20 px-2 py-0.5 rounded-md">
                                             {type}
                                           </span>
                                         ))}
@@ -1265,17 +1335,17 @@ const ExpertDiscovery = () => {
                                         { label: 'Followers', value: `${20 + expert.id * 13}`, color: 'text-teal-500' },
                                         { label: 'Experience', value: expert.experience, color: 'text-purple-500' },
                                       ].map((s, si) => (
-                                        <div key={si} className="bg-white rounded-xl p-2.5 border border-gray-100 text-center">
+                                        <div key={si} className="bg-white dark:bg-[#252830] rounded-xl p-2.5 border border-gray-100 dark:border-white/10 text-center">
                                           <p className={`text-xs font-black ${s.color} leading-none`}>{s.value}</p>
-                                          <p className="text-[9px] text-gray-400 font-medium mt-0.5 leading-tight">{s.label}</p>
+                                          <p className="text-[9px] text-gray-400 dark:text-gray-300 font-medium mt-0.5 leading-tight">{s.label}</p>
                                         </div>
                                       ))}
                                     </div>
 
                                     {/* Bio excerpt */}
-                                    <div className="bg-white rounded-xl p-3 border border-gray-100">
-                                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Profile</p>
-                                      <p className="text-[11px] text-gray-600 leading-relaxed font-medium">{expert.bio}</p>
+                                    <div className="bg-white dark:bg-[#252830] rounded-xl p-3 border border-gray-100 dark:border-white/10">
+                                      <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">Profile</p>
+                                      <p className="text-[11px] text-gray-600 dark:text-gray-300 leading-relaxed font-medium">{expert.bio}</p>
                                     </div>
 
                                   </motion.div>

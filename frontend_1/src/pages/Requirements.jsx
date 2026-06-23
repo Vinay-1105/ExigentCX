@@ -27,6 +27,13 @@ const Requirements = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const [requirements, setRequirements] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications] = useState([
+    { id: 1, type: 'match', title: 'New Expert Match', desc: 'Sarah Jenkins matches your Interim CFO requirement at 98%', time: '2 min ago', unread: true, color: 'bg-teal-500' },
+    { id: 2, type: 'invite', title: 'Invite Accepted', desc: 'David Chen accepted your invitation for CFO role', time: '1 hour ago', unread: true, color: 'bg-blue-500' },
+    { id: 3, type: 'milestone', title: 'Milestone Due', desc: 'Financial Model Draft milestone is due in 3 days', time: '3 hours ago', unread: false, color: 'bg-amber-500' },
+  ]);
+  const unreadCount = notifications.filter(n => n.unread).length;
   const [isLoading, setIsLoading] = useState(true);
   const [companyProfile, setCompanyProfile] = useState(null);
 
@@ -269,7 +276,7 @@ const Requirements = () => {
     switch(status) {
       case 'Active':
         return {
-          bg: 'bg-gradient-to-br from-white to-[#f0f7f4] dark:from-[#0d2318] dark:to-[#0a1e13]',
+          bg: 'bg-white dark:bg-[#1e2028]',
           shadow: 'shadow-[0_4px_24px_rgba(19,78,64,0.08)] dark:shadow-[0_4px_24px_rgba(14,181,154,0.06)]',
           border: 'border-[#0eb59a]/15 dark:border-[#0eb59a]/20',
           bar: 'bg-[#0eb59a]',
@@ -277,7 +284,7 @@ const Requirements = () => {
         };
       case 'Shortlisting':
         return {
-          bg: 'bg-gradient-to-br from-white to-amber-50/60 dark:from-[#0d2318] dark:to-[#1a1a0a]',
+          bg: 'bg-white dark:bg-[#1e2028]',
           shadow: 'shadow-[0_4px_24px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_24px_rgba(245,158,11,0.06)]',
           border: 'border-amber-100 dark:border-amber-900/30',
           bar: 'bg-amber-400',
@@ -351,14 +358,14 @@ const Requirements = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0d1a14]">
+    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0f1117]">
 
       {/* ── SIDEBAR ── */}
       <motion.aside
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-white dark:bg-[#0a1810] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white dark:bg-[#1b1d24] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
         {/* Brand */}
         <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
@@ -377,7 +384,7 @@ const Requirements = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="w-7 h-7 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#134e40] hover:bg-gray-100 transition-all shrink-0"
+            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 transition-all shrink-0"
           >
             {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
           </motion.button>
@@ -397,7 +404,7 @@ const Requirements = () => {
               className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
                 item.active
                   ? 'bg-[#134e40] text-white shadow-md'
-                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'
+                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'
               }`}
             >
               {item.active && (
@@ -422,7 +429,7 @@ const Requirements = () => {
         </nav>
 
         {/* Separated Settings option pinned to the bottom */}
-        <div className="p-3 border-t border-gray-50 dark:border-white/10 space-y-1">
+        <div className="p-3 border-t border-gray-100/60 dark:border-white/5 space-y-1">
           {/* Theme Toggle */}
           <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
             {isSidebarOpen && (
@@ -438,7 +445,7 @@ const Requirements = () => {
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
               window.location.pathname === '/settings'
                 ? 'bg-[#134e40] text-white shadow-md'
-                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'
+                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'
             }`}
           >
             {window.location.pathname === '/settings' && (
@@ -493,7 +500,7 @@ const Requirements = () => {
       >
 
         {/* ── TOP HEADER ── */}
-        <header className="bg-white dark:bg-[#0a1810] border-b border-gray-100 dark:border-white/10 px-6 py-3 flex items-center gap-4 shrink-0 shadow-sm">
+        <header className="bg-white dark:bg-[#1b1d24] border-b border-gray-100 dark:border-white/10 px-6 py-3 flex items-center gap-4 shrink-0 shadow-sm">
           <div className="relative flex-1 max-w-md">
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input
@@ -515,11 +522,74 @@ const Requirements = () => {
               <Plus size={15} /> New Requirement
             </motion.button>
 
-            <div className="relative">
-              <button className="w-9 h-9 bg-gray-50 rounded-xl flex items-center justify-center text-gray-500 hover:text-[#134e40] hover:bg-gray-100 transition-all">
+            <div className="relative z-30">
+              <motion.button
+                onClick={() => setShowNotifications(!showNotifications)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-9 h-9 bg-gray-50 dark:bg-white/5 rounded-xl flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 dark:hover:bg-white/10 transition-all relative"
+              >
                 <Bell size={17} />
-              </button>
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center animate-pulse">3</span>
+                {unreadCount > 0 && (
+                  <motion.span
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center"
+                  >
+                    {unreadCount}
+                  </motion.span>
+                )}
+              </motion.button>
+
+              {/* Notification dropdown */}
+              <AnimatePresence>
+                {showNotifications && (
+                  <>
+                    {/* Backdrop */}
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setShowNotifications(false)}
+                    />
+                    <motion.div
+                      initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                      transition={{ duration: 0.2, ease: 'easeOut' }}
+                      className="absolute right-0 top-11 w-80 bg-white dark:bg-[#1e2028] rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 z-50 overflow-hidden"
+                    >
+                      {/* Header */}
+                      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-50 dark:border-white/5">
+                        <h4 className="font-black text-[#1C3627] dark:text-white text-sm">Notifications</h4>
+                        <span className="text-[10px] font-bold text-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10 px-2 py-0.5 rounded-md">
+                          {unreadCount} New
+                        </span>
+                      </div>
+
+                      {/* List */}
+                      <div className="divide-y divide-gray-50 dark:divide-white/5 max-h-64 overflow-y-auto">
+                        {notifications.map(notif => (
+                          <button
+                            key={notif.id}
+                            className="w-full flex items-start gap-3 p-3 hover:bg-gray-50 dark:hover:bg-white/5 transition-all text-left"
+                          >
+                            <div className={`w-2 h-2 rounded-full ${notif.color} mt-1.5 shrink-0`} />
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-black text-[#1C3627] dark:text-white leading-none mb-1">{notif.title}</p>
+                              <p className="text-[11px] text-gray-500 dark:text-gray-400 line-clamp-2">{notif.desc}</p>
+                              <span className="text-[9px] text-gray-400 mt-1 block">{notif.time}</span>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Footer */}
+                      <button className="block w-full py-2.5 bg-gray-50 dark:bg-white/5 hover:bg-gray-100/80 dark:hover:bg-white/10 text-[10px] font-black text-[#134e40] dark:text-[#0eb59a] text-center uppercase tracking-widest border-t border-gray-50 dark:border-white/5">
+                        Mark All As Read
+                      </button>
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
             </div>
 
             <button className="w-9 h-9 bg-[#134e40] rounded-xl flex items-center justify-center text-white text-xs font-black hover:ring-2 hover:ring-[#0eb59a] hover:ring-offset-2 transition-all overflow-hidden">
@@ -635,7 +705,7 @@ const Requirements = () => {
 
             {/* ── FILTER ROW ── */}
             <div className="px-8 pb-5 flex items-center gap-2">
-              <div className="flex items-center gap-1.5 bg-[#FAFBF9] dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-xl p-1">
+              <div className="flex items-center gap-1.5 bg-[#FAFBF9] dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-xl p-1">
                 {filters.map(f => (
                   <motion.button
                     key={f}
@@ -644,7 +714,7 @@ const Requirements = () => {
                     className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all duration-150 ${
                       activeFilter === f
                         ? 'bg-[#134e40] text-white shadow-sm'
-                        : 'text-gray-500 dark:text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-white dark:hover:bg-white/10'
+                        : 'text-gray-500 dark:text-gray-400 hover:text-[#134e40] dark:hover:text-white hover:bg-white dark:hover:bg-white/5'
                     }`}
                   >
                     {f}
@@ -672,13 +742,13 @@ const Requirements = () => {
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="bg-[#FAFBF9] rounded-2xl border border-gray-100 p-16 text-center"
+                    className="bg-[#FAFBF9] dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 p-16 text-center"
                   >
-                    <div className="w-12 h-12 bg-white rounded-2xl border border-gray-100 flex items-center justify-center mx-auto mb-4 shadow-sm">
+                    <div className="w-12 h-12 bg-white dark:bg-[#252830] rounded-2xl border border-gray-100 dark:border-white/10 flex items-center justify-center mx-auto mb-4 shadow-sm">
                       <Search size={20} className="text-gray-300" />
                     </div>
-                    <h3 className="font-black text-[#1C3627] text-base mb-1">No requirements found</h3>
-                    <p className="text-gray-400 text-sm mb-5 font-medium">
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-base mb-1">No requirements found</h3>
+                    <p className="text-gray-400 dark:text-gray-500 text-sm mb-5 font-medium">
                       {searchQuery ? `No results for "${searchQuery}"` : `No ${activeFilter.toLowerCase()} requirements yet`}
                     </p>
                     <motion.button
@@ -813,7 +883,7 @@ const Requirements = () => {
                                   ].map((m, mi) => (
                                     <div key={mi} className="flex items-center justify-end gap-2">
                                       <span className="text-[11px] text-gray-400 font-medium">{m.label}</span>
-                                      <div className="flex items-center gap-1.5 bg-[#FAFBF9] dark:bg-white/5 border border-gray-100 dark:border-white/10 px-2.5 py-1 rounded-lg min-w-[44px] justify-center">
+                                      <div className="flex items-center gap-1.5 bg-[#FAFBF9] dark:bg-[#252830] border border-gray-100 dark:border-white/10 px-2.5 py-1 rounded-lg min-w-[44px] justify-center">
                                         <div className={`w-1.5 h-1.5 rounded-full ${m.dot}`} />
                                         <span className="text-[12px] font-black text-[#1C3627] dark:text-white">{m.val}</span>
                                       </div>
@@ -866,7 +936,7 @@ const Requirements = () => {
 
                           {/* Shortlisting progress — bottom of card */}
                           {req.status === 'Shortlisting' && (
-                            <div className="mt-4 pt-4 border-t border-gray-50">
+                            <div className="mt-4 pt-4 border-t border-gray-50 dark:border-white/5">
                               <div className="flex justify-between items-center mb-1.5">
                                 <span className="text-[11px] font-semibold text-gray-400">Shortlisting Progress</span>
                                 <span className="text-[11px] font-black text-amber-600">
@@ -903,12 +973,12 @@ const Requirements = () => {
                 animate={{ width: '38%', opacity: 1 }}
                 exit={{ width: 0, opacity: 0 }}
                 transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-                className="bg-white dark:bg-[#0d2318] border-l border-gray-100 dark:border-white/10 shadow-2xl flex flex-col overflow-hidden shrink-0 h-full"
+                className="bg-white dark:bg-[#1b1d24] border-l border-gray-100 dark:border-white/10 shadow-2xl flex flex-col overflow-hidden shrink-0 h-full"
               >
                 <div className="flex flex-col h-full overflow-y-auto">
 
                   {/* Drawer Header */}
-                  <div className="sticky top-0 bg-white dark:bg-[#0d2318] border-b border-gray-50 dark:border-white/10 px-6 py-4 flex items-start justify-between z-10 shrink-0">
+                  <div className="sticky top-0 bg-white dark:bg-[#1b1d24] border-b border-gray-50 dark:border-white/10 px-6 py-4 flex items-start justify-between z-10 shrink-0">
                     <div className="flex-1 min-w-0 pr-3">
                       <div className="flex items-center gap-2 mb-1.5 flex-wrap">
                         <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-lg ${getTypeBadge(selectedRequirement.type)}`}>
@@ -930,7 +1000,7 @@ const Requirements = () => {
                       whileTap={{ scale: 0.9 }}
                       transition={{ duration: 0.15 }}
                       onClick={() => setSelectedRequirement(null)}
-                      className="w-8 h-8 bg-gray-50 rounded-xl flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-all shrink-0"
+                      className="w-8 h-8 bg-gray-50 dark:bg-white/5 rounded-xl flex items-center justify-center text-gray-400 hover:text-gray-700 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/10 transition-all shrink-0"
                     >
                       <X size={14} />
                     </motion.button>
@@ -941,8 +1011,8 @@ const Requirements = () => {
 
                     {/* Description */}
                     <div>
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">About This Role</p>
-                      <p className="text-sm text-gray-600 leading-relaxed font-medium">
+                      <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-2">About This Role</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-medium">
                         {selectedRequirement.description}
                       </p>
                     </div>
@@ -955,14 +1025,14 @@ const Requirements = () => {
                         { label: 'Commitment', value: selectedRequirement.commitment, icon: Clock, iconColor: 'text-purple-500', bg: 'bg-purple-50' },
                         { label: 'Location', value: selectedRequirement.location, icon: MapPin, iconColor: 'text-rose-500', bg: 'bg-rose-50' },
                       ].map((m, mi) => (
-                        <div key={mi} className="bg-[#FAFBF9] dark:bg-white/5 rounded-xl p-3 border border-gray-100 dark:border-white/10">
+                        <div key={mi} className="bg-[#FAFBF9] dark:bg-[#252830] rounded-xl p-3 border border-gray-100 dark:border-white/10">
                           <div className="flex items-center gap-1.5 mb-1.5">
                             <div className={`w-5 h-5 ${m.bg} rounded-md flex items-center justify-center`}>
                               <m.icon size={10} className={m.iconColor} />
                             </div>
                             <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wide">{m.label}</span>
                           </div>
-                          <p className="text-xs font-black text-[#1C3627]">{m.value}</p>
+                          <p className="text-xs font-black text-[#1C3627] dark:text-white">{m.value}</p>
                         </div>
                       ))}
                     </div>
@@ -970,7 +1040,7 @@ const Requirements = () => {
                     {/* Match Funnel */}
                     {selectedRequirement.status !== 'Draft' && selectedRequirement.matchBreakdown && (
                       <div>
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Match Funnel</p>
+                        <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">Match Funnel</p>
                         <div className="space-y-2.5">
                           {[
                             { label: 'Applied', value: selectedRequirement.matchBreakdown.applied, color: 'bg-gray-200' },
@@ -979,9 +1049,9 @@ const Requirements = () => {
                             { label: 'Interviewed', value: selectedRequirement.matchBreakdown.interviewed, color: 'bg-[#134e40]' },
                           ].map((bar, bi) => (
                             <div key={bi}>
-                              <div className="flex justify-between text-[10px] font-semibold text-gray-500 mb-1">
+                              <div className="flex justify-between text-[10px] font-semibold text-gray-500 dark:text-gray-400 mb-1">
                                 <span>{bar.label}</span>
-                                <span className="font-black text-[#1C3627]">{bar.value}</span>
+                                <span className="font-black text-[#1C3627] dark:text-white">{bar.value}</span>
                               </div>
                               <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                                 <motion.div
@@ -1029,7 +1099,7 @@ const Requirements = () => {
 
                     {/* Timeline */}
                     <div>
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Engagement Timeline</p>
+                      <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">Engagement Timeline</p>
                       <div>
                         {selectedRequirement.timeline.map((t, ti) => (
                           <div key={ti} className="flex gap-3">
@@ -1042,7 +1112,7 @@ const Requirements = () => {
                               )}
                             </div>
                             <div className="pb-3">
-                              <p className={`text-xs font-bold ${t.done ? 'text-[#1C3627]' : 'text-gray-400'}`}>{t.label}</p>
+                              <p className={`text-xs font-bold ${t.done ? 'text-[#1C3627] dark:text-white' : 'text-gray-400 dark:text-gray-600'}`}>{t.label}</p>
                               <p className="text-[10px] text-gray-400 font-medium">{t.date}</p>
                             </div>
                           </div>
@@ -1052,10 +1122,10 @@ const Requirements = () => {
 
                     {/* Skills */}
                     <div>
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Required Skills</p>
+                      <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-2">Required Skills</p>
                       <div className="flex flex-wrap gap-1.5">
                         {selectedRequirement.skills.map((skill, si) => (
-                          <span key={si} className="text-[11px] font-semibold bg-[#FAFBF9] text-[#1C3627] border border-gray-200 px-2.5 py-1 rounded-lg">
+                          <span key={si} className="text-[11px] font-semibold bg-[#FAFBF9] dark:bg-[#252830] text-[#1C3627] dark:text-gray-300 border border-gray-200 dark:border-white/10 px-2.5 py-1 rounded-lg">
                             {skill}
                           </span>
                         ))}
@@ -1065,7 +1135,7 @@ const Requirements = () => {
                   </div>
 
                   {/* Drawer Footer */}
-                  <div className="sticky bottom-0 bg-white dark:bg-[#0d2318] border-t border-gray-100 dark:border-white/10 px-6 py-4 flex gap-3 shrink-0">
+                  <div className="sticky bottom-0 bg-white dark:bg-[#1b1d24] border-t border-gray-100 dark:border-white/10 px-6 py-4 flex gap-3 shrink-0">
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}

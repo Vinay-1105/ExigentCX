@@ -708,7 +708,7 @@ const CompanyDashboard = () => {
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-[#FAFBF9] dark:bg-[#252830] border-r border-gray-200 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-[2px_0_12px_rgba(0,0,0,0.06)] fixed left-0 top-0 h-screen"
+        className="bg-[#FAFBF9] dark:bg-[#1b1d24] border-r border-gray-200 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-[2px_0_12px_rgba(0,0,0,0.06)] fixed left-0 top-0 h-screen"
       >
         <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
           <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/company-dashboard')}>
@@ -837,7 +837,7 @@ const CompanyDashboard = () => {
       >
 
         {/* ── HEADER ── */}
-        <header className="h-16 bg-white dark:bg-[#252830] border-b border-gray-200 dark:border-white/10 flex items-center justify-between px-4 sm:px-6 shrink-0 z-40 sticky top-0 shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
+        <header className="h-16 bg-white dark:bg-[#1b1d24] border-b border-gray-200 dark:border-white/10 flex items-center justify-between px-4 sm:px-6 shrink-0 z-40 sticky top-0 shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
           {/* Left — branding spacer */}
           <div className="flex items-center gap-3" />
 
