@@ -318,7 +318,7 @@ const CreateRequirement = () => {
           >
             <div className="flex items-center gap-3 mb-5">
               <div className="w-1 h-5 bg-[#0eb59a] rounded-full" />
-              <h3 className="text-base font-black text-gray-900">Engagement Model</h3>
+              <h3 className="text-base font-black text-gray-900 dark:text-white">Engagement Model</h3>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
@@ -336,7 +336,7 @@ const CreateRequirement = () => {
                     className={`relative text-left p-6 rounded-2xl border-2 transition-all duration-200 ${
                       isSelected
                         ? 'bg-[#134e40] border-[#134e40] shadow-xl shadow-[#134e40]/20'
-                        : 'border-gray-100 bg-white hover:border-gray-200 hover:shadow-md'
+                        : 'border-gray-100 dark:border-white/5 bg-white dark:bg-[#1e2028] hover:border-gray-200 dark:hover:border-white/10 hover:shadow-md'
                     }`}
                   >
                     {isSelected && (
@@ -349,13 +349,13 @@ const CreateRequirement = () => {
                       </motion.div>
                     )}
 
-                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-4 ${isSelected ? 'bg-white/15' : type.bg}`}>
+                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-4 ${isSelected ? 'bg-white/15' : `${type.bg} dark:bg-white/5`}`}>
                       <type.icon size={22} className={isSelected ? 'text-white' : type.color} />
                     </div>
 
-                    <h3 className={`font-black text-base mb-1 ${isSelected ? 'text-white' : 'text-gray-900'}`}>{type.label}</h3>
-                    <p className={`text-sm mb-3 leading-relaxed ${isSelected ? 'text-white/70' : 'text-gray-500'}`}>{type.desc}</p>
-                    <span className={`text-xs font-bold px-3 py-1.5 rounded-lg ${isSelected ? 'bg-white/15 text-white/80' : 'bg-gray-50 text-gray-400'}`}>
+                    <h3 className={`font-black text-base mb-1 ${isSelected ? 'text-white' : 'text-gray-900 dark:text-white'}`}>{type.label}</h3>
+                    <p className={`text-sm mb-3 leading-relaxed ${isSelected ? 'text-white/70' : 'text-gray-500 dark:text-gray-400'}`}>{type.desc}</p>
+                    <span className={`text-xs font-bold px-3 py-1.5 rounded-lg ${isSelected ? 'bg-white/15 text-white/80' : 'bg-gray-50 dark:bg-white/5 text-gray-400 dark:text-gray-500'}`}>
                       {type.example}
                     </span>
                   </motion.button>
@@ -376,7 +376,7 @@ const CreateRequirement = () => {
           >
             <div className="flex items-center gap-3 mb-5">
               <div className="w-1 h-5 bg-[#0eb59a] rounded-full" />
-              <h3 className="text-base font-black text-gray-900">Business Challenge</h3>
+              <h3 className="text-base font-black text-gray-900 dark:text-white">Business Challenge</h3>
             </div>
 
             {/* Multi-select chips */}
@@ -394,14 +394,14 @@ const CreateRequirement = () => {
                     onClick={() => toggleItem('businessProblems', problem.id)}
                     className={`relative flex items-center gap-3 p-3.5 rounded-2xl border-2 text-left transition-all ${
                       isSelected
-                        ? 'border-[#0eb59a] bg-teal-50 shadow-md shadow-teal-100'
-                        : 'border-gray-100 bg-white hover:border-gray-200'
+                        ? 'border-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10 shadow-md shadow-teal-100 dark:shadow-none'
+                        : 'border-gray-100 dark:border-white/5 bg-white dark:bg-[#1e2028] hover:border-gray-200 dark:hover:border-white/10'
                     }`}
                   >
-                    <div className={`w-9 h-9 ${problem.bg} rounded-xl flex items-center justify-center shrink-0`}>
+                    <div className={`w-9 h-9 ${problem.bg} dark:bg-white/5 rounded-xl flex items-center justify-center shrink-0`}>
                       <problem.icon size={16} className={problem.color} />
                     </div>
-                    <span className={`text-xs font-bold leading-tight ${isSelected ? 'text-[#134e40]' : 'text-gray-600'}`}>
+                    <span className={`text-xs font-bold leading-tight ${isSelected ? 'text-[#134e40] dark:text-[#0eb59a]' : 'text-gray-600 dark:text-gray-400'}`}>
                       {problem.label}
                     </span>
                     {isSelected && (
@@ -418,19 +418,19 @@ const CreateRequirement = () => {
               })}
             </div>
 
-            <div className="border-t border-gray-50 my-6" />
+            <div className="border-t border-gray-50 dark:border-white/10 my-6" />
 
             {/* Free text */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
-                Describe your challenge in your own words <span className="text-gray-400 font-normal">(optional)</span>
+              <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">
+                Describe your challenge in your own words <span className="text-gray-400 dark:text-gray-500 font-normal">(optional)</span>
               </label>
               <textarea
                 value={formData.businessProblemText}
                 onChange={(e) => setFormData(prev => ({ ...prev, businessProblemText: e.target.value }))}
                 placeholder="e.g. We're preparing for a Series B round and need a CFO who has taken a SaaS company through fundraising before..."
                 rows={4}
-                className="w-full px-4 py-3 bg-transparent border border-gray-200 rounded-xl text-sm text-gray-800 font-semibold placeholder:text-gray-300 focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all duration-200 resize-none"
+                className="w-full px-4 py-3 bg-transparent border border-gray-200 dark:border-white/10 rounded-xl text-sm text-gray-800 dark:text-gray-200 font-semibold placeholder:text-gray-300 dark:placeholder:text-gray-600 focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all duration-200 resize-none"
               />
             </div>
 
@@ -459,12 +459,12 @@ const CreateRequirement = () => {
           >
             <div className="flex items-center gap-3 mb-5">
               <div className="w-1 h-5 bg-[#0eb59a] rounded-full" />
-              <h3 className="text-base font-black text-gray-900">Role Basics</h3>
+              <h3 className="text-base font-black text-gray-900 dark:text-white">Role Basics</h3>
             </div>
 
             {/* Role Title */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+              <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">
                 Role Title <span className="text-red-400">*</span>
               </label>
               <input
@@ -472,22 +472,22 @@ const CreateRequirement = () => {
                 placeholder="e.g. Interim CFO, Fractional CMO, VP of Engineering"
                 value={formData.roleTitle || ''}
                 onChange={(e) => setFormData(prev => ({ ...prev, roleTitle: e.target.value }))}
-                className="w-full px-4 py-3 bg-transparent border border-gray-200 rounded-xl text-sm text-gray-800 font-semibold placeholder:text-gray-300 focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all duration-200"
+                className="w-full px-4 py-3 bg-transparent border border-gray-200 dark:border-white/10 rounded-xl text-sm text-gray-800 dark:text-gray-200 font-semibold placeholder:text-gray-300 dark:placeholder:text-gray-600 focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all duration-200"
               />
-              <p className="text-xs text-gray-400 mt-1.5">This is what experts will see when they browse requirements</p>
+              <p className="text-xs text-gray-400 dark:text-gray-550 mt-1.5">This is what experts will see when they browse requirements</p>
             </div>
 
-            <div className="border-t border-gray-50 my-6" />
+            <div className="border-t border-gray-50 dark:border-white/10 my-6" />
 
             <div className="flex items-center gap-3 mb-5">
               <div className="w-1 h-5 bg-[#0eb59a] rounded-full" />
-              <h3 className="text-base font-black text-gray-900">Required Skills</h3>
+              <h3 className="text-base font-black text-gray-900 dark:text-white">Required Skills</h3>
             </div>
 
             {/* Skills */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
-                Key Skills <span className="text-gray-400 font-normal ml-1">(select all that apply) <span className="text-red-400">*</span></span>
+              <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">
+                Key Skills <span className="text-gray-400 dark:text-gray-500 font-normal ml-1">(select all that apply) <span className="text-red-400">*</span></span>
               </label>
               <div className="flex flex-wrap gap-2">
                 {skillOptions.map((skill, idx) => {
@@ -504,7 +504,7 @@ const CreateRequirement = () => {
                       className={`px-3.5 py-2 rounded-xl text-xs font-bold border-2 transition-all ${
                         isSelected
                           ? 'bg-[#134e40] text-white border-[#134e40] shadow-md'
-                          : 'bg-white text-gray-500 border-gray-100 hover:border-[#0eb59a]/40 hover:text-[#0eb59a]'
+                          : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-100 dark:border-white/5 hover:border-[#0eb59a]/40 hover:text-[#0eb59a] dark:hover:text-[#0eb59a]'
                       }`}
                     >
                       {isSelected && <Check size={10} className="inline mr-1" strokeWidth={3} />}
@@ -515,16 +515,16 @@ const CreateRequirement = () => {
               </div>
             </div>
 
-            <div className="border-t border-gray-50 my-6" />
+            <div className="border-t border-gray-50 dark:border-white/10 my-6" />
 
             <div className="flex items-center gap-3 mb-5">
               <div className="w-1 h-5 bg-[#0eb59a] rounded-full" />
-              <h3 className="text-base font-black text-gray-900">Experience & Industry</h3>
+              <h3 className="text-base font-black text-gray-900 dark:text-white">Experience & Industry</h3>
             </div>
 
             {/* Experience Years */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+              <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">
                 Minimum Years of Experience <span className="text-red-400">*</span>
               </label>
               <div className="flex flex-wrap gap-2">
@@ -535,7 +535,7 @@ const CreateRequirement = () => {
                     className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 ${
                       formData.experienceYears === exp.value
                         ? 'bg-[#134e40] text-white border-[#134e40]'
-                        : 'bg-white text-gray-500 border-gray-200 hover:border-[#134e40]/30 hover:text-[#134e40]'
+                        : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#134e40]/30 hover:text-[#134e40] dark:hover:text-[#0eb59a] dark:hover:border-[#0eb59a]/30'
                     }`}
                   >
                     {exp.label}
@@ -544,12 +544,12 @@ const CreateRequirement = () => {
               </div>
             </div>
 
-            <div className="border-t border-gray-50 my-6" />
+            <div className="border-t border-gray-50 dark:border-white/10 my-6" />
 
             {/* Industry Preference */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
-                Industry Experience Preferred <span className="text-gray-400 font-normal ml-1">(optional)</span>
+              <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">
+                Industry Experience Preferred <span className="text-gray-400 dark:text-gray-500 font-normal ml-1">(optional)</span>
               </label>
               <div className="flex flex-wrap gap-2">
                 {industryOptions.map((industry) => {
@@ -562,8 +562,8 @@ const CreateRequirement = () => {
                       onClick={() => toggleItem('industries', industry)}
                       className={`px-3.5 py-2 rounded-xl text-xs font-bold border-2 transition-all ${
                         isSelected
-                          ? 'bg-teal-50 text-[#134e40] border-[#0eb59a]'
-                          : 'bg-white text-gray-500 border-gray-100 hover:border-gray-200'
+                          ? 'bg-teal-50 dark:bg-[#0eb59a]/10 text-[#134e40] dark:text-[#0eb59a] border-[#0eb59a]'
+                          : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-100 dark:border-white/5 hover:border-gray-200 dark:hover:border-white/10'
                       }`}
                     >
                       {industry}
@@ -578,14 +578,14 @@ const CreateRequirement = () => {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="p-4 bg-teal-50 rounded-2xl border border-teal-100 mt-6"
+                className="p-4 bg-teal-50 dark:bg-[#0eb59a]/10 rounded-2xl border border-teal-100 dark:border-white/5 mt-6"
               >
-                <p className="text-xs font-bold text-[#134e40] mb-2">
+                <p className="text-xs font-bold text-[#134e40] dark:text-[#0eb59a] mb-2">
                   {formData.skills.length} skill{formData.skills.length > 1 ? 's' : ''} selected:
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {formData.skills.map(skill => (
-                    <span key={skill} className="text-xs bg-white text-[#134e40] font-bold px-2.5 py-1 rounded-lg border border-teal-100">
+                    <span key={skill} className="text-xs bg-white dark:bg-[#1e2028] text-[#134e40] dark:text-[#0eb59a] font-bold px-2.5 py-1 rounded-lg border border-teal-100 dark:border-white/5">
                       {skill}
                     </span>
                   ))}
@@ -606,52 +606,52 @@ const CreateRequirement = () => {
           >
             <div className="flex items-center gap-3 mb-5">
               <div className="w-1 h-5 bg-[#0eb59a] rounded-full" />
-              <h3 className="text-base font-black text-gray-900">Budget Allocation</h3>
+              <h3 className="text-base font-black text-gray-900 dark:text-white">Budget Allocation</h3>
             </div>
 
             {/* Budget Range */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+              <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">
                 Monthly Budget Range (₹) <span className="text-red-400">*</span>
               </label>
-              <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl border border-gray-100">
+              <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/5">
                 <div className="flex-1 relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-bold">₹</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 text-sm font-bold">₹</span>
                   <input
                     type="number"
                     placeholder="Min e.g. 80000"
                     value={formData.budgetMin}
                     onChange={(e) => setFormData(prev => ({ ...prev, budgetMin: e.target.value }))}
                     onFocus={(e) => e.target.select()}
-                    className="w-full pl-7 pr-4 py-3 bg-transparent border border-gray-200 rounded-xl text-sm font-semibold text-gray-800 placeholder:text-gray-300 focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all duration-200"
+                    className="w-full pl-7 pr-4 py-3 bg-transparent border border-gray-200 dark:border-white/10 rounded-xl text-sm font-semibold text-gray-800 dark:text-gray-200 placeholder:text-gray-300 dark:placeholder:text-gray-500 focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all duration-200"
                   />
                 </div>
-                <span className="text-gray-400 font-bold text-sm">—</span>
+                <span className="text-gray-400 dark:text-gray-500 font-bold text-sm">—</span>
                 <div className="flex-1 relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-bold">₹</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 text-sm font-bold">₹</span>
                   <input
                     type="number"
                     placeholder="Max e.g. 200000"
                     value={formData.budgetMax}
                     onChange={(e) => setFormData(prev => ({ ...prev, budgetMax: e.target.value }))}
                     onFocus={(e) => e.target.select()}
-                    className="w-full pl-7 pr-4 py-3 bg-transparent border border-gray-200 rounded-xl text-sm font-semibold text-gray-800 placeholder:text-gray-300 focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all duration-200"
+                    className="w-full pl-7 pr-4 py-3 bg-transparent border border-gray-200 dark:border-white/10 rounded-xl text-sm font-semibold text-gray-800 dark:text-gray-200 placeholder:text-gray-300 dark:placeholder:text-gray-500 focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all duration-200"
                   />
                 </div>
-                <span className="text-gray-500 text-xs font-semibold whitespace-nowrap">/month</span>
+                <span className="text-gray-500 dark:text-gray-400 text-xs font-semibold whitespace-nowrap">/month</span>
               </div>
             </div>
 
-            <div className="border-t border-gray-50 my-6" />
+            <div className="border-t border-gray-50 dark:border-white/10 my-6" />
 
             <div className="flex items-center gap-3 mb-5">
               <div className="w-1 h-5 bg-[#0eb59a] rounded-full" />
-              <h3 className="text-base font-black text-gray-900">Timeline & Commitment</h3>
+              <h3 className="text-base font-black text-gray-900 dark:text-white">Timeline & Commitment</h3>
             </div>
 
             {/* Duration */}
             <div className="mb-6">
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+              <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">
                 Engagement Duration <span className="text-red-400">*</span>
               </label>
               <div className="flex flex-wrap gap-2">
@@ -662,7 +662,7 @@ const CreateRequirement = () => {
                     className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 ${
                       formData.duration === dur
                         ? 'bg-[#134e40] text-white border-[#134e40]'
-                        : 'bg-white text-gray-500 border-gray-200 hover:border-[#134e40]/30 hover:text-[#134e40]'
+                        : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#134e40]/30 hover:text-[#134e40] dark:hover:text-[#0eb59a] dark:hover:border-[#0eb59a]/30'
                     }`}
                   >
                     {dur}
@@ -673,7 +673,7 @@ const CreateRequirement = () => {
 
             {/* Commitment */}
             <div className="mb-6">
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+              <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">
                 Weekly Commitment Required <span className="text-red-400">*</span>
               </label>
               <div className="flex flex-wrap gap-2">
@@ -684,7 +684,7 @@ const CreateRequirement = () => {
                     className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 ${
                       formData.commitment === com
                         ? 'bg-[#134e40] text-white border-[#134e40]'
-                        : 'bg-white text-gray-500 border-gray-200 hover:border-[#134e40]/30 hover:text-[#134e40]'
+                        : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#134e40]/30 hover:text-[#134e40] dark:hover:text-[#0eb59a] dark:hover:border-[#0eb59a]/30'
                     }`}
                   >
                     {com}
@@ -695,7 +695,7 @@ const CreateRequirement = () => {
 
             {/* Urgency */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+              <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">
                 Urgency <span className="text-red-400">*</span>
               </label>
               <div className="flex flex-wrap gap-2">
@@ -706,7 +706,7 @@ const CreateRequirement = () => {
                     className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 ${
                       formData.urgency === urg.value
                         ? 'bg-[#134e40] text-white border-[#134e40]'
-                        : 'bg-white text-gray-500 border-gray-200 hover:border-[#134e40]/30 hover:text-[#134e40]'
+                        : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#134e40]/30 hover:text-[#134e40] dark:hover:text-[#0eb59a] dark:hover:border-[#0eb59a]/30'
                     }`}
                   >
                     {urg.label}
@@ -715,16 +715,16 @@ const CreateRequirement = () => {
               </div>
             </div>
 
-            <div className="border-t border-gray-50 my-6" />
+            <div className="border-t border-gray-50 dark:border-white/10 my-6" />
 
             <div className="flex items-center gap-3 mb-5">
               <div className="w-1 h-5 bg-[#0eb59a] rounded-full" />
-              <h3 className="text-base font-black text-gray-900">Logistics</h3>
+              <h3 className="text-base font-black text-gray-900 dark:text-white">Logistics</h3>
             </div>
 
             {/* Location */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+              <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">
                 Work Location Preference <span className="text-red-400">*</span>
               </label>
               <div className="flex flex-wrap gap-2">
@@ -735,7 +735,7 @@ const CreateRequirement = () => {
                     className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 flex items-center gap-1.5 ${
                       formData.location === loc
                         ? 'bg-[#134e40] text-white border-[#134e40]'
-                        : 'bg-white text-gray-500 border-gray-200 hover:border-[#134e40]/30 hover:text-[#134e40]'
+                        : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#134e40]/30 hover:text-[#134e40] dark:hover:text-[#0eb59a] dark:hover:border-[#0eb59a]/30'
                     }`}
                   >
                     <MapPin size={11} />
@@ -759,7 +759,7 @@ const CreateRequirement = () => {
           >
             <div className="flex items-center gap-3 mb-5">
               <div className="w-1 h-5 bg-[#0eb59a] rounded-full" />
-              <h3 className="text-base font-black text-gray-900">Review Your Requirement</h3>
+              <h3 className="text-base font-black text-gray-900 dark:text-white">Review Your Requirement</h3>
             </div>
 
             {/* Summary Cards */}
@@ -770,7 +770,7 @@ const CreateRequirement = () => {
                   title: 'Engagement Type',
                   icon: Briefcase,
                   content: (
-                    <span className="text-sm font-bold text-gray-700 capitalize">
+                    <span className="text-sm font-bold text-gray-700 dark:text-gray-200 capitalize">
                       {formData.engagementType || '—'}
                     </span>
                   )
@@ -783,11 +783,11 @@ const CreateRequirement = () => {
                     <div className="flex flex-wrap gap-2">
                       {formData.businessProblems.length > 0
                         ? formData.businessProblems.map(p => (
-                          <span key={p} className="text-xs bg-teal-50 text-[#134e40] font-bold px-2.5 py-1 rounded-lg border border-teal-100">
+                          <span key={p} className="text-xs bg-teal-50 dark:bg-[#0eb59a]/10 text-[#134e40] dark:text-[#0eb59a] font-bold px-2.5 py-1 rounded-lg border border-teal-100 dark:border-white/5">
                             {businessProblems.find(bp => bp.id === p)?.label}
                           </span>
                         ))
-                        : <span className="text-sm text-gray-400">None selected</span>
+                        : <span className="text-sm text-gray-400 dark:text-gray-500 font-semibold">None selected</span>
                       }
                     </div>
                   )
@@ -798,22 +798,22 @@ const CreateRequirement = () => {
                   icon: Star,
                   content: (
                     <div className="space-y-3">
-                      <p className="text-sm font-bold text-gray-800">
+                      <p className="text-sm font-bold text-gray-800 dark:text-gray-200">
                         {formData.roleTitle || '—'}
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {formData.skills.slice(0, 6).map(s => (
-                          <span key={s} className="text-xs bg-gray-50 text-gray-600 font-bold px-2.5 py-1 rounded-lg border border-gray-100">
+                          <span key={s} className="text-xs bg-gray-50 dark:bg-white/5 text-gray-600 dark:text-gray-400 font-bold px-2.5 py-1 rounded-lg border border-gray-100 dark:border-white/5">
                             {s}
                           </span>
                         ))}
                         {formData.skills.length > 6 && (
-                          <span className="text-xs bg-gray-50 text-gray-400 font-bold px-2.5 py-1 rounded-lg">
+                          <span className="text-xs bg-gray-50 dark:bg-white/5 text-gray-400 dark:text-gray-500 font-bold px-2.5 py-1 rounded-lg">
                             +{formData.skills.length - 6} more
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-gray-400 font-semibold">
+                      <p className="text-xs text-gray-400 dark:text-gray-500 font-semibold">
                         {experienceOptions.find(o => o.value === formData.experienceYears)?.label || formData.experienceYears} experience required
                       </p>
                     </div>
@@ -833,8 +833,8 @@ const CreateRequirement = () => {
                         { label: 'Location', value: formData.location || '—' },
                       ].map(item => (
                         <div key={item.label}>
-                          <p className="text-[11px] text-gray-400 font-semibold uppercase tracking-wide">{item.label}</p>
-                          <p className="font-bold text-gray-800 mt-0.5">{item.value}</p>
+                          <p className="text-[11px] text-gray-400 dark:text-gray-500 font-semibold uppercase tracking-wide">{item.label}</p>
+                          <p className="font-bold text-gray-800 dark:text-gray-200 mt-0.5">{item.value}</p>
                         </div>
                       ))}
                     </div>
@@ -846,19 +846,19 @@ const CreateRequirement = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: section.step * 0.08 }}
-                  className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm"
+                  className="bg-white dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 p-5 shadow-sm"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 bg-teal-50 rounded-xl flex items-center justify-center">
+                      <div className="w-7 h-7 bg-teal-50 dark:bg-white/5 rounded-xl flex items-center justify-center">
                         <section.icon size={14} className="text-[#0eb59a]" />
                       </div>
-                      <h4 className="font-black text-gray-900 text-sm">{section.title}</h4>
+                      <h4 className="font-black text-gray-900 dark:text-white text-sm">{section.title}</h4>
                     </div>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       onClick={() => setCurrentStep(section.step)}
-                      className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors flex items-center gap-1"
+                      className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] dark:hover:text-[#0eb59a] transition-colors flex items-center gap-1 bg-transparent border-0 cursor-pointer"
                     >
                       Edit <ChevronRight size={12} />
                     </motion.button>
@@ -870,9 +870,9 @@ const CreateRequirement = () => {
 
             {/* Description text if added */}
             {formData.businessProblemText && (
-              <div className="bg-gray-50 rounded-2xl border border-gray-100 p-5">
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">Additional Context</p>
-                <p className="text-sm text-gray-600 leading-relaxed">{formData.businessProblemText}</p>
+              <div className="bg-gray-50 dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 p-5">
+                <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">Additional Context</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{formData.businessProblemText}</p>
               </div>
             )}
 
@@ -881,14 +881,14 @@ const CreateRequirement = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="flex items-start gap-3 p-4 bg-teal-50 rounded-2xl border border-teal-100"
+              className="flex items-start gap-3 p-4 bg-teal-50 dark:bg-[#0eb59a]/10 rounded-2xl border border-teal-100 dark:border-white/5"
             >
               <div className="w-8 h-8 bg-[#0eb59a] rounded-xl flex items-center justify-center shrink-0">
                 <Check size={16} className="text-white" />
               </div>
               <div>
-                <p className="text-sm font-black text-[#134e40]">Ready to post</p>
-                <p className="text-xs text-teal-600 mt-0.5 leading-relaxed">
+                <p className="text-sm font-black text-[#134e40] dark:text-[#0eb59a]">Ready to post</p>
+                <p className="text-xs text-teal-600 dark:text-teal-500 mt-0.5 leading-relaxed">
                   Your requirement will be visible to our vetted expert network. Expect your first matches within 24-48 hours.
                 </p>
               </div>
@@ -901,7 +901,7 @@ const CreateRequirement = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-[#f8fafc] dark:bg-[#0d1a14]">
+    <div className="min-h-screen flex bg-[#f8fafc] dark:bg-[#0f1117]">
 
       {/* LEFT PANEL — Fixed branding */}
       <div className="hidden lg:flex w-[420px] min-h-screen bg-[#134e40] fixed left-0 top-0 bottom-0 flex flex-col overflow-hidden" style={{ zIndex: 20 }}>
@@ -964,7 +964,7 @@ const CreateRequirement = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setShowSaveModal(true)}
-            className="w-full flex items-center justify-center gap-2 px-4 py-3 border border-white/15 text-white/60 text-sm font-bold rounded-xl hover:text-white hover:bg-white/10 transition-all duration-200"
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 border border-white/15 text-white/60 text-sm font-bold rounded-xl hover:text-white hover:bg-white/10 transition-all duration-200 bg-transparent cursor-pointer"
           >
             <Save size={14} /> Save as Draft
           </motion.button>
@@ -973,16 +973,16 @@ const CreateRequirement = () => {
       </div>
 
       {/* RIGHT FORM PANEL — scrollable, offset by left panel width */}
-      <div className="w-full lg:pl-[420px] min-h-screen flex flex-col bg-[#f8fafc]">
+      <div className="w-full lg:pl-[420px] min-h-screen flex flex-col bg-[#f8fafc] dark:bg-[#0f1117]">
         {/* TOP — Horizontal Step Indicator */}
         <div className="px-10 pt-10 pb-6">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs text-gray-400 mb-8">
-            <button onClick={() => navigate('/requirements')} className="hover:text-[#134e40] transition-colors font-semibold">
+          <div className="flex items-center gap-2 text-xs text-gray-400 dark:text-gray-500 mb-8">
+            <button onClick={() => navigate('/requirements')} className="hover:text-[#134e40] dark:hover:text-white transition-colors font-semibold bg-transparent border-0 cursor-pointer">
               My Requirements
             </button>
-            <ChevronRight size={12} className="text-gray-300" />
-            <span className="text-gray-600 font-semibold">New Requirement</span>
+            <ChevronRight size={12} className="text-gray-300 dark:text-gray-600" />
+            <span className="text-gray-600 dark:text-gray-400 font-semibold">New Requirement</span>
           </div>
 
           {/* Horizontal step dots */}
@@ -1000,22 +1000,22 @@ const CreateRequirement = () => {
                         borderColor: isCompleted ? '#0eb59a' : isCurrent ? '#0eb59a' : '#d1d5db',
                       }}
                       transition={{ duration: 0.25 }}
-                      className="w-9 h-9 rounded-full border-2 flex items-center justify-center"
+                      className="w-9 h-9 rounded-full border-2 flex items-center justify-center dark:border-white/10"
                     >
                       {isCompleted
                         ? <Check size={14} className="text-white" strokeWidth={3} />
-                        : <span className={`text-xs font-black ${isCurrent ? 'text-[#0eb59a]' : 'text-gray-400'}`}>{step.number}</span>
+                        : <span className={`text-xs font-black ${isCurrent ? 'text-[#0eb59a]' : 'text-gray-400 dark:text-gray-500'}`}>{step.number}</span>
                       }
                     </motion.div>
                     {/* Label */}
-                    <span className={`text-[10px] font-bold whitespace-nowrap ${isCurrent ? 'text-[#0eb59a]' : isCompleted ? 'text-[#0eb59a]' : 'text-gray-400'}`}>
+                    <span className={`text-[10px] font-bold whitespace-nowrap ${isCurrent ? 'text-[#0eb59a]' : isCompleted ? 'text-[#0eb59a]' : 'text-gray-400 dark:text-gray-500'}`}>
                       {step.title}
                     </span>
                   </div>
 
                   {/* Connector line */}
                   {idx < steps.length - 1 && (
-                    <div className="flex-1 h-0.5 mx-2 bg-gray-200 mb-5 relative overflow-hidden" style={{ minWidth: 32 }}>
+                    <div className="flex-1 h-0.5 mx-2 bg-gray-200 dark:bg-white/10 mb-5 relative overflow-hidden" style={{ minWidth: 32 }}>
                       <motion.div
                         animate={{ width: isCompleted ? '100%' : '0%' }}
                         transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -1036,8 +1036,8 @@ const CreateRequirement = () => {
             transition={{ duration: 0.2 }}
             className="text-center mb-8"
           >
-            <h2 className="text-2xl font-black text-gray-900 mb-1">{steps[currentStep - 1].desc}</h2>
-            <p className="text-sm text-gray-400">
+            <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-1">{steps[currentStep - 1].desc}</h2>
+            <p className="text-sm text-gray-400 dark:text-gray-500">
               {currentStep === 1 && 'Choose the engagement model that best fits your hiring need.'}
               {currentStep === 2 && 'Select all that apply — this helps us match you with the right CXO-level experts.'}
               {currentStep === 3 && 'Specify the skills and experience level you need in a candidate.'}
@@ -1049,7 +1049,7 @@ const CreateRequirement = () => {
 
         {/* FORM CARD — white, centered */}
         <div className="flex-1 px-10 pb-6">
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 max-w-2xl mx-auto">
+          <div className="bg-white dark:bg-[#1b1d24] rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-8 max-w-2xl mx-auto">
             <AnimatePresence mode="wait">
               {renderStep()}
             </AnimatePresence>
@@ -1057,17 +1057,17 @@ const CreateRequirement = () => {
         </div>
 
         {/* STICKY BOTTOM NAV */}
-        <div className="sticky bottom-0 bg-white/90 backdrop-blur-sm border-t border-gray-100 px-10 py-4">
+        <div className="sticky bottom-0 bg-white/90 dark:bg-[#1b1d24] backdrop-blur-sm border-t border-gray-100 dark:border-white/10 px-10 py-4">
           <div className="max-w-2xl mx-auto flex items-center justify-between">
             {/* Back */}
             <motion.button
               whileHover={{ x: currentStep === 1 ? 0 : -2 }}
               onClick={handleBack}
               disabled={currentStep === 1}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 ${
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 bg-transparent cursor-pointer ${
                 currentStep === 1
-                  ? 'text-gray-200 cursor-not-allowed'
-                  : 'text-gray-500 hover:text-[#134e40] hover:bg-gray-50 border border-gray-200'
+                  ? 'text-gray-200 dark:text-gray-700 cursor-not-allowed border-gray-100 dark:border-white/5'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-[#134e40] dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/5 border border-gray-200 dark:border-white/10'
               }`}
             >
               <ChevronLeft size={16} /> Back
@@ -1078,7 +1078,7 @@ const CreateRequirement = () => {
               <div className="flex items-center gap-1.5">
                 {steps.map((_, i) => (
                   <div key={i} className={`rounded-full transition-all duration-300 ${
-                    i + 1 === currentStep ? 'w-5 h-2 bg-[#134e40]' : i + 1 < currentStep ? 'w-2 h-2 bg-[#0eb59a]' : 'w-2 h-2 bg-gray-200'
+                    i + 1 === currentStep ? 'w-5 h-2 bg-[#134e40] dark:bg-[#0eb59a]' : i + 1 < currentStep ? 'w-2 h-2 bg-[#0eb59a]' : 'w-2 h-2 bg-gray-200 dark:bg-white/10'
                   }`} />
                 ))}
               </div>
@@ -1089,10 +1089,10 @@ const CreateRequirement = () => {
                   whileTap={{ scale: canProceed() ? 0.97 : 1 }}
                   onClick={handleNext}
                   disabled={!canProceed()}
-                  className={`flex items-center gap-2 px-7 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 ${
+                  className={`flex items-center gap-2 px-7 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 border-0 cursor-pointer ${
                     canProceed()
                       ? 'bg-[#134e40] text-white shadow-md shadow-[#134e40]/20 hover:bg-[#1a6b57]'
-                      : 'bg-gray-100 text-gray-300 cursor-not-allowed'
+                      : 'bg-gray-100 dark:bg-white/5 text-gray-300 dark:text-gray-600 cursor-not-allowed'
                   }`}
                 >
                   Next <ChevronRight size={16} />
@@ -1103,7 +1103,7 @@ const CreateRequirement = () => {
                   whileTap={{ scale: 0.97 }}
                   onClick={() => handleSubmit('Active')}
                   disabled={isSubmitting}
-                  className="flex items-center gap-2 px-7 py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white shadow-lg disabled:opacity-50"
+                  className="flex items-center gap-2 px-7 py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white shadow-lg disabled:opacity-50 border-0 cursor-pointer"
                 >
                   <Zap size={15} fill="currentColor" /> {isSubmitting ? 'Posting...' : 'Post Requirement'}
                 </motion.button>
@@ -1127,15 +1127,15 @@ const CreateRequirement = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 max-w-sm w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden"
+              className="bg-white dark:bg-[#1b1d24] rounded-t-3xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 max-w-sm w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden border border-transparent dark:border-white/10"
             >
-              <div className="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+              <div className="w-14 h-14 bg-teal-50 dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-5">
                 <Save size={24} className="text-[#0eb59a]" />
               </div>
-              <h3 className="text-xl font-black text-gray-900 text-center mb-2">
+              <h3 className="text-xl font-black text-gray-900 dark:text-white text-center mb-2">
                 Save as Draft?
               </h3>
-              <p className="text-sm text-gray-400 text-center mb-6 leading-relaxed">
+              <p className="text-sm text-gray-400 dark:text-gray-500 text-center mb-6 leading-relaxed">
                 Your progress will be saved. You can continue editing this requirement anytime from My Requirements.
               </p>
               <div className="flex gap-3">
@@ -1143,7 +1143,7 @@ const CreateRequirement = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setShowSaveModal(false)}
-                  className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl"
+                  className="flex-1 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 text-sm font-bold rounded-2xl cursor-pointer"
                 >
                   Keep Editing
                 </motion.button>
@@ -1155,7 +1155,7 @@ const CreateRequirement = () => {
                     handleSubmit('Draft');
                   }}
                   disabled={isSubmitting}
-                  className="flex-1 py-3 bg-[#134e40] hover:bg-[#0eb59a] text-white text-sm font-bold rounded-2xl transition-all shadow-lg disabled:opacity-50"
+                  className="flex-1 py-3 bg-[#134e40] hover:bg-[#0eb59a] text-white text-sm font-bold rounded-2xl transition-all shadow-lg disabled:opacity-50 border-0 cursor-pointer"
                 >
                   {isSubmitting ? 'Saving...' : 'Save Draft'}
                 </motion.button>

@@ -44,17 +44,17 @@ const Messages = () => {
 
   // Emoji list organized by categories
   const EMOJI_LIST = [
-    '😀','😁','😂','🤣','😃','😄','😅','😆','😉','😊','😋','😎','😍','🥰','😘',
-    '😗','😙','😚','🙂','🤗','🤩','🤔','🤨','😐','😑','😶','🙄','😏','😣','😥',
-    '😮','🤐','😯','😪','😫','🥱','😴','😌','😛','😜','😝','🤤','😒','😓','😔',
-    '😕','🙃','🤑','😲','☹️','🙁','😖','😞','😟','😤','😢','😭','😦','😧','😨',
-    '😩','🤯','😬','😰','😱','🥵','🥶','😳','🤪','😵','🥴','😠','😡','🤬','😷',
-    '🤒','🤕','🤢','🤮','🤧','😇','🥳','🥸','🤠','🥺','🤥','🤫','🤭','🧐','🤓',
-    '👋','🤚','🖐️','✋','🖖','👌','🤌','🤏','✌️','🤞','🤟','🤘','🤙','👈','👉',
-    '👆','👇','☝️','👍','👎','✊','👊','🤛','🤜','👏','🙌','🫶','👐','🤲','🤝',
-    '🙏','❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','💕','💞','💓','💗',
-    '💖','💝','💟','☮️','✨','🔥','💯','💢','💥','💫','💦','🎉','🎊','🎈','🏆',
-    '🚀','⭐','🌟','💎','🎯','🔑','💡','🎵','🎶','🌈','🌊','🌺','🌸','🌻','🌹',
+    '😀', '😁', '😂', '🤣', '😃', '😄', '😅', '😆', '😉', '😊', '😋', '😎', '😍', '🥰', '😘',
+    '😗', '😙', '😚', '🙂', '🤗', '🤩', '🤔', '🤨', '😐', '😑', '😶', '🙄', '😏', '😣', '😥',
+    '😮', '🤐', '😯', '😪', '😫', '🥱', '😴', '😌', '😛', '😜', '😝', '🤤', '😒', '😓', '😔',
+    '😕', '🙃', '🤑', '😲', '☹️', '🙁', '😖', '😞', '😟', '😤', '😢', '😭', '😦', '😧', '😨',
+    '😩', '🤯', '😬', '😰', '😱', '🥵', '🥶', '😳', '🤪', '😵', '🥴', '😠', '😡', '🤬', '😷',
+    '🤒', '🤕', '🤢', '🤮', '🤧', '😇', '🥳', '🥸', '🤠', '🥺', '🤥', '🤫', '🤭', '🧐', '🤓',
+    '👋', '🤚', '🖐️', '✋', '🖖', '👌', '🤌', '🤏', '✌️', '🤞', '🤟', '🤘', '🤙', '👈', '👉',
+    '👆', '👇', '☝️', '👍', '👎', '✊', '👊', '🤛', '🤜', '👏', '🙌', '🫶', '👐', '🤲', '🤝',
+    '🙏', '❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍', '🤎', '💔', '💕', '💞', '💓', '💗',
+    '💖', '💝', '💟', '☮️', '✨', '🔥', '💯', '💢', '💥', '💫', '💦', '🎉', '🎊', '🎈', '🏆',
+    '🚀', '⭐', '🌟', '💎', '🎯', '🔑', '💡', '🎵', '🎶', '🌈', '🌊', '🌺', '🌸', '🌻', '🌹',
   ];
 
   // 2-Step Meeting Form State
@@ -338,14 +338,14 @@ const Messages = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0d1a14] text-slate-900 font-sans flex overflow-hidden">
+    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0f1117] text-slate-900 font-sans flex overflow-hidden">
 
       {/* ── SIDEBAR ── */}
       <motion.aside
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-white dark:bg-[#0a1810] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white dark:bg-[#1b1d24] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
         <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
           <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/company-dashboard')}>
@@ -380,7 +380,7 @@ const Messages = () => {
               onClick={() => navigate(item.path)}
               className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${item.active
                 ? 'bg-[#134e40] text-white shadow-md font-bold'
-                : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'
                 }`}
             >
               {item.active && (
@@ -418,7 +418,7 @@ const Messages = () => {
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate(isExpert ? '/expert-settings' : '/settings')}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#134e40] transition-all"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a] transition-all"
           >
             <Settings size={17} className="shrink-0" />
             <motion.span
@@ -440,7 +440,7 @@ const Messages = () => {
               }
               navigate(isExpert ? '/signin?role=expert' : '/signin?role=company');
             }}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-rose-500 hover:bg-rose-50 transition-all font-semibold"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-all font-semibold"
           >
             <LogOut size={17} className="shrink-0" />
             <motion.span
@@ -461,11 +461,11 @@ const Messages = () => {
       >
 
         {/* Left Column: Thread Lists (Aesthetics aligned to light theme) */}
-        <div className="w-80 border-r border-gray-150 bg-white flex flex-col shrink-0 h-full">
+        <div className="w-80 border-r border-gray-100 dark:border-white/10 bg-white dark:bg-[#1b1d24] flex flex-col shrink-0 h-full">
           {/* Aligned Search Input */}
-          <div className="p-4 border-b border-gray-100 flex flex-col gap-2 shrink-0">
+          <div className="p-4 border-b border-gray-100 dark:border-white/10 flex flex-col gap-2 shrink-0">
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">
                 <Search size={14} />
               </span>
               <input
@@ -473,7 +473,7 @@ const Messages = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search (⌘K)"
-                className="w-full pl-9 pr-4 py-2.5 rounded-xl text-xs font-semibold bg-[#f4f7f5] text-slate-800 border border-gray-100 placeholder:text-gray-400 focus:outline-none focus:border-[#0eb59a] focus:ring-1 focus:ring-[#0eb59a]/15 transition-all"
+                className="w-full pl-9 pr-4 py-2.5 rounded-xl text-xs font-semibold bg-[#f4f7f5] dark:bg-white/5 text-slate-800 dark:text-gray-200 border border-gray-100 dark:border-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:outline-none focus:border-[#0eb59a] focus:ring-1 focus:ring-[#0eb59a]/15 transition-all"
               />
             </div>
           </div>
@@ -491,7 +491,7 @@ const Messages = () => {
                   onClick={() => setActiveThreadId(thr.id)}
                   className={`w-full p-3 rounded-2xl flex items-start gap-3 transition-all border-0 relative cursor-pointer text-left ${isSelected
                     ? 'bg-[#134e40] text-white shadow-md'
-                    : 'text-gray-600 hover:bg-slate-50'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-slate-50 dark:hover:bg-white/5'
                     }`}
                 >
                   {/* Status Indicator Avatar */}
@@ -500,14 +500,14 @@ const Messages = () => {
                       {thr.initials}
                     </div>
                     {thr.status === 'online' && (
-                      <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white" />
+                      <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white dark:border-[#1b1d24]" />
                     )}
                   </div>
 
                   {/* Thread Info */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
-                      <p className={`text-xs font-black truncate ${isSelected ? 'text-white' : 'text-slate-800'}`}>
+                      <p className={`text-xs font-black truncate ${isSelected ? 'text-white' : 'text-slate-800 dark:text-gray-100'}`}>
                         {thr.name}
                       </p>
                       <span className={`text-[9px] shrink-0 font-bold ${isSelected ? 'text-teal-200' : 'text-gray-400'}`}>
@@ -533,9 +533,8 @@ const Messages = () => {
 
         {/* Right Column: Active Conversation (Aesthetics aligned to warmth layout) */}
         <div
-          className="flex-1 flex flex-col h-full relative overflow-hidden"
+          className="flex-1 flex flex-col h-full relative overflow-hidden bg-[#eef3ef] dark:!bg-[#0f1117] dark:[background-image:none]"
           style={{
-            backgroundColor: '#eef3ef',
             backgroundImage: 'radial-gradient(rgba(19,78,64,0.04) 0.8px, transparent 0.8px), radial-gradient(rgba(19,78,64,0.04) 0.8px, #eef3ef 0.8px)',
             backgroundSize: '24px 24px',
             backgroundPosition: '0 0, 12px 12px'
@@ -543,14 +542,14 @@ const Messages = () => {
         >
 
           {/* Header */}
-          <div className="h-16 bg-white dark:bg-[#0a1810] border-b border-gray-150 dark:border-white/10 flex items-center justify-between px-6 shrink-0 z-10 shadow-sm">
+          <div className="h-16 bg-white dark:bg-[#1b1d24] border-b border-gray-100 dark:border-white/10 flex items-center justify-between px-6 shrink-0 z-10 shadow-sm">
             <div className="flex items-center gap-3">
               <div className={`w-10 h-10 rounded-full bg-gradient-to-tr ${activeThread.avatarColor} flex items-center justify-center font-bold text-white text-sm shrink-0 shadow-inner`}>
                 {activeThread.initials}
               </div>
               <div className="text-left">
-                <h2 className="text-xs font-black text-slate-800 leading-tight">{activeThread.name}</h2>
-                <p className="text-[10px] text-gray-400 font-bold flex items-center gap-1.5 mt-0.5">
+                <h2 className="text-xs font-black text-slate-800 dark:text-white leading-tight">{activeThread.name}</h2>
+                <p className="text-[10px] text-gray-400 dark:text-gray-500 font-bold flex items-center gap-1.5 mt-0.5">
                   <span className={`w-1.5 h-1.5 rounded-full ${activeThread.status === 'online' ? 'bg-emerald-500' : 'bg-gray-400'}`} />
                   {activeThread.status === 'online' ? 'Active now' : 'offline'} · {activeThread.role}
                 </p>
@@ -562,7 +561,7 @@ const Messages = () => {
               <button
                 type="button"
                 onClick={() => setShowInfoPanel(!showInfoPanel)}
-                className={`p-2 rounded-xl transition-colors bg-transparent border-0 cursor-pointer ${showInfoPanel ? 'text-[#134e40] bg-teal-50' : 'text-gray-400 hover:text-[#134e40] hover:bg-slate-50'}`}
+                className={`p-2 rounded-xl transition-colors bg-transparent border-0 cursor-pointer ${showInfoPanel ? 'text-[#134e40] bg-teal-50 dark:bg-[#0eb59a]/10 dark:text-[#0eb59a]' : 'text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-slate-50 dark:hover:bg-white/5'}`}
                 title="Toggle Contact Details"
               >
                 <Info size={15} />
@@ -611,7 +610,7 @@ const Messages = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className={`max-w-md p-3.5 rounded-2xl text-left text-xs leading-relaxed font-semibold relative flex flex-col gap-2 shadow-sm ${isMe
                       ? 'bg-[#134e40] text-white rounded-tr-none'
-                      : 'bg-white text-slate-800 rounded-tl-none border border-gray-150'
+                      : 'bg-white dark:bg-[#1e2028] text-slate-800 dark:text-gray-200 rounded-tl-none border border-gray-100 dark:border-white/10'
                       }`}
                   >
                     {/* Render File Attachment Bubble if exists */}
@@ -644,7 +643,7 @@ const Messages = () => {
 
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-white text-gray-400 p-3 rounded-2xl rounded-tl-none border border-gray-150 flex items-center gap-1.5 shadow-sm">
+                <div className="bg-white dark:bg-[#1e2028] text-gray-400 p-3 rounded-2xl rounded-tl-none border border-gray-100 dark:border-white/10 flex items-center gap-1.5 shadow-sm">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
@@ -656,7 +655,7 @@ const Messages = () => {
           </div>
 
           {/* Interactive Chat Input Area */}
-          <div className="p-4 bg-white border-t border-gray-150 shrink-0 shadow-lg">
+          <div className="p-4 bg-white dark:bg-[#1b1d24] border-t border-gray-100 dark:border-white/10 shrink-0 shadow-lg">
 
             {/* Attachment preview pill */}
             <AnimatePresence>
@@ -665,9 +664,9 @@ const Messages = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
-                  className="mb-3 p-2 bg-slate-50 border border-gray-150 rounded-xl flex items-center justify-between gap-3 text-left"
+                  className="mb-3 p-2 bg-slate-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-xl flex items-center justify-between gap-3 text-left"
                 >
-                  <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-700 dark:text-gray-300">
                     <File size={13} className="text-[#0eb59a]" />
                     <span className="truncate max-w-[200px]">{attachedFile.name}</span>
                     <span className="text-[10px] text-gray-400 font-semibold font-mono">({attachedFile.size})</span>
@@ -706,7 +705,7 @@ const Messages = () => {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder={attachedFile ? "Add a caption..." : "Write a message..."}
-                className="flex-1 bg-[#f4f7f5] border border-gray-100 rounded-xl px-4 py-2.5 text-xs text-slate-800 placeholder:text-gray-400 font-semibold focus:outline-none focus:border-[#0eb59a]"
+                className="flex-1 bg-[#f4f7f5] dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-xl px-4 py-2.5 text-xs text-slate-800 dark:text-gray-200 placeholder:text-gray-400 dark:placeholder:text-gray-600 font-semibold focus:outline-none focus:border-[#0eb59a] transition-all"
               />
 
               {/* Emoji Picker Trigger */}
@@ -714,9 +713,8 @@ const Messages = () => {
                 <button
                   type="button"
                   onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                  className={`p-2 rounded-xl transition-colors bg-transparent border-0 cursor-pointer ${
-                    showEmojiPicker ? 'text-[#134e40] bg-teal-50' : 'text-gray-400 hover:text-[#134e40]'
-                  }`}
+                  className={`p-2 rounded-xl transition-colors bg-transparent border-0 cursor-pointer ${showEmojiPicker ? 'text-[#134e40] bg-teal-50' : 'text-gray-400 hover:text-[#134e40]'
+                    }`}
                   title="Emoji"
                 >
                   <Smile size={17} />
@@ -729,7 +727,7 @@ const Messages = () => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 8, scale: 0.95 }}
                       transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
-                      className="absolute bottom-full right-0 mb-2 z-50"
+                      className="absolute bottom-full right-0 mb-2 z-50 dark:!bg-[#1e2028] dark:!border-white/10"
                       style={{
                         width: '320px',
                         background: '#fff',
@@ -739,7 +737,7 @@ const Messages = () => {
                         padding: '12px',
                       }}
                     >
-                      <div className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-100">
+                      <div className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-100 dark:border-white/10">
                         <Smile size={13} className="text-[#0eb59a]" />
                         <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Emojis</span>
                       </div>
@@ -789,13 +787,13 @@ const Messages = () => {
               animate={{ width: 280, opacity: 1 }}
               exit={{ width: 0, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="border-l border-gray-150 bg-white flex flex-col h-full shrink-0 z-10 hidden xl:flex text-left animate-fade-in"
+              className="border-l border-gray-100 dark:border-white/10 bg-white dark:bg-[#1b1d24] flex flex-col h-full shrink-0 z-10 hidden xl:flex text-left animate-fade-in"
             >
-              <div className="p-4 border-b border-gray-100 flex items-center justify-between">
-                <h3 className="text-xs font-black text-slate-800 uppercase tracking-widest">Contact Details</h3>
+              <div className="p-4 border-b border-gray-100 dark:border-white/10 flex items-center justify-between">
+                <h3 className="text-xs font-black text-slate-800 dark:text-white uppercase tracking-widest">Contact Details</h3>
                 <button
                   onClick={() => setShowInfoPanel(false)}
-                  className="p-1 hover:bg-gray-100 rounded-lg text-gray-400 border-0 cursor-pointer bg-transparent"
+                  className="p-1 hover:bg-gray-100 dark:hover:bg-white/5 rounded-lg text-gray-400 border-0 cursor-pointer bg-transparent"
                 >
                   <X size={14} />
                 </button>
@@ -804,14 +802,13 @@ const Messages = () => {
               {/* Drawer Body */}
               <div className="flex-1 overflow-y-auto p-4 space-y-5">
                 {/* Profile Card */}
-                <div className="flex flex-col items-center text-center p-4 bg-slate-50 border border-gray-100 rounded-3xl relative overflow-hidden">
-
-                  <div className={`w-16 h-16 rounded-full bg-gradient-to-tr ${activeThread.avatarColor} flex items-center justify-center font-bold text-white text-xl shadow-md mb-3`}>
+                <div className="flex flex-col items-center text-center p-4 bg-slate-50 dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-3xl relative overflow-hidden">
+                   <div className={`w-16 h-16 rounded-full bg-gradient-to-tr ${activeThread.avatarColor} flex items-center justify-center font-bold text-white text-xl shadow-md mb-3`}>
                     {activeThread.initials}
                   </div>
-                  <h4 className="text-sm font-black text-slate-800 leading-snug">{activeThread.name}</h4>
+                  <h4 className="text-sm font-black text-slate-800 dark:text-white leading-snug">{activeThread.name}</h4>
                   <p className="text-[10px] text-[#0eb59a] font-bold mt-0.5">{activeThread.role}</p>
-                  <span className="text-[9px] font-black uppercase text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md mt-2 border border-emerald-100">
+                  <span className="text-[9px] font-black uppercase text-[#134e40] dark:text-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10 px-2 py-0.5 rounded-md mt-2 border border-teal-100 dark:border-[#0eb59a]/20">
                     98% Match Rating
                   </span>
                 </div>
@@ -821,42 +818,42 @@ const Messages = () => {
                   <div className="flex items-start gap-2.5 text-xs font-semibold">
                     <Clock size={13} className="text-[#0eb59a] shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-bold text-slate-700">Availability</p>
-                      <p className="text-gray-400 text-[10px]">20 hrs/week · Instant Syncs</p>
+                      <p className="font-bold text-slate-700 dark:text-gray-300">Availability</p>
+                      <p className="text-gray-400 dark:text-gray-500 text-[10px]">20 hrs/week · Instant Syncs</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-2.5 text-xs font-semibold">
                     <Shield size={13} className="text-[#0eb59a] shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-bold text-slate-700">Compliance & NDA</p>
-                      <p className="text-gray-400 text-[10px]">Fully Verified · MSA Active</p>
+                      <p className="font-bold text-slate-700 dark:text-gray-300">Compliance & NDA</p>
+                      <p className="text-gray-400 dark:text-gray-500 text-[10px]">Fully Verified · MSA Active</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-2.5 text-xs font-semibold">
                     <Briefcase size={13} className="text-[#0eb59a] shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-bold text-slate-700">Experience Segment</p>
-                      <p className="text-gray-400 text-[10px]">{activeThread.sub}</p>
+                      <p className="font-bold text-slate-700 dark:text-gray-300">Experience Segment</p>
+                      <p className="text-gray-400 dark:text-gray-500 text-[10px]">{activeThread.sub}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Shared Documents list */}
                 <div className="space-y-3">
-                  <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-50 pb-1.5">Shared Media & Files</h4>
+                  <h4 className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest border-b border-gray-50 dark:border-white/10 pb-1.5">Shared Media & Files</h4>
                   <div className="space-y-2">
                     {[
                       { name: 'GTM_Timeline.pdf', size: '2.4 MB' },
                       { name: 'SeriesB_Model.xlsx', size: '4.8 MB' },
                       { name: 'NDA_Execution_Copy.pdf', size: '1.2 MB' }
                     ].map((doc, idx) => (
-                      <div key={idx} className="p-2 bg-slate-50 border border-gray-100 rounded-xl flex items-center gap-2 hover:bg-teal-50/20 hover:border-teal-100 transition-colors text-left">
+                      <div key={idx} className="p-2 bg-slate-50 dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-xl flex items-center gap-2 hover:bg-teal-50/20 dark:hover:bg-white/5 hover:border-teal-100 dark:hover:border-white/25 transition-colors text-left">
                         <File size={13} className="text-[#0eb59a] shrink-0" />
                         <div className="flex-1 min-w-0">
-                          <p className="text-[10px] font-bold text-slate-800 truncate leading-none">{doc.name}</p>
-                          <p className="text-[9px] text-gray-400 mt-0.5 font-bold">{doc.size}</p>
+                          <p className="text-[10px] font-bold text-slate-800 dark:text-gray-200 truncate leading-none">{doc.name}</p>
+                          <p className="text-[9px] text-gray-400 dark:text-gray-500 mt-0.5 font-bold">{doc.size}</p>
                         </div>
-                        <button type="button" className="p-1 hover:bg-gray-200 rounded text-gray-450 bg-transparent border-0 cursor-pointer">
+                        <button type="button" className="p-1 hover:bg-gray-200 dark:hover:bg-white/10 rounded text-gray-450 dark:text-gray-400 bg-transparent border-0 cursor-pointer">
                           <Download size={11} />
                         </button>
                       </div>
@@ -867,7 +864,7 @@ const Messages = () => {
                 {/* Quick actions */}
                 <button
                   onClick={() => navigate(isExpert ? '/expert-profile' : `/experts/${activeThread.id}`)}
-                  className="w-full py-2 bg-teal-50 hover:bg-teal-150 border border-teal-150 text-[#134e40] font-black rounded-xl text-xs transition-colors cursor-pointer"
+                  className="w-full py-2 bg-teal-50 dark:bg-[#0eb59a]/10 hover:bg-teal-150 dark:hover:bg-[#0eb59a]/20 border border-teal-150 dark:border-[#0eb59a]/30 text-[#134e40] dark:text-[#0eb59a] font-black rounded-xl text-xs transition-colors cursor-pointer"
                 >
                   View Full Profile Overview
                 </button>
@@ -886,7 +883,7 @@ const Messages = () => {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white rounded-3xl p-6 w-full max-w-md relative overflow-hidden shadow-2xl text-left"
+              className="bg-white dark:bg-[#1b1d24] border border-gray-100 dark:border-white/10 rounded-3xl p-6 w-full max-w-md relative overflow-hidden shadow-2xl text-left"
             >
 
 
@@ -896,17 +893,17 @@ const Messages = () => {
                   setShowScheduleModal(false);
                   setMeetingStep(1);
                 }}
-                className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 bg-gray-50 hover:bg-gray-100 w-8 h-8 rounded-xl flex items-center justify-center transition-colors border-0"
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-750 dark:text-gray-500 dark:hover:text-gray-300 bg-gray-50 dark:bg-white/5 hover:bg-gray-100 w-8 h-8 rounded-xl flex items-center justify-center transition-colors border-0 cursor-pointer"
               >
                 <X size={14} />
               </button>
 
-              <div className="flex items-center justify-between mb-4 pb-2 border-b border-gray-50">
+              <div className="flex items-center justify-between mb-4 pb-2 border-b border-gray-50 dark:border-white/10 pr-6">
                 <div className="flex items-center gap-2">
                   <Calendar size={16} className="text-[#0eb59a]" />
-                  <h3 className="font-black text-slate-800 text-sm">Schedule Call with {activeThread.name}</h3>
+                  <h3 className="font-black text-slate-800 dark:text-white text-sm">Schedule Call</h3>
                 </div>
-                <span className="text-[10px] font-black bg-[#f4f7f5] text-[#134e40] px-2 py-1 rounded-md">
+                <span className="text-[10px] font-black bg-[#f4f7f5] dark:bg-white/5 text-[#134e40] dark:text-[#0eb59a] px-2.5 py-1 rounded-md shrink-0 whitespace-nowrap">
                   Step {meetingStep} of 2
                 </span>
               </div>
@@ -916,13 +913,15 @@ const Messages = () => {
                 <div className="space-y-4">
 
                   {/* Google Meet Integrations notice */}
-                  <div className="p-3 bg-teal-50/70 border border-teal-100 rounded-2xl text-left flex items-start gap-2.5">
-                    <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm shrink-0 mt-0.5">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Google_Meet_icon_%282020%29.svg" alt="Google Meet Logo" className="w-4 h-4 object-contain" />
+                  <div className="p-3 bg-teal-50/70 dark:bg-[#0eb59a]/10 border border-teal-100 dark:border-[#0eb59a]/20 rounded-2xl text-left flex items-start gap-2.5">
+                    <div className="w-8 h-8 bg-white dark:bg-[#1e2028] rounded-lg flex items-center justify-center shadow-sm shrink-0 mt-0.5">
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 10.5V6C18 4.9 17.1 4 16 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H16C17.1 20 18 19.1 18 18V13.5L22 17.5V6.5L18 10.5Z" fill="#0eb59a"/>
+                      </svg>
                     </div>
                     <div>
-                      <p className="text-[11px] font-black text-[#134e40]">Google Meet Enabled By Default</p>
-                      <p className="text-[10px] text-gray-400 font-semibold leading-relaxed">
+                      <p className="text-[11px] font-black text-[#134e40] dark:text-[#0eb59a]">Google Meet Enabled By Default</p>
+                      <p className="text-[10px] text-gray-400 dark:text-gray-500 font-semibold leading-relaxed">
                         A secure calendar invite and video link will be generated automatically and attached to your agenda list.
                       </p>
                     </div>
@@ -930,38 +929,38 @@ const Messages = () => {
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Date</label>
+                      <label className="block text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">Date</label>
                       <input
                         type="date"
                         required
                         min={new Date().toISOString().split('T')[0]}
                         value={meetingDate}
                         onChange={(e) => setMeetingDate(e.target.value)}
-                        className="w-full px-3 py-2 bg-[#f4f7f5] border border-gray-100 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#0eb59a] focus:ring-1 focus:ring-[#0eb59a]/15"
+                        className="w-full px-3 py-2 bg-[#f4f7f5] dark:bg-white/5 border border-gray-150 dark:border-white/10 rounded-xl text-xs font-semibold text-slate-800 dark:text-gray-200 focus:outline-none focus:border-[#0eb59a] focus:ring-1 focus:ring-[#0eb59a]/15"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Time</label>
+                      <label className="block text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">Time</label>
                       <div className="grid grid-cols-3 gap-1.5">
                         <select
                           value={meetingHour}
                           onChange={(e) => setMeetingHour(e.target.value)}
-                          className="px-2 py-2 bg-[#f4f7f5] border border-gray-100 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#0eb59a]"
+                          className="px-2 py-2 bg-[#f4f7f5] dark:bg-[#1e2028] border border-gray-150 dark:border-white/10 rounded-xl text-xs font-semibold text-slate-800 dark:text-gray-200 focus:outline-none focus:border-[#0eb59a]"
                         >
                           {['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'].map(h => (
-                            <option key={h} value={h}>{h}</option>
+                            <option key={h} value={h} className="dark:bg-[#1b1d24]">{h}</option>
                           ))}
                         </select>
                         <select
                           value={meetingMinute}
                           onChange={(e) => setMeetingMinute(e.target.value)}
-                          className="px-2 py-2 bg-[#f4f7f5] border border-gray-100 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#0eb59a]"
+                          className="px-2 py-2 bg-[#f4f7f5] dark:bg-[#1e2028] border border-gray-150 dark:border-white/10 rounded-xl text-xs font-semibold text-slate-800 dark:text-gray-200 focus:outline-none focus:border-[#0eb59a]"
                         >
                           {['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'].map(m => (
-                            <option key={m} value={m}>{m}</option>
+                            <option key={m} value={m} className="dark:bg-[#1b1d24]">{m}</option>
                           ))}
                         </select>
-                        <div className="flex bg-[#f4f7f5] border border-gray-100 rounded-xl p-0.5">
+                        <div className="flex bg-[#f4f7f5] dark:bg-white/5 border border-gray-150 dark:border-white/10 rounded-xl p-0.5">
                           {['AM', 'PM'].map(p => (
                             <button
                               key={p}
@@ -969,7 +968,7 @@ const Messages = () => {
                               onClick={() => setMeetingPeriod(p)}
                               className={`flex-1 py-1 rounded-lg text-[9px] font-black transition-all border-0 cursor-pointer ${meetingPeriod === p
                                 ? 'bg-[#134e40] text-white shadow-sm'
-                                : 'text-gray-400 bg-transparent'
+                                : 'text-gray-400 dark:text-gray-500 bg-transparent'
                                 }`}
                             >
                               {p}
@@ -982,7 +981,7 @@ const Messages = () => {
 
                   {/* Duration Picker */}
                   <div>
-                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Duration</label>
+                    <label className="block text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">Duration</label>
                     <div className="grid grid-cols-4 gap-2">
                       {['15 mins', '30 mins', '45 mins', '1 hour'].map(dur => (
                         <button
@@ -991,7 +990,7 @@ const Messages = () => {
                           onClick={() => setMeetingDuration(dur)}
                           className={`py-1.5 rounded-lg text-[10px] font-bold border transition-all ${meetingDuration === dur
                             ? 'bg-[#134e40] border-[#134e40] text-white shadow-sm'
-                            : 'bg-[#f4f7f5] border-gray-100 text-gray-500 hover:border-[#134e40]/30'
+                            : 'bg-[#f4f7f5] dark:bg-white/5 border-gray-150 dark:border-white/10 text-gray-500 dark:text-gray-400 hover:border-[#134e40]/30'
                             }`}
                         >
                           {dur}
@@ -1002,14 +1001,14 @@ const Messages = () => {
 
                   {/* Platform selection indicator */}
                   <div>
-                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Meeting Platform</label>
+                    <label className="block text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">Meeting Platform</label>
                     <div className="flex gap-2">
                       <button
                         type="button"
                         onClick={() => setMeetingPlatform('Google Meet')}
                         className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold border transition-colors ${meetingPlatform === 'Google Meet'
-                          ? 'bg-teal-50 border-[#0eb59a] text-[#134e40]'
-                          : 'bg-white border-gray-200 text-gray-400'
+                          ? 'bg-teal-50 dark:bg-[#0eb59a]/10 border-[#0eb59a] text-[#134e40] dark:text-[#0eb59a]'
+                          : 'bg-white dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-400'
                           }`}
                       >
                         <span className="w-2.5 h-2.5 bg-emerald-500 rounded-full shrink-0" />
@@ -1019,7 +1018,7 @@ const Messages = () => {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex justify-end pt-4 border-t border-gray-50">
+                  <div className="flex justify-end pt-4 border-t border-gray-50 dark:border-white/10">
                     <button
                       type="button"
                       onClick={() => setMeetingStep(2)}
@@ -1039,33 +1038,33 @@ const Messages = () => {
 
                   {/* Meeting Title */}
                   <div>
-                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Meeting Title</label>
+                    <label className="block text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">Meeting Title</label>
                     <input
                       type="text"
                       required
                       value={meetingTitle}
                       onChange={(e) => setMeetingTitle(e.target.value)}
-                      className="w-full px-3 py-2 bg-[#f4f7f5] border border-gray-100 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#0eb59a] focus:ring-1 focus:ring-[#0eb59a]"
+                      className="w-full px-3 py-2 bg-[#f4f7f5] dark:bg-white/5 border border-gray-150 dark:border-white/10 rounded-xl text-xs font-semibold text-slate-800 dark:text-gray-200 focus:outline-none focus:border-[#0eb59a] focus:ring-1 focus:ring-[#0eb59a]"
                     />
                   </div>
 
                   {/* Agenda */}
                   <div>
-                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Discussion Agenda</label>
+                    <label className="block text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">Discussion Agenda</label>
                     <textarea
                       rows={3}
                       required
                       placeholder="e.g. Sync roadmap adjustments and review final design system deliverables..."
                       value={meetingAgenda}
                       onChange={(e) => setMeetingAgenda(e.target.value)}
-                      className="w-full px-3 py-2 bg-[#f4f7f5] border border-gray-100 rounded-xl text-xs font-semibold text-slate-800 placeholder:text-gray-300 focus:outline-none focus:border-[#0eb59a] focus:ring-1 focus:ring-[#0eb59a] resize-none"
+                      className="w-full px-3 py-2 bg-[#f4f7f5] dark:bg-white/5 border border-gray-150 dark:border-white/10 rounded-xl text-xs font-semibold text-slate-800 dark:text-gray-200 placeholder:text-gray-300 dark:placeholder:text-gray-655 focus:outline-none focus:border-[#0eb59a] focus:ring-1 focus:ring-[#0eb59a] resize-none"
                     />
                   </div>
 
                   {/* Review Summary Panel */}
-                  <div className="p-3.5 bg-slate-50 border border-gray-100 rounded-2xl space-y-2 text-left">
-                    <p className="text-[10px] font-black uppercase text-gray-400 tracking-wider">Session Overview Summary</p>
-                    <div className="text-xs font-bold text-slate-800 space-y-1">
+                  <div className="p-3.5 bg-slate-50 dark:bg-[#1e2028] border border-gray-150 dark:border-white/10 rounded-2xl space-y-2 text-left">
+                    <p className="text-[10px] font-black uppercase text-gray-400 dark:text-gray-500 tracking-wider">Session Overview Summary</p>
+                    <div className="text-xs font-bold text-slate-800 dark:text-gray-200 space-y-1">
                       <p>📅 {meetingDate} at {meetingTime} ({meetingDuration})</p>
                       <p>💻 via {meetingPlatform}</p>
                       <p>✨ Link: <span className="text-[#0eb59a] underline font-mono select-all">meet.google.com/cxo-connect-meeting</span></p>
@@ -1073,11 +1072,11 @@ const Messages = () => {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex items-center gap-2 justify-end pt-4 border-t border-gray-50">
+                  <div className="flex items-center gap-2 justify-end pt-4 border-t border-gray-50 dark:border-white/10">
                     <button
                       type="button"
                       onClick={() => setMeetingStep(1)}
-                      className="px-4 py-2 border border-gray-200 rounded-xl text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors bg-white cursor-pointer"
+                      className="px-4 py-2 border border-gray-200 dark:border-white/10 rounded-xl text-xs font-bold text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors bg-white dark:bg-transparent cursor-pointer"
                     >
                       ← Back
                     </button>

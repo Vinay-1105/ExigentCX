@@ -771,7 +771,7 @@ const CompanyDashboard = () => {
         </nav>
 
         {/* Separated Settings option pinned to the bottom */}
-        <div className="p-3 border-t border-gray-100 space-y-1">
+        <div className="p-3 border-t border-gray-100/60 dark:border-white/5 space-y-1">
           <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
             {isSidebarOpen && (
               <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
