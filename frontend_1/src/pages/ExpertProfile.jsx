@@ -36,7 +36,7 @@ const ExpertProfile = () => {
         return;
       }
       setCurrentUser(session.user);
-      
+
       try {
         const profileRes = await fetch(`${import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/company/profile`, {
           headers: { 'Authorization': `Bearer ${session.access_token}` }
@@ -113,7 +113,7 @@ const ExpertProfile = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications] = useState([
     { id: 1, type: 'match', title: 'New Expert Match', desc: 'Sarah Jenkins matches your Interim CFO requirement at 98%', time: '2 min ago', unread: true, color: 'bg-teal-500' },
-    { id: 2, type: 'invite', title: 'Invite Accepted', desc: 'David Chen accepted your invitation for CFO role', time: '1 hour ago', unread: true, color: 'bg-blue-500' },
+    { id: 2, type: 'invite', title: 'Invite Accepted', desc: 'David Chen accepted your invitation for CFO role', time: '1 hour ago', unread: true, color: 'bg-[#0eb59a]' },
     { id: 3, type: 'milestone', title: 'Milestone Due', desc: 'Financial Model Draft milestone is due in 3 days', time: '3 hours ago', unread: false, color: 'bg-amber-500' },
   ]);
   const unreadCount = notifications.filter(n => n.unread).length;
@@ -163,7 +163,7 @@ const ExpertProfile = () => {
       title: 'Chief Financial Officer',
       exRole: 'Ex-CFO at Meesho & OYO',
       avatar: 'https://i.pravatar.cc/150?u=david',
-      coverGradient: 'from-blue-600 to-indigo-500',
+      coverGradient: 'from-[#134e40] to-[#0eb59a]',
       rating: 5.0,
       reviews: 18,
       match: 95,
@@ -198,7 +198,7 @@ const ExpertProfile = () => {
       title: 'Chief Technology Officer',
       exRole: 'Ex-VP Engineering at Flipkart',
       avatar: 'https://i.pravatar.cc/150?u=priya',
-      coverGradient: 'from-purple-600 to-violet-500',
+      coverGradient: 'from-teal-700 to-emerald-500',
       rating: 4.8,
       reviews: 31,
       match: 92,
@@ -232,7 +232,7 @@ const ExpertProfile = () => {
   const [loading, setLoading] = useState(true);
 
   const isOwner = currentUser && expert && (
-    currentUser.email === expert.email || 
+    currentUser.email === expert.email ||
     currentUser.id === expert.user_id
   );
 
@@ -339,7 +339,7 @@ const ExpertProfile = () => {
   if (!expert) {
     return (
       <div className="min-h-screen bg-[#f4f7f5] flex items-center justify-center">
-        <p className="text-gray-500 font-medium">Expert profile not found.</p>
+        <p className="text-gray-500 font-medium dark:text-gray-400">Expert profile not found.</p>
       </div>
     );
   }
@@ -503,7 +503,7 @@ const ExpertProfile = () => {
       ],
       popular: false,
       color: 'border-gray-200',
-      btnColor: 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50',
+      btnColor: 'bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/10',
     },
     {
       id: 'fractional',
@@ -611,7 +611,7 @@ const ExpertProfile = () => {
         setFollowBurst(true);
         setTimeout(() => setFollowBurst(false), 600);
       }
-    } catch {}
+    } catch { }
   };
 
   const handleConnect = () => {
@@ -633,7 +633,7 @@ const ExpertProfile = () => {
       });
       localStorage.setItem('cxo_connect_requests', JSON.stringify(requests));
       setConnectStatus('pending');
-    } catch {}
+    } catch { }
   };
 
   const handleShare = async () => {
@@ -706,7 +706,7 @@ Bio: ${expert.bio}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 transition-all shrink-0"
+            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 transition-all shrink-0 dark:text-gray-500"
           >
             {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
           </motion.button>
@@ -715,7 +715,7 @@ Bio: ${expert.bio}
         {/* Nav */}
         <nav className="flex-1 px-3 py-2 space-y-0.5 overflow-hidden">
           {isSidebarOpen && (
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2 mb-2">
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2 mb-2 dark:text-gray-500">
               Main Menu
             </p>
           )}
@@ -726,11 +726,7 @@ Bio: ${expert.bio}
                 key={item.path}
                 whileHover={{ x: 2 }}
                 onClick={() => navigate(item.path)}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
-                  isActive
-                    ? 'bg-[#134e40] text-white shadow-md'
-                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'
-                }`}
+                className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${isActive ? 'bg-[#134e40] text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'}`}
               >
                 {isActive && (
                   <motion.div
@@ -765,11 +761,7 @@ Bio: ${expert.bio}
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/settings')}
-            className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
-              window.location.pathname === '/settings'
-                ? 'bg-[#134e40] text-white shadow-md'
-                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'
-            }`}
+            className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${window.location.pathname === '/settings' ? 'bg-[#134e40] text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'}`}
           >
             {window.location.pathname === '/settings' && (
               <motion.div
@@ -779,9 +771,9 @@ Bio: ${expert.bio}
             )}
             <Settings size={17} className="shrink-0" />
             <motion.span
-              animate={{ 
-                opacity: isSidebarOpen ? 1 : 0, 
-                width: isSidebarOpen ? 'auto' : 0 
+              animate={{
+                opacity: isSidebarOpen ? 1 : 0,
+                width: isSidebarOpen ? 'auto' : 0
               }}
               transition={{ duration: 0.2 }}
               className="overflow-hidden whitespace-nowrap text-sm font-bold text-left"
@@ -789,7 +781,7 @@ Bio: ${expert.bio}
               Settings
             </motion.span>
           </motion.button>
-          
+
           <motion.button
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
@@ -829,7 +821,7 @@ Bio: ${expert.bio}
         {/* ── TOP HEADER ── */}
         <header className="sticky top-0 z-30 bg-white dark:bg-[#1b1d24] border-b border-gray-100 dark:border-white/10 px-6 py-3 flex items-center gap-4 shadow-sm">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-1.5 text-xs text-gray-400">
+          <div className="flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
             <button
               onClick={() => navigate('/company-dashboard')}
               className="hover:text-[#134e40] font-semibold transition-colors"
@@ -852,7 +844,7 @@ Bio: ${expert.bio}
             <motion.button
               whileHover={{ x: -2 }}
               onClick={() => navigate('/experts')}
-              className="flex items-center gap-1.5 text-xs font-bold text-gray-500 hover:text-[#134e40] transition-colors px-3 py-2 rounded-xl hover:bg-gray-50"
+              className="flex items-center gap-1.5 text-xs font-bold text-gray-500 hover:text-[#134e40] transition-colors px-3 py-2 rounded-xl hover:bg-gray-50 dark:text-gray-400"
             >
               <ChevronLeft size={14} /> Back to Experts
             </motion.button>
@@ -862,7 +854,7 @@ Bio: ${expert.bio}
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.92 }}
                 onClick={() => setShowNotifications(!showNotifications)}
-                className="w-9 h-9 bg-gray-50 rounded-xl flex items-center justify-center text-gray-500 hover:text-[#134e40] hover:bg-gray-100 transition-all relative"
+                className="w-9 h-9 bg-gray-50 rounded-xl flex items-center justify-center text-gray-500 hover:text-[#134e40] hover:bg-gray-100 transition-all relative dark:text-gray-400"
               >
                 <Bell size={17} />
                 {unreadCount > 0 && (
@@ -908,16 +900,15 @@ Bio: ${expert.bio}
                             initial={{ opacity: 0, x: -8 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: idx * 0.05 }}
-                            whileHover={{ backgroundColor: '#F9FAFB' }}
-                            className={`flex items-start gap-3 px-4 py-3 cursor-pointer border-b border-gray-50 last:border-0 transition-colors ${notif.unread ? 'bg-teal-50/30' : 'bg-white'}`}
+                            className={`flex items-start gap-3 px-4 py-3 cursor-pointer border-b border-gray-50 dark:border-white/5 last:border-0 transition-colors hover:bg-gray-50 dark:hover:bg-white/5 ${notif.unread ? 'bg-teal-50/30 dark:bg-teal-500/5' : 'bg-white dark:bg-[#1b1d24]'}`}
                           >
                             <div className={`w-8 h-8 ${notif.color} rounded-xl flex items-center justify-center shrink-0 mt-0.5`}>
                               <Bell size={13} className="text-white" />
                             </div>
                             <div className="flex-1 min-w-0">
                               <p className="text-xs font-black text-[#1C3627] dark:text-white leading-none mb-1">{notif.title}</p>
-                              <p className="text-[11px] text-gray-500 leading-relaxed">{notif.desc}</p>
-                              <p className="text-[10px] text-gray-400 font-medium mt-1">{notif.time}</p>
+                              <p className="text-[11px] text-gray-500 leading-relaxed dark:text-gray-400">{notif.desc}</p>
+                              <p className="text-[10px] text-gray-400 font-medium mt-1 dark:text-gray-500">{notif.time}</p>
                             </div>
                             {notif.unread && (
                               <div className="w-2 h-2 bg-[#0eb59a] rounded-full shrink-0 mt-1.5" />
@@ -927,7 +918,7 @@ Bio: ${expert.bio}
                       </div>
 
                       {/* Footer */}
-                      <div className="px-4 py-3 border-t border-gray-50 text-center">
+                      <div className="px-4 py-3 border-t border-gray-50 dark:border-white/10 text-center">
                         <button className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors">
                           View all notifications →
                         </button>
@@ -937,7 +928,7 @@ Bio: ${expert.bio}
                 )}
               </AnimatePresence>
             </div>
-            <button 
+            <button
               onClick={() => navigate('/settings')}
               className="w-9 h-9 bg-[#134e40] rounded-xl flex items-center justify-center text-white text-xs font-black hover:ring-2 hover:ring-[#0eb59a] hover:ring-offset-2 transition-all overflow-hidden"
             >
@@ -978,7 +969,7 @@ Bio: ${expert.bio}
                       <Shield size={10} /> VERIFIED
                     </span>
                   )}
-                  <span className="text-[10px] font-black bg-white text-[#134e40] px-3 py-1.5 rounded-full">
+                  <span className="text-[10px] font-black bg-white text-[#134e40] px-3 py-1.5 rounded-full dark:bg-[#1e2028] dark:border-white/10">
                     {expert.match}% MATCH
                   </span>
                   {/* Share + Download — moved to badge row right side */}
@@ -1103,17 +1094,13 @@ Bio: ${expert.bio}
                       whileHover={{ y: -2, transition: { duration: 0.15 } }}
                       whileTap={{ scale: 0.97 }}
                       onClick={() => setActiveTab(tab)}
-                      className={`px-6 py-3 text-sm font-bold transition-all duration-200 relative ${
-                        activeTab === tab
-                          ? 'text-white'
-                          : 'text-white/50 hover:text-white/90 hover:bg-white/10 rounded-xl'
-                      }`}
+                      className={`px-6 py-3 text-sm font-bold transition-all duration-200 relative ${activeTab === tab ? 'text-white' : 'text-white/50 hover:text-white/90 hover:bg-white/10 rounded-xl'}`}
                     >
                       {tab}
                       {activeTab === tab && (
                         <motion.div
                           layoutId="tabIndicator"
-                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-white rounded-full"
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-white rounded-full dark:bg-[#1e2028] dark:border-white/10"
                         />
                       )}
                     </motion.button>
@@ -1129,1192 +1116,1181 @@ Bio: ${expert.bio}
               <div className="flex-1 min-w-0">
                 <AnimatePresence mode="wait">
 
-              {/* ── TAB 1: OVERVIEW ── */}
-              {activeTab === 'Overview' && (
-                <motion.div
-                  key="overview"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                  className="space-y-6"
-                >
-                  {/* Bio */}
-                  <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-transparent dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6 text-left">
-                    <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-4 flex items-center gap-2 tracking-tight">
-                      <Users size={16} className="text-[#0eb59a]" /> About
-                    </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed text-left w-full">{expert.bio}</p>
-                  </div>
-
-                  {/* Highlights */}
-                  <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-transparent dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6">
-                    <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-4 flex items-center gap-2 tracking-tight">
-                      <Award size={16} className="text-[#0eb59a]" /> Key Highlights
-                    </h3>
-                    <div className="space-y-3">
-                      {expert.highlights.map((h, idx) => (
-                        <motion.div
-                          key={idx}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: idx * 0.08 }}
-                          whileHover={{ x: 6, transition: { duration: 0.15 } }}
-                          className="flex items-start gap-3 p-3 rounded-xl hover:bg-teal-50/50 transition-colors duration-150 cursor-default group"
-                        >
-                          <div className="w-6 h-6 bg-teal-50 group-hover:bg-[#0eb59a] rounded-lg flex items-center justify-center shrink-0 mt-0.5 border border-teal-100 transition-colors duration-200">
-                            <Check size={12} className="text-[#0eb59a] group-hover:text-white transition-colors duration-200" strokeWidth={3} />
-                          </div>
-                          <p className="text-sm text-gray-700 font-semibold leading-relaxed group-hover:text-[#134e40] transition-colors duration-150">{h}</p>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Skills */}
-                  <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6">
-                    <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-4 flex items-center gap-2 tracking-tight">
-                      <Target size={16} className="text-[#0eb59a]" /> Skills & Expertise
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {expert.skills.map((skill, idx) => (
-                        <motion.button
-                          key={skill}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: idx * 0.04 }}
-                          whileHover={{ scale: 1.08, y: -2, transition: { duration: 0.15 } }}
-                          whileTap={{ scale: 0.95 }}
-                          className="dark:!bg-white/5 dark:!border-white/10 dark:!text-gray-300"
-                          style={{
-                            padding: '8px 14px',
-                            backgroundColor: '#FAFBF9',
-                            color: '#1C3627',
-                            fontSize: '12px',
-                            fontWeight: 700,
-                            borderRadius: '10px',
-                            border: '1px solid #E5E7EB',
-                            cursor: 'pointer',
-                            display: 'inline-block',
-                            transition: 'all 0.2s ease',
-                          }}
-                          onMouseEnter={e => {
-                            e.currentTarget.style.backgroundColor = '#134e40';
-                            e.currentTarget.style.color = 'white';
-                            e.currentTarget.style.borderColor = '#134e40';
-                          }}
-                          onMouseLeave={e => {
-                            e.currentTarget.style.backgroundColor = '#FAFBF9';
-                            e.currentTarget.style.color = '#1C3627';
-                            e.currentTarget.style.borderColor = '#E5E7EB';
-                          }}
-                        >
-                          {skill}
-                        </motion.button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Industries */}
-                  <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6">
-                    <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-4 flex items-center gap-2 tracking-tight">
-                      <Building size={16} className="text-[#0eb59a]" /> Industry Experience
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {expert.industries.map((industry, idx) => (
-                        <motion.button
-                          key={industry}
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: idx * 0.06 }}
-                          whileHover={{ scale: 1.06, y: -2, transition: { duration: 0.15 } }}
-                          whileTap={{ scale: 0.95 }}
-                          className="dark:!bg-white/5 dark:!border-white/10 dark:!text-gray-300"
-                          style={{
-                            padding: '8px 16px',
-                            backgroundColor: '#FAFBF9',
-                            color: '#1C3627',
-                            fontSize: '12px',
-                            fontWeight: 700,
-                            borderRadius: '10px',
-                            border: '1px solid #E5E7EB',
-                            cursor: 'pointer',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                            transition: 'all 0.2s ease',
-                          }}
-                          onMouseEnter={e => {
-                            e.currentTarget.style.backgroundColor = '#134e40';
-                            e.currentTarget.style.color = 'white';
-                            e.currentTarget.style.borderColor = '#134e40';
-                          }}
-                          onMouseLeave={e => {
-                            e.currentTarget.style.backgroundColor = '#FAFBF9';
-                            e.currentTarget.style.color = '#1C3627';
-                            e.currentTarget.style.borderColor = '#E5E7EB';
-                          }}
-                        >
-                          <Globe size={11} style={{ color: 'inherit' }} />
-                          {industry}
-                        </motion.button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Engagement Stats Micro-widgets */}
-                  <div className="grid grid-cols-3 gap-4">
-                    {[
-                      { label: 'Engagements', sub: 'Completed projects', value: expert.completedEngagements, icon: Briefcase, iconBg: '#F0FDF4', iconColor: '#0eb59a', numColor: '#134e40', borderColor: '#0eb59a' },
-                      { label: 'Avg Rating', sub: 'Client satisfaction', value: expert.rating, icon: Star, iconBg: '#FFFBEB', iconColor: '#F59E0B', numColor: '#D97706', borderColor: '#F59E0B' },
-                      { label: 'Reviews', sub: 'Verified feedback', value: expert.reviews, icon: MessageSquare, iconBg: '#EFF6FF', iconColor: '#3B82F6', numColor: '#2563EB', borderColor: '#3B82F6' },
-                    ].map((stat, idx) => (
-                      <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.08 }}
-                        whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                        className="bg-white dark:bg-[#1e2028] border border-gray-100 dark:border-white/10"
-                        style={{
-                          borderRadius: '16px',
-                          padding: '20px',
-                          borderLeft: `4px solid ${stat.borderColor}`,
-                          boxShadow: '0 8px 30px rgba(0,0,0,0.06)',
-                        }}
-                      >
-                        <div style={{ width: '36px', height: '36px', backgroundColor: stat.iconBg, borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px' }} className="dark:!bg-white/10">
-                          <stat.icon size={16} style={{ color: stat.iconColor }} className="dark:!text-[#0eb59a]" />
-                        </div>
-                        <p style={{ fontSize: '30px', fontWeight: 900, color: stat.numColor, lineHeight: 1, marginBottom: '4px' }} className="dark:!text-white">{stat.value}</p>
-                        <p style={{ fontSize: '12px', fontWeight: 700, color: '#6B7280', marginTop: '4px' }} className="dark:!text-gray-300">{stat.label}</p>
-                        <p style={{ fontSize: '10px', color: '#9CA3AF', marginTop: '2px' }} className="dark:!text-gray-400">{stat.sub}</p>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  {/* Other Details */}
-                  <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6">
-                    <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-4 flex items-center gap-2 tracking-tight">
-                      Other Details
-                    </h3>
-                    <div className="grid grid-cols-2 gap-3">
-                      {[
-                        { label: 'Languages', value: expert.languages.join(', '), icon: Globe, bg: '#F0FDF4', iconColor: '#0eb59a' },
-                        { label: 'Timezone', value: expert.timezone, icon: Clock, bg: '#EFF6FF', iconColor: '#3B82F6' },
-                        { label: 'Response Time', value: expert.responseTime, icon: Zap, bg: '#FFFBEB', iconColor: '#F59E0B' },
-                        { label: 'Engagement Types', value: expert.engagementTypes.join(', '), icon: Briefcase, bg: '#FAF5FF', iconColor: '#A855F7' },
-                      ].map((item, idx) => (
-                        <div
-                          key={idx}
-                          style={{ backgroundColor: '#FAFBF9', borderRadius: '12px', padding: '16px', border: '1px solid #E5E7EB', display: 'flex', alignItems: 'flex-start', gap: '12px' }}
-                        >
-                          <div style={{ width: '32px', height: '32px', backgroundColor: item.bg, borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                            <item.icon size={14} style={{ color: item.iconColor }} />
-                          </div>
-                          <div style={{ textAlign: 'left' }}>
-                            <p style={{ fontSize: '10px', fontWeight: 800, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '4px' }}>{item.label}</p>
-                            <p style={{ fontSize: '14px', fontWeight: 700, color: '#1C3627' }}>{item.value}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <motion.a
-                      href={expert.linkedIn}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ x: 4, transition: { duration: 0.15 } }}
-                      className="flex items-center gap-2 mt-4 text-sm font-bold text-blue-500 hover:text-blue-600 transition-colors duration-150 w-fit group"
-                    >
-                      <ExternalLink size={14} className="group-hover:rotate-12 transition-transform duration-200" />
-                      View LinkedIn Profile
-                      <motion.span
-                        initial={{ opacity: 0, x: -4 }}
-                        whileHover={{ opacity: 1, x: 0 }}
-                        className="text-blue-400"
-                      >
-                        →
-                      </motion.span>
-                    </motion.a>
-                  </div>
-
-                  {/* Experience Timeline */}
-                  {displayExperiences.length > 0 && (
-                    <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6 text-left">
-                      <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-6 flex items-center gap-2 tracking-tight">
-                        <Briefcase size={16} className="text-[#0eb59a]" /> Professional Experience
-                      </h3>
-                      <div className="relative pl-6 border-l border-gray-100 dark:border-white/10 space-y-8 ml-3">
-                        {displayExperiences.map((exp, idx) => (
-                          <div key={idx} className="relative">
-                            {/* Timeline dot */}
-                            <div className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-[#0eb59a] border-2 border-white ring-4 ring-teal-50" />
-                            <div>
-                              <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
-                                <h4 className="font-black text-gray-900 text-sm">{exp.role}</h4>
-                                <span className="text-[10px] font-black text-gray-400 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 px-2 py-0.5 rounded">
-                                  {exp.startDate} — {exp.current ? 'Present' : exp.endDate}
-                                </span>
-                              </div>
-                              <p className="text-xs text-[#0eb59a] font-bold mb-2">{exp.company} {exp.type ? `· ${exp.type}` : ''}</p>
-                              {exp.description && (
-                                <p className="text-sm text-gray-500 leading-relaxed">{exp.description}</p>
-                              )}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Education list */}
-                  {displayEducation.length > 0 && (
-                    <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6 text-left">
-                      <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-6 flex items-center gap-2 tracking-tight">
-                        <Award size={16} className="text-[#0eb59a]" /> Education & Credentials
-                      </h3>
-                      <div className="relative pl-6 border-l border-gray-100 dark:border-white/10 space-y-8 ml-3">
-                        {displayEducation.map((edu, idx) => (
-                          <div key={idx} className="relative">
-                            {/* Timeline dot */}
-                            <div className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-blue-500 border-2 border-white ring-4 ring-blue-50" />
-                            <div>
-                              <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
-                                <h4 className="font-black text-gray-900 text-sm">{edu.degree}</h4>
-                                <span className="text-[10px] font-black text-gray-400 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 px-2 py-0.5 rounded">
-                                  {edu.year}
-                                </span>
-                              </div>
-                              <p className="text-xs text-blue-500 font-bold mb-1">{edu.institution}</p>
-                              {edu.grade && (
-                                <span className="text-[10px] font-black text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-lg border border-amber-100 inline-flex items-center gap-1">
-                                  <Star size={10} fill="currentColor" /> {edu.grade}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </motion.div>
-              )}
-
-              {/* ── TAB 2: CASE EXPERIENCE ── */}
-              {activeTab === 'Case Experience' && (
-                <motion.div
-                  key="cases"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                  className="space-y-5"
-                >
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-black text-gray-900 text-lg">
-                      {caseStudies.length} Case Studies
-                    </h3>
-                    <span className="text-xs font-bold text-gray-400 bg-gray-50 px-3 py-1.5 rounded-xl border border-gray-100">
-                      Company names anonymised
-                    </span>
-                  </div>
-
-                  {caseStudies.map((cs, idx) => (
+                  {/* ── TAB 1: OVERVIEW ── */}
+                  {activeTab === 'Overview' && (
                     <motion.div
-                      key={cs.id}
-                      initial={{ opacity: 0, y: 20 }}
+                      key="overview"
+                      initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.1 }}
-                      whileHover={{ y: -6, boxShadow: '0 20px 50px rgba(0,0,0,0.08)', transition: { duration: 0.2 } }}
-                      className="bg-white dark:bg-[#1e2028] rounded-3xl border border-transparent dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] p-6 cursor-default"
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-6"
                     >
-                      {/* Header */}
-                      <div className="flex items-start justify-between mb-4">
-                        <div>
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="text-[10px] font-black text-[#134e40] bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-100">
-                              {cs.type}
-                            </span>
-                            <span className="text-[10px] font-black text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100">
-                              {cs.industry}
-                            </span>
-                            <span className="text-[10px] font-semibold text-gray-400">{cs.year}</span>
-                          </div>
-                          <h4 className="font-black text-gray-900 text-base">{cs.company}</h4>
-                          <p className="text-xs text-gray-400 font-semibold mt-0.5">
-                            {cs.role} · {cs.duration}
-                          </p>
-                        </div>
-                        <div className="w-10 h-10 bg-gray-50 dark:bg-white/5 rounded-2xl flex items-center justify-center border border-gray-100 dark:border-white/10">
-                          <Building size={18} className="text-gray-400" />
+                      {/* Bio */}
+                      <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-transparent dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6 text-left">
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-4 flex items-center gap-2 tracking-tight">
+                          <Users size={16} className="text-[#0eb59a]" /> About
+                        </h3>
+                        <p className="text-gray-600 text-sm leading-relaxed text-left w-full dark:text-gray-300">{expert.bio}</p>
+                      </div>
+
+                      {/* Highlights */}
+                      <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-transparent dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6">
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-4 flex items-center gap-2 tracking-tight">
+                          <Award size={16} className="text-[#0eb59a]" /> Key Highlights
+                        </h3>
+                        <div className="space-y-3">
+                          {expert.highlights.map((h, idx) => (
+                            <motion.div
+                              key={idx}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: idx * 0.08 }}
+                              whileHover={{ x: 6, transition: { duration: 0.15 } }}
+                              className="flex items-start gap-3 p-3 rounded-xl hover:bg-teal-50/50 transition-colors duration-150 cursor-default group"
+                            >
+                              <div className="w-6 h-6 bg-teal-50 group-hover:bg-[#0eb59a] rounded-lg flex items-center justify-center shrink-0 mt-0.5 border border-teal-100 transition-colors duration-200">
+                                <Check size={12} className="text-[#0eb59a] group-hover:text-white transition-colors duration-200" strokeWidth={3} />
+                              </div>
+                              <p className="text-sm text-gray-700 font-semibold leading-relaxed group-hover:text-[#134e40] transition-colors duration-150 dark:text-gray-300">{h}</p>
+                            </motion.div>
+                          ))}
                         </div>
                       </div>
 
-                      {/* Challenge + Outcome */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-                        <div className="bg-red-50 rounded-2xl p-4 border border-red-100">
-                          <p className="text-[10px] font-black text-red-600 uppercase tracking-wider mb-2">Challenge</p>
-                          <p className="text-sm text-gray-700 leading-relaxed">{cs.challenge}</p>
-                        </div>
-                        <div className="bg-emerald-50 rounded-2xl p-4 border border-emerald-100">
-                          <p className="text-[10px] font-black text-emerald-600 uppercase tracking-wider mb-2">Outcome</p>
-                          <p className="text-sm text-gray-700 leading-relaxed">{cs.outcome}</p>
+                      {/* Skills */}
+                      <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6 dark:bg-[#1e2028] border border-transparent dark:border-white/10">
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-4 flex items-center gap-2 tracking-tight">
+                          <Target size={16} className="text-[#0eb59a]" /> Skills & Expertise
+                        </h3>
+                        <div className="flex flex-wrap gap-2">
+                          {expert.skills.map((skill, idx) => (
+                            <motion.button
+                              key={skill}
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: idx * 0.04 }}
+                              whileHover={{ scale: 1.08, y: -2, transition: { duration: 0.15 } }}
+                              whileTap={{ scale: 0.95 }}
+                              className="dark:!bg-white/5 dark:!border-white/10 dark:!text-gray-300"
+                              style={{
+                                padding: '8px 14px',
+                                backgroundColor: '#FAFBF9',
+                                color: '#1C3627',
+                                fontSize: '12px',
+                                fontWeight: 700,
+                                borderRadius: '10px',
+                                border: '1px solid #E5E7EB',
+                                cursor: 'pointer',
+                                display: 'inline-block',
+                                transition: 'all 0.2s ease',
+                              }}
+                              onMouseEnter={e => {
+                                e.currentTarget.style.backgroundColor = '#134e40';
+                                e.currentTarget.style.color = 'white';
+                                e.currentTarget.style.borderColor = '#134e40';
+                              }}
+                              onMouseLeave={e => {
+                                e.currentTarget.style.backgroundColor = '#FAFBF9';
+                                e.currentTarget.style.color = '#1C3627';
+                                e.currentTarget.style.borderColor = '#E5E7EB';
+                              }}
+                            >
+                              {skill}
+                            </motion.button>
+                          ))}
                         </div>
                       </div>
 
-                      {/* Metrics */}
-                      <div className="grid grid-cols-4 gap-3 mb-4">
-                        {cs.metrics.map((metric, mIdx) => (
+                      {/* Industries */}
+                      <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6 dark:bg-[#1e2028] border border-transparent dark:border-white/10">
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-4 flex items-center gap-2 tracking-tight">
+                          <Building size={16} className="text-[#0eb59a]" /> Industry Experience
+                        </h3>
+                        <div className="flex flex-wrap gap-2">
+                          {expert.industries.map((industry, idx) => (
+                            <motion.button
+                              key={industry}
+                              initial={{ opacity: 0, scale: 0.9 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: idx * 0.06 }}
+                              whileHover={{ scale: 1.06, y: -2, transition: { duration: 0.15 } }}
+                              whileTap={{ scale: 0.95 }}
+                              className="dark:!bg-white/5 dark:!border-white/10 dark:!text-gray-300"
+                              style={{
+                                padding: '8px 16px',
+                                backgroundColor: '#FAFBF9',
+                                color: '#1C3627',
+                                fontSize: '12px',
+                                fontWeight: 700,
+                                borderRadius: '10px',
+                                border: '1px solid #E5E7EB',
+                                cursor: 'pointer',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '6px',
+                                transition: 'all 0.2s ease',
+                              }}
+                              onMouseEnter={e => {
+                                e.currentTarget.style.backgroundColor = '#134e40';
+                                e.currentTarget.style.color = 'white';
+                                e.currentTarget.style.borderColor = '#134e40';
+                              }}
+                              onMouseLeave={e => {
+                                e.currentTarget.style.backgroundColor = '#FAFBF9';
+                                e.currentTarget.style.color = '#1C3627';
+                                e.currentTarget.style.borderColor = '#E5E7EB';
+                              }}
+                            >
+                              <Globe size={11} style={{ color: 'inherit' }} />
+                              {industry}
+                            </motion.button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Engagement Stats Micro-widgets */}
+                      <div className="grid grid-cols-3 gap-4">
+                        {[
+                          { label: 'Engagements', sub: 'Completed projects', value: expert.completedEngagements, icon: Briefcase, iconBg: '#F0FDF4', iconColor: '#0eb59a', numColor: '#134e40', borderColor: '#0eb59a' },
+                          { label: 'Avg Rating', sub: 'Client satisfaction', value: expert.rating, icon: Star, iconBg: '#FFFBEB', iconColor: '#F59E0B', numColor: '#D97706', borderColor: '#F59E0B' },
+                          { label: 'Reviews', sub: 'Verified feedback', value: expert.reviews, icon: MessageSquare, iconBg: '#F0FDF4', iconColor: '#0eb59a', numColor: '#134e40', borderColor: '#0eb59a' },
+                        ].map((stat, idx) => (
                           <motion.div
-                            key={mIdx}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: idx * 0.1 + mIdx * 0.05 }}
-                            className="bg-gray-50 dark:bg-white/5 rounded-2xl p-3 border border-gray-100 dark:border-white/10 text-center"
+                            key={idx}
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: idx * 0.08 }}
+                            whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                            className="bg-white dark:bg-[#1e2028] border border-gray-100 dark:border-white/10"
+                            style={{
+                              borderRadius: '16px',
+                              padding: '20px',
+                              borderLeft: `4px solid ${stat.borderColor}`,
+                              boxShadow: '0 8px 30px rgba(0,0,0,0.06)',
+                            }}
                           >
-                            <p className="text-lg font-black text-[#134e40]">{metric.value}</p>
-                            <p className="text-[10px] text-gray-400 font-bold mt-0.5 leading-tight">{metric.label}</p>
+                            <div style={{ width: '36px', height: '36px', backgroundColor: stat.iconBg, borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px' }} className="dark:!bg-white/10">
+                              <stat.icon size={16} style={{ color: stat.iconColor }} className="dark:!text-[#0eb59a]" />
+                            </div>
+                            <p style={{ fontSize: '30px', fontWeight: 900, color: stat.numColor, lineHeight: 1, marginBottom: '4px' }} className="dark:!text-white">{stat.value}</p>
+                            <p style={{ fontSize: '12px', fontWeight: 700, color: '#6B7280', marginTop: '4px' }} className="dark:!text-gray-300">{stat.label}</p>
+                            <p style={{ fontSize: '10px', color: '#9CA3AF', marginTop: '2px' }} className="dark:!text-gray-400">{stat.sub}</p>
                           </motion.div>
                         ))}
                       </div>
 
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2">
-                        {cs.tags.map(tag => (
-                          <span key={tag} className="text-[10px] font-bold bg-teal-50 text-[#134e40] px-2.5 py-1 rounded-lg border border-teal-100">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              )}
-
-              {/* ── TAB 3: REVIEWS ── */}
-              {activeTab === 'Reviews' && (
-                <motion.div
-                  key="reviews"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                  className="space-y-5"
-                >
-                  {/* Rating Summary */}
-                  <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-6">
-                    <div className="flex items-center gap-8">
-                      <div className="text-center shrink-0">
-                        <p className="text-6xl font-black text-gray-900">{expert.rating}</p>
-                        <div className="flex gap-0.5 justify-center my-2">
-                          {[1, 2, 3, 4, 5].map(s => (
-                            <Star
-                              key={s}
-                              size={18}
-                              fill={s <= Math.floor(expert.rating) ? '#F59E0B' : '#E5E7EB'}
-                              className={s <= Math.floor(expert.rating) ? 'text-amber-400' : 'text-gray-200'}
-                            />
+                      {/* Other Details */}
+                      <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6 dark:bg-[#1e2028] border border-transparent dark:border-white/10">
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-4 flex items-center gap-2 tracking-tight">
+                          Other Details
+                        </h3>
+                        <div className="grid grid-cols-2 gap-3">
+                          {[
+                            { label: 'Languages', value: expert.languages.join(', '), icon: Globe, bg: '#F0FDF4', iconColor: '#0eb59a' },
+                            { label: 'Timezone', value: expert.timezone, icon: Clock, bg: '#F0FDF4', iconColor: '#0eb59a' },
+                            { label: 'Response Time', value: expert.responseTime, icon: Zap, bg: '#FFFBEB', iconColor: '#F59E0B' },
+                            { label: 'Engagement Types', value: expert.engagementTypes.join(', '), icon: Briefcase, bg: '#F0FDF4', iconColor: '#134e40' },
+                          ].map((item, idx) => (
+                            <div
+                              key={idx}
+                              className="bg-[#FAFBF9] dark:bg-[#252830] border border-[#E5E7EB] dark:border-white/10"
+                              style={{ borderRadius: '12px', padding: '16px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}
+                            >
+                              <div style={{ width: '32px', height: '32px', backgroundColor: item.bg, borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }} className="dark:!bg-white/10">
+                                <item.icon size={14} style={{ color: item.iconColor }} className="dark:!text-[#0eb59a]" />
+                              </div>
+                              <div style={{ textAlign: 'left' }}>
+                                <p className="text-[#9CA3AF] dark:text-gray-500" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '4px' }}>{item.label}</p>
+                                <p className="text-[#1C3627] dark:text-white" style={{ fontSize: '14px', fontWeight: 700 }}>{item.value}</p>
+                              </div>
+                            </div>
                           ))}
                         </div>
-                        <p className="text-sm text-gray-400 font-semibold">{expert.reviews} reviews</p>
+                        <motion.a
+                          href={expert.linkedIn}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ x: 4, transition: { duration: 0.15 } }}
+                          className="flex items-center gap-2 mt-4 text-sm font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors duration-150 w-fit group"
+                        >
+                          <ExternalLink size={14} className="group-hover:rotate-12 transition-transform duration-200" />
+                          View LinkedIn Profile
+                          <motion.span
+                            initial={{ opacity: 0, x: -4 }}
+                            whileHover={{ opacity: 1, x: 0 }}
+                            className="text-[#0eb59a]"
+                          >
+                            →
+                          </motion.span>
+                        </motion.a>
                       </div>
-                      <div className="flex-1 space-y-2">
-                        {[5, 4, 3, 2, 1].map(star => {
-                          const count = star === 5 ? 18 : star === 4 ? 4 : star === 3 ? 1 : 0;
-                          const pct = Math.round((count / expert.reviews) * 100);
-                          return (
-                            <div key={star} className="flex items-center gap-3">
-                              <span className="text-xs font-bold text-gray-500 w-4">{star}</span>
-                              <Star size={12} fill="#F59E0B" className="text-amber-400 shrink-0" />
-                              <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
-                                <motion.div
-                                  initial={{ width: 0 }}
-                                  animate={{ width: `${pct}%` }}
-                                  transition={{ duration: 0.8, delay: (5 - star) * 0.1 }}
-                                  className="h-full bg-amber-400 rounded-full"
-                                />
-                              </div>
-                              <span className="text-xs font-bold text-gray-400 w-8">{pct}%</span>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
 
-                  {/* Review Cards */}
-                  {reviews.map((review, idx) => (
-                    <motion.div
-                      key={review.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.1 }}
-                      whileHover={{ y: -4, x: 2, transition: { duration: 0.2 } }}
-                      className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] p-6 border-l-4 border-l-transparent hover:border-l-[#0eb59a] transition-all duration-200 cursor-default"
-                    >
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-center gap-3">
-                          <img src={review.avatar} className="w-11 h-11 rounded-2xl object-cover shadow-sm" />
-                          <div>
-                            <div className="flex items-center gap-2">
-                              <h4 className="font-black text-gray-900 text-sm text-left">{review.reviewer}</h4>
-                              {review.verified && (
-                                <span className="flex items-center gap-1 text-[9px] font-black text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded-md border border-blue-100">
-                                  <Shield size={8} /> Verified
-                                </span>
-                              )}
-                            </div>
-                            <p className="text-xs text-gray-400 font-semibold text-left">{review.role}</p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <div className="flex gap-0.5 justify-end mb-1">
-                            {[1, 2, 3, 4, 5].map(s => (
-                              <Star key={s} size={13} fill={s <= review.rating ? '#F59E0B' : '#E5E7EB'}
-                                className={s <= review.rating ? 'text-amber-400' : 'text-gray-200'} />
+                      {/* Experience Timeline */}
+                      {displayExperiences.length > 0 && (
+                        <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6 text-left dark:bg-[#1e2028] border border-transparent dark:border-white/10">
+                          <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-6 flex items-center gap-2 tracking-tight">
+                            <Briefcase size={16} className="text-[#0eb59a]" /> Professional Experience
+                          </h3>
+                          <div className="relative pl-6 border-l border-gray-100 dark:border-white/10 space-y-8 ml-3">
+                            {displayExperiences.map((exp, idx) => (
+                              <div key={idx} className="relative">
+                                {/* Timeline dot */}
+                                <div className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-[#0eb59a] border-2 border-white ring-4 ring-teal-50" />
+                                <div>
+                                  <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
+                                    <h4 className="font-black text-gray-900 text-sm dark:text-white">{exp.role}</h4>
+                                    <span className="text-[10px] font-black text-gray-400 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 px-2 py-0.5 rounded dark:text-gray-500">
+                                      {exp.startDate} — {exp.current ? 'Present' : exp.endDate}
+                                    </span>
+                                  </div>
+                                  <p className="text-xs text-[#0eb59a] font-bold mb-2">{exp.company} {exp.type ? `· ${exp.type}` : ''}</p>
+                                  {exp.description && (
+                                    <p className="text-sm text-gray-500 leading-relaxed dark:text-gray-400">{exp.description}</p>
+                                  )}
+                                </div>
+                              </div>
                             ))}
                           </div>
-                          <p className="text-[10px] text-gray-400 font-semibold">{review.date}</p>
                         </div>
-                      </div>
-                      <p className="text-sm text-gray-600 leading-relaxed mb-3 text-left">"{review.review}"</p>
-                      <span className="text-[10px] font-bold text-[#134e40] bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-100">
-                        {review.engagement} Engagement
-                      </span>
+                      )}
+
+                      {/* Education list */}
+                      {displayEducation.length > 0 && (
+                        <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-6 text-left dark:bg-[#1e2028] border border-transparent dark:border-white/10">
+                          <h3 className="font-black text-[#1C3627] dark:text-white text-[15px] mb-6 flex items-center gap-2 tracking-tight">
+                            <Award size={16} className="text-[#0eb59a]" /> Education & Credentials
+                          </h3>
+                          <div className="relative pl-6 border-l border-gray-100 dark:border-white/10 space-y-8 ml-3">
+                            {displayEducation.map((edu, idx) => (
+                              <div key={idx} className="relative">
+                                {/* Timeline dot */}
+                                <div className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-[#0eb59a] border-2 border-white ring-4 ring-teal-50 dark:ring-white/5" />
+                                <div>
+                                  <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
+                                    <h4 className="font-black text-gray-900 text-sm dark:text-white">{edu.degree}</h4>
+                                    <span className="text-[10px] font-black text-gray-400 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 px-2 py-0.5 rounded dark:text-gray-500">
+                                      {edu.year}
+                                    </span>
+                                  </div>
+                                  <p className="text-xs text-[#0eb59a] font-bold mb-1">{edu.institution}</p>
+                                  {edu.grade && (
+                                    <span className="text-[10px] font-black text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-lg border border-amber-100 inline-flex items-center gap-1">
+                                      <Star size={10} fill="currentColor" /> {edu.grade}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </motion.div>
-                  ))}
-                </motion.div>
-              )}
+                  )}
 
-              {/* ── TAB 4: PRICING ── */}
-              {activeTab === 'Pricing' && (
-                <motion.div
-                  key="pricing"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                  className="space-y-5"
-                >
-                  <p className="text-sm text-gray-400 font-semibold">
-                    All engagements are governed by milestones, NDA, and escrow-backed payments through ExigentCX.
-                  </p>
+                  {/* ── TAB 2: CASE EXPERIENCE ── */}
+                  {activeTab === 'Case Experience' && (
+                    <motion.div
+                      key="cases"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-5"
+                    >
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-black text-gray-900 text-lg dark:text-white">
+                          {caseStudies.length} Case Studies
+                        </h3>
+                        <span className="text-xs font-bold text-gray-400 bg-gray-50 dark:bg-white/5 px-3 py-1.5 rounded-xl border border-gray-100 dark:text-gray-500 dark:border-white/10">
+                          Company names anonymised
+                        </span>
+                      </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    {pricingTiers.map((tier, idx) => {
-                      const isHovered = hoveredTier === tier.id;
-                      const isPopular = tier.popular;
-
-                      return (
+                      {caseStudies.map((cs, idx) => (
                         <motion.div
-                          key={tier.id}
+                          key={cs.id}
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: idx * 0.1 }}
-                          onMouseEnter={() => setHoveredTier(tier.id)}
-                          onMouseLeave={() => setHoveredTier(null)}
-                          whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                          style={{
-                            backgroundColor: 'white',
-                            borderRadius: '24px',
-                            border: `2px solid ${isHovered ? '#0eb59a' : '#E5E7EB'}`,
-                            padding: '24px',
-                            position: 'relative',
-                            overflow: 'hidden',
-                            cursor: 'default',
-                            boxShadow: isHovered
-                              ? '0 24px 60px rgba(14,181,154,0.18)'
-                              : '0 4px 20px rgba(0,0,0,0.04)',
-                            transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
-                          }}
+                          whileHover={{ y: -6, boxShadow: '0 20px 50px rgba(0,0,0,0.08)', transition: { duration: 0.2 } }}
+                          className="bg-white dark:bg-[#1e2028] rounded-3xl border border-transparent dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] p-6 cursor-default"
                         >
-                          {/* Animated teal top accent line on hover */}
-                          <motion.div
-                            animate={{
-                              scaleX: isHovered ? 1 : 0,
-                              opacity: isHovered ? 1 : 0,
-                            }}
-                            transition={{ duration: 0.25 }}
-                            style={{
-                              position: 'absolute',
-                              top: 0,
-                              left: 0,
-                              right: 0,
-                              height: '3px',
-                              background: 'linear-gradient(90deg, #134e40, #0eb59a)',
-                              transformOrigin: 'left',
-                              borderRadius: '24px 24px 0 0',
-                            }}
-                          />
-
-                          {/* MOST POPULAR badge */}
-                          {isPopular && (
-                            <div style={{ position: 'absolute', top: '16px', right: '16px' }}>
-                              <motion.span
-                                animate={{ scale: [1, 1.05, 1] }}
-                                transition={{ duration: 2, repeat: Infinity }}
-                                style={{
-                                  fontSize: '9px',
-                                  fontWeight: 900,
-                                  backgroundColor: '#0eb59a',
-                                  color: 'white',
-                                  padding: '4px 10px',
-                                  borderRadius: '20px',
-                                  display: 'inline-block',
-                                }}
-                              >
-                                MOST POPULAR
-                              </motion.span>
+                          {/* Header */}
+                          <div className="flex items-start justify-between mb-4">
+                            <div>
+                              <div className="flex items-center gap-2 mb-2">
+                                <span className="text-[10px] font-black text-[#134e40] bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-100">
+                                  {cs.type}
+                                </span>
+                                <span className="text-[10px] font-black text-[#134e40] dark:text-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10 px-2.5 py-1 rounded-lg border border-teal-100 dark:border-[#0eb59a]/20">
+                                  {cs.industry}
+                                </span>
+                                <span className="text-[10px] font-semibold text-gray-400 dark:text-gray-500">{cs.year}</span>
+                              </div>
+                              <h4 className="font-black text-gray-900 text-base dark:text-white">{cs.company}</h4>
+                              <p className="text-xs text-gray-400 font-semibold mt-0.5 dark:text-gray-500">
+                                {cs.role} · {cs.duration}
+                              </p>
                             </div>
-                          )}
-
-                          {/* Tier label */}
-                          <h4 style={{ fontWeight: 900, color: '#1C3627', fontSize: '16px', marginBottom: '4px', textAlign: 'left' }}>
-                            {tier.label}
-                          </h4>
-                          <p style={{ fontSize: '12px', color: '#9CA3AF', fontWeight: 600, marginBottom: '20px', textAlign: 'left' }}>
-                            {tier.hours}
-                          </p>
-
-                          {/* Price */}
-                          <div style={{ marginBottom: '20px' }}>
-                            <p style={{ fontSize: '24px', fontWeight: 900, color: '#1C3627', textAlign: 'left', lineHeight: 1 }}>
-                              {tier.price}
-                            </p>
-                            <p style={{ fontSize: '11px', color: '#9CA3AF', marginTop: '4px', textAlign: 'left' }}>
-                              {tier.priceNote}
-                            </p>
+                            <div className="w-10 h-10 bg-gray-50 dark:bg-white/5 rounded-2xl flex items-center justify-center border border-gray-100 dark:border-white/10">
+                              <Building size={18} className="text-gray-400 dark:text-gray-500" />
+                            </div>
                           </div>
 
-                          {/* Features */}
-                          <div style={{ marginBottom: '24px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                            {tier.features.map((feature, fIdx) => (
+                          {/* Challenge + Outcome */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                            <div className="bg-red-50 dark:bg-red-500/10 rounded-2xl p-4 border border-red-100 dark:border-red-500/20">
+                              <p className="text-[10px] font-black text-red-600 dark:text-red-400 uppercase tracking-wider mb-2">Challenge</p>
+                              <p className="text-sm text-gray-700 leading-relaxed dark:text-gray-300">{cs.challenge}</p>
+                            </div>
+                            <div className="bg-emerald-50 dark:bg-emerald-500/10 rounded-2xl p-4 border border-emerald-100 dark:border-emerald-500/20">
+                              <p className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-2">Outcome</p>
+                              <p className="text-sm text-gray-700 leading-relaxed dark:text-gray-300">{cs.outcome}</p>
+                            </div>
+                          </div>
+
+                          {/* Metrics */}
+                          <div className="grid grid-cols-4 gap-3 mb-4">
+                            {cs.metrics.map((metric, mIdx) => (
                               <motion.div
-                                key={fIdx}
-                                initial={{ opacity: 0, x: -8 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.1 + fIdx * 0.04 }}
-                                style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}
+                                key={mIdx}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: idx * 0.1 + mIdx * 0.05 }}
+                                className="bg-gray-50 dark:bg-white/5 rounded-2xl p-3 border border-gray-100 dark:border-white/10 text-center"
                               >
-                                <div style={{
-                                  width: '16px',
-                                  height: '16px',
-                                  backgroundColor: isHovered ? '#0eb59a' : '#F0FDF4',
-                                  borderRadius: '50%',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  flexShrink: 0,
-                                  marginTop: '1px',
-                                  border: `1px solid ${isHovered ? '#0eb59a' : '#BBF7D0'}`,
-                                  transition: 'all 0.2s ease',
-                                }}>
-                                  <Check size={9} color={isHovered ? 'white' : '#0eb59a'} strokeWidth={3} />
-                                </div>
-                                <span style={{ fontSize: '12px', color: '#4B5563', fontWeight: 600, lineHeight: 1.4, textAlign: 'left' }}>
-                                  {feature}
-                                </span>
+                                <p className="text-lg font-black text-[#134e40] dark:text-[#0eb59a]">{metric.value}</p>
+                                <p className="text-[10px] text-gray-400 font-bold mt-0.5 leading-tight dark:text-gray-500">{metric.label}</p>
                               </motion.div>
                             ))}
                           </div>
 
-                          {/* CTA Button */}
+                          {/* Tags */}
+                          <div className="flex flex-wrap gap-2">
+                            {cs.tags.map(tag => (
+                              <span key={tag} className="text-[10px] font-bold bg-teal-50 text-[#134e40] px-2.5 py-1 rounded-lg border border-teal-100">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  )}
+
+                  {/* ── TAB 3: REVIEWS ── */}
+                  {activeTab === 'Reviews' && (
+                    <motion.div
+                      key="reviews"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-5"
+                    >
+                      {/* Rating Summary */}
+                      <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-6">
+                        <div className="flex items-center gap-8">
+                          <div className="text-center shrink-0">
+                            <p className="text-6xl font-black text-gray-900 dark:text-white">{expert.rating}</p>
+                            <div className="flex gap-0.5 justify-center my-2">
+                              {[1, 2, 3, 4, 5].map(s => (
+                                <Star
+                                  key={s}
+                                  size={18}
+                                  fill={s <= Math.floor(expert.rating) ? '#F59E0B' : '#E5E7EB'}
+                                  className={s <= Math.floor(expert.rating) ? 'text-amber-400' : 'text-gray-200'}
+                                />
+                              ))}
+                            </div>
+                            <p className="text-sm text-gray-400 font-semibold dark:text-gray-500">{expert.reviews} reviews</p>
+                          </div>
+                          <div className="flex-1 space-y-2">
+                            {[5, 4, 3, 2, 1].map(star => {
+                              const count = star === 5 ? 18 : star === 4 ? 4 : star === 3 ? 1 : 0;
+                              const pct = Math.round((count / expert.reviews) * 100);
+                              return (
+                                <div key={star} className="flex items-center gap-3">
+                                  <span className="text-xs font-bold text-gray-500 w-4 dark:text-gray-400">{star}</span>
+                                  <Star size={12} fill="#F59E0B" className="text-amber-400 shrink-0" />
+                                  <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                    <motion.div
+                                      initial={{ width: 0 }}
+                                      animate={{ width: `${pct}%` }}
+                                      transition={{ duration: 0.8, delay: (5 - star) * 0.1 }}
+                                      className="h-full bg-amber-400 rounded-full"
+                                    />
+                                  </div>
+                                  <span className="text-xs font-bold text-gray-400 w-8 dark:text-gray-500">{pct}%</span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Review Cards */}
+                      {reviews.map((review, idx) => (
+                        <motion.div
+                          key={review.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: idx * 0.1 }}
+                          whileHover={{ y: -4, x: 2, transition: { duration: 0.2 } }}
+                          className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] p-6 border-l-4 border-l-transparent hover:border-l-[#0eb59a] transition-all duration-200 cursor-default dark:bg-[#1e2028] dark:border-white/10"
+                        >
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="flex items-center gap-3">
+                              <img src={review.avatar} className="w-11 h-11 rounded-2xl object-cover shadow-sm" />
+                              <div>
+                                <div className="flex items-center gap-2">
+                                  <h4 className="font-black text-gray-900 text-sm text-left dark:text-white">{review.reviewer}</h4>
+                                  {review.verified && (
+                                    <span className="flex items-center gap-1 text-[9px] font-black text-[#134e40] dark:text-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10 px-1.5 py-0.5 rounded-md border border-teal-100 dark:border-[#0eb59a]/20">
+                                      <Shield size={8} /> Verified
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-xs text-gray-400 font-semibold text-left dark:text-gray-500">{review.role}</p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <div className="flex gap-0.5 justify-end mb-1">
+                                {[1, 2, 3, 4, 5].map(s => (
+                                  <Star key={s} size={13} fill={s <= review.rating ? '#F59E0B' : '#E5E7EB'}
+                                    className={s <= review.rating ? 'text-amber-400' : 'text-gray-200'} />
+                                ))}
+                              </div>
+                              <p className="text-[10px] text-gray-400 font-semibold dark:text-gray-500">{review.date}</p>
+                            </div>
+                          </div>
+                          <p className="text-sm text-gray-600 leading-relaxed mb-3 text-left dark:text-gray-300">"{review.review}"</p>
+                          <span className="text-[10px] font-bold text-[#134e40] bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-100">
+                            {review.engagement} Engagement
+                          </span>
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  )}
+
+                  {/* ── TAB 4: PRICING ── */}
+                  {activeTab === 'Pricing' && (
+                    <motion.div
+                      key="pricing"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-5"
+                    >
+                      <p className="text-sm text-gray-400 font-semibold dark:text-gray-500">
+                        All engagements are governed by milestones, NDA, and escrow-backed payments through ExigentCX.
+                      </p>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        {pricingTiers.map((tier, idx) => {
+                          const isHovered = hoveredTier === tier.id;
+                          const isPopular = tier.popular;
+
+                          return (
+                            <motion.div
+                              key={tier.id}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: idx * 0.1 }}
+                              onMouseEnter={() => setHoveredTier(tier.id)}
+                              onMouseLeave={() => setHoveredTier(null)}
+                              whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                              className="bg-white dark:bg-[#1e2028]"
+                              style={{
+                                borderRadius: '24px',
+                                border: `2px solid ${isHovered ? '#0eb59a' : 'var(--pricing-border, #E5E7EB)'}`,
+                                padding: '24px',
+                                position: 'relative',
+                                overflow: 'hidden',
+                                cursor: 'default',
+                                boxShadow: isHovered
+                                  ? '0 24px 60px rgba(14,181,154,0.18)'
+                                  : '0 4px 20px rgba(0,0,0,0.04)',
+                                transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+                              }}
+                            >
+                              {/* Animated teal top accent line on hover */}
+                              <motion.div
+                                animate={{
+                                  scaleX: isHovered ? 1 : 0,
+                                  opacity: isHovered ? 1 : 0,
+                                }}
+                                transition={{ duration: 0.25 }}
+                                style={{
+                                  position: 'absolute',
+                                  top: 0,
+                                  left: 0,
+                                  right: 0,
+                                  height: '3px',
+                                  background: 'linear-gradient(90deg, #134e40, #0eb59a)',
+                                  transformOrigin: 'left',
+                                  borderRadius: '24px 24px 0 0',
+                                }}
+                              />
+
+                              {/* MOST POPULAR badge */}
+                              {isPopular && (
+                                <div style={{ position: 'absolute', top: '16px', right: '16px' }}>
+                                  <motion.span
+                                    animate={{ scale: [1, 1.05, 1] }}
+                                    transition={{ duration: 2, repeat: Infinity }}
+                                    style={{
+                                      fontSize: '9px',
+                                      fontWeight: 900,
+                                      backgroundColor: '#0eb59a',
+                                      color: 'white',
+                                      padding: '4px 10px',
+                                      borderRadius: '20px',
+                                      display: 'inline-block',
+                                    }}
+                                  >
+                                    MOST POPULAR
+                                  </motion.span>
+                                </div>
+                              )}
+
+                              {/* Tier label */}
+                              <h4 className="dark:text-white" style={{ fontWeight: 900, color: '#1C3627', fontSize: '16px', marginBottom: '4px', textAlign: 'left' }}>
+                                {tier.label}
+                              </h4>
+                              <p className="dark:text-gray-500" style={{ fontSize: '12px', color: '#9CA3AF', fontWeight: 600, marginBottom: '20px', textAlign: 'left' }}>
+                                {tier.hours}
+                              </p>
+                              <div style={{ marginBottom: '20px' }}>
+                                <p className="dark:text-white" style={{ fontSize: '24px', fontWeight: 900, color: '#1C3627', textAlign: 'left', lineHeight: 1 }}>
+                                  {tier.price}
+                                </p>
+                                <p className="dark:text-gray-500" style={{ fontSize: '11px', color: '#9CA3AF', marginTop: '4px', textAlign: 'left' }}>
+                                  {tier.priceNote}
+                                </p>
+                              </div>
+
+                              {/* Features */}
+                              <div style={{ marginBottom: '24px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                {tier.features.map((feature, fIdx) => (
+                                  <motion.div
+                                    key={fIdx}
+                                    initial={{ opacity: 0, x: -8 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: idx * 0.1 + fIdx * 0.04 }}
+                                    style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}
+                                  >
+                                    <div style={{
+                                      width: '16px',
+                                      height: '16px',
+                                      backgroundColor: isHovered ? '#0eb59a' : '#F0FDF4',
+                                      borderRadius: '50%',
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      flexShrink: 0,
+                                      marginTop: '1px',
+                                      border: `1px solid ${isHovered ? '#0eb59a' : '#BBF7D0'}`,
+                                      transition: 'all 0.2s ease',
+                                    }}>
+                                      <Check size={9} color={isHovered ? 'white' : '#0eb59a'} strokeWidth={3} />
+                                    </div>
+                                    <span className="dark:text-gray-300" style={{ fontSize: '12px', color: '#4B5563', fontWeight: 600, lineHeight: 1.4, textAlign: 'left' }}>
+                                      {feature}
+                                    </span>
+                                  </motion.div>
+                                ))}
+                              </div>
+
+                              {/* CTA Button */}
+                              <motion.button
+                                whileHover={{ scale: 1.04, boxShadow: isPopular ? '0 12px 30px rgba(20,78,64,0.35)' : '0 8px 20px rgba(0,0,0,0.1)' }}
+                                whileTap={{ scale: 0.96 }}
+                                onClick={() => setShowInviteModal(true)}
+                                className="dark:text-gray-300"
+                                style={{
+                                  width: '100%',
+                                  padding: '12px',
+                                  background: isHovered
+                                    ? 'linear-gradient(135deg, #134e40, #0eb59a)'
+                                    : 'transparent',
+                                  color: isHovered ? 'white' : '#374151',
+                                  border: `1.5px solid ${isHovered ? 'transparent' : '#E5E7EB'}`,
+                                  borderRadius: '14px',
+                                  fontSize: '14px',
+                                  fontWeight: 900,
+                                  cursor: 'pointer',
+                                  transition: 'all 0.25s ease',
+                                  boxShadow: isPopular ? '0 4px 15px rgba(20,78,64,0.2)' : 'none',
+                                }}
+                              >
+                                {isPopular ? 'Invite for This Role' : 'Get Started'}
+                              </motion.button>
+
+                            </motion.div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Trust Signals — Left-aligned with hover */}
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                        {[
+                          { icon: Shield, title: 'Escrow-backed', desc: 'Payments held securely until milestones approved', bg: 'bg-teal-50 dark:bg-[#0eb59a]/10', iconColor: 'text-[#0eb59a]' },
+                          { icon: CheckCircle, title: 'PMO governed', desc: 'Platform team monitors every engagement', bg: 'bg-teal-50/60 dark:bg-[#0eb59a]/10', iconColor: 'text-[#134e40] dark:text-[#0eb59a]' },
+                          { icon: TrendingUp, title: 'Risk-free start', desc: 'Cancel within 7 days if not satisfied', bg: 'bg-emerald-50 dark:bg-emerald-500/10', iconColor: 'text-emerald-600 dark:text-emerald-400' },
+                        ].map((trust, idx) => (
+                          <motion.div
+                            key={idx}
+                            whileHover={{ y: -4, boxShadow: '0 12px 30px rgba(0,0,0,0.08)', transition: { duration: 0.2 } }}
+                            className="flex items-start gap-4 p-4 bg-white dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 cursor-default"
+                          >
+                            <div className={`w-10 h-10 ${trust.bg} rounded-xl flex items-center justify-center shrink-0`}>
+                              <trust.icon size={18} className={trust.iconColor} />
+                            </div>
+                            <div>
+                              <p className="text-sm font-black text-[#1C3627] dark:text-white mb-1 text-left">{trust.title}</p>
+                              <p className="text-xs text-gray-500 leading-relaxed text-left dark:text-gray-400">{trust.desc}</p>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+
+                </AnimatePresence>
+              </div>
+
+              {/* ── RIGHT SIDEBAR — Sticky CTA ── */}
+              <div className="lg:w-72 shrink-0">
+                <div className="sticky top-6 space-y-4">
+
+                  {/* CTA Card */}
+                  <div className="bg-white dark:bg-[#1e2028] border dark:border-white/10" style={{ borderRadius: '24px', boxShadow: '0 8px 30px rgba(0,0,0,0.08)', padding: '20px' }}>
+
+                    {/* Expert availability header */}
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="relative">
+                        <img src={expert.avatar} className="w-10 h-10 rounded-2xl object-cover" alt={expert.name} />
+                        <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full" />
+                      </div>
+                      <div>
+                        <p className="font-black text-gray-900 text-sm dark:text-white">{expert.name.split(' ')[0]} is available</p>
+                        <p className="text-xs text-emerald-600 font-semibold">Responds {expert.responseTime}</p>
+                      </div>
+                    </div>
+
+                    {/* Meta rows */}
+                    <div className="space-y-2 mb-4">
+                      {[
+                        { label: 'Availability', value: expert.availability, icon: Clock, color: '#0eb59a' },
+                        { label: 'Budget', value: expert.budget, icon: DollarSign, color: '#0eb59a' },
+                        { label: 'Location', value: expert.location, icon: MapPin, color: '#0eb59a' },
+                      ].map((item, idx) => (
+                        <div
+                          key={idx}
+                          className="bg-[#FAFBF9] dark:bg-[#252830] border dark:border-white/10"
+                          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRadius: '10px', padding: '8px 12px' }}
+                        >
+                          <span className="text-[#6B7280] dark:text-gray-400" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 600 }}>
+                            <item.icon size={12} style={{ color: item.color }} /> {item.label}
+                          </span>
+                          <span className="text-[#1C3627] dark:text-white" style={{ fontSize: '12px', fontWeight: 700 }}>{item.value}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Buttons */}
+                    <div className="space-y-2">
+                      {isOwner ? (
+                        <div className="bg-[#FAFBF9] dark:bg-[#252830] border border-[#E5E7EB] dark:border-white/10" style={{ borderRadius: '16px', padding: '16px', textAlign: 'center' }}>
+                          <p className="text-[#6B7280] dark:text-gray-400" style={{ fontSize: '11px', fontWeight: 700, marginBottom: '12px', lineHeight: 1.5 }}>This is your public expert profile. You can update your details at any time.</p>
                           <motion.button
-                            whileHover={{ scale: 1.04, boxShadow: isPopular ? '0 12px 30px rgba(20,78,64,0.35)' : '0 8px 20px rgba(0,0,0,0.1)' }}
+                            whileHover={{ scale: 1.04, boxShadow: '0 12px 40px rgba(14,181,154,0.3)' }}
+                            whileTap={{ scale: 0.96 }}
+                            onClick={() => navigate('/expert-profile')}
+                            style={{
+                              width: '100%',
+                              padding: '12px',
+                              background: 'linear-gradient(135deg, #134e40, #0eb59a)',
+                              color: 'white',
+                              fontSize: '14px',
+                              fontWeight: 900,
+                              borderRadius: '14px',
+                              border: 'none',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              gap: '8px',
+                              boxShadow: '0 4px 15px rgba(14,181,154,0.15)',
+                            }}
+                          >
+                            <Edit size={14} /> Edit Profile
+                          </motion.button>
+                        </div>
+                      ) : (
+                        <>
+                          {/* Invite to Role */}
+                          <motion.button
+                            whileHover={{ scale: 1.04, boxShadow: '0 12px 40px rgba(20,78,64,0.4)' }}
                             whileTap={{ scale: 0.96 }}
                             onClick={() => setShowInviteModal(true)}
                             style={{
                               width: '100%',
                               padding: '12px',
-                              background: isHovered
-                                ? 'linear-gradient(135deg, #134e40, #0eb59a)'
-                                : 'white',
-                              color: isHovered ? 'white' : '#374151',
-                              border: `1.5px solid ${isHovered ? 'transparent' : '#E5E7EB'}`,
-                              borderRadius: '14px',
+                              background: 'linear-gradient(135deg, #134e40, #0eb59a)',
+                              color: 'white',
                               fontSize: '14px',
                               fontWeight: 900,
+                              borderRadius: '16px',
+                              border: 'none',
                               cursor: 'pointer',
-                              transition: 'all 0.25s ease',
-                              boxShadow: isPopular ? '0 4px 15px rgba(20,78,64,0.2)' : 'none',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              gap: '8px',
+                              boxShadow: '0 4px 15px rgba(20,78,64,0.25)',
                             }}
                           >
-                            {isPopular ? 'Invite for This Role' : 'Get Started'}
+                            <Zap size={14} fill="currentColor" /> Invite to Role
                           </motion.button>
 
+                          {/* Send Message */}
+                          <motion.button
+                            whileHover={{ scale: 1.03, backgroundColor: '#F0FDF4', borderColor: '#0eb59a', color: '#134e40' }}
+                            whileTap={{ scale: 0.97 }}
+                            onClick={() => setShowMessageModal(true)}
+                            className="dark:!bg-white/5 dark:!text-gray-300 dark:!border-white/10"
+                            style={{
+                              width: '100%',
+                              padding: '12px',
+                              backgroundColor: '#F9FAFB',
+                              color: '#374151',
+                              fontSize: '14px',
+                              fontWeight: 900,
+                              borderRadius: '16px',
+                              border: '1px solid #E5E7EB',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              gap: '8px',
+                            }}
+                          >
+                            <MessageSquare size={14} /> Send Message
+                          </motion.button>
+
+                          {/* Follow + Connect row */}
+                          <div style={{ display: 'flex', gap: '8px' }}>
+                            {/* Follow */}
+                            <motion.button
+                              whileHover={{ scale: 1.04, boxShadow: isFollowing ? '0 8px 20px rgba(19,78,64,0.3)' : '0 4px 12px rgba(0,0,0,0.1)' }}
+                              whileTap={{ scale: 0.95 }}
+                              onClick={handleFollow}
+                              animate={followBurst ? { scale: [1, 1.3, 0.9, 1.1, 1] } : { scale: 1 }}
+                              transition={{ duration: 0.4 }}
+                              className={`flex-1 py-2.5 rounded-2xl text-xs font-black flex items-center justify-center gap-1.5 relative overflow-hidden transition-all duration-300 ${isFollowing ? 'bg-[#134e40] text-white border border-[#134e40] shadow-md' : 'bg-gray-50 dark:bg-white/5 text-gray-600 border-gray-200 hover:bg-teal-50 dark:hover:bg-[#0eb59a]/10 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:border-teal-300'} dark:text-gray-300 dark:border-white/10`}
+                            >
+                              {isFollowing && (
+                                <motion.div
+                                  initial={{ x: '-100%' }}
+                                  animate={{ x: '250%' }}
+                                  transition={{ duration: 0.7, ease: 'easeOut' }}
+                                  className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"
+                                />
+                              )}
+                              {isFollowing ? <UserCheck size={12} /> : <UserPlus size={12} />}
+                              {isFollowing ? 'Following' : 'Follow'}
+                            </motion.button>
+
+                            {/* Connect */}
+                            <motion.button
+                              whileHover={{ scale: connectStatus === 'none' ? 1.04 : 1, boxShadow: connectStatus === 'none' ? '0 4px 12px rgba(0,0,0,0.1)' : 'none' }}
+                              whileTap={{ scale: connectStatus === 'none' ? 0.95 : 1 }}
+                              onClick={handleConnect}
+                              className={`flex-1 py-2.5 rounded-2xl text-xs font-black flex items-center justify-center gap-1.5 transition-all duration-300 border ${connectStatus === 'connected' ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/20' : connectStatus === 'pending' ? 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-500/20' : 'bg-gray-50 dark:bg-white/5 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-white/15 hover:bg-teal-50 dark:hover:bg-[#0eb59a]/10 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:border-teal-200 dark:hover:border-[#0eb59a]/40'}`}
+                            >
+                              {connectStatus === 'connected'
+                                ? <><Check size={12} /> Connected</>
+                                : connectStatus === 'pending'
+                                  ? <><motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}><RefreshCw size={12} /></motion.div> Pending</>
+                                  : <><Link2 size={12} /> Connect</>
+                              }
+                            </motion.button>
+                          </div>
+
+                          {/* Shortlist + Compare row */}
+                          <div style={{ display: 'flex', gap: '8px' }}>
+                            <motion.button
+                              whileHover={{ scale: 1.04, boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+                              whileTap={{ scale: 0.95 }}
+                              onClick={() => setIsShortlisted(!isShortlisted)}
+                              className={`flex-1 py-2.5 rounded-2xl text-xs font-black flex items-center justify-center gap-1.5 transition-all duration-200 ${isShortlisted ? 'bg-rose-50 text-rose-500 border border-rose-200' : 'bg-gray-50 dark:bg-white/5 text-gray-500 border-gray-200 hover:bg-rose-50 hover:text-rose-400 hover:border-rose-200'} dark:text-gray-400 dark:border-white/10`}
+                            >
+                              <motion.div animate={{ scale: isShortlisted ? [1, 1.4, 1] : 1 }} transition={{ duration: 0.3 }}>
+                                <Heart size={12} fill={isShortlisted ? 'currentColor' : 'none'} />
+                              </motion.div>
+                              {isShortlisted ? 'Shortlisted' : 'Shortlist'}
+                            </motion.button>
+
+                            <motion.button
+                              whileHover={{ scale: 1.04, boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+                              whileTap={{ scale: 0.95 }}
+                              className="flex-1 py-2.5 rounded-2xl text-xs font-black flex items-center justify-center gap-1.5 bg-gray-50 dark:bg-white/5 text-gray-500 border border-gray-200 hover:bg-teal-50 dark:hover:bg-[#0eb59a]/10 hover:text-[#0eb59a] hover:border-teal-200 transition-all duration-200 dark:text-gray-400 dark:border-white/10"
+                            >
+                              <BarChart2 size={12} /> Compare
+                            </motion.button>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Match Score Card */}
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.25 }}
+                    className="bg-gradient-to-br from-[#0d1f2d] to-[#134e40] rounded-3xl p-5 text-white relative overflow-hidden"
+                  >
+                    <div className="absolute -right-4 -top-4 w-20 h-20 bg-white/5 rounded-full" />
+                    <div className="relative z-10">
+                      <p className="text-[10px] font-black text-white/50 uppercase tracking-widest mb-2">
+                        AI Match Score
+                      </p>
+                      <div className="flex items-end gap-2 mb-3">
+                        <span className="text-5xl font-black">{expert.match}%</span>
+                        <span className="text-white/60 text-sm font-semibold mb-1">match</span>
+                      </div>
+                      <div className="h-2 bg-white/10 rounded-full overflow-hidden mb-3">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${expert.match}%` }}
+                          transition={{ duration: 1.2, delay: 0.5 }}
+                          className="h-full bg-[#0eb59a] rounded-full"
+                        />
+                      </div>
+
+                      {/* Requirement Matchmaking Selector */}
+                      <div className="mb-3">
+                        <select
+                          value={selectedRequirementMatch || ''}
+                          onChange={(e) => setSelectedRequirementMatch(e.target.value)}
+                          className="w-full bg-white/10 border border-white/20 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:bg-slate-800 focus:border-[#0eb59a] transition-all cursor-pointer"
+                        >
+                          <option value="" className="text-gray-900 dark:text-white">General Matchmaking</option>
+                          {requirements.map((req) => (
+                            <option key={req.id} value={req.id} className="text-gray-900 dark:text-white">
+                              {req.title}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <p className="text-xs text-white/60 leading-relaxed">
+                        Based on your {requirements.find(r => String(r.id) === String(selectedRequirementMatch))?.title || 'General'} requirement — skills, industry, and budget alignment.
+                      </p>
+                    </div>
+                  </motion.div>
+
+                  {/* Profile Views Card */}
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.35 }}
+                    className="bg-white dark:bg-[#1e2028] rounded-3xl border border-transparent dark:border-white/10 p-5 relative overflow-hidden"
+                    style={{ boxShadow: '0 8px 30px rgba(0,0,0,0.06)' }}
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest dark:text-gray-500">Profile Views</p>
+                      <div className="w-7 h-7 bg-teal-50 rounded-xl flex items-center justify-center">
+                        <Users size={13} className="text-[#0eb59a]" />
+                      </div>
+                    </div>
+                    <div className="flex items-end gap-2 mb-1">
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ type: 'spring', stiffness: 300, delay: 0.4 }}
+                        className="text-3xl font-black text-[#134e40] dark:text-[#0eb59a]"
+                      >
+                        {profileViews + 42}
+                      </motion.span>
+                      <span className="text-xs text-gray-400 font-semibold mb-1 dark:text-gray-500">this week</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1 bg-emerald-50 px-2 py-0.5 rounded-lg">
+                        <TrendingUp size={10} className="text-emerald-500" />
+                        <span className="text-[10px] font-black text-emerald-600">↑ 12 from last week</span>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Engagement count */}
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-5 text-center"
+                  >
+                    <p className="text-4xl font-black text-gray-900 mb-1 dark:text-white">{expert.completedEngagements}</p>
+                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider dark:text-gray-500">Completed Engagements</p>
+                    <div className="flex justify-center gap-1 mt-3">
+                      {Array(Math.min(expert.completedEngagements, 8)).fill(0).map((_, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ delay: 0.4 + i * 0.05 }}
+                          className="w-6 h-6 rounded-full bg-teal-50 border border-teal-100 flex items-center justify-center"
+                        >
+                          <CheckCircle size={12} className="text-[#0eb59a]" />
                         </motion.div>
-                      );
-                    })}
-                  </div>
-
-                  {/* Trust Signals — Left-aligned with hover */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                    {[
-                      { icon: Shield, title: 'Escrow-backed', desc: 'Payments held securely until milestones approved', bg: 'bg-teal-50', iconColor: 'text-[#0eb59a]' },
-                      { icon: CheckCircle, title: 'PMO governed', desc: 'Platform team monitors every engagement', bg: 'bg-blue-50', iconColor: 'text-blue-500' },
-                      { icon: TrendingUp, title: 'Risk-free start', desc: 'Cancel within 7 days if not satisfied', bg: 'bg-purple-50', iconColor: 'text-purple-500' },
-                    ].map((trust, idx) => (
-                      <motion.div
-                        key={idx}
-                        whileHover={{ y: -4, boxShadow: '0 12px 30px rgba(0,0,0,0.08)', transition: { duration: 0.2 } }}
-                        className="flex items-start gap-4 p-4 bg-white dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 cursor-default"
-                      >
-                        <div className={`w-10 h-10 ${trust.bg} rounded-xl flex items-center justify-center shrink-0`}>
-                          <trust.icon size={18} className={trust.iconColor} />
+                      ))}
+                      {expert.completedEngagements > 8 && (
+                        <div className="w-6 h-6 rounded-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center">
+                          <span className="text-[9px] font-black text-gray-400 dark:text-gray-500">+{expert.completedEngagements - 8}</span>
                         </div>
-                        <div>
-                          <p className="text-sm font-black text-[#1C3627] dark:text-white mb-1 text-left">{trust.title}</p>
-                          <p className="text-xs text-gray-500 leading-relaxed text-left">{trust.desc}</p>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-
-            </AnimatePresence>
-          </div>
-
-          {/* ── RIGHT SIDEBAR — Sticky CTA ── */}
-          <div className="lg:w-72 shrink-0">
-            <div className="sticky top-6 space-y-4">
-
-              {/* CTA Card */}
-              <div style={{ backgroundColor: 'white', borderRadius: '24px', boxShadow: '0 8px 30px rgba(0,0,0,0.08)', padding: '20px' }}>
-
-                {/* Expert availability header */}
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="relative">
-                    <img src={expert.avatar} className="w-10 h-10 rounded-2xl object-cover" alt={expert.name} />
-                    <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full" />
-                  </div>
-                  <div>
-                    <p className="font-black text-gray-900 text-sm">{expert.name.split(' ')[0]} is available</p>
-                    <p className="text-xs text-emerald-600 font-semibold">Responds {expert.responseTime}</p>
-                  </div>
-                </div>
-
-                {/* Meta rows */}
-                <div className="space-y-2 mb-4">
-                  {[
-                    { label: 'Availability', value: expert.availability, icon: Clock, color: '#0eb59a' },
-                    { label: 'Budget', value: expert.budget, icon: DollarSign, color: '#0eb59a' },
-                    { label: 'Location', value: expert.location, icon: MapPin, color: '#0eb59a' },
-                  ].map((item, idx) => (
-                    <div
-                      key={idx}
-                      style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#FAFBF9', borderRadius: '10px', padding: '8px 12px' }}
-                    >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#6B7280', fontWeight: 600 }}>
-                        <item.icon size={12} style={{ color: item.color }} /> {item.label}
-                      </span>
-                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#1C3627' }}>{item.value}</span>
+                      )}
                     </div>
-                  ))}
-                </div>
+                  </motion.div>
 
-                {/* Buttons */}
-                <div className="space-y-2">
-                  {isOwner ? (
-                    <div style={{ backgroundColor: '#FAFBF9', border: '1px solid #E5E7EB', borderRadius: '16px', padding: '16px', textAlign: 'center' }}>
-                      <p style={{ fontSize: '11px', color: '#6B7280', fontWeight: 700, marginBottom: '12px', lineHeight: 1.5 }}>This is your public expert profile. You can update your details at any time.</p>
-                      <motion.button
-                        whileHover={{ scale: 1.04, boxShadow: '0 12px 40px rgba(14,181,154,0.3)' }}
-                        whileTap={{ scale: 0.96 }}
-                        onClick={() => navigate('/expert-profile')}
-                        style={{
-                          width: '100%',
-                          padding: '12px',
-                          background: 'linear-gradient(135deg, #134e40, #0eb59a)',
-                          color: 'white',
-                          fontSize: '14px',
-                          fontWeight: 900,
-                          borderRadius: '14px',
-                          border: 'none',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '8px',
-                          boxShadow: '0 4px 15px rgba(14,181,154,0.15)',
-                        }}
-                      >
-                        <Edit size={14} /> Edit Profile
-                      </motion.button>
-                    </div>
-                  ) : (
-                    <>
-                      {/* Invite to Role */}
-                      <motion.button
-                        whileHover={{ scale: 1.04, boxShadow: '0 12px 40px rgba(20,78,64,0.4)' }}
-                        whileTap={{ scale: 0.96 }}
-                        onClick={() => setShowInviteModal(true)}
-                        style={{
-                          width: '100%',
-                          padding: '12px',
-                          background: 'linear-gradient(135deg, #134e40, #0eb59a)',
-                          color: 'white',
-                          fontSize: '14px',
-                          fontWeight: 900,
-                          borderRadius: '16px',
-                          border: 'none',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '8px',
-                          boxShadow: '0 4px 15px rgba(20,78,64,0.25)',
-                        }}
-                      >
-                        <Zap size={14} fill="currentColor" /> Invite to Role
-                      </motion.button>
-
-                      {/* Send Message */}
-                      <motion.button
-                        whileHover={{ scale: 1.03, backgroundColor: '#F0FDF4', borderColor: '#0eb59a', color: '#134e40' }}
-                        whileTap={{ scale: 0.97 }}
-                        onClick={() => setShowMessageModal(true)}
-                        style={{
-                          width: '100%',
-                          padding: '12px',
-                          backgroundColor: '#F9FAFB',
-                          color: '#374151',
-                          fontSize: '14px',
-                          fontWeight: 900,
-                          borderRadius: '16px',
-                          border: '1px solid #E5E7EB',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '8px',
-                        }}
-                      >
-                        <MessageSquare size={14} /> Send Message
-                      </motion.button>
-
-                      {/* Follow + Connect row */}
-                      <div style={{ display: 'flex', gap: '8px' }}>
-                        {/* Follow */}
-                        <motion.button
-                          whileHover={{ scale: 1.04, boxShadow: isFollowing ? '0 8px 20px rgba(19,78,64,0.3)' : '0 4px 12px rgba(0,0,0,0.1)' }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={handleFollow}
-                          animate={followBurst ? { scale: [1, 1.3, 0.9, 1.1, 1] } : { scale: 1 }}
-                          transition={{ duration: 0.4 }}
-                          className={`flex-1 py-2.5 rounded-2xl text-xs font-black flex items-center justify-center gap-1.5 relative overflow-hidden transition-all duration-300 ${
-                            isFollowing
-                              ? 'bg-[#134e40] text-white border border-[#134e40] shadow-md'
-                              : 'bg-gray-50 text-gray-600 border border-gray-200 hover:bg-teal-50 hover:text-[#134e40] hover:border-teal-300'
-                          }`}
-                        >
-                          {isFollowing && (
-                            <motion.div
-                              initial={{ x: '-100%' }}
-                              animate={{ x: '250%' }}
-                              transition={{ duration: 0.7, ease: 'easeOut' }}
-                              className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"
-                            />
-                          )}
-                          {isFollowing ? <UserCheck size={12} /> : <UserPlus size={12} />}
-                          {isFollowing ? 'Following' : 'Follow'}
-                        </motion.button>
-
-                        {/* Connect */}
-                        <motion.button
-                          whileHover={{ scale: connectStatus === 'none' ? 1.04 : 1, boxShadow: connectStatus === 'none' ? '0 4px 12px rgba(0,0,0,0.1)' : 'none' }}
-                          whileTap={{ scale: connectStatus === 'none' ? 0.95 : 1 }}
-                          onClick={handleConnect}
-                          className={`flex-1 py-2.5 rounded-2xl text-xs font-black flex items-center justify-center gap-1.5 transition-all duration-300 ${
-                            connectStatus === 'connected'
-                              ? 'bg-emerald-50 text-emerald-600 border border-emerald-200'
-                              : connectStatus === 'pending'
-                              ? 'bg-amber-50 text-amber-600 border border-amber-200'
-                              : 'bg-gray-50 text-gray-600 border border-gray-200 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200'
-                          }`}
-                        >
-                          {connectStatus === 'connected'
-                            ? <><Check size={12} /> Connected</>
-                            : connectStatus === 'pending'
-                            ? <><motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}><RefreshCw size={12} /></motion.div> Pending</>
-                            : <><Link2 size={12} /> Connect</>
-                          }
-                        </motion.button>
-                      </div>
-
-                      {/* Shortlist + Compare row */}
-                      <div style={{ display: 'flex', gap: '8px' }}>
-                        <motion.button
-                          whileHover={{ scale: 1.04, boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={() => setIsShortlisted(!isShortlisted)}
-                          className={`flex-1 py-2.5 rounded-2xl text-xs font-black flex items-center justify-center gap-1.5 transition-all duration-200 ${
-                            isShortlisted
-                              ? 'bg-rose-50 text-rose-500 border border-rose-200'
-                              : 'bg-gray-50 text-gray-500 border border-gray-200 hover:bg-rose-50 hover:text-rose-400 hover:border-rose-200'
-                          }`}
-                        >
-                          <motion.div animate={{ scale: isShortlisted ? [1, 1.4, 1] : 1 }} transition={{ duration: 0.3 }}>
-                            <Heart size={12} fill={isShortlisted ? 'currentColor' : 'none'} />
-                          </motion.div>
-                          {isShortlisted ? 'Shortlisted' : 'Shortlist'}
-                        </motion.button>
-
-                        <motion.button
-                          whileHover={{ scale: 1.04, boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
-                          whileTap={{ scale: 0.95 }}
-                          className="flex-1 py-2.5 rounded-2xl text-xs font-black flex items-center justify-center gap-1.5 bg-gray-50 text-gray-500 border border-gray-200 hover:bg-blue-50 hover:text-blue-500 hover:border-blue-200 transition-all duration-200"
-                        >
-                          <BarChart2 size={12} /> Compare
-                        </motion.button>
-                      </div>
-                    </>
-                  )}
                 </div>
               </div>
-
-              {/* Match Score Card */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.25 }}
-                className="bg-gradient-to-br from-[#0d1f2d] to-[#134e40] rounded-3xl p-5 text-white relative overflow-hidden"
-              >
-                <div className="absolute -right-4 -top-4 w-20 h-20 bg-white/5 rounded-full" />
-                <div className="relative z-10">
-                  <p className="text-[10px] font-black text-white/50 uppercase tracking-widest mb-2">
-                    AI Match Score
-                  </p>
-                  <div className="flex items-end gap-2 mb-3">
-                    <span className="text-5xl font-black">{expert.match}%</span>
-                    <span className="text-white/60 text-sm font-semibold mb-1">match</span>
-                  </div>
-                  <div className="h-2 bg-white/10 rounded-full overflow-hidden mb-3">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${expert.match}%` }}
-                      transition={{ duration: 1.2, delay: 0.5 }}
-                      className="h-full bg-[#0eb59a] rounded-full"
-                    />
-                  </div>
-
-                  {/* Requirement Matchmaking Selector */}
-                  <div className="mb-3">
-                    <select
-                      value={selectedRequirementMatch || ''}
-                      onChange={(e) => setSelectedRequirementMatch(e.target.value)}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:bg-slate-800 focus:border-[#0eb59a] transition-all cursor-pointer"
-                    >
-                      <option value="" className="text-gray-900">General Matchmaking</option>
-                      {requirements.map((req) => (
-                        <option key={req.id} value={req.id} className="text-gray-900">
-                          {req.title}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <p className="text-xs text-white/60 leading-relaxed">
-                    Based on your {requirements.find(r => String(r.id) === String(selectedRequirementMatch))?.title || 'General'} requirement — skills, industry, and budget alignment.
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* Profile Views Card */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.35 }}
-                className="bg-white dark:bg-[#1e2028] rounded-3xl border border-transparent dark:border-white/10 p-5 relative overflow-hidden"
-                style={{ boxShadow: '0 8px 30px rgba(0,0,0,0.06)' }}
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Profile Views</p>
-                  <div className="w-7 h-7 bg-teal-50 rounded-xl flex items-center justify-center">
-                    <Users size={13} className="text-[#0eb59a]" />
-                  </div>
-                </div>
-                <div className="flex items-end gap-2 mb-1">
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ type: 'spring', stiffness: 300, delay: 0.4 }}
-                    className="text-3xl font-black text-[#134e40]"
-                  >
-                    {profileViews + 42}
-                  </motion.span>
-                  <span className="text-xs text-gray-400 font-semibold mb-1">this week</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="flex items-center gap-1 bg-emerald-50 px-2 py-0.5 rounded-lg">
-                    <TrendingUp size={10} className="text-emerald-500" />
-                    <span className="text-[10px] font-black text-emerald-600">↑ 12 from last week</span>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Engagement count */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-5 text-center"
-              >
-                <p className="text-4xl font-black text-gray-900 mb-1">{expert.completedEngagements}</p>
-                <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">Completed Engagements</p>
-                <div className="flex justify-center gap-1 mt-3">
-                  {Array(Math.min(expert.completedEngagements, 8)).fill(0).map((_, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.4 + i * 0.05 }}
-                      className="w-6 h-6 rounded-full bg-teal-50 border border-teal-100 flex items-center justify-center"
-                    >
-                      <CheckCircle size={12} className="text-[#0eb59a]" />
-                    </motion.div>
-                  ))}
-                  {expert.completedEngagements > 8 && (
-                    <div className="w-6 h-6 rounded-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center">
-                      <span className="text-[9px] font-black text-gray-400">+{expert.completedEngagements - 8}</span>
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  {/* ── INVITE MODAL ── */}
-  <AnimatePresence>
-    {showInviteModal && (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={() => setShowInviteModal(false)}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4"
-      >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.88, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.88, y: 30 }}
-          transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-          onClick={e => e.stopPropagation()}
-          style={{
-            backgroundColor: 'white',
-            borderRadius: '28px',
-            boxShadow: '0 32px 80px rgba(0,0,0,0.18)',
-            padding: '0',
-            maxWidth: '460px',
-            width: '100%',
-            overflow: 'hidden',
-          }}
-        >
-          <AnimatePresence mode="wait">
-            {!inviteSent ? (
-              <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+      {/* ── INVITE MODAL ── */}
+      <AnimatePresence>
+        {showInviteModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowInviteModal(false)}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.88, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.88, y: 30 }}
+              transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+              onClick={e => e.stopPropagation()}
+              className="dark:bg-[#1e2028]"
+              style={{
+                borderRadius: '28px',
+                boxShadow: '0 32px 80px rgba(0,0,0,0.18)',
+                padding: '0',
+                maxWidth: '460px',
+                width: '100%',
+                overflow: 'hidden',
+              }}
+            >
+              <AnimatePresence mode="wait">
+                {!inviteSent ? (
+                  <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
 
-                {/* Modal Header — gradient */}
-                <div style={{
-                  background: `linear-gradient(135deg, #134e40, #0eb59a)`,
-                  padding: '24px 24px 20px',
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifycontent: 'space-between', marginBottom: '16px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <img
-                        src={expert.avatar}
-                        style={{ width: '48px', height: '48px', borderRadius: '12px', objectFit: 'cover', border: '3px solid rgba(255,255,255,0.3)' }}
-                      />
-                      <div>
-                        <p style={{ color: 'white', fontWeight: 900, fontSize: '15px', lineHeight: 1 }}>{expert.name}</p>
-                        <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px', marginTop: '3px' }}>{expert.title}</p>
+                    {/* Modal Header — gradient */}
+                    <div style={{
+                      background: `linear-gradient(135deg, #134e40, #0eb59a)`,
+                      padding: '24px 24px 20px',
+                    }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifycontent: 'space-between', marginBottom: '16px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <img
+                            src={expert.avatar}
+                            style={{ width: '48px', height: '48px', borderRadius: '12px', objectFit: 'cover', border: '3px solid rgba(255,255,255,0.3)' }}
+                          />
+                          <div>
+                            <p style={{ color: 'white', fontWeight: 900, fontSize: '15px', lineHeight: 1 }}>{expert.name}</p>
+                            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px', marginTop: '3px' }}>{expert.title}</p>
+                          </div>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>
+                          <span style={{ backgroundColor: 'rgba(255,255,255,0.2)', color: 'white', fontSize: '11px', fontWeight: 900, padding: '4px 10px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.3)' }}>
+                            {expert.match}% Match
+                          </span>
+                          <motion.button
+                            whileHover={{ scale: 1.1, rotate: 90 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => { setShowInviteModal(false); setSelectedRequirement(''); setMessage(''); }}
+                            style={{ width: '28px', height: '28px', borderRadius: '8px', backgroundColor: 'rgba(255,255,255,0.2)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}
+                          >
+                            <X size={14} />
+                          </motion.button>
+                        </div>
                       </div>
+                      <h3 style={{ color: 'white', fontWeight: 900, fontSize: '20px', margin: 0 }}>
+                        Invite {expert.name.split(' ')[0]} to a Role
+                      </h3>
+                      <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '13px', marginTop: '4px' }}>
+                        Select which requirement you'd like to invite for
+                      </p>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>
-                      <span style={{ backgroundColor: 'rgba(255,255,255,0.2)', color: 'white', fontSize: '11px', fontWeight: 900, padding: '4px 10px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.3)' }}>
-                        {expert.match}% Match
-                      </span>
-                      <motion.button
-                        whileHover={{ scale: 1.1, rotate: 90 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={() => { setShowInviteModal(false); setSelectedRequirement(''); setMessage(''); }}
-                        style={{ width: '28px', height: '28px', borderRadius: '8px', backgroundColor: 'rgba(255,255,255,0.2)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}
-                      >
-                        <X size={14} />
-                      </motion.button>
-                    </div>
-                  </div>
-                  <h3 style={{ color: 'white', fontWeight: 900, fontSize: '20px', margin: 0 }}>
-                    Invite {expert.name.split(' ')[0]} to a Role
-                  </h3>
-                  <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '13px', marginTop: '4px' }}>
-                    Select which requirement you'd like to invite for
-                  </p>
-                </div>
 
-                {/* Modal Body */}
-                <div style={{ padding: '20px 24px' }}>
+                    {/* Modal Body */}
+                    <div style={{ padding: '20px 24px' }}>
 
-                  {/* Requirement selector */}
-                  <div style={{ marginBottom: '20px' }}>
-                    <p style={{ fontSize: '11px', fontWeight: 800, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '10px' }}>
-                      Select Requirement
-                    </p>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                      {requirements.map((req) => (
-                        <motion.button
-                          key={req.id}
-                          whileHover={{ x: 4, backgroundColor: selectedRequirement === req.id ? '#F0FDF4' : '#F9FAFB' }}
-                          whileTap={{ scale: 0.98 }}
-                          onClick={() => setSelectedRequirement(req.id)}
+                      {/* Requirement selector */}
+                      <div style={{ marginBottom: '20px' }}>
+                        <p style={{ fontSize: '11px', fontWeight: 800, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '10px' }}>
+                          Select Requirement
+                        </p>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                          {requirements.map((req) => (
+                            <motion.button
+                              key={req.id}
+                              whileHover={{ x: 4, backgroundColor: selectedRequirement === req.id ? '#F0FDF4' : '#F9FAFB' }}
+                              whileTap={{ scale: 0.98 }}
+                              onClick={() => setSelectedRequirement(req.id)}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                padding: '12px 16px',
+                                borderRadius: '14px',
+                                border: `2px solid ${selectedRequirement === req.id ? '#0eb59a' : '#E5E7EB'}`,
+                                backgroundColor: selectedRequirement === req.id ? '#F0FDF4' : 'white',
+                                cursor: 'pointer',
+                                transition: 'all 0.15s ease',
+                                textAlign: 'left',
+                              }}
+                            >
+                              <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 700, color: selectedRequirement === req.id ? '#134e40' : '#374151' }}>
+                                <Briefcase size={13} style={{ color: selectedRequirement === req.id ? '#0eb59a' : '#9CA3AF' }} />
+                                {req.title}
+                              </span>
+                              {selectedRequirement === req.id && (
+                                <motion.div
+                                  initial={{ scale: 0 }}
+                                  animate={{ scale: 1 }}
+                                  style={{ width: '20px', height: '20px', backgroundColor: '#0eb59a', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                >
+                                  <Check size={11} color="white" strokeWidth={3} />
+                                </motion.div>
+                              )}
+                            </motion.button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Message textarea */}
+                      <div style={{ marginBottom: '20px' }}>
+                        <p style={{ fontSize: '11px', fontWeight: 800, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>
+                          Personal Message <span style={{ fontWeight: 400, textTransform: 'none', color: '#D1D5DB' }}>(optional)</span>
+                        </p>
+                        <textarea
+                          value={message}
+                          onChange={e => setMessage(e.target.value)}
+                          placeholder={`Hi ${expert.name.split(' ')[0]}, we'd love to discuss an opportunity with you...`}
+                          rows={3}
                           style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
+                            width: '100%',
                             padding: '12px 16px',
+                            backgroundColor: '#F9FAFB',
+                            border: '2px solid #E5E7EB',
                             borderRadius: '14px',
-                            border: `2px solid ${selectedRequirement === req.id ? '#0eb59a' : '#E5E7EB'}`,
-                            backgroundColor: selectedRequirement === req.id ? '#F0FDF4' : 'white',
+                            fontSize: '13px',
+                            color: '#374151',
+                            resize: 'none',
+                            outline: 'none',
+                            fontFamily: 'inherit',
+                            boxSizing: 'border-box',
+                            transition: 'border-color 0.2s',
+                          }}
+                          onFocus={e => e.target.style.borderColor = '#0eb59a'}
+                          onBlur={e => e.target.style.borderColor = '#E5E7EB'}
+                        />
+                      </div>
+
+                      {/* Action buttons */}
+                      <div style={{ display: 'flex', gap: '10px' }}>
+                        <motion.button
+                          whileHover={{ scale: 1.02, backgroundColor: '#F3F4F6' }}
+                          whileTap={{ scale: 0.98 }}
+                          onClick={() => { setShowInviteModal(false); setSelectedRequirement(''); setMessage(''); }}
+                          className="dark:!bg-white/5 dark:!text-gray-300 dark:!border-white/10"
+                          style={{
+                            flex: 1,
+                            padding: '12px',
+                            backgroundColor: '#F9FAFB',
+                            border: '1px solid #E5E7EB',
+                            borderRadius: '14px',
+                            fontSize: '14px',
+                            fontWeight: 800,
+                            color: '#6B7280',
                             cursor: 'pointer',
-                            transition: 'all 0.15s ease',
-                            textAlign: 'left',
                           }}
                         >
-                          <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 700, color: selectedRequirement === req.id ? '#134e40' : '#374151' }}>
-                            <Briefcase size={13} style={{ color: selectedRequirement === req.id ? '#0eb59a' : '#9CA3AF' }} />
-                            {req.title}
-                          </span>
-                          {selectedRequirement === req.id && (
-                            <motion.div
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              style={{ width: '20px', height: '20px', backgroundColor: '#0eb59a', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                            >
-                              <Check size={11} color="white" strokeWidth={3} />
-                            </motion.div>
-                          )}
+                          Cancel
                         </motion.button>
-                      ))}
+                        <motion.button
+                          whileHover={{ scale: selectedRequirement ? 1.03 : 1, boxShadow: selectedRequirement ? '0 8px 25px rgba(20,78,64,0.3)' : 'none' }}
+                          whileTap={{ scale: selectedRequirement ? 0.97 : 1 }}
+                          disabled={!selectedRequirement}
+                          onClick={handleInviteSend}
+                          style={{
+                            flex: 1,
+                            padding: '12px',
+                            background: selectedRequirement ? 'linear-gradient(135deg, #134e40, #0eb59a)' : '#F3F4F6',
+                            border: 'none',
+                            borderRadius: '14px',
+                            fontSize: '14px',
+                            fontWeight: 800,
+                            color: selectedRequirement ? 'white' : '#9CA3AF',
+                            cursor: selectedRequirement ? 'pointer' : 'not-allowed',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '6px',
+                          }}
+                        >
+                          <Zap size={14} fill={selectedRequirement ? 'currentColor' : 'none'} />
+                          Send Invite
+                        </motion.button>
+                      </div>
                     </div>
-                  </div>
-
-                  {/* Message textarea */}
-                  <div style={{ marginBottom: '20px' }}>
-                    <p style={{ fontSize: '11px', fontWeight: 800, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>
-                      Personal Message <span style={{ fontWeight: 400, textTransform: 'none', color: '#D1D5DB' }}>(optional)</span>
-                    </p>
-                    <textarea
-                      value={message}
-                      onChange={e => setMessage(e.target.value)}
-                      placeholder={`Hi ${expert.name.split(' ')[0]}, we'd love to discuss an opportunity with you...`}
-                      rows={3}
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    style={{ padding: '48px 32px', textAlign: 'center' }}
+                  >
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.1 }}
                       style={{
-                        width: '100%',
-                        padding: '12px 16px',
-                        backgroundColor: '#F9FAFB',
-                        border: '2px solid #E5E7EB',
-                        borderRadius: '14px',
-                        fontSize: '13px',
-                        color: '#374151',
-                        resize: 'none',
-                        outline: 'none',
-                        fontFamily: 'inherit',
-                        boxSizing: 'border-box',
-                        transition: 'border-color 0.2s',
-                      }}
-                      onFocus={e => e.target.style.borderColor = '#0eb59a'}
-                      onBlur={e => e.target.style.borderColor = '#E5E7EB'}
-                    />
-                  </div>
-
-                  {/* Action buttons */}
-                  <div style={{ display: 'flex', gap: '10px' }}>
-                    <motion.button
-                      whileHover={{ scale: 1.02, backgroundColor: '#F3F4F6' }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => { setShowInviteModal(false); setSelectedRequirement(''); setMessage(''); }}
-                      style={{
-                        flex: 1,
-                        padding: '12px',
-                        backgroundColor: '#F9FAFB',
-                        border: '1px solid #E5E7EB',
-                        borderRadius: '14px',
-                        fontSize: '14px',
-                        fontWeight: 800,
-                        color: '#6B7280',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      Cancel
-                    </motion.button>
-                    <motion.button
-                      whileHover={{ scale: selectedRequirement ? 1.03 : 1, boxShadow: selectedRequirement ? '0 8px 25px rgba(20,78,64,0.3)' : 'none' }}
-                      whileTap={{ scale: selectedRequirement ? 0.97 : 1 }}
-                      disabled={!selectedRequirement}
-                      onClick={handleInviteSend}
-                      style={{
-                        flex: 1,
-                        padding: '12px',
-                        background: selectedRequirement ? 'linear-gradient(135deg, #134e40, #0eb59a)' : '#F3F4F6',
-                        border: 'none',
-                        borderRadius: '14px',
-                        fontSize: '14px',
-                        fontWeight: 800,
-                        color: selectedRequirement ? 'white' : '#9CA3AF',
-                        cursor: selectedRequirement ? 'pointer' : 'not-allowed',
+                        width: '80px',
+                        height: '80px',
+                        background: 'linear-gradient(135deg, #134e40, #0eb59a)',
+                        borderRadius: '50%',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: '6px',
+                        margin: '0 auto 20px',
+                        boxShadow: '0 12px 40px rgba(14,181,154,0.3)',
                       }}
                     >
-                      <Zap size={14} fill={selectedRequirement ? 'currentColor' : 'none'} />
-                      Send Invite
-                    </motion.button>
-                  </div>
-                </div>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="success"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                style={{ padding: '48px 32px', textAlign: 'center' }}
-              >
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.1 }}
-                  style={{
-                    width: '80px',
-                    height: '80px',
-                    background: 'linear-gradient(135deg, #134e40, #0eb59a)',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 20px',
-                    boxShadow: '0 12px 40px rgba(14,181,154,0.3)',
-                  }}
-                >
-                  <Check size={36} color="white" strokeWidth={3} />
-                </motion.div>
-                <h3 style={{ fontSize: '22px', fontWeight: 900, color: '#1C3627', marginBottom: '8px' }}>Invite Sent!</h3>
-                <p style={{ fontSize: '14px', color: '#6B7280', lineHeight: 1.6 }}>
-                  {expert.name.split(' ')[0]} will receive your invitation and respond within {expert.responseTime}.
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
-      </motion.div>
-    )}
-  </AnimatePresence>
+                      <Check size={36} color="white" strokeWidth={3} />
+                    </motion.div>
+                    <h3 className="dark:text-white" style={{ fontSize: '22px', fontWeight: 900, color: '#1C3627', marginBottom: '8px' }}>Invite Sent!</h3>
+                    <p className="dark:text-gray-400" style={{ fontSize: '14px', color: '#6B7280', lineHeight: 1.6 }}>
+                      {expert.name.split(' ')[0]} will receive your invitation and respond within {expert.responseTime}.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ── MESSAGE MODAL ── */}
       <AnimatePresence>
@@ -2336,12 +2312,12 @@ Bio: ${expert.bio}
                 <div className="flex items-center gap-3">
                   <img src={expert.avatar} className="w-10 h-10 rounded-2xl object-cover" />
                   <div>
-                    <h3 className="font-black text-gray-900 text-base">Message {expert.name.split(' ')[0]}</h3>
+                    <h3 className="font-black text-gray-900 text-base dark:text-white">Message {expert.name.split(' ')[0]}</h3>
                     <p className="text-xs text-emerald-500 font-semibold">Usually responds {expert.responseTime}</p>
                   </div>
                 </div>
                 <motion.button whileHover={{ scale: 1.1 }} onClick={() => setShowMessageModal(false)}
-                  className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:text-gray-600"
+                  className="p-2 rounded-xl bg-gray-50 dark:bg-white/5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-white/10 transition-all dark:text-gray-500"
                 >
                   <X size={16} />
                 </motion.button>
@@ -2352,13 +2328,13 @@ Bio: ${expert.bio}
                 onChange={e => setMessage(e.target.value)}
                 placeholder={`Hi ${expert.name.split(' ')[0]}, I wanted to reach out about...`}
                 rows={5}
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 resize-none transition-all mb-4"
+                className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 rounded-2xl text-sm text-gray-700 dark:text-gray-300 placeholder-gray-300 dark:placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 resize-none transition-all mb-4 dark:border-white/10"
               />
 
               <div className="flex gap-3">
                 <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                   onClick={() => setShowMessageModal(false)}
-                  className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl"
+                  className="flex-1 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl dark:text-gray-300 dark:border-white/10"
                 >
                   Cancel
                 </motion.button>
@@ -2367,11 +2343,7 @@ Bio: ${expert.bio}
                   whileTap={{ scale: message.trim() ? 0.98 : 1 }}
                   disabled={!message.trim()}
                   onClick={() => setShowMessageModal(false)}
-                  className={`flex-1 py-3 text-sm font-bold rounded-2xl transition-all ${
-                    message.trim()
-                      ? 'bg-[#134e40] hover:bg-[#0eb59a] text-white shadow-lg'
-                      : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  }`}
+                  className={`flex-1 py-3 text-sm font-bold rounded-2xl transition-all ${message.trim() ? 'bg-[#134e40] hover:bg-[#0eb59a] text-white shadow-lg' : 'bg-gray-100 dark:bg-white/5 text-gray-400 dark:text-gray-600 cursor-not-allowed'}`}
                 >
                   <MessageSquare size={14} className="inline mr-1.5" />
                   Send Message

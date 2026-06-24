@@ -151,14 +151,14 @@ const Meetings = () => {
   const currentMeetingsList = activeTab === 'upcoming' ? upcomingMeetings : pastMeetings;
 
   return (
-    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0d1a14] text-slate-900 font-sans flex overflow-hidden">
+    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0f1117] text-slate-900 font-sans flex overflow-hidden">
 
       {/* ── SIDEBAR ── */}
       <motion.aside
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-white dark:bg-[#0a1810] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white dark:bg-[#1b1d24] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
         <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
           <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/company-dashboard')}>
@@ -193,7 +193,7 @@ const Meetings = () => {
               onClick={() => navigate(item.path)}
               className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${item.active
                 ? 'bg-[#134e40] text-white shadow-md font-bold'
-                : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'
                 }`}
             >
               {item.active && (
@@ -231,7 +231,7 @@ const Meetings = () => {
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate(isExpert ? '/expert-settings' : '/settings')}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#134e40] transition-all"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a] transition-all"
           >
             <Settings size={17} className="shrink-0" />
             <motion.span
@@ -253,7 +253,7 @@ const Meetings = () => {
               }
               navigate(isExpert ? '/signin?role=expert' : '/signin?role=company');
             }}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-rose-500 hover:bg-rose-50 transition-all font-semibold"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-all font-semibold"
           >
             <LogOut size={17} className="shrink-0" />
             <motion.span
@@ -274,8 +274,8 @@ const Meetings = () => {
       >
 
         {/* Top Header */}
-        <header className="h-16 border-b border-gray-150 dark:border-white/10 bg-white dark:bg-[#0a1810] flex items-center justify-between px-6 sticky top-0 z-30 shadow-sm shrink-0">
-          <h1 className="font-black text-[#1C3627] text-lg">Scheduled Meetings ({isExpert ? 'Expert Portal' : 'Client Portal'})</h1>
+        <header className="h-16 border-b border-gray-150 dark:border-white/10 bg-white dark:bg-[#1b1d24] flex items-center justify-between px-6 sticky top-0 z-30 shadow-sm shrink-0">
+          <h1 className="font-black text-[#1C3627] dark:text-white text-lg">Scheduled Meetings ({isExpert ? 'Expert Portal' : 'Client Portal'})</h1>
 
           <div className="flex items-center gap-3">
             {/* Notification Bell */}
@@ -283,7 +283,7 @@ const Meetings = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                 onClick={() => setShowNotifications(!showNotifications)}
-                className="w-9 h-9 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#134e40] hover:bg-gray-100 transition-all border border-gray-100"
+                className="w-9 h-9 rounded-xl bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 dark:hover:bg-white/10 transition-all border border-gray-100 dark:border-white/10"
               >
                 <Bell size={16} />
                 <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#0eb59a]" />
@@ -295,18 +295,18 @@ const Meetings = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute right-0 mt-2 w-80 bg-white rounded-2xl p-4 shadow-xl border border-gray-150 z-50 text-left"
+                    className="absolute right-0 mt-2 w-80 bg-white dark:bg-[#1e2028] rounded-2xl p-4 shadow-xl border border-gray-150 dark:border-white/10 z-50 text-left"
                   >
-                    <h3 className="font-black text-sm text-slate-800 mb-3">Notifications</h3>
+                    <h3 className="font-black text-sm text-slate-800 dark:text-white mb-3">Notifications</h3>
                     <div className="space-y-3">
                       {notifications.map(n => (
-                        <div key={n.id} className="p-2.5 rounded-xl bg-slate-50 border border-gray-150 text-xs hover:bg-slate-100 transition-colors">
-                          <p className="font-bold text-slate-800 flex items-center gap-1.5">
+                        <div key={n.id} className="p-2.5 rounded-xl bg-slate-50 dark:bg-[#252830] border border-gray-150 dark:border-white/10 text-xs hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                          <p className="font-bold text-slate-800 dark:text-gray-200 flex items-center gap-1.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                             {n.title}
                           </p>
-                          <p className="text-gray-500 mt-1">{n.desc}</p>
-                          <p className="text-[10px] text-gray-400 mt-1">{n.time}</p>
+                          <p className="text-gray-500 dark:text-gray-400 mt-1">{n.desc}</p>
+                          <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-1">{n.time}</p>
                         </div>
                       ))}
                     </div>
@@ -321,11 +321,11 @@ const Meetings = () => {
         <main className="p-6 flex-1 max-w-5xl mx-auto w-full space-y-6 text-left">
 
           {/* Dashboard Tab Selector */}
-          <div className="flex items-center justify-between border-b border-gray-200 pb-1">
+          <div className="flex items-center justify-between border-b border-gray-200 dark:border-white/10 pb-1">
             <div className="flex gap-4">
               <button
                 onClick={() => setActiveTab('upcoming')}
-                className={`pb-3 text-xs font-black uppercase tracking-wider relative border-0 bg-transparent transition-colors cursor-pointer ${activeTab === 'upcoming' ? 'text-[#134e40]' : 'text-gray-400 hover:text-gray-600'
+                className={`pb-3 text-xs font-black uppercase tracking-wider relative border-0 bg-transparent transition-colors cursor-pointer ${activeTab === 'upcoming' ? 'text-[#134e40] dark:text-[#0eb59a]' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
                   }`}
               >
                 Upcoming Syncs
@@ -338,7 +338,7 @@ const Meetings = () => {
               </button>
               <button
                 onClick={() => setActiveTab('past')}
-                className={`pb-3 text-xs font-black uppercase tracking-wider relative border-0 bg-transparent transition-colors cursor-pointer ${activeTab === 'past' ? 'text-[#134e40]' : 'text-gray-400 hover:text-gray-600'
+                className={`pb-3 text-xs font-black uppercase tracking-wider relative border-0 bg-transparent transition-colors cursor-pointer ${activeTab === 'past' ? 'text-[#134e40] dark:text-[#0eb59a]' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
                   }`}
               >
                 Past Sessions
@@ -354,7 +354,7 @@ const Meetings = () => {
             <motion.button
               whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
               onClick={() => navigate('/messages')}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold text-[#134e40] bg-teal-50 border border-teal-150 hover:bg-teal-100 transition-all cursor-pointer"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold text-[#134e40] dark:text-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10 border border-teal-150 dark:border-[#0eb59a]/30 hover:bg-teal-100 dark:hover:bg-[#0eb59a]/20 transition-all cursor-pointer"
             >
               <MessageSquare size={13} />
               Open Chats to Schedule
@@ -369,7 +369,7 @@ const Meetings = () => {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.05 }}
-                className="bg-white rounded-3xl p-5 border border-gray-150 flex flex-col md:flex-row md:items-center justify-between gap-5 relative overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200"
+                className="bg-white dark:bg-[#1e2028] rounded-3xl p-5 border border-gray-150 dark:border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-5 relative overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200"
               >
 
 
@@ -378,11 +378,11 @@ const Meetings = () => {
 
                   {/* Topic and Duration */}
                   <div className="space-y-1">
-                    <h3 className="text-base font-black text-slate-800 flex items-center gap-2">
+                    <h3 className="text-base font-black text-slate-800 dark:text-white flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-[#0eb59a]" />
                       {meet.title}
                     </h3>
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-400 font-bold">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-400 dark:text-gray-500 font-bold">
                       <span className="flex items-center gap-1.5">
                         <Calendar size={13} className="text-[#0eb59a]" />
                         {meet.date}
@@ -395,16 +395,16 @@ const Meetings = () => {
                   </div>
 
                   {/* Agenda */}
-                  <div className="p-3 bg-slate-50 border border-gray-100 rounded-2xl flex items-start gap-2.5">
-                    <AlignLeft size={14} className="text-gray-400 mt-0.5 shrink-0" />
-                    <p className="text-xs text-gray-500 font-semibold leading-relaxed">
+                  <div className="p-3 bg-slate-50 dark:bg-[#252830] border border-gray-100 dark:border-white/5 rounded-2xl flex items-start gap-2.5">
+                    <AlignLeft size={14} className="text-gray-400 dark:text-gray-550 mt-0.5 shrink-0" />
+                    <p className="text-xs text-gray-555 dark:text-gray-400 font-semibold leading-relaxed">
                       {meet.agenda}
                     </p>
                   </div>
                 </div>
 
                 {/* Participant Info & Actions */}
-                <div className="flex flex-col sm:flex-row md:flex-col items-stretch sm:items-center md:items-stretch gap-4 shrink-0 border-t border-gray-50 pt-4 md:border-t-0 md:pt-0 md:pl-5 md:border-l md:border-gray-100 min-w-[220px]">
+                <div className="flex flex-col sm:flex-row md:flex-col items-stretch sm:items-center md:items-stretch gap-4 shrink-0 border-t border-gray-50 dark:border-white/10 pt-4 md:border-t-0 md:pt-0 md:pl-5 md:border-l md:border-gray-100 dark:border-white/10 min-w-[220px]">
 
                   {/* Participant Card */}
                   <div className="flex items-center gap-3 text-left">
@@ -412,10 +412,10 @@ const Meetings = () => {
                       {meet.initials}
                     </div>
                     <div>
-                      <p className="text-xs font-black text-slate-800 leading-tight">
+                      <p className="text-xs font-black text-slate-800 dark:text-white leading-tight">
                         {isExpert ? `Client: ${meet.expert}` : `Expert: ${meet.expert}`}
                       </p>
-                      <p className="text-[10px] text-gray-400 font-bold">{meet.expertRole}</p>
+                      <p className="text-[10px] text-gray-400 dark:text-gray-500 font-bold">{meet.expertRole}</p>
                     </div>
                   </div>
 
@@ -435,14 +435,14 @@ const Meetings = () => {
                         {/* Cancellation button enabled for both roles */}
                         <button
                           onClick={() => handleDeleteMeeting(meet.id)}
-                          className="w-9 h-9 rounded-xl flex items-center justify-center text-rose-500 hover:text-white hover:bg-rose-500 border border-rose-100 bg-rose-50 transition-colors cursor-pointer"
+                          className="w-9 h-9 rounded-xl flex items-center justify-center text-rose-500 hover:text-white hover:bg-rose-500 border border-rose-100 dark:border-rose-500/30 bg-rose-50 dark:bg-rose-500/10 transition-colors cursor-pointer"
                           title="Cancel/Delete Meeting"
                         >
                           <Trash2 size={14} />
                         </button>
                       </>
                     ) : (
-                      <span className="text-[10px] font-black text-slate-400 uppercase bg-gray-50 border border-gray-100 px-3 py-1.5 rounded-lg flex items-center gap-1.5 self-start">
+                      <span className="text-[10px] font-black text-slate-400 dark:text-gray-500 uppercase bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 px-3 py-1.5 rounded-lg flex items-center gap-1.5 self-start">
                         <CheckCircle2 size={12} className="text-emerald-500" />
                         Completed
                       </span>
@@ -458,14 +458,14 @@ const Meetings = () => {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="bg-white rounded-3xl p-10 border border-gray-150 text-center flex flex-col items-center justify-center gap-4 relative overflow-hidden"
+                className="bg-white dark:bg-[#1e2028] rounded-3xl p-10 border border-gray-150 dark:border-white/10 text-center flex flex-col items-center justify-center gap-4 relative overflow-hidden"
               >
 
-                <div className="w-12 h-12 bg-slate-50 text-gray-400 rounded-full flex items-center justify-center mb-1">
+                <div className="w-12 h-12 bg-slate-50 dark:bg-[#252830] text-gray-400 dark:text-gray-500 rounded-full flex items-center justify-center mb-1">
                   <Calendar size={20} />
                 </div>
-                <h3 className="font-black text-slate-800 text-sm">No scheduled meetings found</h3>
-                <p className="text-xs text-gray-400 font-semibold max-w-sm">
+                <h3 className="font-black text-slate-800 dark:text-white text-sm">No scheduled meetings found</h3>
+                <p className="text-xs text-gray-400 dark:text-gray-500 font-semibold max-w-sm">
                   {activeTab === 'upcoming'
                     ? "You don't have any upcoming video sessions. Open Direct Messages to coordinate call schedules."
                     : "No past synchronization logs are recorded in your calendar yet."}

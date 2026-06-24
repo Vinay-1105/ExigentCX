@@ -635,27 +635,27 @@ const Analytics = () => {
                     <motion.div
                       initial={{ opacity: 0, y: -8, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -8, scale: 0.95 }} transition={{ duration: 0.2 }}
-                      className="absolute right-0 top-13 sm:top-11 w-[calc(100vw-32px)] sm:w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden">
-                      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-50">
-                        <h4 className="font-black text-[#1C3627] text-sm">Notifications</h4>
+                      className="absolute right-0 top-13 sm:top-11 w-[calc(100vw-32px)] sm:w-80 bg-white dark:bg-[#1e2028] rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 z-50 overflow-hidden">
+                      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-50 dark:border-white/10">
+                        <h4 className="font-black text-[#1C3627] dark:text-white text-sm">Notifications</h4>
                         <span className="text-[10px] font-bold text-[#0eb59a] cursor-pointer">Mark all read</span>
                       </div>
                       {appNotifs.map((n, i) => (
                         <motion.div key={n.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}
-                          className={`flex items-start gap-3 px-4 py-3 cursor-pointer border-b border-gray-50 last:border-0 hover:bg-gray-50 transition-colors ${n.unread ? 'bg-teal-50/20' : ''}`}>
+                          className={`flex items-start gap-3 px-4 py-3 cursor-pointer border-b border-gray-50 last:border-0 dark:border-white/5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors ${n.unread ? 'bg-teal-50/20 dark:bg-[#0eb59a]/10' : ''}`}>
                           <div className={`w-8 h-8 ${n.color} rounded-xl flex items-center justify-center shrink-0`}>
                             <Bell size={13} className="text-white" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-xs font-black text-[#1C3627] mb-0.5 text-left">{n.title}</p>
-                            <p className="text-[11px] text-gray-500 text-left">{n.desc}</p>
-                            <p className="text-[10px] text-gray-400 mt-0.5 text-left dark:text-gray-500">{n.time}</p>
+                            <p className="text-xs font-black text-[#1C3627] dark:text-white mb-0.5 text-left">{n.title}</p>
+                            <p className="text-[11px] text-gray-555 dark:text-gray-400 text-left">{n.desc}</p>
+                            <p className="text-[10px] text-gray-400 dark:text-gray-550 mt-0.5 text-left">{n.time}</p>
                           </div>
                           {n.unread && <div className="w-2 h-2 bg-[#0eb59a] rounded-full shrink-0 mt-1" />}
                         </motion.div>
                       ))}
-                      <div className="px-4 py-3 text-center border-t border-gray-50 flex items-center justify-center">
-                        <button className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors min-h-[44px] w-full flex items-center justify-center">View all →</button>
+                      <div className="px-4 py-3 text-center border-t border-gray-50 dark:border-white/10 flex items-center justify-center">
+                        <button className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] dark:hover:text-[#0eb59a] transition-colors min-h-[44px] w-full flex items-center justify-center bg-transparent border-0 cursor-pointer">View all →</button>
                       </div>
                     </motion.div>
                   </>
