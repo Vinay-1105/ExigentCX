@@ -320,16 +320,16 @@ const Payments = () => {
   };
 
   return (
-  <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0f1117] dark:text-gray-100">
+    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0f1117] dark:text-gray-100">
 
-    {/* ── SIDEBAR ── */}
-    <motion.aside
-      initial={{ width: 260 }}
-      animate={{ width: isSidebarOpen ? 260 : 68 }}
-      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-      className="bg-white dark:bg-[#1b1d24] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
-    >
-      <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
+      {/* ── SIDEBAR ── */}
+      <motion.aside
+        initial={{ width: 260 }}
+        animate={{ width: isSidebarOpen ? 260 : 68 }}
+        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+        className="bg-white dark:bg-[#1b1d24] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+      >
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
           <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/company-dashboard')}>
             <Logo variant="light" className="h-8 shrink-0" />
             <motion.span
@@ -340,217 +340,209 @@ const Payments = () => {
               ExigentCX
             </motion.span>
           </div>
-        <motion.button
-          animate={{ marginLeft: isSidebarOpen ? 'auto' : 'auto' }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="w-7 h-7 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#134e40] hover:bg-gray-100 transition-all shrink-0"
-        >
-          {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
-        </motion.button>
-      </div>
-
-      <nav className="flex-1 px-3 py-2 space-y-0.5 overflow-hidden">
-        {isSidebarOpen && (
-          <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest px-2 mb-2">Main Menu</p>
-        )}
-        {navItems.map((item) => {
-          const isActive = item.active || window.location.pathname === item.path || (item.path === '/experts' && window.location.pathname.startsWith('/experts'));
-          return (
-            <motion.button
-              key={item.path}
-              whileHover={{ x: 2, transition: { duration: 0.15 } }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => navigate(item.path)}
-              className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
-                isActive
-                  ? 'bg-[#134e40] text-white shadow-md'
-                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'
-              }`}
-            >
-              {isActive && (
-                <motion.div
-                  layoutId="activeNav"
-                  className="absolute left-0 top-1 bottom-1 w-0.5 bg-[#0eb59a] rounded-r-full"
-                />
-              )}
-              <item.icon size={17} className="shrink-0" />
-              <motion.span
-                animate={{ 
-                  opacity: isSidebarOpen ? 1 : 0, 
-                  width: isSidebarOpen ? 'auto' : 0 
-                }}
-                transition={{ duration: 0.2 }}
-                className="overflow-hidden whitespace-nowrap text-sm font-bold text-left"
-              >
-                {item.label}
-              </motion.span>
-            </motion.button>
-          );
-        })}
-      </nav>
-
-      {/* Separated Settings option pinned to the bottom */}
-      <div className="p-3 border-t border-gray-50 dark:border-white/10 space-y-1">
-        {/* Theme Toggle */}
-        <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
-          {isSidebarOpen && (
-            <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Theme</span>
-          )}
-          <ThemeToggle />
+          <motion.button
+            animate={{ marginLeft: isSidebarOpen ? 'auto' : 'auto' }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 dark:hover:bg-white/10 transition-all shrink-0 dark:text-gray-500"
+          >
+            {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
+          </motion.button>
         </div>
 
-        <motion.button
-          whileHover={{ x: 2, transition: { duration: 0.15 } }}
-          whileTap={{ scale: 0.97 }}
-          onClick={() => navigate('/settings')}
-          className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
-            window.location.pathname === '/settings'
-              ? 'bg-[#134e40] text-white shadow-md'
-              : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'
-          }`}
-        >
-          {window.location.pathname === '/settings' && (
-            <motion.div
-              layoutId="activeNav"
-              className="absolute left-0 top-1 bottom-1 w-0.5 bg-[#0eb59a] rounded-r-full"
-            />
+        <nav className="flex-1 px-3 py-2 space-y-0.5 overflow-hidden">
+          {isSidebarOpen && (
+            <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest px-2 mb-2">Main Menu</p>
           )}
-          <Settings size={17} className="shrink-0" />
-          <motion.span
-            animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden whitespace-nowrap text-sm font-bold text-left"
-          >
-            Settings
-          </motion.span>
-        </motion.button>
-
-        <motion.button
-          whileHover={{ x: 2, transition: { duration: 0.15 } }}
-          whileTap={{ scale: 0.97 }}
-          onClick={async () => {
-            const isDemo = localStorage.getItem('demo_company') === 'true';
-            if (isDemo) {
-              localStorage.removeItem('demo_company');
-            } else {
-              await supabase.auth.signOut();
-            }
-            navigate('/signin?role=company');
-          }}
-          className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-red-500 hover:bg-red-50 hover:text-red-600 transition-all duration-150 font-bold"
-        >
-          <LogOut size={17} className="shrink-0" />
-          <motion.span
-            animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden whitespace-nowrap text-sm font-bold text-left"
-          >
-            Sign Out
-          </motion.span>
-        </motion.button>
-      </div>
-    </motion.aside>
-
-    {/* ── MAIN CONTENT ── */}
-    <div
-      className="flex flex-col min-h-screen overflow-x-hidden"
-      style={{
-        marginLeft: isSidebarOpen ? 260 : 68,
-        transition: 'margin-left 0.3s cubic-bezier(0.4,0,0.2,1)',
-      }}
-    >
-
-      <header className="sticky top-0 z-30 bg-white dark:bg-[#1b1d24] border-b border-gray-100 dark:border-white/10 shadow-sm px-6 py-3 flex items-center gap-4">
-        <div className="flex-1" />
-
-
-        <div className="flex items-center gap-3">
-          {/* Export */}
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={handleExportCSV}
-            className="hidden md:flex items-center gap-2 px-3 py-2 bg-gray-50 border border-gray-200 text-gray-600 text-xs font-bold rounded-xl hover:bg-gray-100 transition-all"
-          >
-            <Download size={13} /> Export
-          </motion.button>
-
-          {/* Add Funds */}
-          <motion.button
-            whileHover={{ scale: 1.04, boxShadow: '0 8px 25px rgba(20,78,64,0.3)' }}
-            whileTap={{ scale: 0.96 }}
-            onClick={() => setShowAddFundsModal(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white text-xs font-black rounded-xl shadow-md"
-          >
-            <Plus size={13} /> Add Funds
-          </motion.button>
-
-          {/* Bell */}
-          <div className="relative">
-            <motion.button
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.92 }}
-              onClick={() => setShowNotifications(!showNotifications)}
-              className="w-9 h-9 bg-gray-50 rounded-xl flex items-center justify-center text-gray-500 hover:text-[#134e40] hover:bg-gray-100 transition-all relative"
-            >
-              <Bell size={17} />
-              {unreadCount > 0 && (
-                <motion.span
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center"
-                >
-                  {unreadCount}
-                </motion.span>
-              )}
-            </motion.button>
-
-            <AnimatePresence>
-              {showNotifications && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setShowNotifications(false)} />
+          {navItems.map((item) => {
+            const isActive = item.active || window.location.pathname === item.path || (item.path === '/experts' && window.location.pathname.startsWith('/experts'));
+            return (
+              <motion.button
+                key={item.path}
+                whileHover={{ x: 2, transition: { duration: 0.15 } }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => navigate(item.path)}
+                className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${isActive ? 'bg-[#134e40] text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'}`}
+              >
+                {isActive && (
                   <motion.div
-                    initial={{ opacity: 0, y: -8, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -8, scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute right-0 top-11 w-80 bg-white dark:bg-[#1b1d24] rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 z-50 overflow-hidden"
-                  >
-                    <div className="flex items-center justify-between px-4 py-3 border-b border-gray-50 dark:border-white/10">
-                      <h4 className="font-black text-[#1C3627] dark:text-white text-sm">Notifications</h4>
-                      <span className="text-[10px] font-bold text-[#0eb59a] cursor-pointer">Mark all read</span>
-                    </div>
-                    {notifications.map((notif, idx) => (
-                      <motion.div
-                        key={notif.id}
-                        initial={{ opacity: 0, x: -8 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: idx * 0.05 }}
-                        className={`flex items-start gap-3 px-4 py-3 cursor-pointer border-b border-gray-50 dark:border-white/5 last:border-0 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors ${notif.unread ? 'bg-teal-50/20 dark:bg-teal-500/5' : ''}`}
-                      >
-                        <div className={`w-8 h-8 ${notif.color} rounded-xl flex items-center justify-center shrink-0`}>
-                          <Bell size={13} className="text-white" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-black text-[#1C3627] dark:text-white mb-0.5 text-left">{notif.title}</p>
-                          <p className="text-[11px] text-gray-500 dark:text-gray-400 text-left">{notif.desc}</p>
-                          <p className="text-[10px] text-gray-400 mt-1 text-left">{notif.time}</p>
-                        </div>
-                        {notif.unread && <div className="w-2 h-2 bg-[#0eb59a] rounded-full shrink-0 mt-1" />}
-                      </motion.div>
-                    ))}
-                    <div className="px-4 py-3 border-t border-gray-50 dark:border-white/10 text-center">
-                      <button className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors">View all notifications →</button>
-                    </div>
-                  </motion.div>
-                </>
-              )}
-            </AnimatePresence>
+                    layoutId="activeNav"
+                    className="absolute left-0 top-1 bottom-1 w-0.5 bg-[#0eb59a] rounded-r-full"
+                  />
+                )}
+                <item.icon size={17} className="shrink-0" />
+                <motion.span
+                  animate={{
+                    opacity: isSidebarOpen ? 1 : 0,
+                    width: isSidebarOpen ? 'auto' : 0
+                  }}
+                  transition={{ duration: 0.2 }}
+                  className="overflow-hidden whitespace-nowrap text-sm font-bold text-left"
+                >
+                  {item.label}
+                </motion.span>
+              </motion.button>
+            );
+          })}
+        </nav>
+
+        {/* Separated Settings option pinned to the bottom */}
+        <div className="p-3 border-t border-gray-50 dark:border-white/10 space-y-1">
+          {/* Theme Toggle */}
+          <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
+            {isSidebarOpen && (
+              <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Theme</span>
+            )}
+            <ThemeToggle />
           </div>
 
-          <motion.div
+          <motion.button
+            whileHover={{ x: 2, transition: { duration: 0.15 } }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => navigate('/settings')}
+            className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${window.location.pathname === '/settings' ? 'bg-[#134e40] text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'}`}
+          >
+            {window.location.pathname === '/settings' && (
+              <motion.div
+                layoutId="activeNav"
+                className="absolute left-0 top-1 bottom-1 w-0.5 bg-[#0eb59a] rounded-r-full"
+              />
+            )}
+            <Settings size={17} className="shrink-0" />
+            <motion.span
+              animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden whitespace-nowrap text-sm font-bold text-left"
+            >
+              Settings
+            </motion.span>
+          </motion.button>
+
+          <motion.button
+            whileHover={{ x: 2, transition: { duration: 0.15 } }}
+            whileTap={{ scale: 0.97 }}
+            onClick={async () => {
+              const isDemo = localStorage.getItem('demo_company') === 'true';
+              if (isDemo) {
+                localStorage.removeItem('demo_company');
+              } else {
+                await supabase.auth.signOut();
+              }
+              navigate('/signin?role=company');
+            }}
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-red-500 hover:bg-red-50 hover:text-red-600 transition-all duration-150 font-bold"
+          >
+            <LogOut size={17} className="shrink-0" />
+            <motion.span
+              animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden whitespace-nowrap text-sm font-bold text-left"
+            >
+              Sign Out
+            </motion.span>
+          </motion.button>
+        </div>
+      </motion.aside>
+
+      {/* ── MAIN CONTENT ── */}
+      <div
+        className="flex flex-col min-h-screen overflow-x-hidden"
+        style={{
+          marginLeft: isSidebarOpen ? 260 : 68,
+          transition: 'margin-left 0.3s cubic-bezier(0.4,0,0.2,1)',
+        }}
+      >
+
+        <header className="sticky top-0 z-30 bg-white dark:bg-[#1b1d24] border-b border-gray-100 dark:border-white/10 shadow-sm px-6 py-3 flex items-center gap-4">
+          <div className="flex-1" />
+
+
+          <div className="flex items-center gap-3">
+            {/* Export */}
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={handleExportCSV}
+              className="hidden md:flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-white/5 border border-gray-200 text-gray-600 text-xs font-bold rounded-xl hover:bg-gray-100 transition-all dark:text-gray-300 dark:border-white/10"
+            >
+              <Download size={13} /> Export
+            </motion.button>
+
+            {/* Add Funds */}
+            <motion.button
+              whileHover={{ scale: 1.04, boxShadow: '0 8px 25px rgba(20,78,64,0.3)' }}
+              whileTap={{ scale: 0.96 }}
+              onClick={() => setShowAddFundsModal(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white text-xs font-black rounded-xl shadow-md"
+            >
+              <Plus size={13} /> Add Funds
+            </motion.button>
+
+            {/* Bell */}
+            <div className="relative">
+              <motion.button
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.92 }}
+                onClick={() => setShowNotifications(!showNotifications)}
+                className="w-9 h-9 bg-gray-50 rounded-xl flex items-center justify-center text-gray-500 hover:text-[#134e40] hover:bg-gray-100 transition-all relative dark:text-gray-400"
+              >
+                <Bell size={17} />
+                {unreadCount > 0 && (
+                  <motion.span
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center"
+                  >
+                    {unreadCount}
+                  </motion.span>
+                )}
+              </motion.button>
+
+              <AnimatePresence>
+                {showNotifications && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setShowNotifications(false)} />
+                    <motion.div
+                      initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute right-0 top-11 w-80 bg-white dark:bg-[#1b1d24] rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 z-50 overflow-hidden"
+                    >
+                      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-50 dark:border-white/10">
+                        <h4 className="font-black text-[#1C3627] dark:text-white text-sm">Notifications</h4>
+                        <span className="text-[10px] font-bold text-[#0eb59a] cursor-pointer">Mark all read</span>
+                      </div>
+                      {notifications.map((notif, idx) => (
+                        <motion.div
+                          key={notif.id}
+                          initial={{ opacity: 0, x: -8 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: idx * 0.05 }}
+                          className={`flex items-start gap-3 px-4 py-3 cursor-pointer border-b border-gray-50 dark:border-white/5 last:border-0 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors ${notif.unread ? 'bg-teal-50/20 dark:bg-teal-500/5' : ''}`}
+                        >
+                          <div className={`w-8 h-8 ${notif.color} rounded-xl flex items-center justify-center shrink-0`}>
+                            <Bell size={13} className="text-white" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-black text-[#1C3627] dark:text-white mb-0.5 text-left">{notif.title}</p>
+                            <p className="text-[11px] text-gray-500 dark:text-gray-400 text-left">{notif.desc}</p>
+                            <p className="text-[10px] text-gray-400 mt-1 text-left dark:text-gray-500">{notif.time}</p>
+                          </div>
+                          {notif.unread && <div className="w-2 h-2 bg-[#0eb59a] rounded-full shrink-0 mt-1" />}
+                        </motion.div>
+                      ))}
+                      <div className="px-4 py-3 border-t border-gray-50 dark:border-white/10 text-center">
+                        <button className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors">View all notifications →</button>
+                      </div>
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <motion.div
               whileHover={{ scale: 1.08, ringWidth: 2, ringColor: '#0eb59a', ringOffsetWidth: 2 }}
               whileTap={{ scale: 0.94 }}
               className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#134e40] to-[#0eb59a] flex items-center justify-center text-white font-black text-xs cursor-pointer shadow-md transition-all duration-200 overflow-hidden"
@@ -563,1095 +555,1067 @@ const Payments = () => {
                 companyProfile?.company_name ? companyProfile.company_name.substring(0, 2).toUpperCase() : 'AC'
               )}
             </motion.div>
-        </div>
-      </header>
+          </div>
+        </header>
 
-      {/* ── PAGE BODY ── */}
-      <div className="flex-1 px-6 py-5 pb-16 space-y-5 overflow-x-hidden">
+        {/* ── PAGE BODY ── */}
+        <div className="flex-1 px-6 py-5 pb-16 space-y-5 overflow-x-hidden">
 
-        {/* ── KPI CARDS ── */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          {[
-            { label: 'Escrow Balance', value: escrowSummary.totalBalance, icon: Wallet, iconBg: 'bg-teal-50 dark:bg-[#0eb59a]/10', iconColor: 'text-[#0eb59a]', numColor: 'text-[#134e40] dark:text-[#0eb59a]', border: 'border-t-4 border-t-[#0eb59a]', sub: 'Secured funds' },
-            { label: 'Total Released', value: escrowSummary.totalSpent, icon: Unlock, iconBg: 'bg-emerald-50 dark:bg-emerald-900/20', iconColor: 'text-emerald-500', numColor: 'text-emerald-700 dark:text-emerald-400', border: 'border-t-4 border-t-emerald-400', sub: '4 milestones paid' },
-            { label: 'Pending Release', value: escrowSummary.pendingRelease, icon: Clock, iconBg: 'bg-amber-50 dark:bg-amber-900/20', iconColor: 'text-amber-500', numColor: 'text-amber-700 dark:text-amber-400', border: 'border-t-4 border-t-amber-400', sub: 'Awaiting approval' },
-            { label: 'Total Committed', value: escrowSummary.totalEngagementValue, icon: Target, iconBg: 'bg-[#134e40]/10 dark:bg-[#0eb59a]/10', iconColor: 'text-[#134e40] dark:text-[#0eb59a]', numColor: 'text-[#134e40] dark:text-[#0eb59a]', border: 'border-t-4 border-t-[#134e40] dark:border-t-[#0eb59a]', sub: '2 engagements' },
-          ].map((card, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.07 }}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className={`bg-gradient-to-br from-white to-[#f4f7f5] dark:from-[#0d2318] dark:to-[#0a1e13] rounded-2xl p-5 ${card.border} cursor-default relative overflow-hidden flex flex-col items-center text-center justify-center shadow-[0_4px_20px_rgba(19,78,64,0.07)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.05)] hover:shadow-[0_8px_30px_rgba(19,78,64,0.12)] dark:hover:shadow-[0_8px_30px_rgba(14,181,154,0.08)] transition-shadow`}
-            >
-              <div className="flex flex-col items-center gap-1.5 mb-2 relative z-10">
-                <div className={`w-8 h-8 ${card.iconBg} rounded-lg flex items-center justify-center shrink-0`}>
-                  <card.icon size={14} className={card.iconColor} />
-                </div>
-                <span className="text-[10px] sm:text-[11px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest text-center">{card.label}</span>
-              </div>
-              <p className={`text-[24px] sm:text-[28px] font-black ${card.numColor} tracking-tight leading-none text-center mb-1.5 relative z-10`}>{card.value}</p>
-              <p className="text-xs text-gray-400 dark:text-gray-500 font-bold text-center relative z-10">{card.sub}</p>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* ── TABS ── */}
-        <div className="flex gap-1 bg-white dark:bg-[#0d2318] rounded-2xl p-1 w-fit shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
-          {tabs.map(tab => (
-            <motion.button
-              key={tab}
-              whileHover={{ scale: 1.02, transition: { duration: 0.15 } }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => setActiveTab(tab)}
-              className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                activeTab === tab
-                  ? 'bg-[#134e40] text-white shadow-md'
-                  : 'text-gray-500 dark:text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-50 dark:hover:bg-white/5'
-              }`}
-            >
-              {tab}
-            </motion.button>
-          ))}
-        </div>
-
-        {/* ── TAB CONTENT ── */}
-        <AnimatePresence mode="wait">
-
-          {/* ══ OVERVIEW TAB ══ */}
-          {activeTab === 'Overview' && (
-            <motion.div
-              key="overview"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 lg:grid-cols-3 gap-5"
-            >
-              {/* Left 2/3 */}
-              <div className="lg:col-span-2 space-y-5">
-
-                {/* Active Escrow Accounts */}
-                <div className="bg-gradient-to-br from-white to-[#f4f7f5] dark:from-[#0d2318] dark:to-[#0a1e13] rounded-2xl p-5 relative overflow-hidden shadow-[0_4px_20px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.04)]">
-
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 text-left">
-                      <Lock size={14} className="text-[#0eb59a]" /> Active Escrow Accounts
-                    </h3>
-                    <motion.button
-                      whileHover={{ scale: 1.05, color: '#134e40' }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={() => setShowAddFundsModal(true)}
-                      className="flex items-center gap-1.5 text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors"
-                    >
-                      <Plus size={12} /> Add Funds
-                    </motion.button>
+          {/* ── KPI CARDS ── */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {[
+              { label: 'Escrow Balance', value: escrowSummary.totalBalance, icon: Wallet, iconBg: 'bg-teal-50 dark:bg-[#0eb59a]/10', iconColor: 'text-[#0eb59a]', numColor: 'text-[#134e40] dark:text-[#0eb59a]', border: 'border-t-4 border-t-[#0eb59a]', sub: 'Secured funds' },
+              { label: 'Total Released', value: escrowSummary.totalSpent, icon: Unlock, iconBg: 'bg-emerald-50 dark:bg-emerald-900/20', iconColor: 'text-emerald-500', numColor: 'text-emerald-700 dark:text-emerald-400', border: 'border-t-4 border-t-emerald-400', sub: '4 milestones paid' },
+              { label: 'Pending Release', value: escrowSummary.pendingRelease, icon: Clock, iconBg: 'bg-amber-50 dark:bg-amber-900/20', iconColor: 'text-amber-500', numColor: 'text-amber-700 dark:text-amber-400', border: 'border-t-4 border-t-amber-400', sub: 'Awaiting approval' },
+              { label: 'Total Committed', value: escrowSummary.totalEngagementValue, icon: Target, iconBg: 'bg-[#134e40]/10 dark:bg-[#0eb59a]/10', iconColor: 'text-[#134e40] dark:text-[#0eb59a]', numColor: 'text-[#134e40] dark:text-[#0eb59a]', border: 'border-t-4 border-t-[#134e40] dark:border-t-[#0eb59a]', sub: '2 engagements' },
+            ].map((card, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.07 }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className={`bg-gradient-to-br from-white to-[#f4f7f5] dark:!bg-[#1e2028] dark:!bg-none dark:from-[#1e2028] dark:to-[#1e2028] rounded-2xl p-5 ${card.border} cursor-default relative overflow-hidden flex flex-col items-center text-center justify-center shadow-[0_4px_20px_rgba(19,78,64,0.07)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.05)] hover:shadow-[0_8px_30px_rgba(19,78,64,0.12)] dark:hover:shadow-[0_8px_30px_rgba(14,181,154,0.08)] transition-shadow`}
+              >
+                <div className="flex flex-col items-center gap-1.5 mb-2 relative z-10">
+                  <div className={`w-8 h-8 ${card.iconBg} rounded-lg flex items-center justify-center shrink-0`}>
+                    <card.icon size={14} className={card.iconColor} />
                   </div>
+                  <span className="text-[10px] sm:text-[11px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest text-center">{card.label}</span>
+                </div>
+                <p className={`text-[24px] sm:text-[28px] font-black ${card.numColor} tracking-tight leading-none text-center mb-1.5 relative z-10`}>{card.value}</p>
+                <p className="text-xs text-gray-400 dark:text-gray-500 font-bold text-center relative z-10">{card.sub}</p>
+              </motion.div>
+            ))}
+          </div>
 
-                  <div className="space-y-4">
-                    {escrowAccounts.map((account, idx) => (
-                      <motion.div
-                        key={account.id}
-                        initial={{ opacity: 0, x: -12 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: idx * 0.1 }}
-                        whileHover={{ y: -3, boxShadow: '0 12px 30px rgba(0,0,0,0.07)', transition: { duration: 0.2 } }}
-                        className="bg-[#FAFBF9] dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-2xl p-5"
+          {/* ── TABS ── */}
+          <div className="flex gap-1 bg-white dark:bg-[#1e2028] rounded-2xl p-1 w-fit shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
+            {tabs.map(tab => (
+              <motion.button
+                key={tab}
+                whileHover={{ scale: 1.02, transition: { duration: 0.15 } }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setActiveTab(tab)}
+                className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all ${activeTab === tab ? 'bg-[#134e40] text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-50 dark:hover:bg-white/5'}`}
+              >
+                {tab}
+              </motion.button>
+            ))}
+          </div>
+
+          {/* ── TAB CONTENT ── */}
+          <AnimatePresence mode="wait">
+
+            {/* ══ OVERVIEW TAB ══ */}
+            {activeTab === 'Overview' && (
+              <motion.div
+                key="overview"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="grid grid-cols-1 lg:grid-cols-3 gap-5"
+              >
+                {/* Left 2/3 */}
+                <div className="lg:col-span-2 space-y-5">
+
+                  {/* Active Escrow Accounts */}
+                  <div className="bg-gradient-to-br from-white to-[#f4f7f5] dark:from-[#1e2028] dark:to-[#1e2028] rounded-2xl p-5 relative overflow-hidden shadow-[0_4px_20px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.04)]">
+
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 text-left">
+                        <Lock size={14} className="text-[#0eb59a]" /> Active Escrow Accounts
+                      </h3>
+                      <motion.button
+                        whileHover={{ scale: 1.05, color: '#134e40' }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={() => setShowAddFundsModal(true)}
+                        className="flex items-center gap-1.5 text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors"
                       >
-                        <div className="flex items-start justify-between mb-4">
-                          <div className="flex items-center gap-3">
-                            <div className="relative">
-                              <img src={account.expertAvatar} className="w-10 h-10 rounded-xl object-cover shadow-sm" />
-                              <motion.div
-                                animate={{ scale: [1, 1.3, 1] }}
-                                transition={{ duration: 2, repeat: Infinity }}
-                                className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full"
-                              />
-                            </div>
-                            <div className="text-left">
-                              <p className="font-black text-[#1C3627] dark:text-white text-sm text-left">{account.engagement}</p>
-                              <p className="text-xs text-gray-400 font-medium text-left">with {account.expert}</p>
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-xl font-black text-[#134e40] dark:text-[#0eb59a] text-right">{account.balance}</p>
-                            <p className="text-[10px] text-gray-400 font-medium text-right">in escrow</p>
-                          </div>
-                        </div>
+                        <Plus size={12} /> Add Funds
+                      </motion.button>
+                    </div>
 
-                        {/* Progress */}
-                        <div className="mb-3">
-                          <div className="flex justify-between text-[11px] mb-1.5">
-                            <span className="text-gray-400 font-semibold text-left">Released: {account.released} of {account.totalValue}</span>
-                            <span className="font-black text-[#134e40] dark:text-[#0eb59a]">
-                              {Math.round((parseInt(account.released.replace(/[₹,]/g, '')) / parseInt(account.totalValue.replace(/[₹,]/g, ''))) * 100)}%
+                    <div className="space-y-4">
+                      {escrowAccounts.map((account, idx) => (
+                        <motion.div
+                          key={account.id}
+                          initial={{ opacity: 0, x: -12 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: idx * 0.1 }}
+                          whileHover={{ y: -3, boxShadow: '0 12px 30px rgba(0,0,0,0.07)', transition: { duration: 0.2 } }}
+                          className="bg-[#FAFBF9] dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-2xl p-5"
+                        >
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="flex items-center gap-3">
+                              <div className="relative">
+                                <img src={account.expertAvatar} className="w-10 h-10 rounded-xl object-cover shadow-sm" />
+                                <motion.div
+                                  animate={{ scale: [1, 1.3, 1] }}
+                                  transition={{ duration: 2, repeat: Infinity }}
+                                  className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full"
+                                />
+                              </div>
+                              <div className="text-left">
+                                <p className="font-black text-[#1C3627] dark:text-white text-sm text-left">{account.engagement}</p>
+                                <p className="text-xs text-gray-400 font-medium text-left dark:text-gray-500">with {account.expert}</p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-xl font-black text-[#134e40] dark:text-[#0eb59a] text-right">{account.balance}</p>
+                              <p className="text-[10px] text-gray-400 font-medium text-right dark:text-gray-500">in escrow</p>
+                            </div>
+                          </div>
+
+                          {/* Progress */}
+                          <div className="mb-3">
+                            <div className="flex justify-between text-[11px] mb-1.5">
+                              <span className="text-gray-400 font-semibold text-left dark:text-gray-500">Released: {account.released} of {account.totalValue}</span>
+                              <span className="font-black text-[#134e40] dark:text-[#0eb59a]">
+                                {Math.round((parseInt(account.released.replace(/[₹,]/g, '')) / parseInt(account.totalValue.replace(/[₹,]/g, ''))) * 100)}%
+                              </span>
+                            </div>
+                            <div className="h-2 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
+                              <motion.div
+                                initial={{ width: 0 }}
+                                animate={{ width: `${Math.round((parseInt(account.released.replace(/[₹,]/g, '')) / parseInt(account.totalValue.replace(/[₹,]/g, ''))) * 100)}%` }}
+                                transition={{ duration: 1.2, delay: 0.3 + idx * 0.1 }}
+                                className="h-full bg-gradient-to-r from-[#134e40] to-[#0eb59a] rounded-full relative overflow-hidden"
+                              >
+                                <motion.div
+                                  animate={{ x: ['-100%', '200%'] }}
+                                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                                  className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/25 to-transparent"
+                                />
+                              </motion.div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-between">
+                            <span className="text-[11px] text-gray-400 font-semibold flex items-center gap-1.5 text-left dark:text-gray-500">
+                              <Target size={10} className="text-amber-500" />
+                              Next: {account.pendingMilestone}
                             </span>
-                          </div>
-                          <div className="h-2 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
-                            <motion.div
-                              initial={{ width: 0 }}
-                              animate={{ width: `${Math.round((parseInt(account.released.replace(/[₹,]/g, '')) / parseInt(account.totalValue.replace(/[₹,]/g, ''))) * 100)}%` }}
-                              transition={{ duration: 1.2, delay: 0.3 + idx * 0.1 }}
-                              className="h-full bg-gradient-to-r from-[#134e40] to-[#0eb59a] rounded-full relative overflow-hidden"
+                            <motion.button
+                              whileHover={account.pendingMilestoneId && account.pendingMilestone !== "None" ? { scale: 1.05, boxShadow: '0 6px 15px rgba(14,181,154,0.25)' } : {}}
+                              whileTap={account.pendingMilestoneId && account.pendingMilestone !== "None" ? { scale: 0.95 } : {}}
+                              onClick={() => {
+                                if (!account.pendingMilestoneId || account.pendingMilestone === "None") {
+                                  alert("No pending milestone to release for this engagement.");
+                                  return;
+                                }
+                                setShowReleaseModal(account);
+                              }}
+                              className={`text-xs font-black px-3 py-1.5 rounded-xl transition-all duration-200 border ${account.pendingMilestoneId && account.pendingMilestone !== "None" ? 'text-[#0eb59a] hover:text-white hover:bg-[#0eb59a] border-teal-200 bg-teal-50' : 'text-gray-300 border-gray-100 bg-gray-50 cursor-not-allowed'} dark:border-white/10`}
                             >
-                              <motion.div
-                                animate={{ x: ['-100%', '200%'] }}
-                                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                                className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/25 to-transparent"
-                              />
-                            </motion.div>
+                              Release Payment →
+                            </motion.button>
                           </div>
-                        </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
 
-                        <div className="flex items-center justify-between">
-                          <span className="text-[11px] text-gray-400 font-semibold flex items-center gap-1.5 text-left">
-                            <Target size={10} className="text-amber-500" />
-                            Next: {account.pendingMilestone}
+                  {/* Monthly Spend Chart */}
+                  <div className="bg-gradient-to-br from-white to-[#f4f7f5] dark:from-[#1e2028] dark:to-[#1e2028] rounded-2xl p-5 relative overflow-hidden shadow-[0_4px_20px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.04)]">
+
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 mb-5 text-left">
+                      <BarChart2 size={14} className="text-[#0eb59a]" /> Monthly Spend
+                    </h3>
+                    <div className="flex items-end gap-3 h-36 mt-6 mb-4">
+                      {[
+                        { month: 'Feb', amount: 350, label: '₹3.5L', active: true },
+                        { month: 'Mar', amount: 200, label: '₹2L', active: true },
+                        { month: 'Apr', amount: 400, label: '₹4L', active: true },
+                        { month: 'May', amount: 0, label: '—', active: false },
+                        { month: 'Jun', amount: 0, label: '—', active: false },
+                        { month: 'Jul', amount: 0, label: '—', active: false },
+                      ].map((bar, idx) => (
+                        <motion.div
+                          key={bar.month}
+                          className="flex-1 flex flex-col items-center gap-2 group cursor-pointer"
+                          whileHover={{ y: -5, scale: 1.05 }}
+                        >
+                          <span className={`text-[10px] font-black opacity-0 group-hover:opacity-100 transition-opacity duration-200 mb-1 ${bar.active ? 'text-[#134e40]' : 'text-gray-300'}`}>
+                            {bar.label}
                           </span>
-                          <motion.button
-                            whileHover={account.pendingMilestoneId && account.pendingMilestone !== "None" ? { scale: 1.05, boxShadow: '0 6px 15px rgba(14,181,154,0.25)' } : {}}
-                            whileTap={account.pendingMilestoneId && account.pendingMilestone !== "None" ? { scale: 0.95 } : {}}
-                            onClick={() => {
-                              if (!account.pendingMilestoneId || account.pendingMilestone === "None") {
-                                alert("No pending milestone to release for this engagement.");
-                                return;
-                              }
-                              setShowReleaseModal(account);
-                            }}
-                            className={`text-xs font-black px-3 py-1.5 rounded-xl transition-all duration-200 border ${
-                              account.pendingMilestoneId && account.pendingMilestone !== "None"
-                                ? 'text-[#0eb59a] hover:text-white hover:bg-[#0eb59a] border-teal-200 bg-teal-50'
-                                : 'text-gray-300 border-gray-100 bg-gray-50 cursor-not-allowed'
-                            }`}
-                          >
-                            Release Payment →
-                          </motion.button>
-                        </div>
-                      </motion.div>
-                    ))}
+                          <div className="w-full flex flex-col justify-end" style={{ height: '90px' }}>
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: bar.amount > 0 ? `${(bar.amount / 500) * 90}px` : '6px', opacity: 1 }}
+                              transition={{ duration: 0.8, delay: idx * 0.12, ease: 'easeOut' }}
+                              whileHover={{ filter: 'brightness(1.1)' }}
+                              style={{ borderRadius: '8px 8px 4px 4px' }}
+                              className={`w-full shadow-sm group-hover:shadow-md transition-shadow ${bar.active ? 'bg-gradient-to-t from-[#134e40] to-[#0eb59a]' : 'bg-gray-100'}`}
+                            />
+                          </div>
+                          <span className="text-[10px] font-bold text-gray-400 group-hover:text-gray-900 transition-colors mt-1 dark:text-gray-500">{bar.month}</span>
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
-                {/* Monthly Spend Chart */}
-                <div className="bg-gradient-to-br from-white to-[#f4f7f5] dark:from-[#0d2318] dark:to-[#0a1e13] rounded-2xl p-5 relative overflow-hidden shadow-[0_4px_20px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.04)]">
+                {/* Right 1/3 */}
+                <div className="space-y-4">
 
-                  <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 mb-5 text-left">
-                    <BarChart2 size={14} className="text-[#0eb59a]" /> Monthly Spend
-                  </h3>
-                   <div className="flex items-end gap-3 h-36 mt-6 mb-4">
-                    {[
-                      { month: 'Feb', amount: 350, label: '₹3.5L', active: true },
-                      { month: 'Mar', amount: 200, label: '₹2L', active: true },
-                      { month: 'Apr', amount: 400, label: '₹4L', active: true },
-                      { month: 'May', amount: 0, label: '—', active: false },
-                      { month: 'Jun', amount: 0, label: '—', active: false },
-                      { month: 'Jul', amount: 0, label: '—', active: false },
-                    ].map((bar, idx) => (
-                      <motion.div
-                        key={bar.month}
-                        className="flex-1 flex flex-col items-center gap-2 group cursor-pointer"
-                        whileHover={{ y: -5, scale: 1.05 }}
+                  {/* Recent Activity */}
+                  <div className="bg-white dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-2xl p-5 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
+
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 text-left">
+                        <Clock size={13} className="text-[#0eb59a]" /> Recent Activity
+                      </h3>
+                      <motion.button
+                        whileHover={{ x: 2 }}
+                        onClick={() => setActiveTab('Transactions')}
+                        className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors"
                       >
-                        <span className={`text-[10px] font-black opacity-0 group-hover:opacity-100 transition-opacity duration-200 mb-1 ${bar.active ? 'text-[#134e40]' : 'text-gray-300'}`}>
-                          {bar.label}
-                        </span>
-                        <div className="w-full flex flex-col justify-end" style={{ height: '90px' }}>
+                        View All →
+                      </motion.button>
+                    </div>
+                    <div className="space-y-3">
+                      {transactions.slice(0, 4).map((tx, idx) => {
+                        const txIcon = getTxIcon(tx.type);
+                        return (
                           <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: bar.amount > 0 ? `${(bar.amount / 500) * 90}px` : '6px', opacity: 1 }}
-                            transition={{ duration: 0.8, delay: idx * 0.12, ease: 'easeOut' }}
-                            whileHover={{ filter: 'brightness(1.1)' }}
-                            style={{ borderRadius: '8px 8px 4px 4px' }}
-                            className={`w-full shadow-sm group-hover:shadow-md transition-shadow ${
-                              bar.active
-                                ? 'bg-gradient-to-t from-[#134e40] to-[#0eb59a]'
-                                : 'bg-gray-100'
-                            }`}
-                          />
+                            key={tx.id}
+                            initial={{ opacity: 0, x: 8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: idx * 0.07 }}
+                            whileHover={{ x: 3, transition: { duration: 0.15 } }}
+                            className="flex items-center gap-3 p-2 rounded-xl hover:bg-[#FAFBF9] transition-colors cursor-default"
+                          >
+                            <div className={`w-8 h-8 ${txIcon.bg} rounded-lg flex items-center justify-center shrink-0`}>
+                              <txIcon.icon size={13} className={txIcon.color} />
+                            </div>
+                            <div className="flex-1 min-w-0 text-left">
+                              <p className="text-xs font-bold text-[#1C3627] dark:text-white truncate text-left">{tx.description}</p>
+                              <p className="text-[10px] text-gray-400 font-medium text-left dark:text-gray-500">{tx.date}</p>
+                            </div>
+                            <span className={`text-xs font-black shrink-0 ${tx.amountNum > 0 ? 'text-emerald-600' : 'text-gray-700 dark:text-gray-300'}`}>
+                              {tx.amount}
+                            </span>
+                          </motion.div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Escrow Protection */}
+                  <motion.div
+                    whileHover={{ y: -2, transition: { duration: 0.15 } }}
+                    className="bg-gradient-to-br from-[#0d1f2d] to-[#134e40] dark:bg-[#1e2028] dark:[background:none] rounded-2xl p-5 text-white relative overflow-hidden"
+                  >
+                    <div className="absolute -right-4 -top-4 w-20 h-20 bg-white/5 rounded-full pointer-events-none" />
+                    <div className="relative z-10">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-7 h-7 bg-[#0eb59a]/20 rounded-lg flex items-center justify-center">
+                          <Shield size={14} className="text-[#0eb59a]" />
                         </div>
-                        <span className="text-[10px] font-bold text-gray-400 group-hover:text-gray-900 transition-colors mt-1">{bar.month}</span>
-                      </motion.div>
+                        <h4 className="font-black text-sm text-left">Escrow Protection</h4>
+                      </div>
+                      <p className="text-xs text-white/60 leading-relaxed mb-3 text-left">
+                        RBI-compliant escrow. Released only when you approve milestones.
+                      </p>
+                      <div className="space-y-1.5">
+                        {['RBI-compliant escrow', 'Instant release on approval', 'Full dispute protection', 'PMO monitoring'].map((item, idx) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.2 + idx * 0.07 }}
+                            className="flex items-center gap-2 text-xs text-white/70 font-semibold text-left"
+                          >
+                            <Check size={10} className="text-[#0eb59a] shrink-0" strokeWidth={3} />
+                            {item}
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Quick Actions */}
+                  <div className="bg-white rounded-2xl p-5 relative overflow-hidden dark:bg-[#1e2028] border border-gray-100 dark:border-white/10" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
+
+                    <h3 className="font-black text-[#1C3627] text-sm mb-3 text-left dark:text-white">Quick Actions</h3>
+                    <div className="space-y-1">
+                      {[
+                        { label: 'Add Funds to Escrow', icon: Plus, action: () => setShowAddFundsModal(true), color: 'text-[#0eb59a]', bg: 'bg-teal-50 dark:bg-[#0eb59a]/10' },
+                        { label: 'View Invoices', icon: FileText, action: () => setActiveTab('Invoices'), color: 'text-[#134e40] dark:text-[#0eb59a]', bg: 'bg-teal-50/60 dark:bg-[#0eb59a]/10' },
+                        { label: 'Download Statement', icon: Download, action: handleDownloadStatement, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-500/10' },
+                        { label: 'View Contracts', icon: Lock, action: () => navigate('/contracts'), color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-500/10' },
+                      ].map((item, idx) => (
+                        <motion.button
+                          key={idx}
+                          whileHover={{ x: 4, backgroundColor: '#FAFBF9', transition: { duration: 0.15 } }}
+                          whileTap={{ scale: 0.97 }}
+                          onClick={item.action}
+                          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group text-left dark:hover:bg-white/5"
+                        >
+                          <div className={`w-7 h-7 ${item.bg} rounded-lg flex items-center justify-center shrink-0`}>
+                            <item.icon size={13} className={item.color} />
+                          </div>
+                          <span className="text-xs font-bold text-gray-600 dark:text-gray-300 group-hover:text-[#134e40] dark:group-hover:text-[#0eb59a] transition-colors flex-1 text-left">{item.label}</span>
+                          <ChevronRight size={12} className="text-gray-300 group-hover:text-[#0eb59a] transition-colors" />
+                        </motion.button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* ══ TRANSACTIONS TAB ══ */}
+            {activeTab === 'Transactions' && (
+              <motion.div
+                key="transactions"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-4"
+              >
+                <div className="flex flex-col md:flex-row gap-3">
+                  <div className="relative flex-1 max-w-sm">
+                    <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+                    <input
+                      type="text"
+                      placeholder="Search transactions..."
+                      value={searchQuery}
+                      onChange={e => setSearchQuery(e.target.value)}
+                      className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-white/5 dark:text-gray-200 dark:placeholder-gray-500 border border-gray-200 dark:border-white/10 rounded-xl text-sm text-left text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
+                      style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    {['All', 'Completed', 'Pending'].map(f => (
+                      <motion.button
+                        key={f}
+                        whileHover={{ scale: 1.04 }}
+                        whileTap={{ scale: 0.96 }}
+                        onClick={() => setFilterStatus(f)}
+                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${filterStatus === f ? 'bg-[#134e40] text-white shadow-md' : 'bg-white dark:bg-white/5 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-white/10 hover:border-[#0eb59a]/40 hover:text-[#0eb59a]'}`}
+                      >
+                        {f}
+                      </motion.button>
                     ))}
                   </div>
                 </div>
-              </div>
 
-              {/* Right 1/3 */}
-              <div className="space-y-4">
+                <div className="bg-white dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-2xl overflow-hidden relative shadow-[0_4px_20px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.04)]">
 
-                {/* Recent Activity */}
-                <div className="bg-white dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-2xl p-5 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
-
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 text-left">
-                      <Clock size={13} className="text-[#0eb59a]" /> Recent Activity
+                  <div className="px-6 py-4 border-b border-gray-50 dark:border-white/10 flex items-center justify-between">
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-sm text-left">
+                      All Transactions
+                      <span className="ml-2 text-xs font-bold text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-white/5 px-2 py-0.5 rounded-lg border border-gray-100 dark:border-white/10">
+                        {filteredTransactions.length}
+                      </span>
                     </h3>
                     <motion.button
-                      whileHover={{ x: 2 }}
-                      onClick={() => setActiveTab('Transactions')}
-                      className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors"
+                      whileHover={{ scale: 1.05, color: '#0eb59a' }}
+                      whileTap={{ scale: 0.97 }}
+                      onClick={handleExportCSV}
+                      className="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-[#0eb59a] transition-colors dark:text-gray-500"
                     >
-                      View All →
+                      <Download size={13} /> Export CSV
                     </motion.button>
                   </div>
-                  <div className="space-y-3">
-                    {transactions.slice(0, 4).map((tx, idx) => {
+
+                  <div className="divide-y divide-gray-50 dark:divide-white/5">
+                    {filteredTransactions.map((tx, idx) => {
                       const txIcon = getTxIcon(tx.type);
                       return (
                         <motion.div
                           key={tx.id}
-                          initial={{ opacity: 0, x: 8 }}
+                          initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: idx * 0.07 }}
-                          whileHover={{ x: 3, transition: { duration: 0.15 } }}
-                          className="flex items-center gap-3 p-2 rounded-xl hover:bg-[#FAFBF9] transition-colors cursor-default"
+                          transition={{ delay: idx * 0.05 }}
+                          whileHover={{ backgroundColor: '#F9FAFB', transition: { duration: 0.15 } }}
+                          className="flex items-center gap-4 px-6 py-4 cursor-default hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
                         >
-                          <div className={`w-8 h-8 ${txIcon.bg} rounded-lg flex items-center justify-center shrink-0`}>
-                            <txIcon.icon size={13} className={txIcon.color} />
+                          <div className={`w-9 h-9 ${txIcon.bg} rounded-xl flex items-center justify-center shrink-0`}>
+                            <txIcon.icon size={15} className={txIcon.color} />
                           </div>
                           <div className="flex-1 min-w-0 text-left">
-                            <p className="text-xs font-bold text-[#1C3627] dark:text-white truncate text-left">{tx.description}</p>
-                            <p className="text-[10px] text-gray-400 font-medium text-left">{tx.date}</p>
+                            <p className="font-bold text-[#1C3627] dark:text-white text-sm truncate text-left">{tx.description}</p>
+                            <p className="text-xs text-gray-400 font-medium text-left dark:text-gray-500">
+                              {tx.engagement} {tx.expert !== '—' ? `· ${tx.expert}` : ''}
+                            </p>
                           </div>
-                          <span className={`text-xs font-black shrink-0 ${tx.amountNum > 0 ? 'text-emerald-600' : 'text-gray-700 dark:text-gray-300'}`}>
-                            {tx.amount}
-                          </span>
+                          <div className="text-right shrink-0">
+                            <p className={`font-black text-sm text-right ${tx.amountNum > 0 ? 'text-emerald-600' : 'text-[#1C3627]'}`}>
+                              {tx.amount}
+                            </p>
+                            <p className="text-[10px] text-gray-400 font-medium text-right dark:text-gray-500">
+                              {tx.date}{tx.time !== '—' ? ` · ${tx.time}` : ''}
+                            </p>
+                          </div>
+                          <div className="shrink-0 flex flex-col items-end gap-1 min-w-[90px]">
+                            <span className={`text-[10px] font-black px-2.5 py-1 rounded-lg border ${getStatusStyle(tx.status)}`}>
+                              {tx.status}
+                            </span>
+                            <span className="text-[10px] text-gray-300 font-medium">{tx.txRef}</span>
+                          </div>
                         </motion.div>
                       );
                     })}
                   </div>
                 </div>
+              </motion.div>
+            )}
 
-                {/* Escrow Protection */}
-                <motion.div
-                  whileHover={{ y: -2, transition: { duration: 0.15 } }}
-                  className="bg-gradient-to-br from-[#0d1f2d] to-[#134e40] rounded-2xl p-5 text-white relative overflow-hidden"
-                >
-                  <div className="absolute -right-4 -top-4 w-20 h-20 bg-white/5 rounded-full pointer-events-none" />
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-7 h-7 bg-[#0eb59a]/20 rounded-lg flex items-center justify-center">
-                        <Shield size={14} className="text-[#0eb59a]" />
-                      </div>
-                      <h4 className="font-black text-sm text-left">Escrow Protection</h4>
-                    </div>
-                    <p className="text-xs text-white/60 leading-relaxed mb-3 text-left">
-                      RBI-compliant escrow. Released only when you approve milestones.
-                    </p>
-                    <div className="space-y-1.5">
-                      {['RBI-compliant escrow', 'Instant release on approval', 'Full dispute protection', 'PMO monitoring'].map((item, idx) => (
-                        <motion.div
-                          key={idx}
-                          initial={{ opacity: 0, x: -8 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.2 + idx * 0.07 }}
-                          className="flex items-center gap-2 text-xs text-white/70 font-semibold text-left"
-                        >
-                          <Check size={10} className="text-[#0eb59a] shrink-0" strokeWidth={3} />
-                          {item}
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Quick Actions */}
-                <div className="bg-white rounded-2xl p-5 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
-
-                  <h3 className="font-black text-[#1C3627] text-sm mb-3 text-left">Quick Actions</h3>
-                  <div className="space-y-1">
-                    {[
-                      { label: 'Add Funds to Escrow', icon: Plus, action: () => setShowAddFundsModal(true), color: 'text-[#0eb59a]', bg: 'bg-teal-50 dark:bg-[#0eb59a]/10' },
-                      { label: 'View Invoices', icon: FileText, action: () => setActiveTab('Invoices'), color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-500/10' },
-                      { label: 'Download Statement', icon: Download, action: handleDownloadStatement, color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-500/10' },
-                      { label: 'View Contracts', icon: Lock, action: () => navigate('/contracts'), color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-500/10' },
-                    ].map((item, idx) => (
-                      <motion.button
-                        key={idx}
-                        whileHover={{ x: 4, backgroundColor: '#FAFBF9', transition: { duration: 0.15 } }}
-                        whileTap={{ scale: 0.97 }}
-                        onClick={item.action}
-                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group text-left dark:hover:bg-white/5"
-                      >
-                        <div className={`w-7 h-7 ${item.bg} rounded-lg flex items-center justify-center shrink-0`}>
-                          <item.icon size={13} className={item.color} />
-                        </div>
-                        <span className="text-xs font-bold text-gray-600 dark:text-gray-300 group-hover:text-[#134e40] dark:group-hover:text-[#0eb59a] transition-colors flex-1 text-left">{item.label}</span>
-                        <ChevronRight size={12} className="text-gray-300 group-hover:text-[#0eb59a] transition-colors" />
-                      </motion.button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          )}
-
-          {/* ══ TRANSACTIONS TAB ══ */}
-          {activeTab === 'Transactions' && (
-            <motion.div
-              key="transactions"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-4"
-            >
-              <div className="flex flex-col md:flex-row gap-3">
-                <div className="relative flex-1 max-w-sm">
-                  <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Search transactions..."
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-white/5 dark:text-gray-200 dark:placeholder-gray-500 border border-gray-200 dark:border-white/10 rounded-xl text-sm text-left text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
-                    style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
-                  />
-                </div>
-                <div className="flex gap-2">
-                  {['All', 'Completed', 'Pending'].map(f => (
-                    <motion.button
-                      key={f}
-                      whileHover={{ scale: 1.04 }}
-                      whileTap={{ scale: 0.96 }}
-                      onClick={() => setFilterStatus(f)}
-                      className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                        filterStatus === f
-                          ? 'bg-[#134e40] text-white shadow-md'
-                          : 'bg-white dark:bg-white/5 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-white/10 hover:border-[#0eb59a]/40 hover:text-[#0eb59a]'
-                      }`}
-                    >
-                      {f}
-                    </motion.button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="bg-white dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-2xl overflow-hidden relative shadow-[0_4px_20px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.04)]">
-
-                <div className="px-6 py-4 border-b border-gray-50 dark:border-white/10 flex items-center justify-between">
+            {/* ══ INVOICES TAB ══ */}
+            {activeTab === 'Invoices' && (
+              <motion.div
+                key="invoices"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-3"
+              >
+                <div className="flex items-center justify-between">
                   <h3 className="font-black text-[#1C3627] dark:text-white text-sm text-left">
-                    All Transactions
-                    <span className="ml-2 text-xs font-bold text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-white/5 px-2 py-0.5 rounded-lg border border-gray-100 dark:border-white/10">
-                      {filteredTransactions.length}
-                    </span>
+                    All Invoices
+                    <span className="ml-2 text-xs font-bold text-gray-400 dark:text-gray-500">({invoices.length})</span>
                   </h3>
                   <motion.button
-                    whileHover={{ scale: 1.05, color: '#0eb59a' }}
+                    whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.97 }}
-                    onClick={handleExportCSV}
-                    className="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-[#0eb59a] transition-colors"
+                    onClick={() => {
+                      invoices.forEach(inv => handleDownloadInvoice(inv));
+                    }}
+                    className="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-[#0eb59a] transition-colors dark:text-gray-500"
                   >
-                    <Download size={13} /> Export CSV
+                    <Download size={13} /> Export All
                   </motion.button>
                 </div>
 
-                <div className="divide-y divide-gray-50 dark:divide-white/5">
-                  {filteredTransactions.map((tx, idx) => {
-                    const txIcon = getTxIcon(tx.type);
-                    return (
-                      <motion.div
-                        key={tx.id}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: idx * 0.05 }}
-                        whileHover={{ backgroundColor: '#F9FAFB', transition: { duration: 0.15 } }}
-                        className="flex items-center gap-4 px-6 py-4 cursor-default hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
-                      >
-                        <div className={`w-9 h-9 ${txIcon.bg} rounded-xl flex items-center justify-center shrink-0`}>
-                          <txIcon.icon size={15} className={txIcon.color} />
-                        </div>
-                        <div className="flex-1 min-w-0 text-left">
-                          <p className="font-bold text-[#1C3627] dark:text-white text-sm truncate text-left">{tx.description}</p>
-                          <p className="text-xs text-gray-400 font-medium text-left">
-                            {tx.engagement} {tx.expert !== '—' ? `· ${tx.expert}` : ''}
-                          </p>
-                        </div>
-                        <div className="text-right shrink-0">
-                          <p className={`font-black text-sm text-right ${tx.amountNum > 0 ? 'text-emerald-600' : 'text-[#1C3627]'}`}>
-                            {tx.amount}
-                          </p>
-                          <p className="text-[10px] text-gray-400 font-medium text-right">
-                            {tx.date}{tx.time !== '—' ? ` · ${tx.time}` : ''}
-                          </p>
-                        </div>
-                        <div className="shrink-0 flex flex-col items-end gap-1 min-w-[90px]">
-                          <span className={`text-[10px] font-black px-2.5 py-1 rounded-lg border ${getStatusStyle(tx.status)}`}>
-                            {tx.status}
-                          </span>
-                          <span className="text-[10px] text-gray-300 font-medium">{tx.txRef}</span>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </div>
-            </motion.div>
-          )}
-
-          {/* ══ INVOICES TAB ══ */}
-          {activeTab === 'Invoices' && (
-            <motion.div
-              key="invoices"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-3"
-            >
-              <div className="flex items-center justify-between">
-                <h3 className="font-black text-[#1C3627] dark:text-white text-sm text-left">
-                  All Invoices
-                  <span className="ml-2 text-xs font-bold text-gray-400">({invoices.length})</span>
-                </h3>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
-                  onClick={() => {
-                    invoices.forEach(inv => handleDownloadInvoice(inv));
-                  }}
-                  className="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-[#0eb59a] transition-colors"
-                >
-                  <Download size={13} /> Export All
-                </motion.button>
-              </div>
-
-              {invoices.map((invoice, idx) => (
-                <motion.div
-                  key={invoice.id}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.07 }}
-                  whileHover={{ y: -3, boxShadow: '0 12px 30px rgba(0,0,0,0.07)', transition: { duration: 0.2 } }}
-                  style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
-                  className="bg-gradient-to-br from-white to-[#f4f7f5] dark:from-[#0d2318] dark:to-[#0a1e13] rounded-2xl p-5 flex items-center gap-4 group cursor-default relative overflow-hidden shadow-[0_4px_20px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.04)] hover:shadow-[0_8px_28px_rgba(19,78,64,0.10)] transition-shadow"
-                >
-
+                {invoices.map((invoice, idx) => (
                   <motion.div
-                    whileHover={{ rotate: -5, scale: 1.05 }}
-                    className="w-11 h-11 bg-[#0eb59a]/10 dark:bg-[#0eb59a]/15 rounded-xl flex items-center justify-center shrink-0"
-                  >
-                    <FileText size={18} className="text-[#0eb59a]" />
-                  </motion.div>
-
-                  <div className="flex-1 min-w-0 text-left">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h4 className="font-black text-[#1C3627] dark:text-white text-sm truncate text-left">{invoice.title}</h4>
-                      <span className={`text-[10px] font-black px-2 py-0.5 rounded-lg border shrink-0 ${getStatusStyle(invoice.status)}`}>
-                        {invoice.status}
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap gap-2 text-[11px] text-gray-400 font-medium text-left">
-                      <span className="text-left">{invoice.id}</span>
-                      <span>·</span>
-                      <span className="flex items-center gap-1 text-left">
-                        {invoice.expertAvatar && <img src={invoice.expertAvatar} className="w-3.5 h-3.5 rounded-full object-cover" />}
-                        {invoice.expert}
-                      </span>
-                      <span>·</span>
-                      <span className="text-left">{invoice.type}</span>
-                      <span>·</span>
-                      <span className="flex items-center gap-1 text-left">
-                        <Calendar size={9} /> {invoice.date}
-                      </span>
-                    </div>
-                    {invoice.status === 'Pending' && (
-                      <p className="text-[10px] text-amber-500 font-bold mt-1 text-left">Due {invoice.dueDate}</p>
-                    )}
-                  </div>
-
-                  <div className="text-right shrink-0">
-                    <p className="font-black text-[#1C3627] text-xl text-right">{invoice.amount}</p>
-                  </div>
-
-                  <div className="flex gap-2 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <motion.button
-                      whileHover={{ scale: 1.1, backgroundColor: '#F0FDF4' }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => setShowInvoiceModal(invoice)}
-                      className="p-2 rounded-xl bg-gray-50 border border-gray-100 text-gray-400 hover:text-[#0eb59a] transition-all"
-                    >
-                      <Eye size={13} />
-                    </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.1, backgroundColor: '#EFF6FF' }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => handleDownloadInvoice(invoice)}
-                      className="p-2 rounded-xl bg-gray-50 border border-gray-100 text-gray-400 hover:text-blue-500 transition-all"
-                    >
-                      <Download size={13} />
-                    </motion.button>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
-
-          {/* ══ ESCROW TAB ══ */}
-          {activeTab === 'Escrow' && (
-            <motion.div
-              key="escrow"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-5"
-            >
-              {/* How Escrow Works banner */}
-              <div
-                className="rounded-2xl p-6 text-white relative overflow-hidden"
-                style={{ background: 'linear-gradient(135deg, #0d1f2d, #134e40)' }}
-              >
-                <div className="absolute -right-8 -top-8 w-40 h-40 bg-white/5 rounded-full pointer-events-none" />
-                <div className="absolute -left-4 -bottom-4 w-24 h-24 bg-[#0eb59a]/10 rounded-full pointer-events-none" />
-                <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Shield size={18} className="text-[#0eb59a]" />
-                      <h3 className="font-black text-base text-left">How Escrow Works</h3>
-                    </div>
-                    <p className="text-white/60 text-xs leading-relaxed mb-4 text-left">
-                      RBI-compliant escrow ensures both parties are protected throughout the engagement.
-                    </p>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      {[
-                        { num: '1', label: 'Add Funds' },
-                        { num: '2', label: 'Held Securely' },
-                        { num: '3', label: 'Approve' },
-                        { num: '4', label: 'Expert Paid' },
-                      ].map((step, idx, arr) => (
-                        <React.Fragment key={step.num}>
-                          <div className="flex flex-col items-center gap-1">
-                            <motion.div
-                              whileHover={{ scale: 1.1 }}
-                              className="w-8 h-8 bg-[#0eb59a]/20 border border-[#0eb59a]/30 rounded-full flex items-center justify-center"
-                            >
-                              <span className="text-[11px] font-black text-[#0eb59a]">{step.num}</span>
-                            </motion.div>
-                            <span className="text-[10px] font-bold text-white/50">{step.label}</span>
-                          </div>
-                          {idx < arr.length - 1 && <ChevronRight size={12} className="text-white/20 mb-4" />}
-                        </React.Fragment>
-                      ))}
-                    </div>
-                  </div>
-                  <motion.button
-                    whileHover={{ scale: 1.05, boxShadow: '0 8px 25px rgba(14,181,154,0.4)' }}
-                    whileTap={{ scale: 0.97 }}
-                    onClick={() => setShowAddFundsModal(true)}
-                    className="flex items-center gap-2 px-5 py-3 bg-[#0eb59a] hover:bg-[#0ca88e] text-white text-sm font-black rounded-xl transition-all shadow-lg shrink-0"
-                  >
-                    <Plus size={14} /> Add Funds Now
-                  </motion.button>
-                </div>
-              </div>
-
-              {/* Escrow accounts detail */}
-              <div className="space-y-4">
-                {escrowAccounts.map((account, idx) => (
-                  <motion.div
-                    key={account.id}
+                    key={invoice.id}
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                    whileHover={{ y: -3, transition: { duration: 0.2 } }}
-                    className="bg-white rounded-2xl p-5 relative overflow-hidden"
+                    transition={{ delay: idx * 0.07 }}
+                    whileHover={{ y: -3, boxShadow: '0 12px 30px rgba(0,0,0,0.07)', transition: { duration: 0.2 } }}
                     style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
+                    className="bg-gradient-to-br from-white to-[#f4f7f5] dark:bg-[#1e2028] rounded-2xl p-5 flex items-center gap-4 group cursor-default relative overflow-hidden shadow-[0_4px_20px_rgba(19,78,64,0.06)] dark:shadow-[0_4px_20px_rgba(14,181,154,0.04)] hover:shadow-[0_8px_28px_rgba(19,78,64,0.10)] transition-shadow"
                   >
 
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <img src={account.expertAvatar} className="w-11 h-11 rounded-xl object-cover shadow-sm" />
-                        <div className="text-left">
-                          <h4 className="font-black text-[#1C3627] dark:text-white text-sm text-left">{account.engagement}</h4>
-                          <p className="text-xs text-gray-400 font-medium text-left">with {account.expert}</p>
-                        </div>
+                    <motion.div
+                      whileHover={{ rotate: -5, scale: 1.05 }}
+                      className="w-11 h-11 bg-[#0eb59a]/10 dark:bg-[#0eb59a]/15 rounded-xl flex items-center justify-center shrink-0"
+                    >
+                      <FileText size={18} className="text-[#0eb59a]" />
+                    </motion.div>
+
+                    <div className="flex-1 min-w-0 text-left">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h4 className="font-black text-[#1C3627] dark:text-white text-sm truncate text-left">{invoice.title}</h4>
+                        <span className={`text-[10px] font-black px-2 py-0.5 rounded-lg border shrink-0 ${getStatusStyle(invoice.status)}`}>
+                          {invoice.status}
+                        </span>
                       </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-black text-[#134e40] text-right">{account.balance}</p>
-                        <p className="text-[10px] text-gray-400 font-medium text-right">current escrow balance</p>
+                      <div className="flex flex-wrap gap-2 text-[11px] text-gray-400 font-medium text-left dark:text-gray-500">
+                        <span className="text-left">{invoice.id}</span>
+                        <span>·</span>
+                        <span className="flex items-center gap-1 text-left">
+                          {invoice.expertAvatar && <img src={invoice.expertAvatar} className="w-3.5 h-3.5 rounded-full object-cover" />}
+                          {invoice.expert}
+                        </span>
+                        <span>·</span>
+                        <span className="text-left">{invoice.type}</span>
+                        <span>·</span>
+                        <span className="flex items-center gap-1 text-left">
+                          <Calendar size={9} /> {invoice.date}
+                        </span>
                       </div>
+                      {invoice.status === 'Pending' && (
+                        <p className="text-[10px] text-amber-500 font-bold mt-1 text-left">Due {invoice.dueDate}</p>
+                      )}
                     </div>
 
-                    <div className="grid grid-cols-3 gap-3 mb-4">
-                      {[
-                        { label: 'Total Value', value: account.totalValue, color: 'text-gray-700' },
-                        { label: 'Released', value: account.released, color: 'text-emerald-600' },
-                        { label: 'In Escrow', value: account.balance, color: 'text-[#134e40]' },
-                      ].map((item, iIdx) => (
-                        <motion.div
-                          key={iIdx}
-                          whileHover={{ scale: 1.03, transition: { duration: 0.15 } }}
-                          className="bg-[#FAFBF9] dark:bg-[#252830] border border-gray-100 dark:border-white/10 rounded-xl p-3 text-center"
-                        >
-                          <p className={`font-black text-sm ${item.color.includes('text-[#134e40]') ? 'text-[#134e40] dark:text-[#0eb59a]' : item.color}`}>{item.value}</p>
-                          <p className="text-[10px] text-gray-400 font-bold mt-0.5 uppercase tracking-wide">{item.label}</p>
-                        </motion.div>
-                      ))}
+                    <div className="text-right shrink-0">
+                      <p className="font-black text-[#1C3627] text-xl text-right dark:text-white">{invoice.amount}</p>
                     </div>
 
-                    <div className="flex gap-3">
+                    <div className="flex gap-2 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
                       <motion.button
-                        whileHover={account.pendingMilestoneId && account.pendingMilestone !== "None" ? { scale: 1.03, boxShadow: '0 8px 20px rgba(19,78,64,0.25)' } : {}}
-                        whileTap={account.pendingMilestoneId && account.pendingMilestone !== "None" ? { scale: 0.97 } : {}}
-                        onClick={() => {
-                          if (!account.pendingMilestoneId || account.pendingMilestone === "None") {
-                            alert("No pending milestone to release for this engagement.");
-                            return;
-                          }
-                          setShowReleaseModal(account);
-                        }}
-                        className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-black rounded-xl transition-all ${
-                          account.pendingMilestoneId && account.pendingMilestone !== "None"
-                            ? 'bg-[#134e40] hover:bg-[#0eb59a] text-white shadow-md'
-                            : 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed'
-                        }`}
+                        whileHover={{ scale: 1.1, backgroundColor: '#F0FDF4' }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => setShowInvoiceModal(invoice)}
+                        className="p-2 rounded-xl bg-gray-50 border border-gray-100 text-gray-400 hover:text-[#0eb59a] transition-all dark:text-gray-500 dark:border-white/10"
                       >
-                        <Clock size={14} /> Request Milestone Release
+                        <Eye size={13} />
                       </motion.button>
                       <motion.button
-                        whileHover={{ scale: 1.03, backgroundColor: '#F0FDF4', borderColor: '#0eb59a' }}
-                        whileTap={{ scale: 0.97 }}
-                        onClick={() => setShowAddFundsModal(true)}
-                        className="flex items-center justify-center gap-2 px-5 py-2.5 bg-white border border-gray-200 text-gray-600 text-sm font-black rounded-xl hover:text-[#0eb59a] transition-all"
+                        whileHover={{ scale: 1.1, backgroundColor: '#EFF6FF' }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => handleDownloadInvoice(invoice)}
+                        className="p-2 rounded-xl bg-gray-50 border border-gray-100 text-gray-400 hover:text-blue-500 transition-all dark:text-gray-500 dark:border-white/10"
                       >
-                        <Plus size={14} /> Top Up
+                        <Download size={13} />
                       </motion.button>
                     </div>
                   </motion.div>
                 ))}
-              </div>
-            </motion.div>
-          )}
+              </motion.div>
+            )}
 
-        </AnimatePresence>
-      </div>
-    </div>
-
-    {/* ══ ADD FUNDS MODAL ══ */}
-    <AnimatePresence>
-      {showAddFundsModal && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={() => { setShowAddFundsModal(false); setSelectedAmount(''); setCustomAmount(''); }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4"
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 24 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 24 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            onClick={e => e.stopPropagation()}
-            className="bg-white dark:bg-[#1b1d24] border border-gray-100 dark:border-white/10 rounded-3xl shadow-2xl max-w-md w-full overflow-hidden"
-          >
-            <AnimatePresence mode="wait">
-              {!addFundsSent ? (
-                <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-
-                  {/* Gradient header */}
-                  <div style={{ background: 'linear-gradient(135deg, #134e40, #0eb59a)', padding: '24px' }}>
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                          <Plus size={16} className="text-white" />
-                        </div>
-                        <div>
-                          <h3 className="font-black text-white text-base text-left">Add Funds to Escrow</h3>
-                          <p className="text-white/70 text-xs text-left">Secured immediately on transfer</p>
-                        </div>
-                      </div>
-                      <motion.button
-                        whileHover={{ scale: 1.1, rotate: 90 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={() => { setShowAddFundsModal(false); setSelectedAmount(''); setCustomAmount(''); }}
-                        className="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center text-white hover:bg-white/30 transition-all"
-                      >
-                        <X size={13} />
-                      </motion.button>
-                    </div>
-
-                    {/* Current balance display */}
-                    <div className="bg-white/10 rounded-xl p-3 mt-3 flex items-center justify-between">
-                      <span className="text-white/70 text-xs font-semibold text-left">Current Escrow Balance</span>
-                      <span className="text-white font-black text-sm">{escrowSummary.totalBalance}</span>
-                    </div>
-                  </div>
-
-                  {/* Body */}
-                  <div className="p-6">
-                    {/* Quick amounts */}
-                    <div className="mb-5">
-                      <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3 text-left">
-                        Select Amount
-                      </label>
-                      <div className="grid grid-cols-2 gap-2 mb-3">
-                        {quickAmounts.map(amount => (
-                          <motion.button
-                            key={amount}
-                            whileHover={{ scale: 1.03 }}
-                            whileTap={{ scale: 0.97 }}
-                            onClick={() => { setSelectedAmount(amount); setCustomAmount(''); }}
-                            className={`py-3 rounded-xl text-sm font-black border-2 transition-all ${
-                              selectedAmount === amount
-                                ? 'border-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10 text-[#134e40] dark:text-[#0eb59a]'
-                                : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:border-gray-200'
-                            }`}
-                          >
-                            {amount}
-                          </motion.button>
-                        ))}
-                      </div>
-                      <div className="relative">
-                        <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">₹</span>
-                        <input
-                          type="text"
-                          placeholder="Custom amount..."
-                          value={customAmount}
-                          onChange={e => { setCustomAmount(e.target.value); setSelectedAmount(''); }}
-                          className="w-full pl-8 pr-4 py-3 bg-gray-50 dark:bg-white/5 border-2 border-gray-100 dark:border-white/10 rounded-xl text-sm font-semibold dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
-                          onFocus={e => e.target.style.borderColor = '#0eb59a'}
-                          onBlur={e => e.target.style.borderColor = customAmount ? '#0eb59a' : '#F3F4F6'}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Payment method */}
-                    <div className="mb-5">
-                      <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3 text-left">
-                        Payment Method
-                      </label>
-                      <div className="space-y-2">
-                        {paymentMethods.map(method => (
-                          <motion.button
-                            key={method.id}
-                            whileHover={{ x: 3, transition: { duration: 0.15 } }}
-                            whileTap={{ scale: 0.98 }}
-                            onClick={() => setPaymentMethod(method.id)}
-                            className={`w-full flex items-center gap-3 p-3 rounded-xl border-2 transition-all text-left ${
-                              paymentMethod === method.id
-                                ? 'border-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10'
-                                : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 hover:border-gray-200'
-                            }`}
-                          >
-                            <method.icon size={18} className={`shrink-0 ${paymentMethod === method.id ? 'text-[#0eb59a]' : 'text-gray-400 dark:text-gray-500'}`} />
-                            <div className="flex-1 text-left">
-                              <p className={`text-sm font-black text-left ${paymentMethod === method.id ? 'text-[#134e40] dark:text-[#0eb59a]' : 'text-gray-700 dark:text-gray-300'}`}>
-                                {method.label}
-                              </p>
-                              <p className="text-xs text-gray-400 font-medium text-left">{method.desc}</p>
-                            </div>
-                            {paymentMethod === method.id && (
-                              <motion.div
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                className="w-5 h-5 bg-[#0eb59a] rounded-full flex items-center justify-center shrink-0"
-                              >
-                                <Check size={10} className="text-white" strokeWidth={3} />
-                              </motion.div>
-                            )}
-                          </motion.button>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Security notice */}
-                    <div className="flex items-start gap-2 p-3 bg-teal-50 dark:bg-[#0eb59a]/10 rounded-xl border border-teal-100 dark:border-[#0eb59a]/20 mb-5">
-                      <Shield size={13} className="text-[#0eb59a] shrink-0 mt-0.5" />
-                      <p className="text-[11px] text-teal-700 leading-relaxed text-left">
-                        Funds transferred to an RBI-compliant escrow. You retain full control and can request refunds for unused balances.
-                      </p>
-                    </div>
-
-                    <div className="flex gap-3">
-                      <motion.button
-                        whileHover={{ scale: 1.02, backgroundColor: '#F3F4F6' }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => { setShowAddFundsModal(false); setSelectedAmount(''); setCustomAmount(''); }}
-                        className="flex-1 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-sm font-bold rounded-2xl transition-all"
-                      >
-                        Cancel
-                      </motion.button>
-                      <motion.button
-                        whileHover={{ scale: (selectedAmount || customAmount) ? 1.02 : 1, boxShadow: (selectedAmount || customAmount) ? '0 8px 25px rgba(20,78,64,0.3)' : 'none' }}
-                        whileTap={{ scale: (selectedAmount || customAmount) ? 0.98 : 1 }}
-                        disabled={!selectedAmount && !customAmount}
-                        onClick={handleAddFunds}
-                        style={{
-                          flex: 1,
-                          padding: '12px',
-                          background: (selectedAmount || customAmount) ? 'linear-gradient(135deg, #134e40, #0eb59a)' : 'transparent', backgroundColor: (selectedAmount || customAmount) ? undefined : 'rgba(255,255,255,0.05)',
-                          color: (selectedAmount || customAmount) ? 'white' : '#9CA3AF',
-                          border: 'none',
-                          borderRadius: '16px',
-                          fontSize: '14px',
-                          fontWeight: 800,
-                          cursor: (selectedAmount || customAmount) ? 'pointer' : 'not-allowed',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '6px',
-                        }}
-                      >
-                        <Zap size={14} fill={(selectedAmount || customAmount) ? 'currentColor' : 'none'} />
-                        Add {selectedAmount || (customAmount ? `₹${customAmount}` : 'Funds')}
-                      </motion.button>
-                    </div>
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="success"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-12 px-8"
+            {/* ══ ESCROW TAB ══ */}
+            {activeTab === 'Escrow' && (
+              <motion.div
+                key="escrow"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-5"
+              >
+                {/* How Escrow Works banner */}
+                <div
+                  className="rounded-2xl p-6 text-white relative overflow-hidden"
+                  style={{ background: 'linear-gradient(135deg, #0d1f2d, #134e40)' }}
                 >
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.1 }}
-                    style={{
-                      width: '80px', height: '80px',
-                      background: 'linear-gradient(135deg, #134e40, #0eb59a)',
-                      borderRadius: '50%',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      margin: '0 auto 20px',
-                      boxShadow: '0 12px 40px rgba(14,181,154,0.3)',
-                    }}
-                  >
-                    <Check size={36} color="white" strokeWidth={3} />
-                  </motion.div>
-                  <h3 className="text-xl font-black text-[#1C3627] dark:text-white mb-2">Funds Added!</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">
-                    {selectedAmount || `₹${customAmount}`} has been added to your escrow and is ready for milestone releases.
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+                  <div className="absolute -right-8 -top-8 w-40 h-40 bg-white/5 rounded-full pointer-events-none" />
+                  <div className="absolute -left-4 -bottom-4 w-24 h-24 bg-[#0eb59a]/10 rounded-full pointer-events-none" />
+                  <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Shield size={18} className="text-[#0eb59a]" />
+                        <h3 className="font-black text-base text-left">How Escrow Works</h3>
+                      </div>
+                      <p className="text-white/60 text-xs leading-relaxed mb-4 text-left">
+                        RBI-compliant escrow ensures both parties are protected throughout the engagement.
+                      </p>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        {[
+                          { num: '1', label: 'Add Funds' },
+                          { num: '2', label: 'Held Securely' },
+                          { num: '3', label: 'Approve' },
+                          { num: '4', label: 'Expert Paid' },
+                        ].map((step, idx, arr) => (
+                          <React.Fragment key={step.num}>
+                            <div className="flex flex-col items-center gap-1">
+                              <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                className="w-8 h-8 bg-[#0eb59a]/20 border border-[#0eb59a]/30 rounded-full flex items-center justify-center"
+                              >
+                                <span className="text-[11px] font-black text-[#0eb59a]">{step.num}</span>
+                              </motion.div>
+                              <span className="text-[10px] font-bold text-white/50">{step.label}</span>
+                            </div>
+                            {idx < arr.length - 1 && <ChevronRight size={12} className="text-white/20 mb-4" />}
+                          </React.Fragment>
+                        ))}
+                      </div>
+                    </div>
+                    <motion.button
+                      whileHover={{ scale: 1.05, boxShadow: '0 8px 25px rgba(14,181,154,0.4)' }}
+                      whileTap={{ scale: 0.97 }}
+                      onClick={() => setShowAddFundsModal(true)}
+                      className="flex items-center gap-2 px-5 py-3 bg-[#0eb59a] hover:bg-[#0ca88e] text-white text-sm font-black rounded-xl transition-all shadow-lg shrink-0"
+                    >
+                      <Plus size={14} /> Add Funds Now
+                    </motion.button>
+                  </div>
+                </div>
 
-    {/* ══ RELEASE PAYMENT MODAL ══ */}
-    <AnimatePresence>
-      {showReleaseModal && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={() => setShowReleaseModal(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4"
-        >
+                {/* Escrow accounts detail */}
+                <div className="space-y-4">
+                  {escrowAccounts.map((account, idx) => (
+                    <motion.div
+                      key={account.id}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                      className="bg-white rounded-2xl p-5 relative overflow-hidden dark:bg-[#1e2028] dark:border-white/10"
+                      style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}
+                    >
+
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                          <img src={account.expertAvatar} className="w-11 h-11 rounded-xl object-cover shadow-sm" />
+                          <div className="text-left">
+                            <h4 className="font-black text-[#1C3627] dark:text-white text-sm text-left">{account.engagement}</h4>
+                            <p className="text-xs text-gray-400 font-medium text-left dark:text-gray-500">with {account.expert}</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-2xl font-black text-[#134e40] text-right">{account.balance}</p>
+                          <p className="text-[10px] text-gray-400 font-medium text-right dark:text-gray-500">current escrow balance</p>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-3 mb-4">
+                        {[
+                          { label: 'Total Value', value: account.totalValue, color: 'text-gray-700' },
+                          { label: 'Released', value: account.released, color: 'text-emerald-600' },
+                          { label: 'In Escrow', value: account.balance, color: 'text-[#134e40]' },
+                        ].map((item, iIdx) => (
+                          <motion.div
+                            key={iIdx}
+                            whileHover={{ scale: 1.03, transition: { duration: 0.15 } }}
+                            className="bg-[#FAFBF9] dark:bg-[#252830] border border-gray-100 dark:border-white/10 rounded-xl p-3 text-center"
+                          >
+                            <p className={`font-black text-sm ${item.color.includes('text-[#134e40]') ? 'text-[#134e40] dark:text-[#0eb59a]' : item.color}`}>{item.value}</p>
+                            <p className="text-[10px] text-gray-400 font-bold mt-0.5 uppercase tracking-wide dark:text-gray-500">{item.label}</p>
+                          </motion.div>
+                        ))}
+                      </div>
+
+                      <div className="flex gap-3">
+                        <motion.button
+                          whileHover={account.pendingMilestoneId && account.pendingMilestone !== "None" ? { scale: 1.03, boxShadow: '0 8px 20px rgba(19,78,64,0.25)' } : {}}
+                          whileTap={account.pendingMilestoneId && account.pendingMilestone !== "None" ? { scale: 0.97 } : {}}
+                          onClick={() => {
+                            if (!account.pendingMilestoneId || account.pendingMilestone === "None") {
+                              alert("No pending milestone to release for this engagement.");
+                              return;
+                            }
+                            setShowReleaseModal(account);
+                          }}
+                          className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-black rounded-xl transition-all ${account.pendingMilestoneId && account.pendingMilestone !== "None" ? 'bg-[#134e40] hover:bg-[#0eb59a] text-white shadow-md' : 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed'} dark:text-gray-500 dark:border-white/10`}
+                        >
+                          <Clock size={14} /> Request Milestone Release
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.03, backgroundColor: '#F0FDF4', borderColor: '#0eb59a' }}
+                          whileTap={{ scale: 0.97 }}
+                          onClick={() => setShowAddFundsModal(true)}
+                          className="flex items-center justify-center gap-2 px-5 py-2.5 bg-white border border-gray-200 text-gray-600 text-sm font-black rounded-xl hover:text-[#0eb59a] transition-all dark:bg-[#1e2028] dark:border-white/10 dark:text-gray-300"
+                        >
+                          <Plus size={14} /> Top Up
+                        </motion.button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* ══ ADD FUNDS MODAL ══ */}
+      <AnimatePresence>
+        {showAddFundsModal && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 24 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 24 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            onClick={e => e.stopPropagation()}
-            className="bg-white dark:bg-[#1b1d24] border border-gray-100 dark:border-white/10 rounded-3xl shadow-2xl max-w-sm w-full overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => { setShowAddFundsModal(false); setSelectedAmount(''); setCustomAmount(''); }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4"
           >
-            <AnimatePresence mode="wait">
-              {!releaseSent ? (
-                <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 24 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 24 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+              onClick={e => e.stopPropagation()}
+              className="bg-white dark:bg-[#1b1d24] border border-gray-100 dark:border-white/10 rounded-3xl shadow-2xl max-w-md w-full overflow-hidden"
+            >
+              <AnimatePresence mode="wait">
+                {!addFundsSent ? (
+                  <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
 
-                  {/* Gradient header */}
-                  <div style={{ background: 'linear-gradient(135deg, #065f46, #059669)', padding: '24px', textAlign: 'center' }}>
+                    {/* Gradient header */}
+                    <div style={{ background: 'linear-gradient(135deg, #134e40, #0eb59a)', padding: '24px' }}>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                            <Plus size={16} className="text-white" />
+                          </div>
+                          <div>
+                            <h3 className="font-black text-white text-base text-left">Add Funds to Escrow</h3>
+                            <p className="text-white/70 text-xs text-left">Secured immediately on transfer</p>
+                          </div>
+                        </div>
+                        <motion.button
+                          whileHover={{ scale: 1.1, rotate: 90 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => { setShowAddFundsModal(false); setSelectedAmount(''); setCustomAmount(''); }}
+                          className="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center text-white hover:bg-white/30 transition-all"
+                        >
+                          <X size={13} />
+                        </motion.button>
+                      </div>
+
+                      {/* Current balance display */}
+                      <div className="bg-white/10 rounded-xl p-3 mt-3 flex items-center justify-between">
+                        <span className="text-white/70 text-xs font-semibold text-left">Current Escrow Balance</span>
+                        <span className="text-white font-black text-sm">{escrowSummary.totalBalance}</span>
+                      </div>
+                    </div>
+
+                    {/* Body */}
+                    <div className="p-6">
+                      {/* Quick amounts */}
+                      <div className="mb-5">
+                        <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3 text-left dark:text-gray-500">
+                          Select Amount
+                        </label>
+                        <div className="grid grid-cols-2 gap-2 mb-3">
+                          {quickAmounts.map(amount => (
+                            <motion.button
+                              key={amount}
+                              whileHover={{ scale: 1.03 }}
+                              whileTap={{ scale: 0.97 }}
+                              onClick={() => { setSelectedAmount(amount); setCustomAmount(''); }}
+                              className={`py-3 rounded-xl text-sm font-black border-2 transition-all ${selectedAmount === amount ? 'border-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10 text-[#134e40] dark:text-[#0eb59a]' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:border-gray-200'}`}
+                            >
+                              {amount}
+                            </motion.button>
+                          ))}
+                        </div>
+                        <div className="relative">
+                          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm dark:text-gray-500">₹</span>
+                          <input
+                            type="text"
+                            placeholder="Custom amount..."
+                            value={customAmount}
+                            onChange={e => { setCustomAmount(e.target.value); setSelectedAmount(''); }}
+                            className="w-full pl-8 pr-4 py-3 bg-gray-50 dark:bg-white/5 border-2 border-gray-100 dark:border-white/10 rounded-xl text-sm font-semibold dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                            onFocus={e => e.target.style.borderColor = '#0eb59a'}
+                            onBlur={e => e.target.style.borderColor = customAmount ? '#0eb59a' : '#F3F4F6'}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Payment method */}
+                      <div className="mb-5">
+                        <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3 text-left dark:text-gray-500">
+                          Payment Method
+                        </label>
+                        <div className="space-y-2">
+                          {paymentMethods.map(method => (
+                            <motion.button
+                              key={method.id}
+                              whileHover={{ x: 3, transition: { duration: 0.15 } }}
+                              whileTap={{ scale: 0.98 }}
+                              onClick={() => setPaymentMethod(method.id)}
+                              className={`w-full flex items-center gap-3 p-3 rounded-xl border-2 transition-all text-left ${paymentMethod === method.id ? 'border-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 hover:border-gray-200'}`}
+                            >
+                              <method.icon size={18} className={`shrink-0 ${paymentMethod === method.id ? 'text-[#0eb59a]' : 'text-gray-400 dark:text-gray-500'}`} />
+                              <div className="flex-1 text-left">
+                                <p className={`text-sm font-black text-left ${paymentMethod === method.id ? 'text-[#134e40] dark:text-[#0eb59a]' : 'text-gray-700 dark:text-gray-300'}`}>
+                                  {method.label}
+                                </p>
+                                <p className="text-xs text-gray-400 font-medium text-left dark:text-gray-500">{method.desc}</p>
+                              </div>
+                              {paymentMethod === method.id && (
+                                <motion.div
+                                  initial={{ scale: 0 }}
+                                  animate={{ scale: 1 }}
+                                  className="w-5 h-5 bg-[#0eb59a] rounded-full flex items-center justify-center shrink-0"
+                                >
+                                  <Check size={10} className="text-white" strokeWidth={3} />
+                                </motion.div>
+                              )}
+                            </motion.button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Security notice */}
+                      <div className="flex items-start gap-2 p-3 bg-teal-50 dark:bg-[#0eb59a]/10 rounded-xl border border-teal-100 dark:border-[#0eb59a]/20 mb-5">
+                        <Shield size={13} className="text-[#0eb59a] shrink-0 mt-0.5" />
+                        <p className="text-[11px] text-teal-700 leading-relaxed text-left">
+                          Funds transferred to an RBI-compliant escrow. You retain full control and can request refunds for unused balances.
+                        </p>
+                      </div>
+
+                      <div className="flex gap-3">
+                        <motion.button
+                          whileHover={{ scale: 1.02, backgroundColor: '#F3F4F6' }}
+                          whileTap={{ scale: 0.98 }}
+                          onClick={() => { setShowAddFundsModal(false); setSelectedAmount(''); setCustomAmount(''); }}
+                          className="flex-1 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-sm font-bold rounded-2xl transition-all"
+                        >
+                          Cancel
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: (selectedAmount || customAmount) ? 1.02 : 1, boxShadow: (selectedAmount || customAmount) ? '0 8px 25px rgba(20,78,64,0.3)' : 'none' }}
+                          whileTap={{ scale: (selectedAmount || customAmount) ? 0.98 : 1 }}
+                          disabled={!selectedAmount && !customAmount}
+                          onClick={handleAddFunds}
+                          style={{
+                            flex: 1,
+                            padding: '12px',
+                            background: (selectedAmount || customAmount) ? 'linear-gradient(135deg, #134e40, #0eb59a)' : 'transparent', backgroundColor: (selectedAmount || customAmount) ? undefined : 'rgba(255,255,255,0.05)',
+                            color: (selectedAmount || customAmount) ? 'white' : '#9CA3AF',
+                            border: 'none',
+                            borderRadius: '16px',
+                            fontSize: '14px',
+                            fontWeight: 800,
+                            cursor: (selectedAmount || customAmount) ? 'pointer' : 'not-allowed',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '6px',
+                          }}
+                        >
+                          <Zap size={14} fill={(selectedAmount || customAmount) ? 'currentColor' : 'none'} />
+                          Add {selectedAmount || (customAmount ? `₹${customAmount}` : 'Funds')}
+                        </motion.button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center py-12 px-8"
+                  >
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                      className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-3"
+                      transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.1 }}
+                      style={{
+                        width: '80px', height: '80px',
+                        background: 'linear-gradient(135deg, #134e40, #0eb59a)',
+                        borderRadius: '50%',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        margin: '0 auto 20px',
+                        boxShadow: '0 12px 40px rgba(14,181,154,0.3)',
+                      }}
                     >
-                      <Clock size={28} className="text-white" />
+                      <Check size={36} color="white" strokeWidth={3} />
                     </motion.div>
-                    <h3 className="text-lg font-black text-white">Request Release</h3>
-                    <p className="text-white/70 text-xs mt-1">
-                      {showReleaseModal.engagement}
+                    <h3 className="text-xl font-black text-[#1C3627] dark:text-white mb-2">Funds Added!</h3>
+                    <p className="text-sm text-gray-500 leading-relaxed dark:text-gray-400">
+                      {selectedAmount || `₹${customAmount}`} has been added to your escrow and is ready for milestone releases.
                     </p>
-                  </div>
-
-                  <div className="p-6">
-                    {/* Amount display */}
-                    <div className="bg-[#134e40]/5 dark:bg-[#0eb59a]/5 rounded-2xl p-5 border border-[#134e40]/10 dark:border-[#0eb59a]/10 text-center mb-5">
-                      <p className="text-[10px] font-black text-[#134e40] uppercase tracking-widest mb-1">Requesting Release to {showReleaseModal.expert}</p>
-                      <p className="text-4xl font-black text-[#134e40] dark:text-[#0eb59a]">{showReleaseModal.pendingMilestoneAmount}</p>
-                    </div>
-
-                    <div className="space-y-2 text-xs mb-5">
-                      {[
-                        { label: 'Milestone', value: showReleaseModal.pendingMilestone },
-                        { label: 'Expert', value: showReleaseModal.expert },
-                        { label: 'Escrow Agent (Admin)', value: 'Required for release' },
-                      ].map((item, idx) => (
-                        <div key={idx} className="flex justify-between py-1.5 border-b border-gray-50 last:border-0">
-                          <span className="text-gray-400 font-semibold text-left">{item.label}</span>
-                          <span className={`font-bold text-right ${item.label === 'Escrow Agent (Admin)' ? 'text-amber-600' : 'text-[#1C3627] dark:text-white'}`}>
-                            {item.value}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="flex gap-3">
-                      <motion.button
-                        whileHover={{ scale: 1.02, backgroundColor: '#F3F4F6' }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => setShowReleaseModal(null)}
-                        className="flex-1 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-sm font-bold rounded-2xl transition-all"
-                      >
-                        Cancel
-                      </motion.button>
-                      <motion.button
-                        whileHover={{ scale: 1.03, boxShadow: '0 8px 25px rgba(19,78,64,0.35)' }}
-                        whileTap={{ scale: 0.97 }}
-                        onClick={handleRelease}
-                        className="flex-1 py-3 bg-[#134e40] hover:bg-[#0eb59a] text-white text-sm font-black rounded-2xl shadow-md transition-all flex items-center justify-center gap-2"
-                      >
-                        <Clock size={14} /> Request Release
-                      </motion.button>
-                    </div>
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="success"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-12 px-8"
-                >
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.1 }}
-                    style={{
-                      width: '80px', height: '80px',
-                      background: 'linear-gradient(135deg, #134e40, #0eb59a)',
-                      borderRadius: '50%',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      margin: '0 auto 20px',
-                      boxShadow: '0 12px 40px rgba(14,181,154,0.3)',
-                    }}
-                  >
-                    <Check size={36} color="white" strokeWidth={3} />
                   </motion.div>
-                  <h3 className="text-xl font-black text-[#1C3627] dark:text-white mb-2">Release Requested!</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">
-                    A release request for {showReleaseModal?.pendingMilestoneAmount} has been sent to the Escrow Agent (Admin) for final authorization.
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-
-    {/* ══ INVOICE MODAL ══ */}
-    <AnimatePresence>
-      {showInvoiceModal && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={() => setShowInvoiceModal(null)}
-          className="fixed inset-0 z-55 flex items-center justify-center bg-black/40 backdrop-blur-md p-4"
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.93, y: 24 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.93, y: 24 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            onClick={e => e.stopPropagation()}
-            className="bg-white dark:bg-[#1b1d24] border border-gray-100 dark:border-white/10 rounded-3xl shadow-2xl max-w-md w-full overflow-hidden"
-          >
-            {/* Gradient header */}
-            <div style={{ background: 'linear-gradient(135deg, #134e40, #0eb59a)', padding: '24px' }}>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-white/60 text-[10px] font-black uppercase tracking-widest text-left">Invoice</p>
-                  <h3 className="text-white font-black text-lg text-left">{showInvoiceModal.id}</h3>
-                  <p className="text-white/60 text-xs text-left">{showInvoiceModal.type}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <motion.button
-                    whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.2)' }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => handleDownloadInvoice(showInvoiceModal)}
-                    className="flex items-center gap-1.5 px-3 py-2 bg-white/10 border border-white/20 text-white text-xs font-bold rounded-xl transition-all"
-                  >
-                    <Download size={12} /> Download
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.1, rotate: 90 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => setShowInvoiceModal(null)}
-                    className="w-8 h-8 bg-white/10 rounded-xl flex items-center justify-center text-white hover:bg-white/20 transition-all"
-                  >
-                    <X size={15} />
-                  </motion.button>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-6">
-              <div className="bg-[#FAFBF9] dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 p-4 mb-5 space-y-3">
-                {[
-                  { label: 'Description', value: showInvoiceModal.title },
-                  { label: 'Expert', value: showInvoiceModal.expert },
-                  { label: 'Engagement', value: showInvoiceModal.engagement },
-                  { label: 'Invoice Date', value: showInvoiceModal.date },
-                  { label: 'Due Date', value: showInvoiceModal.dueDate },
-                ].map((item, idx) => (
-                  <div key={idx} className={`flex justify-between text-xs py-1.5 ${idx < 4 ? 'border-b border-gray-100 dark:border-white/10' : ''}`}>
-                    <span className="text-gray-400 font-semibold text-left">{item.label}</span>
-                    <span className="font-bold text-[#1C3627] dark:text-white text-right max-w-[60%]">{item.value}</span>
-                  </div>
-                ))}
-                <div className="flex justify-between pt-2">
-                  <span className="font-black text-[#1C3627] dark:text-white text-sm">Total Amount</span>
-                  <span className="font-black text-2xl text-[#134e40] dark:text-[#0eb59a]">{showInvoiceModal.amount}</span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 mb-5">
-                <span className={`inline-flex items-center gap-1.5 text-xs font-black px-3 py-1.5 rounded-xl border ${getStatusStyle(showInvoiceModal.status)}`}>
-                  {showInvoiceModal.status === 'Paid' ? <Check size={11} strokeWidth={3} /> : <Clock size={11} />}
-                  {showInvoiceModal.status}
-                </span>
-                {showInvoiceModal.status === 'Pending' && (
-                  <span className="text-xs text-amber-500 font-bold">Due {showInvoiceModal.dueDate}</span>
                 )}
-              </div>
-
-              <div className="flex gap-3">
-                <motion.button
-                  whileHover={{ scale: 1.02, backgroundColor: '#F3F4F6' }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setShowInvoiceModal(null)}
-                  className="flex-1 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-sm font-bold rounded-2xl transition-all"
-                >
-                  Close
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.02, boxShadow: '0 8px 20px rgba(14,181,154,0.25)' }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => handleDownloadInvoice(showInvoiceModal)}
-                  className="flex-1 py-3 bg-[#134e40] hover:bg-[#0eb59a] text-white text-sm font-black rounded-2xl shadow-md transition-all flex items-center justify-center gap-2"
-                >
-                  <Download size={14} /> Download PDF
-                </motion.button>
-              </div>
-            </div>
+              </AnimatePresence>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        )}
+      </AnimatePresence>
 
-  </div>
-);
+      {/* ══ RELEASE PAYMENT MODAL ══ */}
+      <AnimatePresence>
+        {showReleaseModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowReleaseModal(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 24 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 24 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+              onClick={e => e.stopPropagation()}
+              className="bg-white dark:bg-[#1b1d24] border border-gray-100 dark:border-white/10 rounded-3xl shadow-2xl max-w-sm w-full overflow-hidden"
+            >
+              <AnimatePresence mode="wait">
+                {!releaseSent ? (
+                  <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+
+                    {/* Gradient header */}
+                    <div style={{ background: 'linear-gradient(135deg, #065f46, #059669)', padding: '24px', textAlign: 'center' }}>
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                        className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-3"
+                      >
+                        <Clock size={28} className="text-white" />
+                      </motion.div>
+                      <h3 className="text-lg font-black text-white">Request Release</h3>
+                      <p className="text-white/70 text-xs mt-1">
+                        {showReleaseModal.engagement}
+                      </p>
+                    </div>
+
+                    <div className="p-6">
+                      {/* Amount display */}
+                      <div className="bg-[#134e40]/5 dark:bg-[#0eb59a]/5 rounded-2xl p-5 border border-[#134e40]/10 dark:border-[#0eb59a]/10 text-center mb-5">
+                        <p className="text-[10px] font-black text-[#134e40] uppercase tracking-widest mb-1">Requesting Release to {showReleaseModal.expert}</p>
+                        <p className="text-4xl font-black text-[#134e40] dark:text-[#0eb59a]">{showReleaseModal.pendingMilestoneAmount}</p>
+                      </div>
+
+                      <div className="space-y-2 text-xs mb-5">
+                        {[
+                          { label: 'Milestone', value: showReleaseModal.pendingMilestone },
+                          { label: 'Expert', value: showReleaseModal.expert },
+                          { label: 'Escrow Agent (Admin)', value: 'Required for release' },
+                        ].map((item, idx) => (
+                          <div key={idx} className="flex justify-between py-1.5 border-b border-gray-50 last:border-0">
+                            <span className="text-gray-400 font-semibold text-left dark:text-gray-500">{item.label}</span>
+                            <span className={`font-bold text-right ${item.label === 'Escrow Agent (Admin)' ? 'text-amber-600' : 'text-[#1C3627] dark:text-white'}`}>
+                              {item.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="flex gap-3">
+                        <motion.button
+                          whileHover={{ scale: 1.02, backgroundColor: '#F3F4F6' }}
+                          whileTap={{ scale: 0.98 }}
+                          onClick={() => setShowReleaseModal(null)}
+                          className="flex-1 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-sm font-bold rounded-2xl transition-all"
+                        >
+                          Cancel
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.03, boxShadow: '0 8px 25px rgba(19,78,64,0.35)' }}
+                          whileTap={{ scale: 0.97 }}
+                          onClick={handleRelease}
+                          className="flex-1 py-3 bg-[#134e40] hover:bg-[#0eb59a] text-white text-sm font-black rounded-2xl shadow-md transition-all flex items-center justify-center gap-2"
+                        >
+                          <Clock size={14} /> Request Release
+                        </motion.button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center py-12 px-8"
+                  >
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.1 }}
+                      style={{
+                        width: '80px', height: '80px',
+                        background: 'linear-gradient(135deg, #134e40, #0eb59a)',
+                        borderRadius: '50%',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        margin: '0 auto 20px',
+                        boxShadow: '0 12px 40px rgba(14,181,154,0.3)',
+                      }}
+                    >
+                      <Check size={36} color="white" strokeWidth={3} />
+                    </motion.div>
+                    <h3 className="text-xl font-black text-[#1C3627] dark:text-white mb-2">Release Requested!</h3>
+                    <p className="text-sm text-gray-500 leading-relaxed dark:text-gray-400">
+                      A release request for {showReleaseModal?.pendingMilestoneAmount} has been sent to the Escrow Agent (Admin) for final authorization.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ══ INVOICE MODAL ══ */}
+      <AnimatePresence>
+        {showInvoiceModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowInvoiceModal(null)}
+            className="fixed inset-0 z-55 flex items-center justify-center bg-black/40 backdrop-blur-md p-4"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.93, y: 24 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.93, y: 24 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+              onClick={e => e.stopPropagation()}
+              className="bg-white dark:bg-[#1b1d24] border border-gray-100 dark:border-white/10 rounded-3xl shadow-2xl max-w-md w-full overflow-hidden"
+            >
+              {/* Gradient header */}
+              <div style={{ background: 'linear-gradient(135deg, #134e40, #0eb59a)', padding: '24px' }}>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-white/60 text-[10px] font-black uppercase tracking-widest text-left">Invoice</p>
+                    <h3 className="text-white font-black text-lg text-left">{showInvoiceModal.id}</h3>
+                    <p className="text-white/60 text-xs text-left">{showInvoiceModal.type}</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <motion.button
+                      whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.2)' }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => handleDownloadInvoice(showInvoiceModal)}
+                      className="flex items-center gap-1.5 px-3 py-2 bg-white/10 border border-white/20 text-white text-xs font-bold rounded-xl transition-all"
+                    >
+                      <Download size={12} /> Download
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.1, rotate: 90 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => setShowInvoiceModal(null)}
+                      className="w-8 h-8 bg-white/10 rounded-xl flex items-center justify-center text-white hover:bg-white/20 transition-all"
+                    >
+                      <X size={15} />
+                    </motion.button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-6">
+                <div className="bg-[#FAFBF9] dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 p-4 mb-5 space-y-3">
+                  {[
+                    { label: 'Description', value: showInvoiceModal.title },
+                    { label: 'Expert', value: showInvoiceModal.expert },
+                    { label: 'Engagement', value: showInvoiceModal.engagement },
+                    { label: 'Invoice Date', value: showInvoiceModal.date },
+                    { label: 'Due Date', value: showInvoiceModal.dueDate },
+                  ].map((item, idx) => (
+                    <div key={idx} className={`flex justify-between text-xs py-1.5 ${idx < 4 ? 'border-b border-gray-100 dark:border-white/10' : ''}`}>
+                      <span className="text-gray-400 font-semibold text-left dark:text-gray-500">{item.label}</span>
+                      <span className="font-bold text-[#1C3627] dark:text-white text-right max-w-[60%]">{item.value}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between pt-2">
+                    <span className="font-black text-[#1C3627] dark:text-white text-sm">Total Amount</span>
+                    <span className="font-black text-2xl text-[#134e40] dark:text-[#0eb59a]">{showInvoiceModal.amount}</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 mb-5">
+                  <span className={`inline-flex items-center gap-1.5 text-xs font-black px-3 py-1.5 rounded-xl border ${getStatusStyle(showInvoiceModal.status)}`}>
+                    {showInvoiceModal.status === 'Paid' ? <Check size={11} strokeWidth={3} /> : <Clock size={11} />}
+                    {showInvoiceModal.status}
+                  </span>
+                  {showInvoiceModal.status === 'Pending' && (
+                    <span className="text-xs text-amber-500 font-bold">Due {showInvoiceModal.dueDate}</span>
+                  )}
+                </div>
+
+                <div className="flex gap-3">
+                  <motion.button
+                    whileHover={{ scale: 1.02, backgroundColor: '#F3F4F6' }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setShowInvoiceModal(null)}
+                    className="flex-1 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-sm font-bold rounded-2xl transition-all"
+                  >
+                    Close
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.02, boxShadow: '0 8px 20px rgba(14,181,154,0.25)' }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleDownloadInvoice(showInvoiceModal)}
+                    className="flex-1 py-3 bg-[#134e40] hover:bg-[#0eb59a] text-white text-sm font-black rounded-2xl shadow-md transition-all flex items-center justify-center gap-2"
+                  >
+                    <Download size={14} /> Download PDF
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+    </div>
+  );
 };
 
 export default Payments;

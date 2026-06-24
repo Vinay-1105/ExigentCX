@@ -578,7 +578,7 @@ const ExpertDiscovery = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 transition-all shrink-0"
+            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 transition-all shrink-0 dark:text-gray-500"
           >
             {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
           </motion.button>
@@ -587,7 +587,7 @@ const ExpertDiscovery = () => {
         {/* Nav */}
         <nav className="flex-1 px-3 py-2 space-y-0.5 overflow-hidden">
           {isSidebarOpen && (
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2 mb-2">Main Menu</p>
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2 mb-2 dark:text-gray-500">Main Menu</p>
           )}
           {navItems.map((item) => {
             const isActive = item.active || window.location.pathname === item.path || (item.path === '/experts' && window.location.pathname.startsWith('/experts'));
@@ -597,11 +597,7 @@ const ExpertDiscovery = () => {
                 whileHover={{ x: 2, transition: { duration: 0.15 } }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => navigate(item.path)}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
-                  isActive
-                    ? 'bg-[#134e40] text-white shadow-md'
-                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'
-                }`}
+                className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${isActive ? 'bg-[#134e40] text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'}`}
               >
                 {isActive && (
                   <motion.div
@@ -611,9 +607,9 @@ const ExpertDiscovery = () => {
                 )}
                 <item.icon size={17} className="shrink-0" />
                 <motion.span
-                  animate={{ 
-                    opacity: isSidebarOpen ? 1 : 0, 
-                    width: isSidebarOpen ? 'auto' : 0 
+                  animate={{
+                    opacity: isSidebarOpen ? 1 : 0,
+                    width: isSidebarOpen ? 'auto' : 0
                   }}
                   transition={{ duration: 0.2 }}
                   className="overflow-hidden whitespace-nowrap text-sm font-bold text-left"
@@ -639,11 +635,7 @@ const ExpertDiscovery = () => {
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/settings')}
-            className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
-              window.location.pathname === '/settings'
-                ? 'bg-[#134e40] text-white shadow-md'
-                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'
-            }`}
+            className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${window.location.pathname === '/settings' ? 'bg-[#134e40] text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'}`}
           >
             {window.location.pathname === '/settings' && (
               <motion.div
@@ -699,7 +691,7 @@ const ExpertDiscovery = () => {
         {/* ── TOP HEADER ── */}
         <header className="sticky top-0 z-30 bg-white dark:bg-[#1b1d24] border-b border-gray-100 dark:border-white/10 px-6 py-3 flex items-center gap-4 shadow-sm">
           <div className="relative flex-1 max-w-lg">
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500" />
             <input
               type="text"
               placeholder="Search by name, skill, role, or industry..."
@@ -708,7 +700,7 @@ const ExpertDiscovery = () => {
               className="w-full pl-9 pr-4 py-2 bg-gray-50 dark:bg-white/5 dark:text-gray-200 dark:placeholder-gray-500 border border-gray-100 dark:border-white/10 rounded-xl text-sm focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all"
             />
             {searchQuery && (
-              <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+              <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:text-gray-500">
                 <X size={14} />
               </button>
             )}
@@ -719,7 +711,7 @@ const ExpertDiscovery = () => {
             <select
               value={selectedRequirementMatch || ''}
               onChange={(e) => setSelectedRequirementMatch(e.target.value)}
-              className="pl-3 pr-8 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm font-bold text-gray-700 focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all cursor-pointer appearance-none min-w-[200px]"
+              className="pl-3 pr-8 py-2 bg-gray-50 dark:bg-white/5 border border-gray-200 rounded-xl text-sm font-bold text-gray-700 focus:outline-none focus:border-[#0eb59a] focus:ring-2 focus:ring-[#0eb59a]/15 transition-all cursor-pointer appearance-none min-w-[200px] dark:text-gray-300 dark:border-white/10"
             >
               <option value="">General Matchmaking</option>
               {requirements.map((req) => (
@@ -728,7 +720,7 @@ const ExpertDiscovery = () => {
                 </option>
               ))}
             </select>
-            <ChevronDown size={14} className="absolute right-8 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+            <ChevronDown size={14} className="absolute right-8 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none dark:text-gray-500" />
           </div>
           <div className="flex items-center gap-3 ml-auto">
             <div className="relative z-30">
@@ -742,7 +734,7 @@ const ExpertDiscovery = () => {
               </motion.button>
               <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center animate-pulse">3</span>
             </div>
-            <button 
+            <button
               onClick={() => navigate('/settings')}
               className="w-9 h-9 bg-[#134e40] rounded-xl flex items-center justify-center text-white text-xs font-black hover:ring-2 hover:ring-[#0eb59a] hover:ring-offset-2 transition-all overflow-hidden"
             >
@@ -812,7 +804,7 @@ const ExpertDiscovery = () => {
                       className="flex items-center gap-1.5 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-xl"
                     >
                       <BarChart2 size={11} className="text-blue-500" />
-                      <span className="text-blue-600 text-xs font-bold">
+                      <span className="text-[#0eb59a] text-xs font-bold">
                         {compareTray.length} Comparing
                       </span>
                     </motion.div>
@@ -838,11 +830,7 @@ const ExpertDiscovery = () => {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setShowFilters(!showFilters)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all ${
-                  showFilters
-                    ? 'bg-[#134e40] text-white border-[#134e40]'
-                    : 'bg-white text-gray-600 border-gray-200 hover:border-[#0eb59a]/40'
-                }`}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all ${showFilters ? 'bg-[#134e40] text-white border-[#134e40]' : 'bg-white dark:bg-white/5 text-gray-600 border-gray-200 hover:border-[#0eb59a]/40'} dark:text-gray-300 dark:border-white/10`}
               >
                 <SlidersHorizontal size={15} />
                 Filters
@@ -918,7 +906,7 @@ const ExpertDiscovery = () => {
                       {/* Filter sections */}
                       <div className="space-y-4">
                         {filterSections.map(section => (
-                          <div key={section.id} className="border-b border-gray-50 pb-4">
+                          <div key={section.id} className="border-b border-gray-50 dark:border-white/5 pb-4">
                             <button
                               onClick={() => setExpandedFilter(expandedFilter === section.id ? null : section.id)}
                               className="w-full flex items-center justify-between mb-2"
@@ -933,8 +921,8 @@ const ExpertDiscovery = () => {
                                 )}
                               </span>
                               {expandedFilter === section.id
-                                ? <ChevronUp size={12} className="text-gray-400" />
-                                : <ChevronDown size={12} className="text-gray-400" />
+                                ? <ChevronUp size={12} className="text-gray-400 dark:text-gray-500" />
+                                : <ChevronDown size={12} className="text-gray-400 dark:text-gray-500" />
                               }
                             </button>
                             <AnimatePresence>
@@ -953,11 +941,7 @@ const ExpertDiscovery = () => {
                                         key={option}
                                         whileHover={{ x: 2 }}
                                         onClick={() => toggleFilter(section.id, option)}
-                                        className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                                          isActive
-                                            ? 'bg-teal-50 text-[#134e40] border border-teal-100'
-                                            : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5'
-                                        }`}
+                                        className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${isActive ? 'bg-teal-50 text-[#134e40] border border-teal-100' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5'}`}
                                       >
                                         {option}
                                         {isActive && (
@@ -975,8 +959,8 @@ const ExpertDiscovery = () => {
                         ))}
 
                         {/* Experience */}
-                        <div className="border-b border-gray-50 pb-4">
-                          <p className="text-[10px] font-black text-gray-600 uppercase tracking-widest mb-2 flex items-center gap-1.5">
+                        <div className="border-b border-gray-50 dark:border-white/5 pb-4">
+                          <p className="text-[10px] font-black text-gray-600 uppercase tracking-widest mb-2 flex items-center gap-1.5 dark:text-gray-300">
                             <Zap size={11} className="text-[#0eb59a]" /> Experience
                           </p>
                           <div className="space-y-1">
@@ -985,11 +969,7 @@ const ExpertDiscovery = () => {
                                 key={exp}
                                 whileHover={{ x: 2 }}
                                 onClick={() => setActiveFilters(prev => ({ ...prev, experience: exp === 'Any' ? '' : exp }))}
-                                className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                                  (exp === 'Any' && !activeFilters.experience) || activeFilters.experience === exp
-                                    ? 'bg-teal-50 text-[#134e40] border border-teal-100'
-                                    : 'text-gray-500 hover:bg-gray-50'
-                                }`}
+                                className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${(exp === 'Any' && !activeFilters.experience) || activeFilters.experience === exp ? 'bg-teal-50 text-[#134e40] border border-teal-100' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5'}`}
                               >
                                 {exp}
                                 {((exp === 'Any' && !activeFilters.experience) || activeFilters.experience === exp) && (
@@ -1004,7 +984,7 @@ const ExpertDiscovery = () => {
 
                         {/* Budget */}
                         <div>
-                          <p className="text-[10px] font-black text-gray-600 uppercase tracking-widest mb-2 flex items-center gap-1.5">
+                          <p className="text-[10px] font-black text-gray-600 uppercase tracking-widest mb-2 flex items-center gap-1.5 dark:text-gray-300">
                             <DollarSign size={11} className="text-[#0eb59a]" /> Budget Range
                           </p>
                           <div className="space-y-1">
@@ -1013,11 +993,7 @@ const ExpertDiscovery = () => {
                                 key={bud}
                                 whileHover={{ x: 2 }}
                                 onClick={() => setActiveFilters(prev => ({ ...prev, budget: bud === 'Any' ? '' : bud }))}
-                                className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                                  (bud === 'Any' && !activeFilters.budget) || activeFilters.budget === bud
-                                    ? 'bg-teal-50 text-[#134e40] border border-teal-100'
-                                    : 'text-gray-500 hover:bg-gray-50'
-                                }`}
+                                className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${(bud === 'Any' && !activeFilters.budget) || activeFilters.budget === bud ? 'bg-teal-50 text-[#134e40] border border-teal-100' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5'}`}
                               >
                                 {bud}
                                 {((bud === 'Any' && !activeFilters.budget) || activeFilters.budget === bud) && (
@@ -1053,10 +1029,10 @@ const ExpertDiscovery = () => {
 
                 {/* Grid */}
                 {loading ? (
-                  <div className="flex items-center justify-center p-20 bg-white rounded-2xl border border-gray-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+                  <div className="flex items-center justify-center p-20 bg-white rounded-2xl border border-gray-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:bg-[#1e2028] dark:border-white/10">
                     <div className="flex flex-col items-center gap-3">
                       <RefreshCw size={28} className="text-[#0eb59a] animate-spin" />
-                      <p className="text-sm font-bold text-gray-500">Loading verified experts...</p>
+                      <p className="text-sm font-bold text-gray-500 dark:text-gray-400">Loading verified experts...</p>
                     </div>
                   </div>
                 ) : (
@@ -1065,13 +1041,13 @@ const ExpertDiscovery = () => {
                       <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="bg-white rounded-2xl border border-gray-100 p-16 text-center"
+                        className="bg-white rounded-2xl border border-gray-100 p-16 text-center dark:bg-[#1e2028] dark:border-white/10"
                       >
                         <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
                           <Users size={20} className="text-gray-300" />
                         </div>
-                        <h3 className="font-black text-[#1C3627] mb-1">No experts found</h3>
-                        <p className="text-gray-400 text-sm mb-5">Try adjusting your filters</p>
+                        <h3 className="font-black text-[#1C3627] mb-1 dark:text-white">No experts found</h3>
+                        <p className="text-gray-400 text-sm mb-5 dark:text-gray-500">Try adjusting your filters</p>
                         <motion.button
                           whileHover={{ scale: 1.03 }}
                           onClick={clearAllFilters}
@@ -1102,12 +1078,7 @@ const ExpertDiscovery = () => {
                               {/* ── BASE CARD ── */}
                               <motion.div
                                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                                className={`bg-white dark:bg-[#1e2028] rounded-2xl border transition-all duration-200 overflow-hidden relative cursor-pointer
-                                  ${isHovered
-                                    ? 'border-[#0eb59a]/40 shadow-[0_12px_40px_rgba(14,181,154,0.12)] dark:shadow-[0_12px_40px_rgba(14,181,154,0.08)]'
-                                    : 'border-gray-100 dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:border-gray-200 dark:hover:border-[#0eb59a]/30'
-                                  }
-                                `}
+                                className={`bg-white dark:bg-[#1e2028] rounded-2xl border transition-all duration-200 overflow-hidden relative cursor-pointer ${isHovered ? 'border-[#0eb59a]/40 shadow-[0_12px_40px_rgba(14,181,154,0.12)] dark:shadow-[0_12px_40px_rgba(14,181,154,0.08)]' : 'border-gray-100 dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:border-gray-200 dark:hover:border-[#0eb59a]/30'} `}
                               >
 
                                 <div className="p-5 relative z-10">
@@ -1150,7 +1121,7 @@ const ExpertDiscovery = () => {
                                           const query = selectedRequirementMatch ? `?requirementId=${selectedRequirementMatch}` : '';
                                           navigate(`/experts/${expert.id}${query}`);
                                         }}
-                                        className="font-black text-[#1C3627] text-sm leading-tight mb-0.5 transition-colors cursor-pointer hover:text-[#0eb59a] text-left"
+                                        className="font-black text-[#1C3627] text-sm leading-tight mb-0.5 transition-colors cursor-pointer hover:text-[#0eb59a] text-left dark:text-white"
                                       >
                                         {expert.name}
                                       </h3>
@@ -1167,10 +1138,10 @@ const ExpertDiscovery = () => {
                                   {/* Meta grid */}
                                   <div className="grid grid-cols-2 gap-2 mb-4">
                                     {[
-                                      { icon: Clock, label: expert.availability, color: 'text-blue-400' },
+                                      { icon: Clock, label: expert.availability, color: 'text-[#0eb59a]' },
                                       { icon: MapPin, label: expert.location.split(' | ')[0], color: 'text-rose-400' },
                                       { icon: DollarSign, label: expert.budget, color: 'text-[#0eb59a]' },
-                                      { icon: Zap, label: expert.experience, color: 'text-purple-400' },
+                                      { icon: Zap, label: expert.experience, color: 'text-amber-500' },
                                     ].map((m, mi) => (
                                       <div key={mi} className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 dark:text-gray-300">
                                         <m.icon size={11} className={`${m.color} shrink-0`} />
@@ -1198,9 +1169,9 @@ const ExpertDiscovery = () => {
                                     <div className="flex items-center gap-1">
                                       <Star size={12} fill="#F59E0B" className="text-amber-400" />
                                       <span className="font-black text-[#1C3627] dark:text-white text-sm">{expert.rating}</span>
-                                      <span className="text-xs text-gray-400">({expert.reviews})</span>
+                                      <span className="text-xs text-gray-400 dark:text-gray-500">({expert.reviews})</span>
                                     </div>
-                                    <span className="text-[10px] font-medium text-gray-400">
+                                    <span className="text-[10px] font-medium text-gray-400 dark:text-gray-500">
                                       Responds {expert.responseTime}
                                     </span>
                                   </div>
@@ -1237,11 +1208,7 @@ const ExpertDiscovery = () => {
                                           scale: [1, 1.3, 0.9, 1.1, 1],
                                         } : { scale: 1 }}
                                         transition={{ duration: 0.4, ease: 'easeOut' }}
-                                        className={`flex-1 py-2.5 rounded-xl border text-xs font-black transition-all duration-300 flex items-center justify-center gap-1.5 relative overflow-hidden ${
-                                          following.includes(expert.id)
-                                            ? 'bg-[#0eb59a] text-white border-[#0eb59a] shadow-md shadow-[#0eb59a]/20'
-                                            : 'bg-gray-50 dark:bg-white/5 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-white/10 hover:bg-teal-50 dark:hover:bg-[#0eb59a]/10 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:border-teal-300'
-                                        }`}
+                                        className={`flex-1 py-2.5 rounded-xl border text-xs font-black transition-all duration-300 flex items-center justify-center gap-1.5 relative overflow-hidden ${following.includes(expert.id) ? 'bg-[#0eb59a] text-white border-[#0eb59a] shadow-md shadow-[#0eb59a]/20' : 'bg-gray-50 dark:bg-white/5 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-white/10 hover:bg-teal-50 dark:hover:bg-[#0eb59a]/10 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:border-teal-300'}`}
                                       >
                                         {/* Shimmer effect when following */}
                                         {following.includes(expert.id) && (
@@ -1283,11 +1250,7 @@ const ExpertDiscovery = () => {
                                         whileHover={{ scale: 1.08 }}
                                         whileTap={{ scale: 0.9 }}
                                         onClick={(e) => { e.stopPropagation(); toggleShortlist(expert.id); }}
-                                        className={`flex-1 py-2 rounded-xl border text-xs font-black transition-all flex items-center justify-center gap-1.5 ${
-                                          shortlisted.includes(expert.id)
-                                            ? 'bg-rose-50 text-rose-500 border-rose-200'
-                                            : 'bg-gray-50 dark:bg-white/5 text-gray-400 dark:text-gray-500 border-gray-100 dark:border-white/10 hover:bg-rose-50 hover:text-rose-400 hover:border-rose-200'
-                                        }`}
+                                        className={`flex-1 py-2 rounded-xl border text-xs font-black transition-all flex items-center justify-center gap-1.5 ${shortlisted.includes(expert.id) ? 'bg-rose-50 text-rose-500 border-rose-200' : 'bg-gray-50 dark:bg-white/5 text-gray-400 dark:text-gray-500 border-gray-100 dark:border-white/10 hover:bg-rose-50 hover:text-rose-400 hover:border-rose-200'}`}
                                       >
                                         <motion.div
                                           animate={{ scale: shortlisted.includes(expert.id) ? [1, 1.4, 1] : 1 }}
@@ -1303,13 +1266,7 @@ const ExpertDiscovery = () => {
                                         whileHover={{ scale: 1.08 }}
                                         whileTap={{ scale: 0.9 }}
                                         onClick={(e) => { e.stopPropagation(); toggleCompare(expert.id); }}
-                                        className={`flex-1 py-2 rounded-xl border text-xs font-black transition-all flex items-center justify-center gap-1.5 ${
-                                          compareTray.includes(expert.id)
-                                            ? 'bg-blue-50 text-blue-600 border-blue-200'
-                                            : compareTray.length >= 3
-                                            ? 'bg-gray-50 dark:bg-white/5 text-gray-200 dark:text-gray-600 border-gray-100 dark:border-white/5 cursor-not-allowed'
-                                            : 'bg-gray-50 dark:bg-white/5 text-gray-400 dark:text-gray-400 border-gray-100 dark:border-white/10 hover:bg-[#0eb59a]/10 hover:text-[#0eb59a] hover:border-[#0eb59a]/30'
-                                        }`}
+                                        className={`flex-1 py-2 rounded-xl border text-xs font-black transition-all flex items-center justify-center gap-1.5 ${compareTray.includes(expert.id) ? 'bg-teal-50 dark:bg-[#0eb59a]/10 text-[#134e40] dark:text-[#0eb59a] border-teal-200 dark:border-[#0eb59a]/20' : compareTray.length >= 3 ? 'bg-gray-50 dark:bg-white/5 text-gray-200 dark:text-gray-600 border-gray-100 dark:border-white/5 cursor-not-allowed' : 'text-gray-400 dark:text-gray-400 dark:border-white/10 hover:bg-[#0eb59a]/10 hover:text-[#0eb59a] hover:border-[#0eb59a]/30'}`}
                                       >
                                         <BarChart2 size={12} />
                                         Compare
@@ -1369,7 +1326,7 @@ const ExpertDiscovery = () => {
 
                                     {/* Industries */}
                                     <div className="mb-4">
-                                      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">Industries</p>
+                                      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2 dark:text-gray-500">Industries</p>
                                       <div className="flex flex-wrap gap-1.5">
                                         {expert.industries.map(ind => (
                                           <span key={ind} className="text-[10px] font-semibold bg-white dark:bg-white/5 text-[#134e40] dark:text-[#0eb59a] border border-[#134e40]/15 dark:border-white/10 px-2 py-0.5 rounded-md">
@@ -1381,7 +1338,7 @@ const ExpertDiscovery = () => {
 
                                     {/* Engagement types */}
                                     <div className="mb-4">
-                                      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">Engagement Types</p>
+                                      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2 dark:text-gray-500">Engagement Types</p>
                                       <div className="flex flex-wrap gap-1.5">
                                         {expert.engagementTypes.map(type => (
                                           <span key={type} className="text-[10px] font-semibold bg-teal-50 dark:bg-[#0eb59a]/10 text-teal-700 dark:text-[#0eb59a] border border-teal-100 dark:border-[#0eb59a]/20 px-2 py-0.5 rounded-md">
@@ -1396,7 +1353,7 @@ const ExpertDiscovery = () => {
                                       {[
                                         { label: 'Engagements', value: expert.completedEngagements, color: 'text-[#0eb59a]' },
                                         { label: 'Followers', value: `${20 + expert.id * 13}`, color: 'text-teal-500' },
-                                        { label: 'Experience', value: expert.experience, color: 'text-purple-500' },
+                                        { label: 'Experience', value: expert.experience, color: 'text-amber-500' },
                                       ].map((s, si) => (
                                         <div key={si} className="bg-white dark:bg-[#252830] rounded-xl p-2.5 border border-gray-100 dark:border-white/10 text-center">
                                           <p className={`text-xs font-black ${s.color} leading-none`}>{s.value}</p>
@@ -1436,12 +1393,12 @@ const ExpertDiscovery = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-100 shadow-2xl px-6 py-4"
+            className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-100 shadow-2xl px-6 py-4 dark:bg-[#1e2028] dark:border-white/10"
             style={{ marginLeft: isSidebarOpen ? 260 : 68, transition: 'margin-left 0.3s cubic-bezier(0.4,0,0.2,1)' }}
           >
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-4">
-                <p className="text-sm font-black text-gray-900">
+                <p className="text-sm font-black text-gray-900 dark:text-white">
                   Compare Experts <span className="text-[#0eb59a]">({compareTray.length}/3)</span>
                 </p>
                 <div className="flex gap-3">
@@ -1456,7 +1413,7 @@ const ExpertDiscovery = () => {
                       >
                         <img src={expert?.avatar} className="w-5 h-5 rounded-lg object-cover" />
                         <span className="text-xs font-bold text-[#134e40]">{expert?.name}</span>
-                        <button onClick={() => toggleCompare(id)} className="text-gray-400 hover:text-red-500 transition-colors">
+                        <button onClick={() => toggleCompare(id)} className="text-gray-400 hover:text-red-500 transition-colors dark:text-gray-500">
                           <X size={11} />
                         </button>
                       </motion.div>
@@ -1468,7 +1425,7 @@ const ExpertDiscovery = () => {
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   onClick={() => setCompareTray([])}
-                  className="px-4 py-2 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-xl"
+                  className="px-4 py-2 bg-gray-50 dark:bg-white/5 border border-gray-200 text-gray-600 text-sm font-bold rounded-xl dark:text-gray-300 dark:border-white/10"
                 >
                   Clear
                 </motion.button>
@@ -1476,11 +1433,7 @@ const ExpertDiscovery = () => {
                   whileHover={{ scale: compareTray.length >= 2 ? 1.03 : 1 }}
                   onClick={() => setShowCompareModal(true)}
                   disabled={compareTray.length < 2}
-                  className={`px-5 py-2 text-sm font-bold rounded-xl transition-all ${
-                    compareTray.length >= 2
-                      ? 'bg-[#134e40] text-white shadow-md'
-                      : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  }`}
+                  className={`px-5 py-2 text-sm font-bold rounded-xl transition-all ${compareTray.length >= 2 ? 'bg-[#134e40] text-white shadow-md' : 'bg-gray-100 text-gray-400 cursor-not-allowed'} dark:text-gray-500`}
                 >
                   Compare Now
                 </motion.button>
@@ -1504,13 +1457,13 @@ const ExpertDiscovery = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[85vh] overflow-hidden flex flex-col"
+              className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[85vh] overflow-hidden flex flex-col dark:bg-[#1e2028] dark:border-white/10"
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between p-6 border-b border-gray-100">
-                <h3 className="font-black text-gray-900 text-lg">Expert Comparison</h3>
+              <div className="flex items-center justify-between p-6 border-b border-gray-100 dark:border-white/10">
+                <h3 className="font-black text-gray-900 text-lg dark:text-white">Expert Comparison</h3>
                 <motion.button whileHover={{ scale: 1.1 }} onClick={() => setShowCompareModal(false)}
-                  className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all"
+                  className="p-2 rounded-xl bg-gray-50 dark:bg-white/5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-white/10 transition-all dark:text-gray-500"
                 >
                   <X size={18} />
                 </motion.button>
@@ -1524,13 +1477,13 @@ const ExpertDiscovery = () => {
                       {/* Header */}
                       <div className="text-center p-4 bg-teal-50 rounded-2xl border border-teal-100">
                         <img src={expert.avatar} className="w-14 h-14 rounded-2xl object-cover mx-auto mb-3 shadow-sm" />
-                        <h4 className="font-black text-gray-900 text-sm">{expert.name}</h4>
-                        <p className="text-xs text-gray-500 mt-0.5">{expert.title}</p>
+                        <h4 className="font-black text-gray-900 text-sm dark:text-white">{expert.name}</h4>
+                        <p className="text-xs text-gray-500 mt-0.5 dark:text-gray-400">{expert.title}</p>
                         <div className="flex items-center justify-center gap-1 mt-2">
                           <Star size={12} fill="#F59E0B" className="text-amber-400" />
-                          <span className="font-black text-gray-900 text-sm">{expert.rating}</span>
+                          <span className="font-black text-gray-900 text-sm dark:text-white">{expert.rating}</span>
                         </div>
-                        <div className="mt-2 text-[10px] font-black text-[#134e40] bg-white px-3 py-1 rounded-full inline-block border border-teal-100">
+                        <div className="mt-2 text-[10px] font-black text-[#134e40] bg-white px-3 py-1 rounded-full inline-block border border-teal-100 dark:bg-[#1e2028] dark:border-white/10">
                           {expert.match}% Match
                         </div>
                       </div>
@@ -1544,18 +1497,18 @@ const ExpertDiscovery = () => {
                         { label: 'Response Time', value: expert.responseTime },
                         { label: 'Engagements', value: `${expert.completedEngagements} completed` },
                       ].map((row) => (
-                        <div key={row.label} className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
-                          <p className="text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1">{row.label}</p>
-                          <p className="text-sm font-bold text-gray-800">{row.value}</p>
+                        <div key={row.label} className="bg-gray-50 dark:bg-[#252830] rounded-2xl p-4 border border-gray-100 dark:border-white/10">
+                          <p className="text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1 dark:text-gray-500">{row.label}</p>
+                          <p className="text-sm font-bold text-gray-800 dark:text-white">{row.value}</p>
                         </div>
                       ))}
 
                       {/* Skills */}
-                      <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
-                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-wider mb-2">Top Skills</p>
+                      <div className="bg-gray-50 dark:bg-[#252830] rounded-2xl p-4 border border-gray-100 dark:border-white/10">
+                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-wider mb-2 dark:text-gray-500">Top Skills</p>
                         <div className="flex flex-wrap gap-1.5">
                           {expert.skills.slice(0, 4).map(s => (
-                            <span key={s} className="text-[10px] font-bold bg-white text-gray-600 border border-gray-200 px-2 py-1 rounded-lg">{s}</span>
+                            <span key={s} className="text-[10px] font-bold bg-white text-gray-600 border border-gray-200 px-2 py-1 rounded-lg dark:bg-[#1e2028] dark:border-white/10 dark:text-gray-300">{s}</span>
                           ))}
                         </div>
                       </div>
@@ -1596,7 +1549,7 @@ const ExpertDiscovery = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl p-5 sm:p-6 max-w-md w-full overflow-hidden"
+              className="bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl p-5 sm:p-6 max-w-md w-full overflow-hidden dark:bg-[#1e2028] dark:border-white/10"
             >
               {!inviteSent ? (
                 <>
@@ -1604,22 +1557,22 @@ const ExpertDiscovery = () => {
                   <div className="flex items-center gap-3 p-4 bg-teal-50 rounded-2xl border border-teal-100 mb-3">
                     <img src={showInviteModal.avatar} className="w-12 h-12 rounded-xl object-cover" />
                     <div>
-                      <h4 className="font-black text-gray-900 text-sm">{showInviteModal.name}</h4>
-                      <p className="text-xs text-gray-500">{showInviteModal.title}</p>
+                      <h4 className="font-black text-gray-900 text-sm dark:text-white">{showInviteModal.name}</h4>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{showInviteModal.title}</p>
                       <div className="flex items-center gap-1 mt-0.5">
                         <Star size={11} fill="#F59E0B" className="text-amber-400" />
-                        <span className="text-xs font-black text-gray-800">{showInviteModal.rating}</span>
+                        <span className="text-xs font-black text-gray-800 dark:text-white">{showInviteModal.rating}</span>
                       </div>
                     </div>
-                    <span className="ml-auto text-xs font-black text-[#134e40] bg-white px-2.5 py-1 rounded-xl border border-teal-100">
+                    <span className="ml-auto text-xs font-black text-[#134e40] bg-white px-2.5 py-1 rounded-xl border border-teal-100 dark:bg-[#1e2028] dark:border-white/10">
                       {showInviteModal.match}% Match
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-black text-gray-900 mt-1 mb-0.5">
+                  <h3 className="text-lg font-black text-gray-900 mt-1 mb-0.5 dark:text-white">
                     Invite {showInviteModal.name.split(' ')[0]}
                   </h3>
-                  <p className="text-sm text-gray-400 mb-3">
+                  <p className="text-sm text-gray-400 mb-3 dark:text-gray-500">
                     Select which requirement you'd like to invite this expert for.
                   </p>
 
@@ -1631,11 +1584,7 @@ const ExpertDiscovery = () => {
                         whileHover={{ x: 3 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => setSelectedRequirement(req.id)}
-                        className={`w-full flex items-center justify-between px-4 py-2.5 rounded-2xl border-2 text-sm font-bold transition-all text-left ${
-                          selectedRequirement === req.id
-                            ? 'border-[#0eb59a] bg-teal-50 text-[#134e40]'
-                            : 'border-gray-100 bg-gray-50 text-gray-600 hover:border-gray-200'
-                        }`}
+                        className={`w-full flex items-center justify-between px-4 py-2.5 rounded-2xl border-2 text-sm font-bold transition-all text-left ${selectedRequirement === req.id ? 'border-[#0eb59a] bg-teal-50 text-[#134e40]' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-600 hover:border-gray-200'} dark:text-gray-300`}
                       >
                         <span className="flex items-center gap-2">
                           <Briefcase size={14} />
@@ -1654,15 +1603,15 @@ const ExpertDiscovery = () => {
 
                   {/* Message */}
                   <div className="mb-3">
-                    <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
-                      Personal Message <span className="text-gray-400 font-normal normal-case">(optional)</span>
+                    <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2 dark:text-gray-300">
+                      Personal Message <span className="text-gray-400 font-normal normal-case dark:text-gray-500">(optional)</span>
                     </label>
                     <textarea
                       placeholder={`Hi ${showInviteModal.name.split(' ')[0]}, we'd love to discuss an opportunity with you...`}
                       rows={2}
                       value={inviteMessage}
                       onChange={e => setInviteMessage(e.target.value)}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all resize-none"
+                      className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 rounded-2xl text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all resize-none dark:text-gray-300 dark:border-white/10 dark:placeholder-gray-600"
                     />
                   </div>
 
@@ -1672,7 +1621,7 @@ const ExpertDiscovery = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => { setShowInviteModal(null); setSelectedRequirement(''); setInviteMessage(''); }}
-                      className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl"
+                      className="flex-1 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl dark:text-gray-300 dark:border-white/10"
                     >
                       Cancel
                     </motion.button>
@@ -1681,11 +1630,7 @@ const ExpertDiscovery = () => {
                       whileTap={{ scale: selectedRequirement ? 0.98 : 1 }}
                       disabled={!selectedRequirement}
                       onClick={handleInviteSend}
-                      className={`flex-1 py-3 text-sm font-bold rounded-2xl transition-all ${
-                        selectedRequirement
-                          ? 'bg-[#134e40] hover:bg-[#0eb59a] text-white shadow-lg'
-                          : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                      }`}
+                      className={`flex-1 py-3 text-sm font-bold rounded-2xl transition-all ${selectedRequirement ? 'bg-[#134e40] hover:bg-[#0eb59a] text-white shadow-lg' : 'bg-gray-100 text-gray-400 cursor-not-allowed'} dark:text-gray-500`}
                     >
                       Send Invite
                     </motion.button>
@@ -1706,8 +1651,8 @@ const ExpertDiscovery = () => {
                   >
                     <Check size={36} color="white" strokeWidth={3} />
                   </motion.div>
-                  <h3 className="text-2xl font-black text-gray-900 mb-2">Invite Sent!</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">
+                  <h3 className="text-2xl font-black text-gray-900 mb-2 dark:text-white">Invite Sent!</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed dark:text-gray-400">
                     {showInviteModal.name.split(' ')[0]} will receive your invitation and respond within {showInviteModal.responseTime || 'a few hours'}.
                   </p>
                 </motion.div>
