@@ -671,7 +671,7 @@ export const releaseEscrow = async (req, res) => {
 // ================= SUBMIT MILESTONE DELIVERABLE =================
 export const submitMilestone = async (req, res) => {
   try {
-    const { engagementId, milestoneId, note } = req.body;
+    const { engagementId, milestoneId, note, deliverables } = req.body;
 
     if (!engagementId || !milestoneId) {
       return res.status(400).json({ error: "Engagement ID and Milestone ID are required" });
@@ -691,8 +691,10 @@ export const submitMilestone = async (req, res) => {
     // Update status to pending_approval (which means submitted, awaiting company approval)
     milestone.status = "pending_approval";
     
-    // Add mockup deliverables if empty
-    if (!milestone.deliverables || milestone.deliverables.length === 0) {
+    // Use submitted deliverables if provided, otherwise default to mockup deliverables
+    if (deliverables && deliverables.length > 0) {
+      milestone.deliverables = deliverables;
+    } else if (!milestone.deliverables || milestone.deliverables.length === 0) {
       milestone.deliverables = [
         { name: "Deliverable_Document.pdf", size: "2.4 MB", type: "pdf" }
       ];

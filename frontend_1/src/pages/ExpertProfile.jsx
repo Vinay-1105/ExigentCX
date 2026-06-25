@@ -108,6 +108,7 @@ const ExpertProfile = () => {
   });
   const [message, setMessage] = useState('');
   const [inviteSent, setInviteSent] = useState(false);
+  const [invitations, setInvitations] = useState([]);
 
   const [hoveredTier, setHoveredTier] = useState(null);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -278,6 +279,69 @@ const ExpertProfile = () => {
     };
     fetchRequirements();
   }, []);
+
+  // Fetch company invitations
+  useEffect(() => {
+    const fetchInvitations = async () => {
+      const isDemo = localStorage.getItem('demo_company') === 'true';
+      if (isDemo) {
+        try {
+          const stored = JSON.parse(localStorage.getItem('cxo_demo_invitations') || '[]');
+          setInvitations(stored);
+        } catch {
+          setInvitations([]);
+        }
+        return;
+      }
+
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      try {
+        const baseUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const response = await fetch(`${baseUrl}/api/company/invitations`, {
+          headers: {
+            'Authorization': `Bearer ${session.access_token}`
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setInvitations(data || []);
+        }
+      } catch (err) {
+        console.error("Error fetching invitations in profile:", err);
+      }
+    };
+    fetchInvitations();
+  }, []);
+
+  const isCurrentExpertInvited = () => {
+    if (!expert) return false;
+    return invitations.some(inv => {
+      const matchReq = selectedRequirementMatch
+        ? String(inv.metadata?.requirementId) === String(selectedRequirementMatch)
+        : true;
+      
+      const matchExpert = 
+        (expert.user_id && inv.user_id === expert.user_id) ||
+        (expert.id && String(inv.metadata?.expertId) === String(expert.id)) ||
+        (expert.id && String(inv.metadata_expertId) === String(expert.id));
+      
+      return matchReq && matchExpert;
+    });
+  };
+
+  const isExpertInvitedForReq = (reqId) => {
+    if (!expert) return false;
+    return invitations.some(inv => {
+      const matchReq = String(inv.metadata?.requirementId) === String(reqId);
+      const matchExpert = 
+        (expert.user_id && inv.user_id === expert.user_id) ||
+        (expert.id && String(inv.metadata?.expertId) === String(expert.id)) ||
+        (expert.id && String(inv.metadata_expertId) === String(expert.id));
+      return matchReq && matchExpert;
+    });
+  };
 
   useEffect(() => {
     const fetchExpert = async () => {
@@ -552,6 +616,24 @@ const ExpertProfile = () => {
   const handleInviteSend = async () => {
     const isDemo = localStorage.getItem('demo_company') === 'true';
     if (isDemo) {
+      try {
+        const stored = JSON.parse(localStorage.getItem('cxo_demo_invitations') || '[]');
+        stored.push({
+          metadata: {
+            requirementId: selectedRequirement,
+            expertId: expert.id
+          },
+          user_id: expert.user_id,
+          metadata_expertId: expert.id
+        });
+        localStorage.setItem('cxo_demo_invitations', JSON.stringify(stored));
+        setInvitations(prev => [...prev, {
+          metadata: { requirementId: selectedRequirement, expertId: expert.id },
+          user_id: expert.user_id,
+          metadata_expertId: expert.id
+        }]);
+      } catch (e) {}
+
       setInviteSent(true);
       setTimeout(() => {
         setShowInviteModal(false);
@@ -581,6 +663,31 @@ const ExpertProfile = () => {
       });
 
       if (response.ok) {
+        const resData = await response.json();
+        // Add to local invitations state
+        const newInvite = resData.notification || {
+          metadata: {
+            requirementId: selectedRequirement,
+            expertId: expert.id
+          },
+          user_id: expert.user_id
+        };
+        setInvitations(prev => [...prev, newInvite]);
+
+        if (resData.isMock) {
+          try {
+            const stored = JSON.parse(localStorage.getItem('cxo_demo_invitations') || '[]');
+            stored.push({
+              metadata: {
+                requirementId: selectedRequirement,
+                expertId: expert.id
+              },
+              user_id: expert.user_id
+            });
+            localStorage.setItem('cxo_demo_invitations', JSON.stringify(stored));
+          } catch (e) {}
+        }
+
         setInviteSent(true);
         setTimeout(() => {
           setShowInviteModal(false);
@@ -1845,29 +1952,53 @@ Bio: ${expert.bio}
                   ) : (
                     <>
                       {/* Invite to Role */}
-                      <motion.button
-                        whileHover={{ scale: 1.04, boxShadow: '0 12px 40px rgba(20,78,64,0.4)' }}
-                        whileTap={{ scale: 0.96 }}
-                        onClick={() => setShowInviteModal(true)}
-                        style={{
-                          width: '100%',
-                          padding: '12px',
-                          background: 'linear-gradient(135deg, #134e40, #0eb59a)',
-                          color: 'white',
-                          fontSize: '14px',
-                          fontWeight: 900,
-                          borderRadius: '16px',
-                          border: 'none',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '8px',
-                          boxShadow: '0 4px 15px rgba(20,78,64,0.25)',
-                        }}
-                      >
-                        <Zap size={14} fill="currentColor" /> Invite to Role
-                      </motion.button>
+                      {isCurrentExpertInvited() ? (
+                        <div
+                          style={{
+                            width: '100%',
+                            padding: '12px',
+                            backgroundColor: '#E6F4EA',
+                            color: '#137333',
+                            fontSize: '14px',
+                            fontWeight: 900,
+                            borderRadius: '16px',
+                            border: '1.5px solid #A3E2B8',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '8px',
+                            boxSizing: 'border-box',
+                            cursor: 'default'
+                          }}
+                        >
+                          <Check size={14} strokeWidth={3} /> Invited
+                        </div>
+                      ) : (
+                        <motion.button
+                          whileHover={{ scale: 1.04, boxShadow: '0 12px 40px rgba(20,78,64,0.4)' }}
+                          whileTap={{ scale: 0.96 }}
+                          onClick={() => { setSelectedRequirement(selectedRequirementMatch); setShowInviteModal(true); }}
+                          style={{
+                            width: '100%',
+                            padding: '12px',
+                            background: 'linear-gradient(135deg, #134e40, #0eb59a)',
+                            color: 'white',
+                            fontSize: '14px',
+                            fontWeight: 900,
+                            borderRadius: '16px',
+                            border: 'none',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '8px',
+                            boxSizing: 'border-box',
+                            boxShadow: '0 4px 15px rgba(20,78,64,0.25)',
+                          }}
+                        >
+                          <Zap size={14} fill="currentColor" /> Invite to Role
+                        </motion.button>
+                      )}
 
                       {/* Send Message */}
                       <motion.button
@@ -2253,28 +2384,28 @@ Bio: ${expert.bio}
                       Cancel
                     </motion.button>
                     <motion.button
-                      whileHover={{ scale: selectedRequirement ? 1.03 : 1, boxShadow: selectedRequirement ? '0 8px 25px rgba(20,78,64,0.3)' : 'none' }}
-                      whileTap={{ scale: selectedRequirement ? 0.97 : 1 }}
-                      disabled={!selectedRequirement}
+                      whileHover={{ scale: (selectedRequirement && !isExpertInvitedForReq(selectedRequirement)) ? 1.03 : 1, boxShadow: (selectedRequirement && !isExpertInvitedForReq(selectedRequirement)) ? '0 8px 25px rgba(20,78,64,0.3)' : 'none' }}
+                      whileTap={{ scale: (selectedRequirement && !isExpertInvitedForReq(selectedRequirement)) ? 0.97 : 1 }}
+                      disabled={!selectedRequirement || isExpertInvitedForReq(selectedRequirement)}
                       onClick={handleInviteSend}
                       style={{
                         flex: 1,
                         padding: '12px',
-                        background: selectedRequirement ? 'linear-gradient(135deg, #134e40, #0eb59a)' : '#F3F4F6',
+                        background: (selectedRequirement && !isExpertInvitedForReq(selectedRequirement)) ? 'linear-gradient(135deg, #134e40, #0eb59a)' : '#F3F4F6',
                         border: 'none',
                         borderRadius: '14px',
                         fontSize: '14px',
                         fontWeight: 800,
-                        color: selectedRequirement ? 'white' : '#9CA3AF',
-                        cursor: selectedRequirement ? 'pointer' : 'not-allowed',
+                        color: (selectedRequirement && !isExpertInvitedForReq(selectedRequirement)) ? 'white' : '#9CA3AF',
+                        cursor: (selectedRequirement && !isExpertInvitedForReq(selectedRequirement)) ? 'pointer' : 'not-allowed',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         gap: '6px',
                       }}
                     >
-                      <Zap size={14} fill={selectedRequirement ? 'currentColor' : 'none'} />
-                      Send Invite
+                      <Zap size={14} fill={(selectedRequirement && !isExpertInvitedForReq(selectedRequirement)) ? 'currentColor' : 'none'} />
+                      {isExpertInvitedForReq(selectedRequirement) ? "Already Invited" : "Send Invite"}
                     </motion.button>
                   </div>
                 </div>

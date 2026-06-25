@@ -399,6 +399,17 @@ export const sendInvitation = async (req, res) => {
       return res.status(400).json({ error: "expertId and requirementId are required" });
     }
 
+    // Check if expertId and requirementId are valid UUIDs.
+    // Mock experts/requirements will fail this validation and be simulated.
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    if (!uuidRegex.test(expertId) || !uuidRegex.test(requirementId)) {
+      return res.json({
+        success: true,
+        message: "Invitation sent successfully (demo/mock simulated)",
+        isMock: true
+      });
+    }
+
     // 1. Fetch company profile to get company name
     const { data: company, error: companyErr } = await supabaseAdmin
       .from("company_applications")
@@ -467,3 +478,52 @@ export const sendInvitation = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+// ================= GET COMPANY INVITATIONS =================
+export const getCompanyInvitations = async (req, res) => {
+  try {
+    const companyEmail = req.user?.email;
+    if (!companyEmail) {
+      return res.status(400).json({ error: "Email not found in token" });
+    }
+
+    // Get all requirement IDs for this company
+    const { data: requirements, error: reqErr } = await supabaseAdmin
+      .from("company_requirements")
+      .select("id")
+      .eq("company_email", companyEmail);
+
+    if (reqErr) {
+      console.error("Error fetching company requirements for invitations:", reqErr);
+      return res.status(500).json({ error: "Failed to fetch requirements" });
+    }
+
+    const requirementIds = requirements.map(r => r.id);
+    if (requirementIds.length === 0) {
+      return res.json([]);
+    }
+
+    // Fetch all notifications of type "match"
+    const { data: notifications, error: notifErr } = await supabaseAdmin
+      .from("notifications")
+      .select("*")
+      .eq("type", "match");
+
+    if (notifErr) {
+      console.error("Error fetching notifications for invitations:", notifErr);
+      return res.status(500).json({ error: "Failed to fetch invitations" });
+    }
+
+    // Filter in memory to select invitations corresponding to this company's requirements
+    const companyInvitations = notifications.filter(n => {
+      const meta = n.metadata || {};
+      return requirementIds.includes(meta.requirementId);
+    });
+
+    res.json(companyInvitations);
+  } catch (err) {
+    console.error("getCompanyInvitations error:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+

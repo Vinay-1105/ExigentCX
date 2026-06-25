@@ -41,6 +41,7 @@ const ExpertDiscovery = () => {
   const [selectedRequirementMatch, setSelectedRequirementMatch] = useState('');
   const [inviteSent, setInviteSent] = useState(false);
   const [inviteMessage, setInviteMessage] = useState('');
+  const [invitations, setInvitations] = useState([]);
 
   // Authentication Guard
   useEffect(() => {
@@ -172,12 +173,78 @@ const ExpertDiscovery = () => {
     fetchExperts();
   }, [selectedRequirementMatch]);
 
+  // Fetch company invitations
+  useEffect(() => {
+    const fetchInvitations = async () => {
+      const isDemo = localStorage.getItem('demo_company') === 'true';
+      if (isDemo) {
+        try {
+          const stored = JSON.parse(localStorage.getItem('cxo_demo_invitations') || '[]');
+          setInvitations(stored);
+        } catch {
+          setInvitations([]);
+        }
+        return;
+      }
 
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      try {
+        const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+        const response = await fetch(`${baseUrl}/api/company/invitations`, {
+          headers: {
+            'Authorization': `Bearer ${session.access_token}`
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setInvitations(data || []);
+        }
+      } catch (err) {
+        console.error("Error fetching invitations:", err);
+      }
+    };
+    fetchInvitations();
+  }, []);
+
+  const isExpertInvited = (expert) => {
+    return invitations.some(inv => {
+      const matchReq = selectedRequirementMatch
+        ? String(inv.metadata?.requirementId) === String(selectedRequirementMatch)
+        : true;
+      
+      const matchExpert = 
+        (expert.user_id && inv.user_id === expert.user_id) ||
+        (expert.id && String(inv.metadata?.expertId) === String(expert.id)) ||
+        (expert.id && String(inv.metadata_expertId) === String(expert.id));
+      
+      return matchReq && matchExpert;
+    });
+  };
 
   const handleInviteSend = async () => {
     if (!showInviteModal) return;
     const isDemo = localStorage.getItem('demo_company') === 'true';
     if (isDemo) {
+      try {
+        const stored = JSON.parse(localStorage.getItem('cxo_demo_invitations') || '[]');
+        stored.push({
+          metadata: {
+            requirementId: selectedRequirement,
+            expertId: showInviteModal.id
+          },
+          user_id: showInviteModal.user_id,
+          metadata_expertId: showInviteModal.id
+        });
+        localStorage.setItem('cxo_demo_invitations', JSON.stringify(stored));
+        setInvitations(prev => [...prev, {
+          metadata: { requirementId: selectedRequirement, expertId: showInviteModal.id },
+          user_id: showInviteModal.user_id,
+          metadata_expertId: showInviteModal.id
+        }]);
+      } catch (e) {}
+
       setInviteSent(true);
       setTimeout(() => {
         setShowInviteModal(null);
@@ -207,6 +274,31 @@ const ExpertDiscovery = () => {
       });
 
       if (response.ok) {
+        const resData = await response.json();
+        // Add to local invitations state
+        const newInvite = resData.notification || {
+          metadata: {
+            requirementId: selectedRequirement,
+            expertId: showInviteModal.id
+          },
+          user_id: showInviteModal.user_id
+        };
+        setInvitations(prev => [...prev, newInvite]);
+
+        if (resData.isMock) {
+          try {
+            const stored = JSON.parse(localStorage.getItem('cxo_demo_invitations') || '[]');
+            stored.push({
+              metadata: {
+                requirementId: selectedRequirement,
+                expertId: showInviteModal.id
+              },
+              user_id: showInviteModal.user_id
+            });
+            localStorage.setItem('cxo_demo_invitations', JSON.stringify(stored));
+          } catch (e) {}
+        }
+
         setInviteSent(true);
         setTimeout(() => {
           setShowInviteModal(null);
@@ -1268,15 +1360,24 @@ const ExpertDiscovery = () => {
                                     {/* Row 2 — Secondary actions */}
                                     <div className="flex items-center gap-2">
                                       {/* Invite */}
-                                      <motion.button
-                                        whileHover={{ scale: 1.03, backgroundColor: '#ccfbf1' }}
-                                        whileTap={{ scale: 0.97 }}
-                                        onClick={(e) => { e.stopPropagation(); setShowInviteModal(expert); }}
-                                        className="flex-1 py-2 bg-teal-50 text-[#134e40] text-xs font-black rounded-xl border border-teal-100 transition-all flex items-center justify-center gap-1.5"
-                                      >
-                                        <Send size={11} />
-                                        Invite
-                                      </motion.button>
+                                      {isExpertInvited(expert) ? (
+                                        <div
+                                          className="flex-1 py-2 bg-emerald-50 text-emerald-700 text-xs font-black rounded-xl border border-emerald-100 flex items-center justify-center gap-1.5 cursor-default"
+                                        >
+                                          <Check size={11} strokeWidth={3} />
+                                          Invited
+                                        </div>
+                                      ) : (
+                                        <motion.button
+                                          whileHover={{ scale: 1.03, backgroundColor: '#ccfbf1' }}
+                                          whileTap={{ scale: 0.97 }}
+                                          onClick={(e) => { e.stopPropagation(); setShowInviteModal(expert); }}
+                                          className="flex-1 py-2 bg-teal-50 text-[#134e40] text-xs font-black rounded-xl border border-teal-100 transition-all flex items-center justify-center gap-1.5"
+                                        >
+                                          <Send size={11} />
+                                          Invite
+                                        </motion.button>
+                                      )}
 
                                       {/* Shortlist/Heart */}
                                       <motion.button

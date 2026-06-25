@@ -450,7 +450,7 @@ IN WITNESS WHEREOF, the parties have executed this Agreement as of the date firs
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${session.access_token}`
         },
-        body: JSON.stringify({ signatureText })
+        body: JSON.stringify({ signatureText, role: 'company' })
       });
 
       if (res.ok) {
