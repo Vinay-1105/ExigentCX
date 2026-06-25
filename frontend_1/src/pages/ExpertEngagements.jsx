@@ -115,7 +115,7 @@ const ExpertEngagements = () => {
     nextMilestone: 'Investor Deck & Data Room',
     daysLeft: 87,
     pmContact: 'Riya Sharma',
-    pmEmail: 'riya@cxoconnect.com',
+    pmEmail: 'riya@exigentcx.com',
   });
   const [milestones, setMilestones] = useState([]);
   const [payments, setPayments] = useState([]);

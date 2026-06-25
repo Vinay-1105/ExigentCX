@@ -1,7 +1,7 @@
 {
   "name": "cxo",
   "version": "1.0.0",
-  "description": "Experience the future of Executive Networking with CXOConnect. This landing page is built with React, Vite, Framer Motion, and Tailwind CSS.",
+  "description": "Experience the future of Executive Networking with ExigentCX. This landing page is built with React, Vite, Framer Motion, and Tailwind CSS.",
   "main": "index.js",
   "scripts": {
     "dev": "npm run dev --prefix frontend_1",

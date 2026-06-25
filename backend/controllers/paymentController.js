@@ -811,7 +811,7 @@ export const getEngagementDetails = async (req, res) => {
       nextMilestone: nextMs.title,
       daysLeft: 87,
       pmContact: "Riya Sharma",
-      pmEmail: "riya@cxoconnect.com"
+      pmEmail: "riya@exigentcx.com"
     };
 
     // Map milestones to frontend format

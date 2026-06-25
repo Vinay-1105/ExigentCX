@@ -460,19 +460,19 @@ const sections = [
                     {[
                         {
                             label: 'Customer Support (Privacy Ticket)',
-                            email: 'support@cxoconnect.com',
+                            email: 'support@exigentcx.com',
                             note: 'Subject: Privacy Request',
                             color: 'border-[#0eb59a] dark:border-[#0eb59a]/20 bg-[#f0fdfa] dark:bg-[#0eb59a]/10'
                         },
                         {
                             label: 'Grievance Officer (India – DPDP Act)',
-                            email: 'grievance@cxoconnect.com',
+                            email: 'grievance@exigentcx.com',
                             note: 'For Indian data protection concerns',
                             color: 'border-amber-300 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-950/40'
                         },
                         {
                             label: 'Data Protection Officer (EU/GDPR)',
-                            email: 'dpo@cxoconnect.com',
+                            email: 'dpo@exigentcx.com',
                             note: 'For EU/EEA/UK privacy requests',
                             color: 'border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-white/5'
                         },
@@ -685,10 +685,10 @@ const PrivacyPolicy = () => {
                                 Our team responds within 30 days.
                             </p>
                             <a
-                                href="mailto:support@cxoconnect.com"
+                                href="mailto:support@exigentcx.com"
                                 className="block text-center text-[11px] font-black bg-white/20 hover:bg-white hover:text-[#134e40] transition-all rounded-xl py-2 border border-white/20"
                             >
-                                support@cxoconnect.com
+                                support@exigentcx.com
                             </a>
                         </div>
                     </aside>

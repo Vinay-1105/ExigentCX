@@ -295,5 +295,5 @@ leadership and executive consulting in the modern digital economy.
 <hr>
 
 <p align="center">
-Developed as part of the CXOConnect Platform Project!
+Developed as part of the ExigentCX Platform Project!
 </p>

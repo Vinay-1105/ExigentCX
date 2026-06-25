@@ -55,8 +55,17 @@ const Logo = ({ variant = 'dark', className = 'h-10 md:h-12 lg:h-14' }) => {
             }
             transition={
               hovered
-                ? { duration: 0.28, delay: piece.delay, ease: [0.4, 0, 1, 1] }
-                : { duration: 0.52, delay: piece.delay, ease: [0.2, 1.4, 0.4, 1] }
+                ? { 
+                    duration: 1.0, 
+                    delay: piece.delay, 
+                    ease: [0.25, 1, 0.5, 1],
+                    repeat: Infinity, 
+                    repeatType: "reverse" 
+                  }
+                : { 
+                    duration: 0.4, 
+                    ease: "easeOut" 
+                  }
             }
           >
             <path

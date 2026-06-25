@@ -16,7 +16,7 @@ const tocItems = [
     { id: 'definitions', label: '2. Definitions' },
     { id: 'eligibility', label: '3. Eligibility' },
     { id: 'account-reg', label: '4. Account Registration & Vetting' },
-    { id: 'role-cxoconnect', label: '5. Role of ExigentCX' },
+    { id: 'role-exigentcx', label: '5. Role of ExigentCX' },
     { id: 'user-contracts', label: '6. User Contracts' },
     { id: 'requirement-posting', label: '7. Requirement Posting' },
     { id: 'fees', label: '8. Fees, Commissions & Payments' },
@@ -275,7 +275,7 @@ const sections = [
         ),
     },
     {
-        id: 'role-cxoconnect',
+        id: 'role-exigentcx',
         number: '5',
         icon: Globe,
         title: 'Role of ExigentCX – Marketplace Only',
@@ -673,7 +673,7 @@ const sections = [
         title: 'Notices',
         content: (
             <BulletList items={[
-                'Legal notices to ExigentCX must be sent to legal@cxoconnect.com and via registered post to our registered office.',
+                'Legal notices to ExigentCX must be sent to legal@exigentcx.com and via registered post to our registered office.',
                 'Notices to you will be sent to your registered email address. Notice is deemed received 24 hours after sending.',
             ]} />
         ),
@@ -710,25 +710,25 @@ const sections = [
                     {[
                         {
                             label: 'Customer Support',
-                            email: 'support@cxoconnect.com',
+                            email: 'support@exigentcx.com',
                             note: 'Engagement issues and general queries',
                             color: 'border-[#0eb59a] dark:border-[#0eb59a]/20 bg-[#f0fdfa] dark:bg-[#0eb59a]/10',
                         },
                         {
                             label: 'Legal / Terms Inquiries',
-                            email: 'legal@cxoconnect.com',
+                            email: 'legal@exigentcx.com',
                             note: 'For legal and contractual matters',
                             color: 'border-amber-300 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-950/40',
                         },
                         {
                             label: 'Grievance Officer (India – DPDP Act)',
-                            email: 'grievance@cxoconnect.com',
+                            email: 'grievance@exigentcx.com',
                             note: 'For Indian data protection concerns',
                             color: 'border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-white/5',
                         },
                         {
                             label: 'PMO Governance Escalations',
-                            email: 'pmo@cxoconnect.com',
+                            email: 'pmo@exigentcx.com',
                             note: 'For milestone and dispute escalations',
                             color: 'border-emerald-300 dark:border-emerald-500/25 bg-emerald-50 dark:bg-emerald-950/40',
                         },
@@ -886,10 +886,10 @@ const TermsOfService = () => {
                             <p className="text-xs font-black uppercase tracking-wider mb-1">Legal Questions?</p>
                             <p className="text-[11px] text-white/70 leading-relaxed mb-3">Our team responds within 30 days.</p>
                             <a
-                                href="mailto:legal@cxoconnect.com"
+                                href="mailto:legal@exigentcx.com"
                                 className="block text-center text-[11px] font-black bg-white/20 hover:bg-white hover:text-[#134e40] transition-all rounded-xl py-2 border border-white/20"
                             >
-                                legal@cxoconnect.com
+                                legal@exigentcx.com
                             </a>
                         </div>
                     </aside>

@@ -603,7 +603,7 @@ const Home = () => {
                                     </div>
                                     <div>
                                         <p className="text-xs text-gray-400 uppercase tracking-widest font-bold mb-1">Direct Line</p>
-                                        <p className="text-white text-sm">admin@cxoconnect.com<br />+91-9874561230</p>
+                                        <p className="text-white text-sm">admin@exigentcx.com<br />+91-9874561230</p>
                                     </div>
                                 </motion.div>
                             </div>
