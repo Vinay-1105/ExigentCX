@@ -1,4 +1,5 @@
 import Logo from '../components/Logo';
+import ThemeToggle from '../components/ThemeToggle';
 import FormalCardBorder from '../components/FormalCardBorder';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -418,7 +419,7 @@ const ExpertEngagements = () => {
   };
 
   return (
-    <div className="flex h-screen bg-[#f4f7f5] font-sans text-slate-900 overflow-hidden">
+    <div className="flex h-screen bg-[#f4f7f5] dark:!bg-[#0f1117] font-sans text-slate-900 dark:text-white overflow-hidden">
       {/* Mobile backdrop */}
       <AnimatePresence>
         {isMobileMenuOpen && (
@@ -437,7 +438,7 @@ const ExpertEngagements = () => {
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-white border-r border-gray-100 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white dark:!bg-[#1b1d24] border-r border-gray-100 dark:!border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
         {/* Logo area */}
         <div className="flex items-center border-b border-gray-50 px-3 py-4 gap-3">
@@ -467,7 +468,7 @@ const ExpertEngagements = () => {
         {/* Nav */}
         <nav className="flex-1 px-3 py-2 space-y-0.5 overflow-hidden">
           {isSidebarOpen && (
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2 mb-2">Main Menu</p>
+            <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-widest px-2 mb-2">Main Menu</p>
           )}
           {sidebarMenu.map((item) => {
             const isActive = item.name === 'My Engagements';
@@ -480,7 +481,7 @@ const ExpertEngagements = () => {
                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative cursor-pointer ${
                   isActive
                     ? 'bg-[#134e40] text-white shadow-md'
-                    : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+                    : 'text-gray-500 dark:text-gray-400 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'
                 }`}
               >
                 {isActive && (
@@ -517,12 +518,17 @@ const ExpertEngagements = () => {
         </nav>
 
         <div className="p-3 border-t border-gray-50 space-y-1">
+          <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
+            {isSidebarOpen && <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Theme</span>}
+            <ThemeToggle />
+          </div>
+
           <motion.button
             whileHover={{ x: 2, transition: { duration: 0.15 }}}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/expert-settings')}
             className="w-full flex items-center gap-3 px-3 
-              py-2 rounded-xl text-gray-500 hover:bg-gray-50 
+              py-2 rounded-xl text-gray-500 dark:text-gray-400 hover:bg-gray-50 
               hover:text-[#134e40] transition-all"
           >
             <Settings size={17} className="shrink-0" />
@@ -568,7 +574,7 @@ const ExpertEngagements = () => {
 
       {/* ══ MAIN CONTENT WRAPPER ══ */}
       <div
-        className="flex flex-col min-h-screen overflow-hidden flex-grow"
+        className="flex flex-col min-h-screen overflow-hidden flex-grow bg-[#f4f7f5] dark:!bg-[#0f1117]"
         style={{
           marginLeft: isSidebarOpen ? 260 : 68,
           width: isSidebarOpen ? 'calc(100% - 260px)' : 'calc(100% - 68px)',
@@ -576,14 +582,14 @@ const ExpertEngagements = () => {
         }}
       >
         {/* ── HEADER (identical to ExpertOpportunities) ── */}
-        <header className="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-4 sm:px-6 shrink-0 z-40 sticky top-0 shadow-sm">
+        <header className="h-16 bg-white dark:!bg-[#1b1d24] border-b border-gray-100 dark:!border-white/10 flex items-center justify-between px-4 sm:px-6 shrink-0 z-40 sticky top-0 shadow-sm">
           <div className="flex items-center gap-3">
             {isMobile && (
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2.5 rounded-xl hover:bg-gray-50 text-gray-400 hover:text-gray-900 transition-all shrink-0 cursor-pointer"
+                className="p-2.5 rounded-xl hover:bg-gray-50 text-gray-400 hover:text-gray-900 dark:text-white transition-all shrink-0 cursor-pointer"
               >
                 <Menu size={20} />
               </motion.button>
@@ -600,7 +606,7 @@ const ExpertEngagements = () => {
                 placeholder="Search engagements, milestones, messages..."
                 onFocus={() => setSearchFocused(true)}
                 onBlur={() => setSearchFocused(false)}
-                className={`w-full pl-11 pr-12 py-2.5 bg-gray-50 border rounded-full text-sm text-gray-700 placeholder-gray-400 focus:bg-white focus:outline-none transition-all duration-200 ${
+                className={`w-full pl-11 pr-12 py-2.5 bg-gray-50 dark:!bg-white/5 border rounded-full text-sm text-gray-700 dark:text-gray-300 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-600 focus:bg-white dark:focus:bg-white/10 focus:outline-none transition-all duration-200 ${
                   searchFocused
                     ? 'border-[#0eb59a] ring-2 ring-[#0eb59a]/20'
                     : 'border-gray-200'
@@ -639,7 +645,7 @@ const ExpertEngagements = () => {
                 className={`w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 cursor-pointer ${
                   gridOpen
                     ? 'bg-teal-50 border-[#0eb59a] text-[#134e40]'
-                    : 'bg-gray-50 border-gray-200 text-gray-500'
+                    : 'bg-gray-50 border-gray-200 text-gray-500 dark:text-gray-400'
                 }`}
               >
                 <Grid size={17} />
@@ -652,7 +658,7 @@ const ExpertEngagements = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.97 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full right-0 mt-2 w-[360px] bg-white rounded-2xl z-50 overflow-hidden"
+                    className="absolute top-full right-0 mt-2 w-[360px] bg-white dark:!bg-[#1e2028] rounded-2xl z-50 overflow-hidden border border-gray-100 dark:!border-white/10 shadow-xl"
                     style={{
                       boxShadow: '0 20px 50px rgba(0,0,0,0.12)',
                       border: '1px solid #F1F5F2'
@@ -665,7 +671,7 @@ const ExpertEngagements = () => {
                         { icon: FileText, label: 'Contracts', badge: '1 pending', badgeStyle: 'text-amber-700 bg-amber-50 border-amber-200', border: '#F59E0B', path: '/expert-contracts' },
                         { icon: DollarSign, label: 'Earnings', badge: '₹3.5L pending', badgeStyle: 'text-emerald-700 bg-emerald-50 border-emerald-200', border: '#0eb59a', path: '/expert-earnings' },
                         { icon: UserCircle, label: 'Profile', badge: '78% complete', badgeStyle: 'text-teal-700 bg-teal-50 border-teal-200', border: '#0eb59a', path: '/expert-profile' },
-                        { icon: Settings, label: 'Settings', badge: 'Preferences', badgeStyle: 'text-gray-600 bg-gray-50 border-gray-200', border: '#9CA3AF', path: '/expert-settings' },
+                        { icon: Settings, label: 'Settings', badge: 'Preferences', badgeStyle: 'text-gray-600 dark:text-gray-400 bg-gray-50 border-gray-200', border: '#9CA3AF', path: '/expert-settings' },
                       ].map((item, idx) => (
                         <motion.button
                           key={idx}
@@ -681,7 +687,7 @@ const ExpertEngagements = () => {
                           <div className="w-7 h-7 bg-gray-50 rounded-lg flex items-center justify-center shrink-0">
                             <item.icon size={13} className="text-[#134e40]" />
                           </div>
-                          <span className="flex-1 text-sm font-bold text-[#1C3627] text-left">
+                          <span className="flex-1 text-sm font-bold text-[#1C3627] dark:text-white text-left">
                             {item.label}
                           </span>
                           <div className="w-px h-4 bg-gray-100 shrink-0" />
@@ -713,7 +719,7 @@ const ExpertEngagements = () => {
                     : 'bg-gray-50 border-gray-200'
                 }`}
               >
-                <Bell size={16} className={showNotifications ? 'text-[#134e40]' : 'text-gray-500'} />
+                <Bell size={16} className={showNotifications ? 'text-[#134e40]' : 'text-gray-500 dark:text-gray-400'} />
                 <motion.span
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
@@ -738,10 +744,10 @@ const ExpertEngagements = () => {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: '100%' }}
                       transition={{ duration: 0.3, type: 'tween' }}
-                      className="fixed right-0 top-16 bottom-0 w-80 bg-white shadow-2xl border-l border-gray-100 z-50 overflow-hidden flex flex-col"
+                      className="fixed right-0 top-16 bottom-0 w-80 bg-white dark:!bg-[#1b1d24] shadow-2xl border-l border-gray-100 dark:!border-white/10 z-50 overflow-hidden flex flex-col"
                     >
                       <div className="px-5 py-4 border-b border-gray-50 flex items-center justify-between bg-gradient-to-r from-teal-50/50 to-white">
-                        <h3 className="font-black text-[#1C3627] text-sm">Notifications</h3>
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-sm">Notifications</h3>
                         <button className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors cursor-pointer border-0 bg-transparent">
                           Mark all read
                         </button>
@@ -759,7 +765,7 @@ const ExpertEngagements = () => {
                           >
                             <div className={`w-2 h-2 rounded-full ${notif.color} mt-1.5 shrink-0`} />
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-bold text-[#1C3627] leading-tight text-left">
+                              <p className="text-sm font-bold text-[#1C3627] dark:text-white leading-tight text-left">
                                 {notif.title}
                               </p>
                               <p className="text-xs text-gray-400 mt-0.5 leading-relaxed text-left">
@@ -807,8 +813,8 @@ const ExpertEngagements = () => {
           {engagementsList.length === 0 ? (
             <div className="max-w-md mx-auto px-6 py-16 text-center flex flex-col items-center justify-center min-h-[50vh]">
               <Activity size={48} className="text-[#0eb59a] mb-4 animate-pulse" />
-              <h2 className="text-xl font-black text-gray-900 mb-2">No Active Engagements</h2>
-              <p className="text-sm text-gray-500 mb-6">
+              <h2 className="text-xl font-black text-gray-900 dark:text-white mb-2">No Active Engagements</h2>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
                 You do not have any active client engagements at the moment. Active projects and milestone payments will appear here once you connect with a company and sign a contract.
               </p>
               <button
@@ -823,11 +829,8 @@ const ExpertEngagements = () => {
             <div className="max-w-5xl mx-auto px-6 py-8 pb-16">
               
               {/* Brand-consistent page hero */}
-              <div
-                className="relative overflow-hidden border border-teal-100/60 rounded-3xl mb-8"
-                style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #e8f5f1 50%, #f8fafc 100%)' }}
-              >
-                <FormalCardBorder />
+              <div className="relative overflow-hidden border border-teal-100/60 rounded-3xl mb-8 dark:!bg-[#1b1d24]">
+
                 <div
                   className="absolute inset-0 opacity-[0.25]"
                   style={{
@@ -840,7 +843,7 @@ const ExpertEngagements = () => {
                   <div className="flex items-center justify-between gap-4">
                     <div className="text-left">
                       <h1
-                        className="text-2xl sm:text-3xl font-black text-[#1C3627] tracking-tight text-left"
+                        className="text-2xl sm:text-3xl font-black text-[#1C3627] dark:text-white tracking-tight text-left"
                         style={{ fontFamily: 'Georgia, serif' }}
                       >
                         My Engagements
@@ -912,9 +915,9 @@ const ExpertEngagements = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.08 + idx * 0.07 }}
                     whileHover={{ y: -4 }}
-                    className={`bg-white rounded-2xl p-5 border border-gray-100 border-l-4 ${stat.border} shadow-sm relative`}
+                    className={`bg-white dark:!bg-[#1e2028] rounded-2xl p-5 border border-gray-100 dark:!border-white/10 border-l-4 ${stat.border} shadow-sm relative`}
                   >
-                    <FormalCardBorder />
+    
                     {/* Change content to be slightly centered */}
                     <div className="flex flex-col items-center justify-center text-center pt-2">
                       <div className={`w-10 h-10 ${stat.bg} rounded-2xl flex items-center justify-center mb-3 shadow-sm`}>
@@ -924,7 +927,7 @@ const ExpertEngagements = () => {
                           <stat.icon size={18} className={stat.color} />
                         )}
                       </div>
-                      <p className="text-2xl sm:text-3xl font-black text-gray-900 leading-none mb-1.5">
+                      <p className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white leading-none mb-1.5">
                         {stat.value}
                       </p>
                       <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">
@@ -945,9 +948,9 @@ const ExpertEngagements = () => {
                     transition={{ delay: 0.1 + idx * 0.1 }}
                     whileHover={{ y: -3, boxShadow: '0 12px 40px rgba(0,0,0,0.07)' }}
                     onClick={() => { setSelectedEngagement(eng.id); setShowEngagementList(false); setActiveTab('Overview'); }}
-                    className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 cursor-pointer group transition-all relative overflow-hidden"
+                    className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm p-6 cursor-pointer group transition-all relative overflow-hidden"
                   >
-                    <FormalCardBorder />
+    
                     <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#134e40] via-[#0eb59a] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-3xl" />
                     <div className="flex items-start gap-4">
                       {/* Logo */}
@@ -960,7 +963,7 @@ const ExpertEngagements = () => {
                         <div className="flex items-start justify-between mb-2">
                           <div>
                             <div className="flex items-center gap-2 mb-1">
-                              <h3 className="font-black text-gray-900 text-base group-hover:text-[#0eb59a] transition-colors">
+                              <h3 className="font-black text-gray-900 dark:text-white text-base group-hover:text-[#0eb59a] transition-colors">
                                 {eng.title}
                               </h3>
                               <span className={`text-[10px] font-black px-2.5 py-1 rounded-full border flex items-center gap-1.5 ${eng.statusColor}`}>
@@ -972,7 +975,7 @@ const ExpertEngagements = () => {
                                 {eng.status}
                               </span>
                             </div>
-                            <p className="text-sm text-gray-500 font-semibold">{eng.company}</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400 font-semibold">{eng.company}</p>
                           </div>
                           <div className="text-right shrink-0 ml-4">
                             <p className="font-black text-[#134e40] text-lg">{eng.monthlyRate}</p>
@@ -1022,13 +1025,13 @@ const ExpertEngagements = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.35 }}
-                className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden relative mt-6"
+                className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm overflow-hidden relative mt-6"
               >
-                <FormalCardBorder />
+
                 <div className="h-0.5 bg-gradient-to-r from-[#134e40] via-[#0eb59a] to-transparent" />
                 <div className="p-5">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-sm font-black text-gray-900 flex items-center gap-2">
+                    <h3 className="text-sm font-black text-gray-900 dark:text-white flex items-center gap-2">
                       <Target size={15} className="text-[#0eb59a]" />
                       Upcoming Milestones
                     </h3>
@@ -1086,7 +1089,7 @@ const ExpertEngagements = () => {
                         return (
                           <div className="flex flex-col items-center justify-center py-8 text-center bg-gray-50/50 rounded-2xl border border-dashed border-gray-200">
                             <CheckCircle size={24} className="text-emerald-500 mb-2" />
-                            <p className="text-xs font-bold text-gray-500">All milestones completed!</p>
+                            <p className="text-xs font-bold text-gray-500 dark:text-gray-400">All milestones completed!</p>
                             <p className="text-[10px] text-gray-400 mt-1">There are no upcoming milestones for your active engagements.</p>
                           </div>
                         );
@@ -1145,7 +1148,7 @@ const ExpertEngagements = () => {
                 className="rounded-3xl overflow-hidden shadow-lg relative mt-5"
                 style={{ background: 'linear-gradient(135deg, #134e40 0%, #0eb59a 100%)' }}
               >
-                <FormalCardBorder />
+
                 <div className="p-5 text-white relative overflow-hidden">
                   <Shield size={60} className="absolute -right-4 -bottom-4 text-white/5" />
                   <div className="flex items-center justify-between mb-4">
@@ -1188,7 +1191,7 @@ const ExpertEngagements = () => {
             <div className="flex flex-col h-full">
               
               {/* Sticky sub-header (engagement info + tabs) */}
-              <div className="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-30">
+              <div className="bg-white dark:!bg-[#1b1d24] border-b border-gray-100 dark:!border-white/10 shadow-sm sticky top-0 z-30">
                 <div className="max-w-7xl mx-auto px-6 py-4">
 
                   {/* Breadcrumb */}
@@ -1197,7 +1200,7 @@ const ExpertEngagements = () => {
                     <ChevronRight size={14} />
                     <button onClick={() => setShowEngagementList(true)} className="hover:text-[#0eb59a] font-semibold transition-colors border-0 bg-transparent cursor-pointer">My Engagements</button>
                     <ChevronRight size={14} />
-                    <span className="text-gray-700 font-bold truncate">{engagement.title}</span>
+                    <span className="text-gray-700 dark:text-gray-300 font-bold truncate">{engagement.title}</span>
                   </div>
 
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -1207,7 +1210,7 @@ const ExpertEngagements = () => {
                       <motion.button
                         whileHover={{ x: -3 }}
                         onClick={() => setShowEngagementList(true)}
-                        className="p-2 rounded-xl bg-gray-50 border border-gray-200 text-gray-400 hover:text-gray-600 transition-all cursor-pointer"
+                        className="p-2 rounded-xl bg-gray-50 border border-gray-200 text-gray-400 hover:text-gray-600 dark:text-gray-400 transition-all cursor-pointer"
                       >
                         <ArrowLeft size={16} />
                       </motion.button>
@@ -1218,7 +1221,7 @@ const ExpertEngagements = () => {
                         </div>
                         <div className="text-left">
                           <div className="flex items-center gap-2">
-                            <h1 className="text-lg font-black text-gray-900">{engagement.title}</h1>
+                            <h1 className="text-lg font-black text-gray-900 dark:text-white">{engagement.title}</h1>
                             <span className={`text-[10px] font-black px-2.5 py-1 rounded-full border flex items-center gap-1.5 ${engagement.statusColor}`}>
                               <motion.span
                                 animate={{ scale: [1, 1.4, 1] }}
@@ -1266,7 +1269,7 @@ const ExpertEngagements = () => {
                         whileHover={{ y: -1 }}
                         onClick={() => setActiveTab(tab.id)}
                         className={`flex items-center gap-1.5 px-3 sm:px-4 py-3 text-xs sm:text-sm font-bold transition-all relative shrink-0 border-0 bg-transparent cursor-pointer ${
-                          activeTab === tab.id ? 'text-[#134e40]' : 'text-gray-400 hover:text-gray-600'
+                          activeTab === tab.id ? 'text-[#134e40]' : 'text-gray-400 hover:text-gray-600 dark:text-gray-400'
                         }`}
                       >
                         <tab.icon size={14} />
@@ -1322,21 +1325,21 @@ const ExpertEngagements = () => {
                                 whileHover={{ y: -4 }}
                                 className={`bg-white rounded-2xl p-4 border border-gray-100 border-l-4 ${kpi.border} shadow-sm relative`}
                               >
-                                <FormalCardBorder />
+                
                                 <div className={`w-8 h-8 ${kpi.bg} rounded-xl flex items-center justify-center mb-3`}>
                                   <kpi.icon size={15} className={kpi.color} />
                                 </div>
-                                <p className="text-2xl font-black text-gray-900">{kpi.value}</p>
+                                <p className="text-2xl font-black text-gray-900 dark:text-white">{kpi.value}</p>
                                 <p className="text-[10px] text-gray-400 font-bold mt-1 uppercase tracking-wider">{kpi.label}</p>
                               </motion.div>
                             ))}
                           </div>
 
                           {/* Progress */}
-                          <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 relative overflow-hidden">
-                            <FormalCardBorder />
+                          <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm p-6 relative overflow-hidden">
+            
                             <div className="flex items-center justify-between mb-5">
-                              <h3 className="font-black text-gray-900 text-base flex items-center gap-2">
+                              <h3 className="font-black text-gray-900 dark:text-white text-base flex items-center gap-2">
                                 <BarChart2 size={16} className="text-[#0eb59a]" /> Engagement Progress
                               </h3>
                               <span className="text-2xl font-black text-[#134e40]">{engagement.progress}%</span>
@@ -1372,10 +1375,10 @@ const ExpertEngagements = () => {
                           </div>
 
                           {/* Milestone summary */}
-                          <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 relative overflow-hidden">
-                            <FormalCardBorder />
+                          <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm p-6 relative overflow-hidden">
+            
                             <div className="flex items-center justify-between mb-4">
-                              <h3 className="font-black text-gray-900 text-base flex items-center gap-2">
+                              <h3 className="font-black text-gray-900 dark:text-white text-base flex items-center gap-2">
                                 <CheckCircle size={16} className="text-[#0eb59a]" /> Milestone Summary
                               </h3>
                               <button
@@ -1433,10 +1436,10 @@ const ExpertEngagements = () => {
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5 relative overflow-hidden"
+                            className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm p-5 relative overflow-hidden"
                           >
-                            <FormalCardBorder />
-                            <h3 className="font-black text-gray-900 text-sm mb-4 flex items-center gap-2">
+            
+                            <h3 className="font-black text-gray-900 dark:text-white text-sm mb-4 flex items-center gap-2">
                               <Building size={14} className="text-[#0eb59a]" /> Client Company
                             </h3>
                             <div className="flex items-center gap-3 mb-4">
@@ -1444,7 +1447,7 @@ const ExpertEngagements = () => {
                                 <span className="text-white font-black text-base">{engagement.companyLogo}</span>
                               </div>
                               <div>
-                                <p className="font-black text-gray-900 text-sm">{engagement.company}</p>
+                                <p className="font-black text-gray-900 dark:text-white text-sm">{engagement.company}</p>
                                 <p className="text-xs text-gray-400 font-semibold">{engagement.type} Engagement</p>
                               </div>
                             </div>
@@ -1457,7 +1460,7 @@ const ExpertEngagements = () => {
                               ].map((item, idx) => (
                                 <div key={idx} className="flex justify-between">
                                   <span className="text-gray-400 font-semibold">{item.label}</span>
-                                  <span className="font-bold text-gray-700">{item.value}</span>
+                                  <span className="font-bold text-gray-700 dark:text-gray-300">{item.value}</span>
                                 </div>
                               ))}
                             </div>
@@ -1478,7 +1481,7 @@ const ExpertEngagements = () => {
                             transition={{ delay: 0.15 }}
                             className="bg-gradient-to-br from-[#0d1f2d] to-[#134e40] rounded-3xl p-5 text-white relative overflow-hidden"
                           >
-                            <FormalCardBorder />
+            
                             <div className="absolute -right-4 -top-4 w-20 h-20 bg-white/5 rounded-full" />
                             <div className="relative z-10">
                               <div className="flex items-center gap-2 mb-2">
@@ -1506,10 +1509,10 @@ const ExpertEngagements = () => {
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
-                            className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5 relative overflow-hidden"
+                            className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm p-5 relative overflow-hidden"
                           >
-                            <FormalCardBorder />
-                            <h3 className="font-black text-gray-900 text-sm mb-3">Quick Actions</h3>
+            
+                            <h3 className="font-black text-gray-900 dark:text-white text-sm mb-3">Quick Actions</h3>
                             <div className="space-y-2">
                               {[
                                 { label: 'Submit Deliverable', icon: Upload, action: () => { const ms = milestones.find(m => m.status === 'in_progress'); if (ms) setShowSubmitModal(ms); } },
@@ -1521,7 +1524,7 @@ const ExpertEngagements = () => {
                                   whileHover={{ x: 3 }}
                                   whileTap={{ scale: 0.97 }}
                                   onClick={item.action}
-                                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-[#0eb59a] transition-all border-0 bg-transparent text-left cursor-pointer"
+                                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-50 hover:text-[#0eb59a] transition-all border-0 bg-transparent text-left cursor-pointer"
                                 >
                                   <item.icon size={15} className="text-[#0eb59a]" />
                                   {item.label}
@@ -1604,17 +1607,17 @@ const ExpertEngagements = () => {
                                   </div>
 
                                   {/* Card */}
-                                  <div className="flex-1 bg-white rounded-3xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-all relative overflow-hidden">
-                                    <FormalCardBorder />
+                                  <div className="flex-1 bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm p-5 hover:shadow-md transition-all relative overflow-hidden">
+                    
                                     <div className="flex items-start justify-between mb-3">
                                       <div>
                                         <div className="flex items-center gap-2 mb-1">
-                                          <h4 className="font-black text-gray-900 text-sm sm:text-base">{ms.title}</h4>
+                                          <h4 className="font-black text-gray-900 dark:text-white text-sm sm:text-base">{ms.title}</h4>
                                           <span className={`text-[10px] font-black px-2.5 py-1 rounded-lg border ${statusInfo.color}`}>
                                             {statusInfo.label}
                                           </span>
                                         </div>
-                                        <p className="text-sm text-gray-500 leading-relaxed">{ms.desc}</p>
+                                        <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{ms.desc}</p>
                                       </div>
                                       <div className="text-right shrink-0 ml-4">
                                         <p className="font-black text-[#134e40] text-lg">{ms.payment}</p>
@@ -1654,7 +1657,7 @@ const ExpertEngagements = () => {
                                                   <fileInfo.icon size={15} className={fileInfo.color} />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                  <p className="text-xs font-bold text-gray-700 truncate">{del.name}</p>
+                                                  <p className="text-xs font-bold text-gray-700 dark:text-gray-300 truncate">{del.name}</p>
                                                   <p className="text-[10px] text-gray-400">{del.size}</p>
                                                 </div>
                                                 <motion.button
@@ -1708,7 +1711,7 @@ const ExpertEngagements = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.3 }}
-                        className="flex flex-col bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden"
+                        className="flex flex-col bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm overflow-hidden"
                         style={{ height: 'calc(100vh - 200px)' }}
                       >
                         {/* Chat Header */}
@@ -1717,7 +1720,7 @@ const ExpertEngagements = () => {
                             <span className="text-white font-black text-sm">{engagement.companyLogo}</span>
                           </div>
                           <div>
-                            <p className="font-black text-gray-900 text-sm">{engagement.company}</p>
+                            <p className="font-black text-gray-900 dark:text-white text-sm">{engagement.company}</p>
                             <p className="text-xs text-emerald-500 font-semibold">Active Engagement · {engagement.title}</p>
                           </div>
                         </div>
@@ -1751,7 +1754,7 @@ const ExpertEngagements = () => {
                                   <div className={`px-4 py-3 rounded-2xl text-sm leading-relaxed text-left ${
                                     isExpert
                                       ? 'bg-gradient-to-br from-[#134e40] to-[#0eb59a] text-white rounded-tr-sm'
-                                      : 'bg-gray-50 text-gray-700 border border-gray-100 rounded-tl-sm'
+                                      : 'bg-gray-50 text-gray-700 dark:text-gray-300 border border-gray-100 rounded-tl-sm'
                                   }`}>
                                     {msg.text}
                                   </div>
@@ -1768,7 +1771,7 @@ const ExpertEngagements = () => {
                             <motion.button
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
-                              className="p-2.5 rounded-xl bg-white border border-gray-200 text-gray-400 hover:text-[#0eb59a] transition-colors shrink-0 cursor-pointer"
+                              className="p-2.5 rounded-xl bg-white dark:!bg-white/5 border border-gray-200 dark:!border-white/10 text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-[#0eb59a] transition-colors shrink-0 cursor-pointer"
                             >
                               <Paperclip size={16} />
                             </motion.button>
@@ -1779,7 +1782,7 @@ const ExpertEngagements = () => {
                                 onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
                                 placeholder="Type a message... (Enter to send)"
                                 rows={1}
-                                className="w-full px-4 py-3 bg-white border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all resize-none [&::-webkit-scrollbar]:hidden"
+                                className="w-full px-4 py-3 bg-white dark:!bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all resize-none [&::-webkit-scrollbar]:hidden"
                               />
                             </div>
                             <motion.button
@@ -1813,16 +1816,16 @@ const ExpertEngagements = () => {
                         {/* Upload area */}
                         <motion.div
                           whileHover={{ borderColor: '#0eb59a' }}
-                          className="bg-white rounded-3xl border-2 border-dashed border-gray-200 p-8 text-center cursor-pointer transition-all group relative overflow-hidden"
+                          className="bg-white dark:!bg-[#1e2028] rounded-3xl border-2 border-dashed border-gray-200 dark:!border-white/10 p-8 text-center cursor-pointer transition-all group relative overflow-hidden"
                         >
-                          <FormalCardBorder />
+          
                           <motion.div
                             whileHover={{ scale: 1.1, rotate: 5 }}
                             className="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-3 border border-teal-100"
                           >
                             <Upload size={22} className="text-[#0eb59a]" />
                           </motion.div>
-                          <p className="font-black text-gray-700 text-sm mb-1">Upload Deliverable</p>
+                          <p className="font-black text-gray-700 dark:text-gray-300 text-sm mb-1">Upload Deliverable</p>
                           <p className="text-xs text-gray-400">
                             Drag & drop or click to upload — PDF, DOCX, XLSX, PPTX up to 25MB
                           </p>
@@ -1833,7 +1836,7 @@ const ExpertEngagements = () => {
                           const catDocs = documents.filter(d => d.category === category);
                           return (
                             <div key={category}>
-                              <h3 className="font-black text-gray-900 text-sm mb-3 flex items-center gap-2 text-left">
+                              <h3 className="font-black text-gray-900 dark:text-white text-sm mb-3 flex items-center gap-2 text-left">
                                 {category === 'Deliverable'
                                   ? <Upload size={15} className="text-[#0eb59a]" />
                                   : <Shield size={15} className="text-blue-500" />
@@ -1843,8 +1846,8 @@ const ExpertEngagements = () => {
                                   {catDocs.length}
                                 </span>
                               </h3>
-                              <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden text-left relative">
-                                <FormalCardBorder />
+                              <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm overflow-hidden text-left relative">
+                
                                 {catDocs.map((doc, idx) => {
                                   const fileInfo = getFileIcon(doc.type);
                                   return (
@@ -1917,12 +1920,12 @@ const ExpertEngagements = () => {
                               whileHover={{ y: -4 }}
                               className={`bg-white rounded-2xl p-5 border border-gray-100 border-l-4 ${kpi.border} shadow-sm relative`}
                             >
-                              <FormalCardBorder />
+              
                               <div className={`w-9 h-9 ${kpi.bg} rounded-xl flex items-center justify-center mb-3`}>
                                 <kpi.icon size={17} className={kpi.color} />
                               </div>
-                              <p className="text-2xl font-black text-gray-900">{kpi.value}</p>
-                              <p className="text-xs font-bold text-gray-700 mt-0.5">{kpi.label}</p>
+                              <p className="text-2xl font-black text-gray-900 dark:text-white">{kpi.value}</p>
+                              <p className="text-xs font-bold text-gray-700 dark:text-gray-300 mt-0.5">{kpi.label}</p>
                               <p className="text-[10px] text-gray-400 mt-0.5">{kpi.desc}</p>
                             </motion.div>
                           ))}
@@ -1940,10 +1943,10 @@ const ExpertEngagements = () => {
                         </div>
 
                         {/* Payment table */}
-                        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden relative">
-                          <FormalCardBorder />
+                        <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm overflow-hidden relative">
+          
                           <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
-                            <h3 className="font-black text-gray-900 text-sm">Payment Schedule</h3>
+                            <h3 className="font-black text-gray-900 dark:text-white text-sm">Payment Schedule</h3>
                             <motion.button
                               whileHover={{ scale: 1.03 }}
                               className="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-[#0eb59a] transition-colors border-0 bg-transparent cursor-pointer"
@@ -1978,7 +1981,7 @@ const ExpertEngagements = () => {
                                       {payment.txId !== '—' ? `TX: ${payment.txId}` : 'Pending'} · {payment.date}
                                     </p>
                                   </div>
-                                  <p className="font-black text-gray-900 text-base shrink-0">{payment.amount}</p>
+                                  <p className="font-black text-gray-900 dark:text-white text-base shrink-0">{payment.amount}</p>
                                   <span className={`text-[10px] font-black px-2.5 py-1 rounded-lg border shrink-0 ${payStatus.color}`}>
                                     {payStatus.label}
                                   </span>
@@ -2012,7 +2015,7 @@ const ExpertEngagements = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden"
+              className="bg-white dark:!bg-[#1e2028] rounded-t-3xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden"
             >
               <AnimatePresence mode="wait">
                 {!submitSent ? (
@@ -2021,12 +2024,12 @@ const ExpertEngagements = () => {
                       <Upload size={28} className="text-[#0eb59a]" />
                     </div>
 
-                    <h3 className="text-xl font-black text-gray-900 text-center mb-1">
+                    <h3 className="text-xl font-black text-gray-900 dark:text-white text-center mb-1">
                       Submit Deliverables
                     </h3>
                     <p className="text-sm text-gray-400 text-center mb-5 leading-relaxed">
                       You are submitting deliverables for
-                      <span className="font-bold text-gray-700"> {showSubmitModal.title}</span>.
+                      <span className="font-bold text-gray-700 dark:text-gray-300"> {showSubmitModal.title}</span>.
                       The company will review and approve within 48 hours.
                     </p>
 
@@ -2036,7 +2039,7 @@ const ExpertEngagements = () => {
                       className="border-2 border-dashed border-gray-200 rounded-2xl p-6 text-center mb-4 cursor-pointer transition-all group"
                     >
                       <Upload size={20} className="text-gray-300 mx-auto mb-2 group-hover:text-[#0eb59a] transition-colors" />
-                      <p className="text-sm font-bold text-gray-500 group-hover:text-[#0eb59a] transition-colors">
+                      <p className="text-sm font-bold text-gray-500 dark:text-gray-400 group-hover:text-[#0eb59a] transition-colors">
                         Click to upload files
                       </p>
                       <p className="text-xs text-gray-400 mt-1">PDF, XLSX, PPTX, DOCX up to 25MB each</p>
@@ -2044,7 +2047,7 @@ const ExpertEngagements = () => {
 
                     {/* Note */}
                     <div className="mb-5 text-left">
-                      <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                      <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                         Submission Notes <span className="text-gray-400 font-normal normal-case">(optional)</span>
                       </label>
                       <textarea
@@ -2069,7 +2072,7 @@ const ExpertEngagements = () => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => { setShowSubmitModal(null); setDeliverableNote(''); }}
-                        className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl border-0 cursor-pointer"
+                        className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 dark:text-gray-400 text-sm font-bold rounded-2xl border-0 cursor-pointer"
                       >
                         Cancel
                       </motion.button>
@@ -2099,9 +2102,9 @@ const ExpertEngagements = () => {
                     >
                       <Check size={36} className="text-[#0eb59a]" strokeWidth={3} />
                     </motion.div>
-                    <h3 className="text-xl font-black text-gray-900 mb-2">Submitted!</h3>
+                    <h3 className="text-xl font-black text-gray-900 dark:text-white mb-2">Submitted!</h3>
                     <p className="text-sm text-gray-400 leading-relaxed">
-                      Your deliverables for <span className="font-bold text-gray-700">{showSubmitModal.title}</span> have been submitted. {engagement.company} will review and respond within 48 hours.
+                      Your deliverables for <span className="font-bold text-gray-700 dark:text-gray-300">{showSubmitModal.title}</span> have been submitted. {engagement.company} will review and respond within 48 hours.
                     </p>
                     <motion.div
                       animate={{ scale: [1, 1.05, 1] }}
