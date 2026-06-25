@@ -216,7 +216,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#070908] text-gray-200 overflow-hidden relative font-sans selection:bg-[#0eb59a] selection:text-white">
+    <div className="flex min-h-screen bg-[#0f1117] text-gray-200 overflow-hidden relative font-sans selection:bg-[#0eb59a] selection:text-white">
       {/* ── BACKGROUND OVERLAYS ── */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#070e0b] via-[#0d1c17] to-[#040807] z-0" />
       

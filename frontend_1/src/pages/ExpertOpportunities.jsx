@@ -1,5 +1,5 @@
 import Logo from '../components/Logo';
-import FormalCardBorder from '../components/FormalCardBorder';
+import ThemeToggle from '../components/ThemeToggle';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -26,7 +26,7 @@ const RadialRing = ({ percent, color, size = 56, stroke = 5, label }) => {
           <circle
             cx={size / 2} cy={size / 2} r={radius}
             fill="none"
-            stroke="#E3E8E4"
+            stroke="currentColor" className="text-gray-200 dark:text-white/10"
             strokeWidth={stroke}
           />
           <motion.circle
@@ -42,10 +42,10 @@ const RadialRing = ({ percent, color, size = 56, stroke = 5, label }) => {
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[10px] font-black text-[#1C3627]">{percent}%</span>
+          <span className="text-[10px] font-black text-[#1C3627] dark:text-white">{percent}%</span>
         </div>
       </div>
-      <span className="text-[9px] font-semibold text-gray-400 text-center leading-tight max-w-[56px]">{label}</span>
+      <span className="text-[9px] font-semibold text-gray-400 dark:text-gray-500 text-center leading-tight max-w-[56px]">{label}</span>
     </div>
   );
 };
@@ -57,14 +57,14 @@ const HoverPanel = ({ opp, panelSide }) => (
     animate={{ opacity: 1, scale: 1, x: 0 }}
     exit={{ opacity: 0, scale: 0.92, x: panelSide === 'right' ? -10 : 10 }}
     transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-    className="absolute top-0 z-[100] w-[280px] bg-[#FAFBF9] rounded-2xl border border-gray-100 p-5 pointer-events-none"
+    className="absolute top-0 z-[100] w-[280px] bg-[#FAFBF9] dark:!bg-[#1e2028] rounded-2xl border border-gray-100 dark:!border-white/10 p-5 pointer-events-none"
     style={{
       boxShadow: '0 20px 60px rgba(19,78,64,0.15)',
       [panelSide === 'right' ? 'left' : 'right']: 'calc(100% + 12px)',
     }}
   >
     {/* Header */}
-    <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-100 text-left">
+    <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-100 dark:border-white/10 text-left">
       <div className={`w-11 h-11 rounded-xl overflow-hidden bg-gradient-to-br ${opp.logoColor} flex items-center justify-center shadow-sm shrink-0`}>
         {opp.logoUrl ? (
           <img src={opp.logoUrl} alt={opp.company} className="w-full h-full object-cover" />
@@ -73,16 +73,16 @@ const HoverPanel = ({ opp, panelSide }) => (
         )}
       </div>
       <div className="min-w-0 flex-grow text-left">
-        <p className="text-sm font-black text-[#1C3627] leading-tight truncate">
+        <p className="text-sm font-black text-[#1C3627] dark:text-white leading-tight truncate">
           {opp.title}
         </p>
-        <p className="text-[11px] text-gray-500 font-bold mt-0.5 truncate">{opp.company}</p>
-        <p className="text-[10px] text-gray-400 mt-0.5 truncate">{opp.companySize}</p>
+        <p className="text-[11px] text-gray-500 dark:text-gray-400 dark:text-gray-500 font-bold mt-0.5 truncate">{opp.company}</p>
+        <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5 truncate">{opp.companySize}</p>
       </div>
     </div>
 
     {/* Two RadialRings */}
-    <div className="flex items-center justify-center gap-6 mb-4 pb-4 border-b border-gray-100">
+    <div className="flex items-center justify-center gap-6 mb-4 pb-4 border-b border-gray-100 dark:border-white/10">
       <RadialRing
         percent={opp.match}
         color="#0eb59a"
@@ -101,10 +101,10 @@ const HoverPanel = ({ opp, panelSide }) => (
 
     {/* Skills */}
     <div className="mb-4 text-left">
-      <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-2">Required Skills</p>
+      <p className="text-[9px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-2">Required Skills</p>
       <div className="flex flex-wrap gap-1.5">
         {opp.skills.map(skill => (
-          <span key={skill} className="text-[10px] font-semibold bg-white text-[#134e40] border border-[#134e40]/15 px-2 py-0.5 rounded-md">
+          <span key={skill} className="text-[10px] font-semibold bg-white dark:bg-white/5 text-[#134e40] dark:text-[#0eb59a] border border-[#134e40]/15 dark:border-white/10 px-2 py-0.5 rounded-md">
             {skill}
           </span>
         ))}
@@ -115,14 +115,14 @@ const HoverPanel = ({ opp, panelSide }) => (
     <div className="grid grid-cols-3 gap-2 mb-4">
       {[
         { label: 'Budget', value: opp.budget.split(' - ')[0], color: 'text-[#0eb59a]' },
-        { label: 'Hours', value: opp.commitment, color: 'text-blue-500' },
+        { label: 'Hours', value: opp.commitment, color: 'text-[#0eb59a]' },
         { label: 'Duration', value: opp.duration, color: 'text-amber-500' },
       ].map((s, si) => (
-        <div key={si} className="bg-white rounded-xl p-2.5 border border-gray-100 text-center">
+        <div key={si} className="bg-white dark:bg-[#252830] rounded-xl p-2.5 border border-gray-100 dark:border-white/5 text-center">
           <p className={`text-[10px] font-black leading-none ${s.color}`}>
             {s.value}
           </p>
-          <p className="text-[9px] text-gray-400 font-medium mt-0.5 leading-tight">
+          <p className="text-[9px] text-gray-400 dark:text-gray-500 font-medium mt-0.5 leading-tight">
             {s.label}
           </p>
         </div>
@@ -130,14 +130,14 @@ const HoverPanel = ({ opp, panelSide }) => (
     </div>
 
     {/* Description */}
-    <div className="bg-white rounded-xl p-3 border border-gray-100 text-left">
-      <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1.5">About the Role</p>
-      <p className="text-[11px] text-gray-600 leading-relaxed line-clamp-3">
+    <div className="bg-white dark:bg-[#252830] rounded-xl p-3 border border-gray-100 dark:border-white/5 text-left">
+      <p className="text-[9px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">About the Role</p>
+      <p className="text-[11px] text-gray-600 dark:text-gray-400 dark:text-gray-300 leading-relaxed line-clamp-3">
         {opp.description}
       </p>
     </div>
 
-    <p className="text-[10px] text-gray-400 text-center mt-3">
+    <p className="text-[10px] text-gray-400 dark:text-gray-500 text-center mt-3">
       {opp.applicants} applied · Posted {opp.postedDate}
     </p>
   </motion.div>
@@ -618,15 +618,15 @@ const ExpertOpportunities = () => {
   const getTypeStyle = (type) => {
     switch (type) {
       case 'Fractional':
-        return 'text-[#134e40] bg-[#f0fdf4] border-[#0eb59a]/30';
+        return 'text-[#0eb59a] bg-[#f0fdf4] dark:bg-teal-950/25 border-[#0eb59a]/30 dark:border-teal-900/50';
       case 'Interim':
-        return 'text-teal-700 bg-teal-50 border-teal-200';
+        return 'text-teal-700 dark:text-teal-400 bg-teal-50 dark:bg-teal-950/25 border-teal-200 dark:border-teal-900/50';
       case 'Advisory':
-        return 'text-amber-700 bg-amber-50 border-amber-200';
+        return 'text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/25 border-amber-200 dark:border-amber-900/50';
       case 'Project':
         return 'text-emerald-700 bg-emerald-50 border-emerald-200';
       default:
-        return 'text-gray-600 bg-gray-50 border-gray-200';
+        return 'text-gray-600 dark:text-gray-400 bg-gray-50 border-gray-200';
     }
   };
 
@@ -637,7 +637,7 @@ const ExpertOpportunities = () => {
   };
 
   return (
-    <div className="flex h-screen bg-[#f4f7f5] font-sans text-slate-900 overflow-hidden">
+    <div className="flex h-screen bg-[#f4f7f5] dark:bg-[#0f1117] font-sans text-slate-900 dark:text-white overflow-hidden">
       {/* Mobile backdrop */}
       <AnimatePresence>
         {isMobileMenuOpen && (
@@ -656,23 +656,25 @@ const ExpertOpportunities = () => {
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-white border-r border-gray-100 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white dark:bg-[#1b1d24] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
         {/* Logo area */}
-        <div className="flex items-center border-b border-gray-50 px-3 py-4 gap-3">
-          <motion.div
-            animate={{ width: isSidebarOpen ? 'auto' : 0, opacity: isSidebarOpen ? 1 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden shrink-0 flex items-center"
-          >
-            <div className="cursor-pointer" onClick={() => window.location.reload()}><Logo variant="dark" className="h-8" /></div>
-          </motion.div>
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
+          <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/expert-dashboard')}>
+            <Logo variant="light" className="h-8 shrink-0" />
+            <motion.span
+              animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden whitespace-nowrap text-sm font-black text-[#134e40] dark:text-[#0eb59a] tracking-tight"
+            >
+              ExigentCX
+            </motion.span>
+          </div>
           <motion.button
-            animate={{ marginLeft: isSidebarOpen ? 'auto' : 0 }}
-            whileHover={{ scale: 1.1, backgroundColor: '#f0fdf4' }}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsSidebarOpen(s => !s)}
-            className="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-[#134e40] hover:bg-[#f0fdf4] transition-all cursor-pointer shrink-0 border border-gray-200 hover:border-[#0eb59a]"
+            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 dark:text-gray-500 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 dark:hover:bg-white/10 transition-all shrink-0"
           >
             {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
           </motion.button>
@@ -681,7 +683,7 @@ const ExpertOpportunities = () => {
         {/* Nav */}
         <nav className="flex-1 px-3 py-2 space-y-0.5 overflow-hidden">
           {isSidebarOpen && (
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2 mb-2">Main Menu</p>
+            <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest px-2 mb-2">Main Menu</p>
           )}
           {sidebarMenu.map((item) => {
             const isActive = item.name === 'Opportunities';
@@ -694,7 +696,7 @@ const ExpertOpportunities = () => {
                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative cursor-pointer ${
                   isActive
                     ? 'bg-[#134e40] text-white shadow-md'
-                    : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+                    : 'text-gray-500 dark:text-gray-400 dark:text-gray-500 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40]'
                 }`}
               >
                 {isActive && (
@@ -731,12 +733,16 @@ const ExpertOpportunities = () => {
         </nav>
 
         {/* Settings + Sign Out pinned to bottom */}
-        <div className="p-3 border-t border-gray-50 space-y-1">
+        <div className="p-3 border-t border-gray-50 dark:border-white/5 space-y-1">
+          <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
+            {isSidebarOpen && <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Theme</span>}
+            <ThemeToggle />
+          </div>
           <motion.button
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/expert-settings')}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#134e40] transition-all cursor-pointer"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-500 dark:text-gray-400 dark:text-gray-500 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] transition-all cursor-pointer"
           >
             <Settings size={17} className="shrink-0" />
             <motion.span
@@ -759,7 +765,7 @@ const ExpertOpportunities = () => {
               await supabase.auth.signOut();
               navigate('/signin?role=expert');
             }}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-red-500 hover:bg-red-50 hover:text-red-600 transition-all font-bold cursor-pointer"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 hover:text-red-600 transition-all font-bold cursor-pointer"
           >
             <LogOut size={17} className="shrink-0" />
             <motion.span
@@ -786,7 +792,7 @@ const ExpertOpportunities = () => {
         }}
       >
         {/* ── HEADER (identical to ExpertDashboard) ── */}
-        <header className="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-4 sm:px-6 shrink-0 z-40 sticky top-0 shadow-sm">
+        <header className="h-16 bg-white dark:bg-[#1b1d24] border-b border-gray-100 dark:border-white/10 flex items-center justify-between px-4 sm:px-6 shrink-0 z-40 sticky top-0 shadow-sm">
           {/* Left — mobile menu toggle */}
           <div className="flex items-center gap-3">
             {isMobile && (
@@ -794,7 +800,7 @@ const ExpertOpportunities = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2.5 rounded-xl hover:bg-gray-50 text-gray-400 hover:text-gray-900 transition-all shrink-0 cursor-pointer"
+                className="p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/5 text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:text-white transition-all shrink-0 cursor-pointer"
               >
                 <Menu size={20} />
               </motion.button>
@@ -812,7 +818,7 @@ const ExpertOpportunities = () => {
                 placeholder="Search opportunities, companies, skills..."
                 onFocus={() => setSearchFocused(true)}
                 onBlur={() => setSearchFocused(false)}
-                className={`w-full pl-11 pr-12 py-2.5 bg-gray-50 border rounded-full text-sm text-gray-700 placeholder-gray-400 focus:bg-white focus:outline-none transition-all duration-200 ${
+                className={`w-full pl-11 pr-12 py-2.5 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-full text-sm text-gray-700 dark:text-gray-300 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:bg-white dark:focus:bg-[#1e2028] focus:outline-none transition-all duration-200 ${
                   searchFocused
                     ? 'border-[#0eb59a] ring-2 ring-[#0eb59a]/20'
                     : 'border-gray-200'
@@ -820,7 +826,7 @@ const ExpertOpportunities = () => {
               />
               {!searchFocused && (
                 <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                  <span className="text-[10px] bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded font-mono">⌘K</span>
+                  <span className="text-[10px] bg-gray-100 text-gray-400 dark:text-gray-500 px-1.5 py-0.5 rounded font-mono">⌘K</span>
                 </div>
               )}
             </div>
@@ -851,8 +857,8 @@ const ExpertOpportunities = () => {
                 }}
                 className={`w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 cursor-pointer ${
                   gridOpen
-                    ? 'bg-teal-50 border-[#0eb59a] text-[#134e40]'
-                    : 'bg-gray-50 border-gray-200 text-gray-500'
+                    ? 'bg-teal-50 dark:bg-[#134e40]/25 border-[#0eb59a] text-[#134e40] dark:text-[#0eb59a]'
+                    : 'bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500'
                 }`}
               >
                 <Grid size={17} />
@@ -865,20 +871,20 @@ const ExpertOpportunities = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.97 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full right-0 mt-2 w-[360px] bg-white rounded-2xl z-50 overflow-hidden"
+                    className="absolute top-full right-0 mt-2 w-[360px] bg-white dark:bg-[#1e2028] rounded-2xl z-50 overflow-hidden"
                     style={{
                       boxShadow: '0 20px 50px rgba(0,0,0,0.12)',
-                      border: '1px solid #F1F5F2'
+                      border: '1px solid #F1F5F2', borderColor: 'rgba(255,255,255,0.05)'
                     }}
                   >
                     <div className="p-3 space-y-1">
                       {[
-                        { icon: Briefcase, label: 'Opportunities', badge: '3 new', badgeStyle: 'text-teal-700 bg-teal-50 border-teal-200', border: '#0eb59a', path: '/expert-opportunities' },
+                        { icon: Briefcase, label: 'Opportunities', badge: '3 new', badgeStyle: 'text-teal-700 dark:text-teal-400 bg-teal-50 dark:bg-teal-950/25 border-teal-200 dark:border-teal-900/50', border: '#0eb59a', path: '/expert-opportunities' },
                         { icon: Activity, label: 'My Engagements', badge: '2 active', badgeStyle: 'text-emerald-700 bg-emerald-50 border-emerald-200', border: '#0eb59a', path: '/expert-engagements' },
-                        { icon: FileText, label: 'Contracts', badge: '1 pending', badgeStyle: 'text-amber-700 bg-amber-50 border-amber-200', border: '#F59E0B', path: '/expert-contracts' },
+                        { icon: FileText, label: 'Contracts', badge: '1 pending', badgeStyle: 'text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/25 border-amber-200 dark:border-amber-900/50', border: '#F59E0B', path: '/expert-contracts' },
                         { icon: DollarSign, label: 'Earnings', badge: '₹3.5L pending', badgeStyle: 'text-emerald-700 bg-emerald-50 border-emerald-200', border: '#0eb59a', path: '/expert-earnings' },
-                        { icon: UserCircle, label: 'Profile', badge: '78% complete', badgeStyle: 'text-teal-700 bg-teal-50 border-teal-200', border: '#0eb59a', path: '/expert-profile' },
-                        { icon: Settings, label: 'Settings', badge: 'Preferences', badgeStyle: 'text-gray-600 bg-gray-50 border-gray-200', border: '#9CA3AF', path: '/expert-settings' },
+                        { icon: UserCircle, label: 'Profile', badge: '78% complete', badgeStyle: 'text-teal-700 dark:text-teal-400 bg-teal-50 dark:bg-teal-950/25 border-teal-200 dark:border-teal-900/50', border: '#0eb59a', path: '/expert-profile' },
+                        { icon: Settings, label: 'Settings', badge: 'Preferences', badgeStyle: 'text-gray-600 dark:text-gray-400 bg-gray-50 border-gray-200', border: '#9CA3AF', path: '/expert-settings' },
                       ].map((item, idx) => (
                         <motion.button
                           key={idx}
@@ -891,10 +897,10 @@ const ExpertOpportunities = () => {
                           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer"
                           style={{ borderLeft: `3px solid ${item.border}` }}
                         >
-                          <div className="w-7 h-7 bg-gray-50 rounded-lg flex items-center justify-center shrink-0">
+                          <div className="w-7 h-7 bg-gray-50 dark:bg-white/5 rounded-lg flex items-center justify-center shrink-0">
                             <item.icon size={13} className="text-[#134e40]" />
                           </div>
-                          <span className="flex-1 text-sm font-bold text-[#1C3627] text-left">
+                          <span className="flex-1 text-sm font-bold text-[#1C3627] dark:text-white text-left">
                             {item.label}
                           </span>
                           <div className="w-px h-4 bg-gray-100 shrink-0" />
@@ -926,11 +932,11 @@ const ExpertOpportunities = () => {
                     : 'bg-gray-50 border-gray-200'
                 }`}
               >
-                <Bell size={16} className={showNotifications ? 'text-[#134e40]' : 'text-gray-500'} />
+                <Bell size={16} className={showNotifications ? 'text-[#134e40]' : 'text-gray-500 dark:text-gray-400 dark:text-gray-500'} />
                 <motion.span
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center border-2 border-white px-0.5 animate-pulse"
+                  className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center border-2 border-white dark:border-[#1b1d24] dark:border-[#1b1d24] px-0.5 animate-pulse"
                 >
                   {notifications.filter(n => n.unread).length}
                 </motion.span>
@@ -951,10 +957,10 @@ const ExpertOpportunities = () => {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: '100%' }}
                       transition={{ duration: 0.3, type: 'tween' }}
-                      className="fixed right-0 top-16 bottom-0 w-80 bg-white shadow-2xl border-l border-gray-100 z-50 overflow-hidden flex flex-col"
+                      className="fixed right-0 top-16 bottom-0 w-80 bg-white dark:bg-[#1e2028] shadow-2xl border-l border-gray-100 dark:border-white/10 z-50 overflow-hidden flex flex-col"
                     >
-                      <div className="px-5 py-4 border-b border-gray-50 flex items-center justify-between bg-gradient-to-r from-teal-50/50 to-white">
-                        <h3 className="font-black text-[#1C3627] text-sm">Notifications</h3>
+                      <div className="px-5 py-4 border-b border-gray-50 dark:border-white/5 flex items-center justify-between bg-gradient-to-r from-teal-50/50 to-white dark:from-[#252830] dark:to-[#1e2028]">
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-sm">Notifications</h3>
                         <button className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors cursor-pointer">
                           Mark all read
                         </button>
@@ -966,14 +972,14 @@ const ExpertOpportunities = () => {
                             initial={{ opacity: 0, x: 10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: idx * 0.05 }}
-                            className={`px-5 py-4 border-b border-gray-50 hover:bg-gray-50 cursor-pointer flex gap-3 transition-colors ${
-                              notif.unread ? 'bg-teal-50/20' : ''
+                            className={`px-5 py-4 border-b border-gray-50 dark:border-white/5 hover:bg-gray-50 dark:hover:bg-white/5 cursor-pointer flex gap-3 transition-colors ${
+                              notif.unread ? 'bg-teal-50/20 dark:bg-teal-950/10' : ''
                             }`}
                           >
                             <div className={`w-2 h-2 rounded-full ${notif.color} mt-1.5 shrink-0`} />
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-bold text-[#1C3627] leading-tight text-left">{notif.title}</p>
-                              <p className="text-xs text-gray-400 mt-0.5 leading-relaxed text-left">
+                              <p className="text-sm font-bold text-[#1C3627] dark:text-white leading-tight text-left">{notif.title}</p>
+                              <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5 leading-relaxed text-left">
                                 {notif.desc}
                               </p>
                               <p className="text-[10px] text-gray-300 font-semibold mt-1 text-left">{notif.time}</p>
@@ -1005,13 +1011,13 @@ const ExpertOpportunities = () => {
                   profile?.full_name ? profile.full_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) : 'EX'
                 )}
               </motion.div>
-              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-white" />
+              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-white dark:border-[#1b1d24]" />
             </div>
           </div>
         </header>
 
         {/* ── MAIN CONTENT CONTAINER (FIX 2 & 5 — Left filter stays fixed, right feed scrolls) ── */}
-        <main className="flex-grow flex bg-[#f4f7f5] overflow-hidden" style={{ height: 'calc(100vh - 64px)' }}>
+        <main className="flex-grow flex bg-[#f4f7f5] dark:bg-[#0f1117] overflow-hidden" style={{ height: 'calc(100vh - 64px)' }}>
           {/* Left Column — Filter sidebar (solid full-length sidebar under header) */}
           <AnimatePresence>
             {showFilters && (
@@ -1020,14 +1026,14 @@ const ExpertOpportunities = () => {
                 animate={{ opacity: 1, width: 260 }}
                 exit={{ opacity: 0, width: 0 }}
                 transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                className="h-full bg-white border-r border-gray-100 flex flex-col shrink-0 z-10 overflow-hidden shadow-sm hidden md:flex"
+                className="h-full bg-white dark:bg-[#161a20] border-r border-gray-100 dark:border-white/5 dark:border-white/5 flex flex-col shrink-0 z-10 overflow-hidden shadow-sm hidden md:flex"
                 style={{ width: 260 }}
               >
                 <div className="h-0.5 bg-gradient-to-r from-[#134e40] via-[#0eb59a] to-transparent shrink-0" />
                 <div className="p-5 flex-grow overflow-y-auto [&::-webkit-scrollbar]:hidden">
                   {/* Filter header */}
                   <div className="flex items-center justify-between mb-5 shrink-0">
-                    <h3 className="font-black text-gray-900 text-sm flex items-center gap-2">
+                    <h3 className="font-black text-gray-900 dark:text-white text-sm flex items-center gap-2">
                       <Filter size={14} className="text-[#0eb59a]" /> Filters
                     </h3>
                     {totalActiveFilters > 0 && (
@@ -1045,12 +1051,12 @@ const ExpertOpportunities = () => {
                   <div className="space-y-4">
                     {/* Dynamic filter sections */}
                     {filterSections.map((section) => (
-                      <div key={section.id} className="border-b border-gray-50 pb-4">
+                      <div key={section.id} className="border-b border-gray-50 dark:border-white/5 pb-4">
                         <button
                           onClick={() => setExpandedFilter(expandedFilter === section.id ? null : section.id)}
                           className="w-full flex items-center justify-between mb-3 group"
                         >
-                          <span className="text-xs font-black text-gray-700 uppercase tracking-wider flex items-center gap-2">
+                          <span className="text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider flex items-center gap-2">
                             <section.icon size={13} className="text-[#0eb59a]" />
                             {section.label}
                             {activeFilters[section.id]?.length > 0 && (
@@ -1060,8 +1066,8 @@ const ExpertOpportunities = () => {
                             )}
                           </span>
                           {expandedFilter === section.id
-                            ? <ChevronUp size={14} className="text-gray-400" />
-                            : <ChevronDown size={14} className="text-gray-400" />
+                            ? <ChevronUp size={14} className="text-gray-400 dark:text-gray-500" />
+                            : <ChevronDown size={14} className="text-gray-400 dark:text-gray-500" />
                           }
                         </button>
 
@@ -1085,16 +1091,16 @@ const ExpertOpportunities = () => {
                                     className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer group border ${
                                       isActive
                                         ? 'bg-[#134e40] text-white border-[#134e40] shadow-sm hover:bg-[#0eb59a] hover:border-[#0eb59a] hover:shadow-md'
-                                        : 'text-gray-600 bg-white/50 border-gray-100 hover:bg-[#f0fdf4] hover:text-[#134e40] hover:border-[#0eb59a]/30 hover:shadow-sm'
+                                        : 'text-gray-600 dark:text-gray-400 bg-white/50 dark:bg-white/5 border-gray-100 dark:border-white/5 hover:bg-[#f0fdf4] dark:hover:bg-white/10 hover:text-[#134e40] hover:border-[#0eb59a]/30 hover:shadow-sm'
                                     }`}
                                   >
                                     {/* Custom checkbox box */}
                                     <div className={`w-4 h-4 rounded-md border flex items-center justify-center shrink-0 transition-all duration-200 ${
                                       isActive
-                                        ? 'bg-white border-white scale-105 shadow-sm'
-                                        : 'border-gray-300 bg-white group-hover:border-[#0eb59a] group-hover:scale-110 group-hover:shadow-sm'
+                                        ? 'bg-white dark:bg-[#134e40] border-white dark:border-white/20 scale-105 shadow-sm'
+                                        : 'border-gray-300 dark:border-white/20 bg-white dark:bg-[#161a20] group-hover:border-[#0eb59a] group-hover:scale-110 group-hover:shadow-sm'
                                     }`}>
-                                      {isActive && <Check size={10} className="text-[#134e40]" strokeWidth={3.5} />}
+                                      {isActive && <Check size={10} className="text-[#134e40] dark:text-white" strokeWidth={3.5} />}
                                     </div>
                                     <span className="flex-grow text-left transition-colors duration-150">{option}</span>
                                   </motion.button>
@@ -1108,7 +1114,7 @@ const ExpertOpportunities = () => {
 
                     {/* Budget */}
                     <div>
-                      <p className="text-xs font-black text-gray-700 uppercase tracking-wider mb-3 flex items-center gap-2">
+                      <p className="text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
                         <DollarSign size={13} className="text-[#0eb59a]" /> Budget Range
                       </p>
                       <div className="space-y-1.5">
@@ -1126,16 +1132,16 @@ const ExpertOpportunities = () => {
                               className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer group border ${
                                 isActive
                                   ? 'bg-[#134e40] text-white border-[#134e40] shadow-sm hover:bg-[#0eb59a] hover:border-[#0eb59a] hover:shadow-md'
-                                  : 'text-gray-600 bg-white/50 border-gray-100 hover:bg-[#f0fdf4] hover:text-[#134e40] hover:border-[#0eb59a]/30 hover:shadow-sm'
+                                  : 'text-gray-600 dark:text-gray-400 bg-white/50 dark:bg-white/5 border-gray-100 dark:border-white/5 hover:bg-[#f0fdf4] dark:hover:bg-white/10 hover:text-[#134e40] hover:border-[#0eb59a]/30 hover:shadow-sm'
                               }`}
                             >
                               {/* Custom checkbox box */}
                               <div className={`w-4 h-4 rounded-md border flex items-center justify-center shrink-0 transition-all duration-200 ${
                                 isActive
-                                  ? 'bg-white border-white scale-105 shadow-sm'
-                                  : 'border-gray-300 bg-white group-hover:border-[#0eb59a] group-hover:scale-110 group-hover:shadow-sm'
+                                  ? 'bg-white dark:bg-[#134e40] border-white dark:border-white/20 scale-105 shadow-sm'
+                                  : 'border-gray-300 dark:border-white/20 bg-white dark:bg-[#161a20] group-hover:border-[#0eb59a] group-hover:scale-110 group-hover:shadow-sm'
                               }`}>
-                                {isActive && <Check size={10} className="text-[#134e40]" strokeWidth={3.5} />}
+                                {isActive && <Check size={10} className="text-[#134e40] dark:text-white" strokeWidth={3.5} />}
                               </div>
                               <span className="flex-grow text-left transition-colors duration-150">{bud}</span>
                             </motion.button>
@@ -1152,11 +1158,8 @@ const ExpertOpportunities = () => {
           {/* Right Column — Feed container (scrollable feed area) */}
           <div className="flex-grow h-full overflow-y-auto [&::-webkit-scrollbar]:hidden p-6 pl-6">
             {/* Page Hero Strip */}
-            <div
-              className="relative overflow-hidden border border-teal-100/60 rounded-3xl mb-6 shrink-0"
-              style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #e8f5f1 50%, #f8fafc 100%)' }}
-            >
-              <FormalCardBorder />
+            <div className="relative overflow-hidden border border-teal-100/60 dark:border-white/10 rounded-3xl mb-6 shrink-0 dark:bg-[#1b1d24]">
+              <div className="absolute inset-0 dark:hidden" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #e8f5f1 50%, #f8fafc 100%)' }} />
               <div
                 className="absolute inset-0 opacity-[0.3]"
                 style={{
@@ -1170,56 +1173,56 @@ const ExpertOpportunities = () => {
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                   <div className="text-left">
                     <h1
-                      className="text-3xl font-black text-[#1C3627] tracking-tight"
+                      className="text-3xl font-black text-[#1C3627] dark:text-white tracking-tight"
                       style={{ fontFamily: 'Georgia, serif' }}
                     >
                       Opportunities
                     </h1>
-                    <p className="text-xs text-gray-400 font-bold mt-1 max-w-md leading-relaxed">
+                    <p className="text-xs text-gray-400 dark:text-gray-500 font-bold mt-1 max-w-md leading-relaxed">
                       Sleek, executive-level opportunities tailored specifically to your background and expertise.
                     </p>
                   </div>
 
                   {/* Right side stats + view switch */}
-                  <div className="flex flex-wrap items-center gap-4 lg:ml-auto">
+                  <div className="flex items-center gap-3 lg:ml-auto flex-shrink-0">
                     {/* Metrics row */}
-                    <div className="flex flex-wrap gap-2.5">
+                    <div className="flex gap-2 flex-shrink-0">
                       {/* Matched Roles Widget */}
-                      <div className="flex items-center gap-2 bg-white/70 backdrop-blur-sm border border-gray-200/50 px-3.5 py-1.5 rounded-xl shadow-sm">
+                      <div className="flex items-center gap-2 bg-white/70 dark:bg-[#1e2028]/70 backdrop-blur-sm border border-gray-200/50 dark:border-white/5 px-3.5 py-1.5 rounded-xl shadow-sm">
                         <div className="w-7 h-7 rounded-lg bg-teal-50 flex items-center justify-center shrink-0">
                           <Briefcase size={13} className="text-[#134e40]" />
                         </div>
                         <div className="text-left min-w-[70px]">
-                          <p className="text-[9px] text-gray-400 font-bold uppercase tracking-wider leading-none">Matches</p>
-                          <p className="text-xs font-black text-[#1C3627] mt-0.5">{filteredOpportunities.length} roles</p>
+                          <p className="text-[9px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-wider leading-none">Matches</p>
+                          <p className="text-xs font-black text-[#1C3627] dark:text-white mt-0.5">{filteredOpportunities.length} roles</p>
                         </div>
                       </div>
 
                       {/* Fit Score Widget */}
-                      <div className="flex items-center gap-2 bg-white/70 backdrop-blur-sm border border-gray-200/50 px-3.5 py-1.5 rounded-xl shadow-sm">
+                      <div className="flex items-center gap-2 bg-white/70 dark:bg-[#1e2028]/70 backdrop-blur-sm border border-gray-200/50 dark:border-white/5 px-3.5 py-1.5 rounded-xl shadow-sm">
                         <div className="w-7 h-7 rounded-lg bg-[#f0fdf4] flex items-center justify-center shrink-0">
                           <TrendingUp size={13} className="text-[#0eb59a]" />
                         </div>
                         <div className="text-left min-w-[70px]">
-                          <p className="text-[9px] text-gray-400 font-bold uppercase tracking-wider leading-none">Avg Fit</p>
-                          <p className="text-xs font-black text-[#1C3627] mt-0.5">86% Score</p>
+                          <p className="text-[9px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-wider leading-none">Avg Fit</p>
+                          <p className="text-xs font-black text-[#1C3627] dark:text-white mt-0.5">86% Score</p>
                         </div>
                       </div>
 
                       {/* Urgent Widget */}
-                      <div className="flex items-center gap-2 bg-white/70 backdrop-blur-sm border border-gray-200/50 px-3.5 py-1.5 rounded-xl shadow-sm">
+                      <div className="flex items-center gap-2 bg-white/70 dark:bg-[#1e2028]/70 backdrop-blur-sm border border-gray-200/50 dark:border-white/5 px-3.5 py-1.5 rounded-xl shadow-sm">
                         <div className="w-7 h-7 rounded-lg bg-red-50 flex items-center justify-center shrink-0">
                           <Zap size={13} fill="#ef4444" className="text-red-500 animate-pulse" />
                         </div>
                         <div className="text-left min-w-[70px]">
-                          <p className="text-[9px] text-gray-400 font-bold uppercase tracking-wider leading-none">Urgent</p>
+                          <p className="text-[9px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-wider leading-none">Urgent</p>
                           <p className="text-xs font-black text-red-600 mt-0.5">{opportunities.filter(o => o.urgency === 'Immediate').length} roles</p>
                         </div>
                       </div>
                     </div>
 
                     {/* Dynamic sliding pill view toggle switch */}
-                    <div className="flex bg-gray-100 border border-gray-200/80 rounded-xl p-1 shadow-inner h-fit relative">
+                    <div className="flex bg-gray-100 dark:bg-[#1e2028] border border-gray-200/80 dark:border-white/5 rounded-xl p-1 shadow-inner h-fit relative">
                       {[
                         { id: 'grid', icon: Grid },
                         { id: 'list', icon: List },
@@ -1239,7 +1242,7 @@ const ExpertOpportunities = () => {
                                 transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                               />
                             )}
-                            <Icon size={14} className={isActive ? 'text-white' : 'text-gray-400'} />
+                            <Icon size={14} className={isActive ? 'text-white' : 'text-gray-400 dark:text-gray-500'} />
                           </button>
                         );
                       })}
@@ -1253,18 +1256,18 @@ const ExpertOpportunities = () => {
             <div className="mb-6 shrink-0">
               {/* Search bar */}
               <div className="relative mb-4 group">
-                <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#0eb59a] transition-colors" />
+                <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 group-focus-within:text-[#0eb59a] transition-colors" />
                 <input
                   type="text"
                   placeholder="Search by title, company, skill, or industry..."
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-12 py-3.5 bg-white border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all shadow-sm"
+                  className="w-full pl-12 pr-12 py-3.5 bg-white dark:bg-[#1e2028] border border-gray-200 dark:border-white/10 dark:text-white rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all shadow-sm"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:text-gray-400 cursor-pointer"
                   >
                     <X size={16} />
                   </button>
@@ -1282,20 +1285,20 @@ const ExpertOpportunities = () => {
                     className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
                       activeFilter === filter
                         ? 'bg-[#134e40] text-white shadow-md'
-                        : 'bg-white text-gray-500 border border-gray-200 hover:border-[#0eb59a]/40 hover:text-[#0eb59a]'
+                        : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-white/5 hover:border-[#0eb59a]/40 hover:text-[#0eb59a]'
                     }`}
                   >
                     {filter}
                     {filter === 'Saved' && savedOpportunities.length > 0 && (
                       <span className={`ml-1.5 px-1.5 py-0.5 rounded text-[10px] font-black ${
-                        activeFilter === filter ? 'bg-white/20' : 'bg-gray-100 text-gray-400'
+                        activeFilter === filter ? 'bg-white/20' : 'bg-gray-100 text-gray-400 dark:text-gray-500'
                       }`}>
                         {savedOpportunities.length}
                       </span>
                     )}
                     {filter === 'Applied' && appliedOpportunities.length > 0 && (
                       <span className={`ml-1.5 px-1.5 py-0.5 rounded text-[10px] font-black ${
-                        activeFilter === filter ? 'bg-white/20' : 'bg-gray-100 text-gray-400'
+                        activeFilter === filter ? 'bg-white/20' : 'bg-gray-100 text-gray-400 dark:text-gray-500'
                       }`}>
                         {appliedOpportunities.length}
                       </span>
@@ -1309,10 +1312,10 @@ const ExpertOpportunities = () => {
             <div className="flex-1 min-w-0 overflow-visible pb-24">
               {/* Results count + sort */}
               <div className="flex items-center justify-between mb-4">
-                <p className="text-sm font-bold text-gray-500">
-                  Showing <span className="text-gray-900 font-black">{filteredOpportunities.length}</span> opportunities
+                <p className="text-sm font-bold text-gray-500 dark:text-gray-400 dark:text-gray-500">
+                  Showing <span className="text-gray-900 dark:text-white font-black">{filteredOpportunities.length}</span> opportunities
                 </p>
-                <select className="text-xs font-bold text-gray-500 bg-white border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20">
+                <select className="text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-500 bg-white dark:bg-[#1e2028] border border-gray-200 dark:border-white/10 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20">
                   <option>Best Match</option>
                   <option>Newest First</option>
                   <option>Highest Budget</option>
@@ -1328,22 +1331,22 @@ const ExpertOpportunities = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="flex flex-col items-center justify-center p-24 w-full bg-white rounded-3xl border border-gray-100 shadow-sm"
+                    className="flex flex-col items-center justify-center p-24 w-full bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm"
                   >
                     <div className="w-12 h-12 border-4 border-[#0eb59a] border-t-transparent rounded-full animate-spin mb-4" />
-                    <p className="text-gray-500 font-bold text-sm">Loading matched opportunities...</p>
+                    <p className="text-gray-500 dark:text-gray-400 dark:text-gray-500 font-bold text-sm">Loading matched opportunities...</p>
                   </motion.div>
                 ) : filteredOpportunities.length === 0 ? (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="bg-white rounded-3xl border border-gray-100 shadow-sm p-16 text-center"
+                    className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-16 text-center"
                   >
-                    <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-gray-100">
+                    <div className="w-16 h-16 bg-gray-50 dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-gray-100 dark:border-white/10">
                       <Briefcase size={24} className="text-gray-300" />
                     </div>
-                    <h3 className="font-black text-gray-700 text-lg mb-2">No opportunities found</h3>
-                    <p className="text-gray-400 text-sm mb-4">Try adjusting your filters or search query</p>
+                    <h3 className="font-black text-gray-700 dark:text-gray-300 text-lg mb-2">No opportunities found</h3>
+                    <p className="text-gray-400 dark:text-gray-500 text-sm mb-4">Try adjusting your filters or search query</p>
                     <motion.button
                       whileHover={{ scale: 1.03 }}
                       onClick={clearAllFilters}
@@ -1384,7 +1387,7 @@ const ExpertOpportunities = () => {
                             borderColor: getMatchBorderColor(opp.match)
                           }}
                           transition={{ duration: 0.2, ease: 'easeOut' }}
-                          className="bg-white rounded-2xl border-2 transition-all duration-200 cursor-pointer h-full flex flex-col justify-between overflow-visible relative"
+                          className="bg-white dark:!bg-[#1e2028] rounded-2xl border-2 transition-all duration-200 cursor-pointer h-full flex flex-col justify-between overflow-visible relative"
                           style={{
                             borderColor: hoveredCardId === opp.id
                               ? getMatchBorderColor(opp.match)
@@ -1394,8 +1397,7 @@ const ExpertOpportunities = () => {
                               : '0 8px 30px rgba(0,0,0,0.04)'
                           }}
                         >
-                          <FormalCardBorder />
-                          <div className="p-5 flex-grow flex flex-col justify-between">
+                                      <div className="p-5 flex-grow flex flex-col justify-between">
                             <div className="space-y-4">
                               {/* Top badges */}
                               <div className="flex items-center gap-2">
@@ -1403,7 +1405,7 @@ const ExpertOpportunities = () => {
                                   {opp.type}
                                 </span>
                                 {opp.status === 'featured' && (
-                                  <span className="text-[10px] font-black text-[#134e40] bg-teal-50 px-2 py-1 rounded-lg border border-teal-200 flex items-center gap-1">
+                                  <span className="text-[10px] font-black text-[#134e40] dark:text-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10 px-2 py-1 rounded-lg border border-teal-200 dark:border-[#0eb59a]/20 flex items-center gap-1">
                                     <Star size={9} fill="currentColor" /> Featured
                                   </span>
                                 )}
@@ -1430,11 +1432,11 @@ const ExpertOpportunities = () => {
                                   )}
                                 </div>
                                 <div className="min-w-0 flex-grow text-left">
-                                  <h3 className="font-black text-[#1C3627] text-base leading-tight">
+                                  <h3 className="font-black text-[#1C3627] dark:text-white text-base leading-tight">
                                     {opp.title}
                                   </h3>
-                                  <p className="text-sm font-bold text-gray-600 mt-0.5">{opp.company}</p>
-                                  <p className="text-xs text-gray-400">
+                                  <p className="text-sm font-bold text-gray-600 dark:text-gray-400 mt-0.5">{opp.company}</p>
+                                  <p className="text-xs text-gray-400 dark:text-gray-500">
                                     {opp.companySize}
                                   </p>
                                 </div>
@@ -1443,14 +1445,14 @@ const ExpertOpportunities = () => {
                               {/* Urgency pill */}
                               {opp.urgency === 'Immediate' && (
                                 <div className="text-left">
-                                  <span className="text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-red-50 text-red-600 border border-red-100 flex items-center gap-1 w-fit">
+                                  <span className="text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-500/20 flex items-center gap-1 w-fit">
                                     <Zap size={9} fill="currentColor" /> Immediate
                                   </span>
                                 </div>
                               )}
 
                               {/* Description */}
-                              <p className="text-xs text-gray-400 leading-relaxed line-clamp-2 text-left">
+                              <p className="text-xs text-gray-400 dark:text-gray-500 leading-relaxed line-clamp-2 text-left">
                                 {opp.description}
                               </p>
 
@@ -1460,15 +1462,15 @@ const ExpertOpportunities = () => {
                                   <DollarSign size={11} className="text-[#0eb59a] shrink-0" />
                                   <span className="truncate">{opp.budget}</span>
                                 </div>
-                                <div className="flex items-center gap-1.5 text-xs text-gray-500 font-medium">
+                                <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500 font-medium">
                                   <Clock size={11} className="shrink-0" />
                                   <span className="truncate">{opp.commitment}</span>
                                 </div>
-                                <div className="flex items-center gap-1.5 text-xs text-gray-500 font-medium">
+                                <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500 font-medium">
                                   <MapPin size={11} className="shrink-0" />
                                   <span className="truncate">{opp.location.split(' | ')[0]}</span>
                                 </div>
-                                <div className="flex items-center gap-1.5 text-xs text-gray-500 font-medium">
+                                <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500 font-medium">
                                   <Calendar size={11} className="shrink-0" />
                                   <span className="truncate">{opp.duration}</span>
                                 </div>
@@ -1479,13 +1481,13 @@ const ExpertOpportunities = () => {
                                 {opp.skills.slice(0, 3).map(skill => (
                                   <span
                                     key={skill}
-                                    className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-[#f0fdf4] text-[#134e40] border border-[#0eb59a]/20 shrink-0"
+                                    className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-[#f0fdf4] dark:bg-white/5 text-[#134e40] dark:text-[#0eb59a] border border-[#0eb59a]/20 dark:border-[#0eb59a]/30 shrink-0"
                                   >
                                     {skill}
                                   </span>
                                 ))}
                                 {opp.skills.length > 3 && (
-                                  <span className="text-[10px] font-bold bg-gray-100 text-gray-400 px-2 py-0.5 rounded-lg shrink-0">
+                                  <span className="text-[10px] font-bold bg-gray-100 text-gray-400 dark:text-gray-500 px-2 py-0.5 rounded-lg shrink-0">
                                     +{opp.skills.length - 3}
                                   </span>
                                 )}
@@ -1494,8 +1496,8 @@ const ExpertOpportunities = () => {
 
                             <div className="mt-5 shrink-0">
                               {/* Footer */}
-                              <div className="flex items-center justify-between pt-3 border-t border-gray-50 mb-3">
-                                <span className="text-xs text-gray-400 font-medium flex items-center gap-1">
+                              <div className="flex items-center justify-between pt-3 border-t border-gray-50 dark:border-white/5 mb-3">
+                                <span className="text-xs text-gray-400 dark:text-gray-500 font-medium flex items-center gap-1">
                                   <Users size={10} /> {opp.applicants} applied · {opp.postedDate}
                                 </span>
                                 {opp.verified && (
@@ -1541,9 +1543,9 @@ const ExpertOpportunities = () => {
                                     e.stopPropagation();
                                     navigate(`/expert-opportunities/${opp.id}`);
                                   }}
-                                  className="w-10 h-10 bg-gray-50 border border-gray-200 text-gray-400 rounded-xl transition-all flex items-center justify-center cursor-pointer shrink-0"
+                                  className="w-10 h-10 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-400 dark:text-gray-500 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500 rounded-xl transition-all flex items-center justify-center cursor-pointer shrink-0"
                                 >
-                                  <Eye size={14} className="text-gray-400 group-hover:text-[#134e40] transition-colors" />
+                                  <Eye size={14} className="text-gray-400 dark:text-gray-500 group-hover:text-[#134e40] transition-colors" />
                                 </motion.button>
                                 <motion.button
                                   whileHover={{
@@ -1560,10 +1562,10 @@ const ExpertOpportunities = () => {
                                   className={`w-10 h-10 rounded-xl transition-all border flex items-center justify-center cursor-pointer shrink-0 ${
                                     savedOpportunities.includes(opp.id)
                                       ? 'bg-red-50 text-red-500 border-red-100'
-                                      : 'bg-gray-50 text-gray-400 border-gray-200 hover:bg-red-50 hover:text-red-400'
+                                      : 'bg-gray-50 dark:bg-white/5 text-gray-400 dark:text-gray-500 border-gray-200 dark:border-white/10 hover:bg-red-50 hover:text-red-400'
                                   }`}
                                 >
-                                  <Heart size={14} fill={savedOpportunities.includes(opp.id) ? '#ef4444' : 'none'} className={savedOpportunities.includes(opp.id) ? 'text-[#ef4444]' : 'text-gray-400'} />
+                                  <Heart size={14} fill={savedOpportunities.includes(opp.id) ? '#ef4444' : 'none'} className={savedOpportunities.includes(opp.id) ? 'text-[#ef4444]' : 'text-gray-400 dark:text-gray-500'} />
                                 </motion.button>
                               </div>
                             </div>
@@ -1597,13 +1599,12 @@ const ExpertOpportunities = () => {
                           boxShadow: '0 12px 36px rgba(19,78,64,0.06)',
                           borderColor: getMatchBorderColor(opp.match)
                         }}
-                        className="bg-white rounded-2xl border-2 transition-all duration-300 p-5 flex items-start gap-5 cursor-pointer relative text-left shadow-sm overflow-hidden"
+                        className="bg-white dark:!bg-[#1e2028] rounded-2xl border-2 transition-all duration-300 p-5 flex items-start gap-5 cursor-pointer relative text-left shadow-sm overflow-hidden"
                         style={{
                           borderColor: `${getMatchBorderColor(opp.match)}33` // 20% opacity
                         }}
                       >
-                        <FormalCardBorder />
-                        {/* Logo */}
+                                  {/* Logo */}
                         <div className={`w-14 h-14 rounded-xl overflow-hidden bg-gradient-to-br ${opp.logoColor} flex items-center justify-center shadow-md shrink-0 group-hover:rotate-2 transition-transform duration-300`}>
                           {opp.logoUrl ? (
                             <img src={opp.logoUrl} alt={opp.company} className="w-full h-full object-cover" />
@@ -1619,7 +1620,7 @@ const ExpertOpportunities = () => {
                               {opp.type}
                             </span>
                             {opp.urgency === 'Immediate' && (
-                              <span className="text-[10px] font-black text-red-600 bg-red-50 px-2 py-0.5 rounded-lg border border-red-100 flex items-center gap-1">
+                              <span className="text-[10px] font-black text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-500/10 px-2 py-0.5 rounded-lg border border-red-100 dark:border-red-500/20 flex items-center gap-1">
                                 <Zap size={9} fill="currentColor" /> Urgent
                               </span>
                             )}
@@ -1631,14 +1632,14 @@ const ExpertOpportunities = () => {
                             </span>
                           </div>
 
-                          <h3 className="font-black text-[#1C3627] text-base leading-tight mb-0.5 text-left">
+                          <h3 className="font-black text-[#1C3627] dark:text-white text-base leading-tight mb-0.5 text-left">
                             {opp.title}
                           </h3>
-                          <p className="text-sm font-bold text-gray-600 mb-3 text-left">
+                          <p className="text-sm font-bold text-gray-600 dark:text-gray-400 mb-3 text-left">
                             {opp.company} · {opp.companySize}
                           </p>
 
-                          <div className="flex flex-wrap gap-4 text-xs text-gray-400 font-semibold mb-3">
+                          <div className="flex flex-wrap gap-4 text-xs text-gray-400 dark:text-gray-500 font-semibold mb-3">
                             <span className="flex items-center gap-1.5 text-[#134e40] font-black">
                               <DollarSign size={11} className="text-[#0eb59a]" /> {opp.budget}
                             </span>
@@ -1660,7 +1661,7 @@ const ExpertOpportunities = () => {
                             {opp.skills.map(skill => (
                               <span
                                 key={skill}
-                                className="text-[9px] font-black px-2 py-0.5 rounded-lg bg-[#f0fdf4] text-[#134e40] border border-[#0eb59a]/20"
+                                className="text-[9px] font-black px-2 py-0.5 rounded-lg bg-[#f0fdf4] dark:bg-white/5 text-[#134e40] dark:text-[#0eb59a] border border-[#0eb59a]/20 dark:border-[#0eb59a]/30"
                               >
                                 {skill}
                               </span>
@@ -1705,7 +1706,7 @@ const ExpertOpportunities = () => {
                                 e.stopPropagation();
                                 navigate(`/expert-opportunities/${opp.id}`);
                               }}
-                              className="flex-1 px-4 py-2.5 bg-white border border-gray-200 text-gray-600 text-xs font-black rounded-xl transition-all flex items-center justify-center cursor-pointer"
+                              className="flex-1 px-4 py-2.5 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 dark:text-gray-400 dark:text-gray-500 text-xs font-black rounded-xl transition-all flex items-center justify-center cursor-pointer"
                             >
                               <Eye size={13} className="mr-1" /> View
                             </motion.button>
@@ -1724,10 +1725,10 @@ const ExpertOpportunities = () => {
                               className={`px-4 py-2.5 rounded-xl transition-all border flex items-center justify-center gap-1.5 text-xs font-bold cursor-pointer ${
                                 savedOpportunities.includes(opp.id)
                                   ? 'bg-red-50 text-red-500 border-red-100'
-                                  : 'bg-gray-50 text-gray-400 border-gray-200 hover:bg-red-50 hover:text-red-400'
+                                  : 'bg-gray-50 dark:bg-white/5 text-gray-400 dark:text-gray-500 border-gray-200 dark:border-white/10 hover:bg-red-50 hover:text-red-400'
                               }`}
                             >
-                              <Heart size={13} fill={savedOpportunities.includes(opp.id) ? '#ef4444' : 'none'} className={savedOpportunities.includes(opp.id) ? 'text-[#ef4444]' : 'text-gray-400'} />
+                              <Heart size={13} fill={savedOpportunities.includes(opp.id) ? '#ef4444' : 'none'} className={savedOpportunities.includes(opp.id) ? 'text-[#ef4444]' : 'text-gray-400 dark:text-gray-500'} />
                             </motion.button>
                           </div>
                         </div>
@@ -1755,7 +1756,7 @@ const ExpertOpportunities = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden"
+              className="bg-white dark:bg-[#1e2028] rounded-3xl shadow-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden"
             >
               <AnimatePresence mode="wait">
                 {!applySent ? (
@@ -1766,7 +1767,7 @@ const ExpertOpportunities = () => {
                     exit={{ opacity: 0 }}
                   >
                     {/* Opportunity mini card */}
-                    <div className="flex items-center gap-3 p-4 rounded-2xl bg-gradient-to-r from-teal-50 to-white border border-teal-100 mb-6">
+                    <div className="flex items-center gap-3 p-4 rounded-2xl bg-gradient-to-r from-teal-50 to-white dark:from-[#252830] dark:to-[#1e2028] border border-teal-100 dark:border-white/5 mb-6">
                       <div className={`w-12 h-12 rounded-xl overflow-hidden bg-gradient-to-br ${showApplyModal.logoColor} flex items-center justify-center shadow-sm shrink-0`}>
                         {showApplyModal.logoUrl ? (
                           <img src={showApplyModal.logoUrl} alt={showApplyModal.company} className="w-full h-full object-cover" />
@@ -1775,40 +1776,40 @@ const ExpertOpportunities = () => {
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-black text-gray-900 text-sm leading-tight">{showApplyModal.title}</h4>
-                        <p className="text-xs text-gray-500 font-semibold">{showApplyModal.company}</p>
+                        <h4 className="font-black text-gray-900 dark:text-white text-sm leading-tight">{showApplyModal.title}</h4>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500 font-semibold">{showApplyModal.company}</p>
                         <p className="text-[10px] text-[#0eb59a] font-black mt-0.5">{showApplyModal.budget}</p>
                       </div>
-                      <span className="text-xs font-black text-[#134e40] bg-teal-100 px-2.5 py-1.5 rounded-xl shrink-0">
+                      <span className="text-xs font-black text-[#134e40] bg-teal-100 dark:bg-white/5 px-2.5 py-1.5 rounded-xl shrink-0">
                         {showApplyModal.match}% Match
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-black text-gray-900 mb-1">Submit Proposal</h3>
-                    <p className="text-sm text-gray-400 mb-5 leading-relaxed">
+                    <h3 className="text-xl font-black text-gray-900 dark:text-white mb-1">Submit Proposal</h3>
+                    <p className="text-sm text-gray-400 dark:text-gray-500 mb-5 leading-relaxed">
                       Introduce yourself and explain why you're the right fit for this role.
                     </p>
 
                     {/* Proposed Rate */}
                     <div className="mb-4">
-                      <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                      <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                         Your Proposed Monthly Rate
                       </label>
                       <div className="relative">
-                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">₹</span>
+                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 font-bold text-sm">₹</span>
                         <input
                           type="text"
                           value={proposedRate}
                           onChange={e => setProposedRate(e.target.value)}
                           placeholder={`Budget: ${showApplyModal.budget}`}
-                          className="w-full pl-8 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
+                          className="w-full pl-8 pr-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
                         />
                       </div>
                     </div>
 
                     {/* Proposal Text */}
                     <div className="mb-5">
-                      <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                      <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                         Cover Letter / Proposal *
                       </label>
                       <textarea
@@ -1816,15 +1817,15 @@ const ExpertOpportunities = () => {
                         onChange={e => setProposalText(e.target.value)}
                         placeholder={`Hi, I'm a CFO with 18 years of experience at Meesho and OYO. I've led $200M+ in fundraising and have deep expertise in the areas you're looking for...`}
                         rows={5}
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all resize-none"
+                        className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl text-sm text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 resize-none transition-all"
                       />
-                      <p className="text-[10px] text-gray-400 mt-1 font-semibold text-right">
+                      <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-1 font-semibold text-right">
                         {proposalText.length}/500 characters
                       </p>
                     </div>
 
                     {/* Availability confirmation */}
-                    <div className="bg-teal-50 rounded-2xl p-4 border border-teal-100 mb-5 flex items-start gap-2">
+                    <div className="bg-teal-50 dark:bg-white/5 rounded-2xl p-4 border border-teal-100 dark:border-white/5 mb-5 flex items-start gap-2">
                       <CheckCircle size={15} className="text-[#0eb59a] shrink-0 mt-0.5" />
                       <p className="text-xs text-teal-700 font-semibold leading-relaxed">
                         By applying, you confirm you are available for <span className="font-black">{showApplyModal.commitment}</span> starting <span className="font-black">immediately</span>.
@@ -1837,7 +1838,7 @@ const ExpertOpportunities = () => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => { setShowApplyModal(null); setProposalText(''); setProposedRate(''); }}
-                        className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl"
+                        className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 dark:text-gray-400 text-sm font-bold rounded-2xl"
                       >
                         Cancel
                       </motion.button>
@@ -1849,7 +1850,7 @@ const ExpertOpportunities = () => {
                         className={`flex-1 py-3 text-sm font-black rounded-2xl transition-all ${
                           proposalText.trim()
                             ? 'bg-gradient-to-r from-[#134e40] to-[#0eb59a] text-white shadow-lg'
-                            : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                            : 'bg-gray-100 text-gray-400 dark:text-gray-500 cursor-not-allowed'
                         }`}
                       >
                         <Send size={14} className="inline mr-1.5" />
@@ -1872,11 +1873,11 @@ const ExpertOpportunities = () => {
                     >
                       <Check size={36} className="text-[#0eb59a]" strokeWidth={3} />
                     </motion.div>
-                    <h3 className="text-xl font-black text-gray-900 mb-2">Proposal Submitted!</h3>
-                    <p className="text-sm text-gray-400 leading-relaxed">
-                      Your proposal for <span className="font-bold text-gray-700">{showApplyModal.title}</span> at <span className="font-bold text-gray-700">{showApplyModal.company}</span> has been sent. Expect a response within 48 hours.
+                    <h3 className="text-xl font-black text-gray-900 dark:text-white mb-2">Proposal Submitted!</h3>
+                    <p className="text-sm text-gray-400 dark:text-gray-500 leading-relaxed">
+                      Your proposal for <span className="font-bold text-gray-700 dark:text-gray-300">{showApplyModal.title}</span> at <span className="font-bold text-gray-700 dark:text-gray-300">{showApplyModal.company}</span> has been sent. Expect a response within 48 hours.
                     </p>
-                    <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-[#134e40] text-xs font-black rounded-xl border border-teal-100">
+                    <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-teal-50 dark:bg-white/5 text-[#134e40] dark:text-[#0eb59a] text-xs font-black rounded-xl border border-teal-100 dark:border-white/5">
                       <Shield size={12} /> Reviewed by ExigentCX PMO
                     </div>
                   </motion.div>

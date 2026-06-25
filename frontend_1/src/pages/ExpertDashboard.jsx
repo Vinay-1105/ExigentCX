@@ -1,4 +1,5 @@
 import Logo from '../components/Logo';
+import ThemeToggle from '../components/ThemeToggle';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
@@ -12,7 +13,6 @@ import {
   UserPlus, UserCheck, UserX
 } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
-import FormalCardBorder from '../components/FormalCardBorder';
 
 // ── ANIMATED COUNTER ──
 const AnimatedCounter = ({ value }) => {
@@ -199,7 +199,7 @@ const ExpertDashboard = () => {
           desc: `${connectRequests[0]?.companyName || 'A company'} wants to connect with you`,
           time: 'Just now',
           unread: true,
-          color: 'bg-blue-500',
+          color: 'bg-[#0eb59a]',
         }, ...prev];
       });
     }
@@ -270,7 +270,7 @@ const ExpertDashboard = () => {
 
     try {
       const baseUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      
+
       const currentEngagementTypes = profile?.engagement_types || {};
       const currentAvailability = currentEngagementTypes.availability || {
         status: 'Available',
@@ -311,22 +311,38 @@ const ExpertDashboard = () => {
   };
 
   const sidebarMenu = [
-    { name: 'Dashboard',      icon: LayoutDashboard,
-      path: '/expert-dashboard'      },
-    { name: 'Opportunities',  icon: Briefcase,
-      path: '/expert-opportunities', badge: '3' },
-    { name: 'My Engagements', icon: Activity,
-      path: '/expert-engagements'    },
-    { name: 'Contracts',      icon: FileText,
-      path: '/expert-contracts'      },
-    { name: 'Earnings',       icon: IndianRupee,
-      path: '/expert-earnings'       },
-    { name: 'Profile',        icon: UserCircle,
-      path: '/expert-profile'        },
-    { name: 'Messages',       icon: MessageSquare,
-      path: '/messages'              },
-    { name: 'Meetings',       icon: Calendar,
-      path: '/meetings'              },
+    {
+      name: 'Dashboard', icon: LayoutDashboard,
+      path: '/expert-dashboard'
+    },
+    {
+      name: 'Opportunities', icon: Briefcase,
+      path: '/expert-opportunities', badge: '3'
+    },
+    {
+      name: 'My Engagements', icon: Activity,
+      path: '/expert-engagements'
+    },
+    {
+      name: 'Contracts', icon: FileText,
+      path: '/expert-contracts'
+    },
+    {
+      name: 'Earnings', icon: IndianRupee,
+      path: '/expert-earnings'
+    },
+    {
+      name: 'Profile', icon: UserCircle,
+      path: '/expert-profile'
+    },
+    {
+      name: 'Messages', icon: MessageSquare,
+      path: '/messages'
+    },
+    {
+      name: 'Meetings', icon: Calendar,
+      path: '/meetings'
+    },
   ];
 
   const activeEngagementsCount = escrowAccounts.length > 0 ? escrowAccounts.length : 2;
@@ -354,8 +370,8 @@ const ExpertDashboard = () => {
     },
     {
       title: 'Profile Views', value: '234', trend: '+48 this week',
-      icon: Eye, iconBg: 'bg-emerald-50', iconColor: 'text-[#a855f7]',
-      border: 'border-t-4 border-t-purple-400', numColor: 'text-[#a855f7]',
+      icon: Eye, iconBg: 'bg-emerald-50', iconColor: 'text-[#0eb59a]',
+      border: 'border-t-4 border-t-[#0eb59a]', numColor: 'text-[#0eb59a]',
       path: '/expert-profile',
     },
   ];
@@ -473,7 +489,7 @@ const ExpertDashboard = () => {
       companyLogo: 'AC',
       logoColor: 'from-[#134e40] to-[#0eb59a]',
       status: 'IN PROGRESS',
-      statusColor: 'text-blue-600 bg-blue-50',
+      statusColor: 'text-[#134e40] bg-teal-50',
       progress: 65,
       nextMilestone: 'Investor Deck & Data Room',
       dueDate: 'Apr 30, 2025',
@@ -502,7 +518,7 @@ const ExpertDashboard = () => {
       companyLogo: ea.companyLogo || 'AC',
       logoColor: ea.logoColor || 'from-[#134e40] to-[#0eb59a]',
       status: ea.status === 'Active' ? 'IN PROGRESS' : ea.status.toUpperCase(),
-      statusColor: ea.status === 'Active' ? 'text-blue-600 bg-blue-50' : 'text-emerald-600 bg-emerald-50',
+      statusColor: ea.status === 'Active' ? 'text-[#134e40] bg-teal-50' : 'text-emerald-600 bg-emerald-50',
       progress: ea.progress !== undefined ? ea.progress : 0,
       nextMilestone: ea.pendingMilestone || 'None',
       dueDate: 'Apr 30, 2025',
@@ -531,7 +547,7 @@ const ExpertDashboard = () => {
           type: 'APPROVAL',
           time: 'Under review',
           urgent: false,
-          typeColor: 'text-blue-700 bg-blue-50 border-blue-100',
+          typeColor: 'text-[#134e40] bg-teal-50 border-teal-100',
           path: `/expert-engagements/${ea.id}?tab=milestones`
         });
       }
@@ -564,7 +580,7 @@ const ExpertDashboard = () => {
       type: 'MESSAGE',
       time: '2 hours ago',
       urgent: false,
-      typeColor: 'text-blue-700 bg-blue-50 border-blue-100',
+      typeColor: 'text-[#134e40] bg-teal-50 border-teal-100',
       path: '/expert-engagements/1?tab=messages',
     },
   ] : getDynamicPendingActions();
@@ -627,19 +643,19 @@ const ExpertDashboard = () => {
   ];
 
   const quickActions = [
-    { label: 'Browse Roles',    icon: Briefcase,     bg: 'bg-teal-50',   iconColor: 'text-[#0eb59a]',   path: '/expert-opportunities' },
-    { label: 'My Engagements', icon: Activity,       bg: 'bg-emerald-50',iconColor: 'text-emerald-600', path: '/expert-engagements'   },
-    { label: 'Earnings',        icon: DollarSign,    bg: 'bg-teal-50/50',iconColor: 'text-[#134e40]',   path: '/expert-earnings'      },
-    { label: 'Edit Profile',    icon: UserCircle,    bg: 'bg-teal-50',   iconColor: 'text-teal-600',    path: '/expert-profile'       },
-    { label: 'Messages',        icon: MessageSquare, bg: 'bg-emerald-50/60',iconColor: 'text-emerald-700',path: '/expert-engagements'  },
-    { label: 'Reviews',         icon: Star,          bg: 'bg-amber-50',  iconColor: 'text-amber-500',  path: '/expert-profile'       },
+    { label: 'Browse Roles', icon: Briefcase, bg: 'bg-teal-50', iconColor: 'text-[#0eb59a]', path: '/expert-opportunities' },
+    { label: 'My Engagements', icon: Activity, bg: 'bg-emerald-50', iconColor: 'text-emerald-600', path: '/expert-engagements' },
+    { label: 'Earnings', icon: DollarSign, bg: 'bg-teal-50/50', iconColor: 'text-[#134e40]', path: '/expert-earnings' },
+    { label: 'Edit Profile', icon: UserCircle, bg: 'bg-teal-50', iconColor: 'text-teal-600', path: '/expert-profile' },
+    { label: 'Messages', icon: MessageSquare, bg: 'bg-emerald-50/60', iconColor: 'text-emerald-700', path: '/expert-engagements' },
+    { label: 'Reviews', icon: Star, bg: 'bg-amber-50', iconColor: 'text-amber-500', path: '/expert-profile' },
   ];
 
   const getNotificationColor = (type) => {
     switch (type) {
       case 'match': return 'bg-teal-500';
-      case 'milestone': return 'bg-blue-500';
-      case 'contract': return 'bg-purple-500';
+      case 'milestone': return 'bg-[#0eb59a]';
+      case 'contract': return 'bg-[#134e40]';
       case 'payment': return 'bg-emerald-500';
       default: return 'bg-slate-400';
     }
@@ -665,7 +681,7 @@ const ExpertDashboard = () => {
 
   const handleMarkAsRead = async (notifId) => {
     const isDemo = localStorage.getItem('demo_expert') === 'true';
-    
+
     setNotifications(prev =>
       prev.map(n => n.id === notifId ? { ...n, is_read: true, unread: false } : n)
     );
@@ -691,7 +707,7 @@ const ExpertDashboard = () => {
 
   const handleAcceptInvite = async (notifId) => {
     const isDemo = localStorage.getItem('demo_expert') === 'true';
-    
+
     // Optimistic UI update
     setNotifications(prev =>
       prev.map(n => n.id === notifId ? { ...n, is_read: true, unread: false, metadata: { ...n.metadata, status: 'accepted' } } : n)
@@ -769,7 +785,7 @@ const ExpertDashboard = () => {
 
   const handleMarkAllRead = async () => {
     const isDemo = localStorage.getItem('demo_expert') === 'true';
-    
+
     setNotifications(prev =>
       prev.map(n => ({ ...n, is_read: true, unread: false }))
     );
@@ -817,7 +833,7 @@ const ExpertDashboard = () => {
         unread: true,
         color: 'bg-[#0eb59a]',
       }, ...prev]);
-    } catch {}
+    } catch { }
   };
 
   const handleDeclineConnect = (requestId) => {
@@ -826,7 +842,7 @@ const ExpertDashboard = () => {
       const updated = requests.map(r => r.id === requestId ? { ...r, status: 'declined' } : r);
       localStorage.setItem('cxo_connect_requests', JSON.stringify(updated));
       setConnectRequests(prev => prev.filter(r => r.id !== requestId));
-    } catch {}
+    } catch { }
   };
 
   useEffect(() => {
@@ -947,17 +963,17 @@ const ExpertDashboard = () => {
     }
 
     const startTime = Date.now() - (autoPlayProgress / 100) * AUTO_PLAY_INTERVAL;
-    
+
     autoPlayRef.current = setInterval(() => {
       const elapsed = Date.now() - startTime;
       const pct = Math.min(100, (elapsed / AUTO_PLAY_INTERVAL) * 100);
-      
+
       setAutoPlayProgress(pct);
 
       if (pct >= 100) {
         const maxIndex = Math.max(0, recommendedOpportunities.length - itemsPerView);
         let nextIndex = opportunityCarouselIndex + carouselDirection;
-        
+
         if (nextIndex > maxIndex) {
           nextIndex = Math.max(0, maxIndex - 1);
           setCarouselDirection(-1);
@@ -965,7 +981,7 @@ const ExpertDashboard = () => {
           nextIndex = Math.min(maxIndex, 1);
           setCarouselDirection(1);
         }
-        
+
         setOpportunityCarouselIndex(Math.max(0, Math.min(maxIndex, nextIndex)));
         setAutoPlayProgress(0);
       }
@@ -991,7 +1007,7 @@ const ExpertDashboard = () => {
   };
 
   return (
-    <div className="flex h-screen bg-[#f4f7f5] font-sans text-slate-900 overflow-hidden">
+    <div className="flex h-screen bg-[#f4f7f5] dark:bg-[#0f1117] font-sans text-slate-900 dark:text-gray-100 overflow-hidden">
 
       {/* ── MOBILE BACKDROP ── */}
       <AnimatePresence>
@@ -1011,33 +1027,34 @@ const ExpertDashboard = () => {
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-white border-r border-gray-100 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white dark:bg-[#1b1d24] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
         {/* LOGO AREA */}
-        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50">
-          <motion.div
-            animate={{ width: isSidebarOpen ? 'auto' : 0, opacity: isSidebarOpen ? 1 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden shrink-0 flex items-center"
-          >
-            <div className="cursor-pointer" onClick={() => window.location.reload()}><Logo variant="dark" className="h-8" /></div>
-          </motion.div>
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
+          <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => window.location.reload()}>
+            <Logo variant="light" className="h-8 shrink-0" />
+            <motion.span
+              animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden whitespace-nowrap text-sm font-black text-[#134e40] dark:text-[#0eb59a] tracking-tight"
+            >
+              ExigentCX
+            </motion.span>
+          </div>
           <motion.button
-            animate={{ marginLeft: isSidebarOpen ? 'auto' : 0 }}
-            whileHover={{ scale: 1.1, backgroundColor: '#f0fdf4' }}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsSidebarOpen(s => !s)}
-            className="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-[#134e40] hover:bg-[#f0fdf4] transition-all cursor-pointer shrink-0 border border-gray-200 hover:border-[#0eb59a]"
+            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 dark:text-gray-500 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 dark:hover:bg-white/10 transition-all shrink-0"
           >
             {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
           </motion.button>
-
         </div>
 
         {/* NAV */}
         <nav className="flex-1 px-3 py-2 space-y-0.5 overflow-hidden">
           {isSidebarOpen && (
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2 mb-2">Main Menu</p>
+            <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest px-2 mb-2">Main Menu</p>
           )}
           {sidebarMenu.map((item) => {
             const isActive = activeMenu === item.name;
@@ -1050,11 +1067,10 @@ const ExpertDashboard = () => {
                   setActiveMenu(item.name);
                   navigate(item.path);
                 }}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative cursor-pointer text-center ${
-                  isActive
-                    ? 'bg-[#134e40] text-white shadow-md'
-                    : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
-                }`}
+                className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative cursor-pointer text-center ${isActive
+                  ? 'bg-[#134e40] text-white shadow-md'
+                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'
+                  }`}
               >
                 {isActive && (
                   <motion.div
@@ -1087,7 +1103,15 @@ const ExpertDashboard = () => {
         </nav>
 
         {/* Separated Settings option pinned to the bottom */}
-        <div className="p-3 border-t border-gray-50 space-y-1">
+        <div className="p-3 border-t border-gray-50 dark:border-white/5 space-y-1">
+          {/* Theme Toggle */}
+          <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
+            {isSidebarOpen && (
+              <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Theme</span>
+            )}
+            <ThemeToggle />
+          </div>
+
           <motion.button
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
@@ -1095,11 +1119,10 @@ const ExpertDashboard = () => {
               setActiveMenu('Settings');
               navigate('/expert-settings');
             }}
-            className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative cursor-pointer text-center ${
-              activeMenu === 'Settings' || window.location.pathname === '/expert-settings'
-                ? 'bg-[#134e40] text-white shadow-md'
-                : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
-            }`}
+            className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative cursor-pointer text-center ${activeMenu === 'Settings' || window.location.pathname === '/expert-settings'
+              ? 'bg-[#134e40] text-white shadow-md'
+              : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'
+              }`}
           >
             {(activeMenu === 'Settings' || window.location.pathname === '/expert-settings') && (
               <motion.div
@@ -1109,17 +1132,14 @@ const ExpertDashboard = () => {
             )}
             <Settings size={17} className="shrink-0" />
             <motion.span
-              animate={{ 
-                opacity: isSidebarOpen ? 1 : 0, 
-                width: isSidebarOpen ? 'auto' : 0 
-              }}
+              animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
               transition={{ duration: 0.2 }}
               className="overflow-hidden whitespace-nowrap text-sm font-bold text-left"
             >
               Settings
             </motion.span>
           </motion.button>
-          
+
           <motion.button
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
@@ -1133,7 +1153,7 @@ const ExpertDashboard = () => {
               }
               navigate('/signin?role=expert');
             }}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-red-500 hover:bg-red-50 hover:text-red-600 transition-all duration-150 font-bold"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 hover:text-red-600 transition-all duration-150 font-bold"
           >
             <LogOut size={17} className="shrink-0" />
             <motion.span
@@ -1146,19 +1166,18 @@ const ExpertDashboard = () => {
           </motion.button>
         </div>
 
-
       </motion.aside>
 
       {/* ══ MAIN CONTENT WRAPPER ══ */}
       <div
-        className="flex flex-col min-h-screen overflow-x-hidden flex-grow"
+        className="flex flex-col min-h-screen overflow-x-hidden flex-grow bg-[#f4f7f5] dark:bg-[#0f1117]"
         style={{
           marginLeft: isSidebarOpen ? 260 : 68,
           transition: 'margin-left 0.3s cubic-bezier(0.4,0,0.2,1)',
         }}
       >
         {/* ── HEADER ── */}
-        <header className="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-4 sm:px-6 shrink-0 z-40 sticky top-0 shadow-sm">
+        <header className="h-16 bg-white dark:bg-[#1b1d24] border-b border-gray-100 dark:border-white/10 flex items-center justify-between px-4 sm:px-6 shrink-0 z-40 sticky top-0 shadow-sm">
           {/* Left spacer / mobile toggle */}
           <div className="flex items-center gap-3">
             {isMobile && (
@@ -1176,23 +1195,21 @@ const ExpertDashboard = () => {
           {/* Center search */}
           <div className="flex-1 max-w-xl mx-4 sm:mx-6 hidden md:block">
             <div className="relative group">
-              <Search size={15} className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-200 ${
-                searchFocused ? 'text-[#0eb59a]' : 'text-gray-300'
-              }`} />
+              <Search size={15} className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-200 ${searchFocused ? 'text-[#0eb59a]' : 'text-gray-300'
+                }`} />
               <input
                 type="text"
                 placeholder="Search opportunities, companies, skills..."
                 onFocus={() => setSearchFocused(true)}
                 onBlur={() => setSearchFocused(false)}
-                className={`w-full pl-11 pr-12 py-2.5 bg-gray-50 border rounded-full text-sm text-gray-700 placeholder-gray-400 focus:bg-white focus:outline-none transition-all duration-200 ${
-                  searchFocused
-                    ? 'border-[#0eb59a] ring-2 ring-[#0eb59a]/20'
-                    : 'border-gray-200'
-                }`}
+                className={`w-full pl-11 pr-12 py-2.5 bg-gray-50 dark:bg-white/5 border rounded-full text-sm text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-600 focus:bg-white dark:focus:bg-white/10 focus:outline-none transition-all duration-200 ${searchFocused
+                  ? 'border-[#0eb59a] ring-2 ring-[#0eb59a]/20'
+                  : 'border-gray-200 dark:border-white/10'
+                  }`}
               />
               {!searchFocused && (
                 <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                  <span className="text-[10px] bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded font-mono">⌘K</span>
+                  <span className="text-[10px] bg-gray-100 dark:bg-white/5 text-gray-400 dark:text-gray-600 px-1.5 py-0.5 rounded font-mono">⌘K</span>
                 </div>
               )}
             </div>
@@ -1216,11 +1233,10 @@ const ExpertDashboard = () => {
               <motion.button
                 whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.92 }}
                 onClick={() => { setGridOpen(!gridOpen); setShowNotifications(false); }}
-                className={`w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 cursor-pointer text-center ${
-                  gridOpen
-                    ? 'bg-teal-50 border-[#0eb59a] text-[#134e40]'
-                    : 'bg-gray-50 border-gray-200 text-gray-500'
-                }`}
+                className={`w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 cursor-pointer text-center ${gridOpen
+                  ? 'bg-teal-50 border-[#0eb59a] text-[#134e40]'
+                  : 'bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400'
+                  }`}
               >
                 <Grid size={17} />
               </motion.button>
@@ -1232,7 +1248,7 @@ const ExpertDashboard = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.97 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full right-0 mt-2 w-[360px] bg-white rounded-2xl z-50 overflow-hidden"
+                    className="absolute top-full right-0 mt-2 w-[360px] bg-white dark:bg-[#1e2028] rounded-2xl z-50 overflow-hidden border border-gray-100 dark:border-white/10 shadow-xl"
                     style={{
                       boxShadow: '0 20px 50px rgba(0,0,0,0.12)',
                       border: '1px solid #F1F5F2'
@@ -1240,25 +1256,25 @@ const ExpertDashboard = () => {
                   >
                     <div className="p-3 space-y-1">
                       {[
-                        { icon: Briefcase,   label: 'Opportunities',  badge: '3 new',        badgeStyle: 'text-teal-700 bg-teal-50 border-teal-200',   border: '#0eb59a', path: '/expert-opportunities' },
-                        { icon: Activity,    label: 'My Engagements', badge: '2 active',      badgeStyle: 'text-emerald-700 bg-emerald-50 border-emerald-200', border: '#0eb59a', path: '/expert-engagements'   },
-                        { icon: FileText,    label: 'Contracts',      badge: '1 pending',     badgeStyle: 'text-amber-700 bg-amber-50 border-amber-200', border: '#F59E0B', path: '/expert-contracts'     },
-                        { icon: DollarSign,  label: 'Earnings',       badge: '₹3.5L pending', badgeStyle: 'text-emerald-700 bg-emerald-50 border-emerald-200', border: '#0eb59a', path: '/expert-earnings' },
-                        { icon: UserCircle,  label: 'Profile',        badge: '78% complete',  badgeStyle: 'text-teal-700 bg-teal-50 border-teal-200', border: '#0eb59a', path: '/expert-profile'   },
-                        { icon: Settings,    label: 'Settings',       badge: 'Preferences',   badgeStyle: 'text-gray-600 bg-gray-50 border-gray-200',    border: '#9CA3AF', path: '/expert-settings'     },
+                        { icon: Briefcase, label: 'Opportunities', badge: '3 new', badgeStyle: 'text-teal-700 bg-teal-50 border-teal-200', border: '#0eb59a', path: '/expert-opportunities' },
+                        { icon: Activity, label: 'My Engagements', badge: '2 active', badgeStyle: 'text-emerald-700 bg-emerald-50 border-emerald-200', border: '#0eb59a', path: '/expert-engagements' },
+                        { icon: FileText, label: 'Contracts', badge: '1 pending', badgeStyle: 'text-amber-700 bg-amber-50 border-amber-200', border: '#F59E0B', path: '/expert-contracts' },
+                        { icon: DollarSign, label: 'Earnings', badge: '₹3.5L pending', badgeStyle: 'text-emerald-700 bg-emerald-50 border-emerald-200', border: '#0eb59a', path: '/expert-earnings' },
+                        { icon: UserCircle, label: 'Profile', badge: '78% complete', badgeStyle: 'text-teal-700 bg-teal-50 border-teal-200', border: '#0eb59a', path: '/expert-profile' },
+                        { icon: Settings, label: 'Settings', badge: 'Preferences', badgeStyle: 'text-gray-600 bg-gray-50 border-gray-200', border: '#9CA3AF', path: '/expert-settings' },
                       ].map((item, idx) => (
                         <motion.button
                           key={idx}
-                          whileHover={{ x: 3, backgroundColor: '#FAFBF9' }}
+                          whileHover={{ x: 3 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={() => { navigate(item.path); setGridOpen(false); }}
-                          className="w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer text-center"
+                          className="w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer text-center hover:bg-gray-50 dark:hover:bg-white/5"
                           style={{ borderLeft: `3px solid ${item.border}` }}
                         >
-                          <div className="w-7 h-7 bg-gray-50 rounded-lg flex items-center justify-center shrink-0">
+                          <div className="w-7 h-7 bg-gray-50 dark:bg-white/5 rounded-lg flex items-center justify-center shrink-0">
                             <item.icon size={13} className="text-[#134e40]" />
                           </div>
-                          <span className="flex-1 text-sm font-bold text-[#1C3627] text-left">
+                          <span className="flex-1 text-sm font-bold text-[#1C3627] dark:text-white text-left">
                             {item.label}
                           </span>
                           <div className="w-px h-4 bg-gray-100 shrink-0" />
@@ -1280,11 +1296,10 @@ const ExpertDashboard = () => {
                 transition={{ duration: 0.5, delay: 4, repeat: Infinity, repeatDelay: 10 }}
                 whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.92 }}
                 onClick={() => { setShowNotifications(!showNotifications); setGridOpen(false); }}
-                className={`relative w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 cursor-pointer text-center ${
-                  showNotifications
-                    ? 'bg-teal-50 border-[#0eb59a]'
-                    : 'bg-gray-50 border-gray-200'
-                }`}
+                className={`relative w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 cursor-pointer text-center ${showNotifications
+                  ? 'bg-teal-50 border-[#0eb59a]'
+                  : 'bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10'
+                  }`}
               >
                 <Bell size={16} className={showNotifications ? 'text-[#134e40]' : 'text-gray-500'} />
                 {notifications.filter(n => n.unread ?? !n.is_read).length > 0 && (
@@ -1307,10 +1322,10 @@ const ExpertDashboard = () => {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: '100%' }}
                       transition={{ duration: 0.3, type: 'tween' }}
-                      className="fixed right-0 top-16 bottom-0 w-80 bg-white shadow-2xl border-l border-gray-100 z-50 overflow-hidden flex flex-col"
+                      className="fixed right-0 top-16 bottom-0 w-80 bg-white dark:bg-[#1e2028] shadow-2xl border-l border-gray-100 dark:border-white/10 z-50 overflow-hidden flex flex-col"
                     >
-                      <div className="px-5 py-4 border-b border-gray-50 flex items-center justify-between bg-gradient-to-r from-teal-50/50 to-white">
-                        <h3 className="font-black text-[#1C3627] text-sm text-left">Notifications</h3>
+                      <div className="px-5 py-4 border-b border-gray-50 dark:border-white/10 flex items-center justify-between bg-gradient-to-r from-teal-50/50 dark:from-teal-900/10 to-white dark:to-[#1e2028]">
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-sm text-left">Notifications</h3>
                         <motion.button
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
@@ -1335,24 +1350,23 @@ const ExpertDashboard = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: idx * 0.05 }}
                                 onClick={() => handleMarkAsRead(notif.id)}
-                                className={`px-5 py-4 border-b border-gray-50 hover:bg-gray-50 cursor-pointer flex gap-3 transition-colors ${
-                                  isUnread ? 'bg-teal-50/20' : ''
-                                }`}
+                                className={`px-5 py-4 border-b border-gray-50 dark:border-white/5 hover:bg-gray-50 dark:hover:bg-white/5 cursor-pointer flex gap-3 transition-colors ${isUnread ? 'bg-teal-50/20 dark:bg-teal-950/20' : ''
+                                  }`}
                               >
                                 <div className={`w-2 h-2 rounded-full ${dotColor} mt-1.5 shrink-0`} />
                                 <div className="flex-1 min-w-0 text-left">
-                                  <p className="text-sm font-bold text-[#1C3627] leading-tight text-left">
+                                  <p className="text-sm font-bold text-[#1C3627] dark:text-white leading-tight text-left">
                                     {notif.title}
                                   </p>
-                                  <p className="text-xs text-gray-400 mt-0.5 leading-relaxed text-left font-medium">
+                                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5 leading-relaxed text-left font-medium">
                                     {descText}
                                   </p>
                                   {notif.metadata?.note && (
-                                    <p className="text-[11px] bg-gray-50 border border-gray-100 rounded-xl p-2.5 mt-1.5 italic text-gray-600">
+                                    <p className="text-[11px] bg-gray-50 border border-gray-100 rounded-xl p-2.5 mt-1.5 italic text-gray-600 dark:text-gray-400">
                                       "{notif.metadata.note}"
                                     </p>
                                   )}
-                                  
+
                                   {/* Action buttons or status badges */}
                                   {(notif.title === "New Opportunity Invitation" || notif.type === "match") && (
                                     <div className="mt-2.5 flex items-center gap-2" onClick={e => e.stopPropagation()}>
@@ -1374,7 +1388,7 @@ const ExpertDashboard = () => {
                                           </button>
                                           <button
                                             onClick={() => handleDeclineInvite(notif.id)}
-                                            className="px-3 py-1 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-500 text-[10px] font-extrabold active:scale-95 transition-all bg-white cursor-pointer"
+                                            className="px-3 py-1 rounded-lg border border-gray-200 hover:bg-gray-50 dark:hover:bg-white/5 text-gray-500 dark:text-gray-400 text-[10px] font-extrabold active:scale-95 transition-all bg-white dark:bg-white/5 cursor-pointer"
                                           >
                                             Decline
                                           </button>
@@ -1422,13 +1436,14 @@ const ExpertDashboard = () => {
         </header>
 
         {/* ── MAIN CONTENT ── */}
-        <main className="flex-1 overflow-y-auto bg-[#f4f7f5] [&::-webkit-scrollbar]:hidden relative">
+        <main className="flex-1 overflow-y-auto bg-[#f4f7f5] dark:bg-[#0f1117] [&::-webkit-scrollbar]:hidden relative">
 
           {/* ── HERO BANNER ── */}
-          <div
-            className="relative overflow-hidden border-b border-teal-100/60"
-            style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #e8f5f1 50%, #f8fafc 100%)' }}
-          >
+          <div className="relative overflow-hidden border-b border-teal-100/60 dark:border-white/5 dark:bg-[#161a20]">
+            <div
+              className="absolute inset-0 dark:hidden"
+              style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #e8f5f1 50%, #f8fafc 100%)' }}
+            />
             <div
               className="absolute inset-0 opacity-[0.4]"
               style={{
@@ -1441,7 +1456,7 @@ const ExpertDashboard = () => {
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-8 text-left">
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
-                
+
                 {/* Verified badge row */}
                 <div className="flex items-center gap-3 mb-3">
                   <div className="flex gap-0.5">
@@ -1454,7 +1469,7 @@ const ExpertDashboard = () => {
                       </motion.div>
                     ))}
                   </div>
-                  <div className="flex items-center gap-1.5 bg-white border border-[#0eb59a]/30 rounded-full px-3 py-1 shadow-sm">
+                  <div className="flex items-center gap-1.5 bg-white dark:bg-white/5 border border-[#0eb59a]/30 rounded-full px-3 py-1 shadow-sm">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#0eb59a] animate-pulse" />
                     <span className="text-[10px] font-black text-[#134e40] uppercase tracking-[0.15em]">
                       Verified Expert · Top 5%
@@ -1466,7 +1481,7 @@ const ExpertDashboard = () => {
                 </div>
 
                 <h1 style={{ fontFamily: 'Georgia, serif' }}
-                  className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight mb-2 text-left"
+                  className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight mb-2 text-left"
                 >
                   Welcome,{' '}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#134e40] to-[#0eb59a]">
@@ -1474,7 +1489,7 @@ const ExpertDashboard = () => {
                   </span>
                 </h1>
 
-                <p className="text-slate-500 text-base mt-2 font-medium leading-relaxed text-left">
+                <p className="text-slate-500 dark:text-gray-400 text-base mt-2 font-medium leading-relaxed text-left">
                   You have{' '}
                   <span className="text-amber-500 font-black">
                     3 pending actions
@@ -1492,14 +1507,22 @@ const ExpertDashboard = () => {
                 {/* Context Bar */}
                 <div className="flex items-center gap-3 mt-4 flex-wrap text-left">
                   {[
-                    { icon: Clock, label: '3 meetings today', 
-                      color: 'text-[#134e40] bg-[#f0fdf4] border-[#0eb59a]/20' },
-                    { icon: MessageSquare, label: '3 unread messages', 
-                      color: 'text-blue-600 bg-blue-50 border-blue-100' },
-                    { icon: Target, label: '1 deadline this week', 
-                      color: 'text-amber-600 bg-amber-50 border-amber-100' },
-                    { icon: Eye, label: '12 profile views today', 
-                      color: 'text-emerald-700 bg-emerald-50 border-emerald-100' },
+                    {
+                      icon: Clock, label: '3 meetings today',
+                      color: 'text-[#134e40] bg-[#f0fdf4] border-[#0eb59a]/20'
+                    },
+                    {
+                      icon: MessageSquare, label: '3 unread messages',
+                      color: 'text-[#134e40] bg-teal-50 border-teal-100'
+                    },
+                    {
+                      icon: Target, label: '1 deadline this week',
+                      color: 'text-amber-600 bg-amber-50 border-amber-100'
+                    },
+                    {
+                      icon: Eye, label: '12 profile views today',
+                      color: 'text-emerald-700 bg-emerald-50 border-emerald-100'
+                    },
                   ].map((item, i) => (
                     <motion.div key={i}
                       initial={{ opacity: 0, y: 8 }}
@@ -1524,17 +1547,15 @@ const ExpertDashboard = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={handleToggleAvailability}
-                    className={`flex items-center justify-center gap-2 px-4 py-2 rounded-full border-2 text-xs font-black transition-all duration-300 cursor-pointer text-center ${
-                      isAvailable
-                        ? 'bg-[#f0fdf4] border-[#0eb59a] text-[#134e40]'
-                        : 'bg-gray-100 border-gray-300 text-gray-500'
-                    }`}
+                    className={`flex items-center justify-center gap-2 px-4 py-2 rounded-full border-2 text-xs font-black transition-all duration-300 cursor-pointer text-center ${isAvailable
+                      ? 'bg-[#f0fdf4] border-[#0eb59a] text-[#134e40]'
+                      : 'bg-gray-100 border-gray-300 text-gray-500'
+                      }`}
                   >
-                    <div className={`w-2 h-2 rounded-full transition-colors ${
-                      isAvailable 
-                        ? 'bg-[#0eb59a] animate-pulse' 
-                        : 'bg-gray-400'
-                    }`} />
+                    <div className={`w-2 h-2 rounded-full transition-colors ${isAvailable
+                      ? 'bg-[#0eb59a] animate-pulse'
+                      : 'bg-gray-400'
+                      }`} />
                     {isAvailable ? '🟢 Available for New Projects' : '⏸ Not Available'}
                   </motion.button>
                   <span className="text-[11px] text-gray-400 font-medium">
@@ -1550,24 +1571,23 @@ const ExpertDashboard = () => {
             {/* ── [1] KPI CARDS ── */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {kpis.map((kpi, idx) => {
-                const accentColor = kpi.numColor.includes('amber') 
-                  ? '#f59e0b' 
-                  : kpi.numColor.includes('purple')
-                  ? '#a855f7'
-                  : kpi.numColor.includes('134e40')
-                  ? '#134e40'
-                  : '#0eb59a';
+                const accentColor = kpi.numColor.includes('amber')
+                  ? '#f59e0b'
+                  : kpi.numColor.includes('teal')
+                    ? '#a855f7'
+                    : kpi.numColor.includes('134e40')
+                      ? '#134e40'
+                      : '#0eb59a';
 
                 return (
                   <MagneticCard
                     key={idx}
                     onClick={() => navigate(kpi.path)}
                     style={{ borderTopColor: accentColor }}
-                    className="bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 border-t-[5px] cursor-pointer relative group transition-all duration-200 hover:shadow-lg hover:-translate-y-1 overflow-hidden flex flex-col items-center justify-center text-center min-h-[180px]"
+                    className="bg-white dark:bg-[#1e2028] rounded-2xl p-5 sm:p-6 border border-gray-100 border-t-[5px] cursor-pointer relative group transition-all duration-200 hover:shadow-lg hover:-translate-y-1 overflow-hidden flex flex-col items-center justify-center text-center min-h-[180px]"
                   >
-                    <FormalCardBorder />
                     <div className="absolute top-0 left-0 right-0 h-[5px] rounded-t-2xl opacity-100"
-                       style={{ background: accentColor }}
+                      style={{ background: accentColor }}
                     />
                     <div className="absolute inset-0 opacity-[0.02] rounded-2xl"
                       style={{ background: kpi.numColor.includes('amber') ? '#f59e0b' : '#0eb59a' }}
@@ -1575,7 +1595,7 @@ const ExpertDashboard = () => {
                     <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full opacity-[0.06]"
                       style={{ background: '#0eb59a' }}
                     />
-                    
+
                     <div className="relative z-10 flex flex-col items-center justify-center text-center w-full">
                       <motion.div
                         initial={{ opacity: 0, y: 16 }}
@@ -1620,24 +1640,23 @@ const ExpertDashboard = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25 }}
-              className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm overflow-hidden relative"
+              className="bg-white dark:bg-[#1e2028] rounded-2xl border border-gray-100 p-5 shadow-sm overflow-hidden relative"
             >
-              <FormalCardBorder />
-              <div 
+              <div
                 className="absolute inset-0 opacity-[0.015]"
                 style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #0eb59a, transparent 50%), radial-gradient(circle at 80% 50%, #134e40, transparent 50%)' }}
               />
               <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#134e40] via-[#0eb59a] to-transparent" />
-              
+
               <div className="flex items-center justify-between mb-4 relative z-10">
                 <div className="flex items-center gap-2">
                   <div className="w-7 h-7 bg-[#f0fdf4] rounded-xl flex items-center justify-center">
                     <Clock size={14} className="text-[#134e40]" />
                   </div>
-                  <h3 className="text-base font-black text-gray-900">
+                  <h3 className="text-base font-black text-gray-900 dark:text-white">
                     Today's Schedule
                   </h3>
-                  <span className="text-[11px] font-bold text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
+                  <span className="text-[11px] font-bold text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-white/10 px-2 py-0.5 rounded-full">
                     {todaySchedule.length} events
                   </span>
                 </div>
@@ -1660,24 +1679,26 @@ const ExpertDashboard = () => {
                     whileHover={{ y: -3, boxShadow: '0 8px 20px rgba(19,78,64,0.1)' }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => navigate(event.path)}
-                    className="flex items-center gap-3 bg-[#FAFBF9] border border-gray-200 rounded-xl px-5 py-4 cursor-pointer min-w-[220px] group hover:border-[#0eb59a]/30 transition-all"
+                    className="flex items-center gap-3 bg-[#FAFBF9] dark:!bg-[#252830] border border-gray-200 dark:border-white/10 rounded-xl px-5 py-4 cursor-pointer min-w-[220px] group hover:border-[#0eb59a]/30 transition-all"
                   >
                     <div className={`w-1.5 self-stretch rounded-full ${event.color} shrink-0`} />
                     <div className="flex-1 min-w-0">
                       <p className="text-[11px] font-black uppercase tracking-wider"
-                        style={{ color: event.type === 'call' 
-                          ? '#0eb59a'
-                          : event.type === 'review' 
-                          ? '#134e40'
-                          : '#f59e0b' }}
+                        style={{
+                          color: event.type === 'call'
+                            ? '#0eb59a'
+                            : event.type === 'review'
+                              ? '#134e40'
+                              : '#f59e0b'
+                        }}
                       >
                         {event.time}
                       </p>
-                      <p className="text-sm font-black text-gray-900 group-hover:text-[#134e40] transition-colors leading-tight mt-0.5">{event.title}</p>
+                      <p className="text-sm font-black text-gray-900 dark:text-white group-hover:text-[#134e40] dark:group-hover:text-[#0eb59a] transition-colors leading-tight mt-0.5">{event.title}</p>
                       <p className="text-[11px] text-gray-400 font-medium mt-0.5">{event.company}</p>
                     </div>
                     <div className="shrink-0 text-right">
-                      <span className="text-[11px] font-bold text-gray-400 bg-gray-100 px-2 py-0.5 rounded-lg">
+                      <span className="text-[11px] font-bold text-gray-400 dark:text-gray-500 bg-gray-100 dark:!bg-white/10 px-2 py-0.5 rounded-lg">
                         {event.duration}
                       </span>
                     </div>
@@ -1689,7 +1710,7 @@ const ExpertDashboard = () => {
                   whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => navigate('/expert-engagements')}
-                  className="flex items-center justify-center border-2 border-dashed border-gray-200 rounded-xl px-4 py-3 min-w-[160px] cursor-pointer hover:border-[#0eb59a]/40 transition-all group"
+                  className="flex items-center justify-center border-2 border-dashed border-gray-200 dark:border-white/10 rounded-xl px-4 py-3 min-w-[160px] cursor-pointer hover:border-[#0eb59a]/40 transition-all group"
                 >
                   <div className="text-center">
                     <div className="w-8 h-8 bg-gray-50 rounded-xl flex items-center justify-center mx-auto mb-1 group-hover:bg-[#f0fdf4] transition-colors">
@@ -1716,23 +1737,22 @@ const ExpertDashboard = () => {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.30 + idx * 0.05 }}
-                  whileHover={{ 
+                  whileHover={{
                     y: -5,
                     boxShadow: '0 16px 40px rgba(19,78,64,0.1)',
                     borderColor: 'rgba(14,181,154,0.4)'
                   }}
                   whileTap={{ scale: 0.94 }}
                   onClick={() => navigate(action.path)}
-                  className="relative group flex flex-col items-center gap-2.5 p-4 rounded-2xl bg-white border border-gray-100 cursor-pointer transition-all duration-200 shadow-sm text-center overflow-hidden"
+                  className="relative group flex flex-col items-center gap-2.5 p-4 rounded-2xl bg-white dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 cursor-pointer transition-all duration-200 shadow-sm text-center overflow-hidden"
                 >
-                  <FormalCardBorder />
                   <div className={`w-12 h-12 ${action.bg} rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-sm`}>
                     <action.icon size={20} className={action.iconColor} />
                   </div>
                   <span className="text-[11px] font-bold text-gray-500 group-hover:text-[#134e40] text-center leading-tight transition-colors">
                     {action.label}
                   </span>
-                  
+
                   {/* Tooltip */}
                   <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-[#134e40] text-white text-[10px] font-black px-2.5 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-150 whitespace-nowrap pointer-events-none z-50 shadow-lg">
                     {action.label}
@@ -1750,11 +1770,11 @@ const ExpertDashboard = () => {
                 <div
                   onMouseEnter={() => setIsCarouselHovered(true)}
                   onMouseLeave={() => setIsCarouselHovered(false)}
-                  className="bg-[#FAFBF9] rounded-3xl border border-gray-100 p-6 shadow-sm"
+                  className="bg-[#FAFBF9] dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 p-6 shadow-sm"
                 >
                   <div className="flex items-center justify-between mb-5">
                     <div>
-                      <h2 className="text-base font-black text-gray-900 flex items-center gap-2">
+                      <h2 className="text-base font-black text-gray-900 dark:text-white flex items-center gap-2">
                         <motion.div
                           animate={{ rotate: [0, 15, -15, 0] }}
                           transition={{ duration: 2, repeat: Infinity, repeatDelay: 2 }}
@@ -1772,16 +1792,15 @@ const ExpertDashboard = () => {
                         whileHover={{ scale: opportunityCarouselIndex > 0 ? 1.1 : 1 }}
                         whileTap={{ scale: opportunityCarouselIndex > 0 ? 0.9 : 1 }}
                         onClick={() => handleManualNav(
-                          opportunityCarouselIndex - 1 < 0 
-                          ? recommendedOpportunities.length - itemsPerView 
-                          : opportunityCarouselIndex - 1
+                          opportunityCarouselIndex - 1 < 0
+                            ? recommendedOpportunities.length - itemsPerView
+                            : opportunityCarouselIndex - 1
                         )}
                         disabled={opportunityCarouselIndex === 0}
-                        className={`w-8 h-8 rounded-full border bg-white shadow-sm flex items-center justify-center flex-shrink-0 transition-all duration-200 text-center cursor-pointer ${
-                          opportunityCarouselIndex > 0
-                            ? 'border-gray-200 text-gray-600 hover:bg-[#0eb59a] hover:text-white hover:border-[#0eb59a] hover:shadow-md'
-                            : 'border-gray-100 text-gray-300 cursor-not-allowed opacity-40'
-                        }`}
+                        className={`w-8 h-8 rounded-full border bg-white dark:bg-[#1e2028] shadow-sm flex items-center justify-center flex-shrink-0 transition-all duration-200 text-center cursor-pointer dark:border-white/10 ${opportunityCarouselIndex > 0
+                          ? 'border-gray-200 text-gray-600 hover:bg-[#0eb59a] hover:text-white hover:border-[#0eb59a] hover:shadow-md'
+                          : 'border-gray-100 text-gray-300 cursor-not-allowed opacity-40'
+                          }`}
                       >
                         <ChevronLeft size={14} />
                       </motion.button>
@@ -1789,15 +1808,14 @@ const ExpertDashboard = () => {
                         whileHover={{ scale: opportunityCarouselIndex + itemsPerView < recommendedOpportunities.length ? 1.1 : 1 }}
                         whileTap={{ scale: opportunityCarouselIndex + itemsPerView < recommendedOpportunities.length ? 0.9 : 1 }}
                         onClick={() => handleManualNav(
-                          opportunityCarouselIndex + itemsPerView >= recommendedOpportunities.length 
-                          ? 0 : opportunityCarouselIndex + 1
+                          opportunityCarouselIndex + itemsPerView >= recommendedOpportunities.length
+                            ? 0 : opportunityCarouselIndex + 1
                         )}
                         disabled={opportunityCarouselIndex + itemsPerView >= recommendedOpportunities.length}
-                        className={`w-8 h-8 rounded-full border bg-white shadow-sm flex items-center justify-center flex-shrink-0 transition-all duration-200 text-center cursor-pointer ${
-                          opportunityCarouselIndex + itemsPerView < recommendedOpportunities.length
-                            ? 'border-gray-200 text-gray-600 hover:bg-[#0eb59a] hover:text-white hover:border-[#0eb59a] hover:shadow-md'
-                            : 'border-gray-100 text-gray-300 cursor-not-allowed opacity-40'
-                        }`}
+                        className={`w-8 h-8 rounded-full border bg-white dark:bg-[#1e2028] shadow-sm flex items-center justify-center flex-shrink-0 transition-all duration-200 text-center cursor-pointer dark:border-white/10 ${opportunityCarouselIndex + itemsPerView < recommendedOpportunities.length
+                          ? 'border-gray-200 text-gray-600 hover:bg-[#0eb59a] hover:text-white hover:border-[#0eb59a] hover:shadow-md'
+                          : 'border-gray-100 text-gray-300 cursor-not-allowed opacity-40'
+                          }`}
                       >
                         <ChevronRight size={14} />
                       </motion.button>
@@ -1829,9 +1847,8 @@ const ExpertDashboard = () => {
                                 minHeight: '440px',
                                 flexShrink: 0
                               }}
-                              className="bg-white rounded-2xl border-2 border-[#0eb59a]/15 p-6 hover:border-[#0eb59a]/60 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-pointer relative overflow-hidden text-center flex flex-col items-center justify-between"
+                              className="bg-white dark:!bg-[#252830] rounded-2xl border-2 border-[#0eb59a]/15 p-6 hover:border-[#0eb59a]/60 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-pointer relative overflow-hidden text-center flex flex-col items-center justify-between"
                             >
-                              <FormalCardBorder />
                               {/* Top accent on hover */}
                               <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#134e40] to-[#0eb59a] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl" />
 
@@ -1845,13 +1862,12 @@ const ExpertDashboard = () => {
 
                               {/* Urgency pill centered */}
                               <div className="mb-3">
-                                <span className={`text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full ${
-                                  opp.urgency === 'Immediate'
-                                    ? 'bg-red-50 text-red-600 border border-red-100'
-                                    : opp.urgency === 'High'
+                                <span className={`text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full ${opp.urgency === 'Immediate'
+                                  ? 'bg-red-50 text-red-600 border border-red-100'
+                                  : opp.urgency === 'High'
                                     ? 'bg-amber-50 text-amber-600 border border-amber-100'
                                     : 'bg-gray-100 text-gray-400 border border-gray-200'
-                                }`}>
+                                  }`}>
                                   {opp.urgency}
                                 </span>
                               </div>
@@ -1884,10 +1900,10 @@ const ExpertDashboard = () => {
                               </div>
 
                               {/* Title centered with slightly larger font */}
-                              <h3 className="font-black text-gray-900 text-sm sm:text-base leading-tight mb-1 text-center group-hover:text-[#134e40] transition-colors line-clamp-2">
+                              <h3 className="font-black text-gray-900 dark:text-white text-sm sm:text-base leading-tight mb-1 text-center group-hover:text-[#134e40] dark:group-hover:text-[#0eb59a] transition-colors line-clamp-2">
                                 {opp.title}
                               </h3>
-                              <p className="text-xs text-gray-650 font-bold mb-0.5 text-center">
+                              <p className="text-xs text-gray-600 dark:text-gray-300 font-bold mb-0.5 text-center">
                                 {opp.company}
                               </p>
                               <p className="text-[10px] text-gray-400 mb-4 text-center">
@@ -1895,18 +1911,18 @@ const ExpertDashboard = () => {
                               </p>
 
                               {/* Info rows inside centered box */}
-                              <div className="flex flex-col mb-4 rounded-xl border border-gray-100 bg-white overflow-hidden w-full text-center shadow-sm">
+                              <div className="flex flex-col mb-4 rounded-xl border border-gray-100 dark:border-white/10 bg-white dark:!bg-[#1e2028] overflow-hidden w-full text-center shadow-sm">
                                 <div className="text-xs px-3 py-2 flex flex-col items-center">
                                   <span className="text-[9px] text-gray-400 font-black tracking-wider uppercase mb-0.5">Budget</span>
                                   <span className="font-black text-[#134e40] text-xs flex items-center gap-1"><DollarSign size={10} className="text-[#0eb59a]" /> {opp.budget}</span>
                                 </div>
-                                <div className="text-xs px-3 py-2 flex flex-col items-center border-t border-gray-50">
+                                <div className="text-xs px-3 py-2 flex flex-col items-center border-t border-gray-50 dark:border-white/5">
                                   <span className="text-[9px] text-gray-400 font-black tracking-wider uppercase mb-0.5">Commitment</span>
-                                  <span className="font-black text-gray-700 text-xs flex items-center gap-1"><Clock size={10} /> {opp.commitment}</span>
+                                  <span className="font-black text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1"><Clock size={10} /> {opp.commitment}</span>
                                 </div>
-                                <div className="text-xs px-3 py-2 flex flex-col items-center border-t border-gray-50">
+                                <div className="text-xs px-3 py-2 flex flex-col items-center border-t border-gray-50 dark:border-white/5">
                                   <span className="text-[9px] text-gray-400 font-black tracking-wider uppercase mb-0.5">Location</span>
-                                  <span className="font-black text-gray-700 text-xs flex items-center gap-1"><MapPin size={10} /> {opp.location}</span>
+                                  <span className="font-black text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1"><MapPin size={10} /> {opp.location}</span>
                                 </div>
                               </div>
 
@@ -1914,7 +1930,7 @@ const ExpertDashboard = () => {
                               <div className="flex flex-wrap gap-1.5 justify-center mb-3">
                                 {opp.skills.slice(0, 2).map((skill, i) => (
                                   <span key={i}
-                                    className="text-[9px] font-black px-2 py-0.5 rounded-lg bg-[#f0fdf4] text-[#134e40] border border-[#0eb59a]/20"
+                                    className="text-[9px] font-black px-2 py-0.5 rounded-lg bg-[#f0fdf4] dark:!bg-white/5 text-[#134e40] dark:text-[#0eb59a] border border-[#0eb59a]/20 dark:border-white/10"
                                   >
                                     {skill}
                                   </span>
@@ -1951,7 +1967,7 @@ const ExpertDashboard = () => {
                                     e.stopPropagation();
                                     navigate(`/expert-opportunities/${opp.id}`);
                                   }}
-                                  className="px-4 py-2.5 border-2 border-gray-300 rounded-xl text-[11px] font-black text-gray-700 hover:border-[#0eb59a] hover:text-[#0eb59a] hover:bg-[#f0fdf4] transition-all cursor-pointer text-center justify-center flex"
+                                  className="px-4 py-2.5 border-2 border-gray-300 dark:border-white/10 rounded-xl text-[11px] font-black text-gray-700 dark:text-gray-300 hover:border-[#0eb59a] hover:text-[#0eb59a] hover:bg-[#f0fdf4] dark:hover:bg-[#0eb59a]/10 transition-all cursor-pointer text-center justify-center flex"
                                 >
                                   Details
                                 </motion.button>
@@ -1970,11 +1986,10 @@ const ExpertDashboard = () => {
                           whileHover={{ scale: 1.2 }}
                           whileTap={{ scale: 0.9 }}
                           onClick={() => handleManualNav(i)}
-                          className={`rounded-full transition-all duration-200 cursor-pointer text-center ${
-                            opportunityCarouselIndex === i
-                              ? 'w-5 h-2.5 bg-[#0eb59a]'
-                              : 'w-2.5 h-2.5 bg-gray-200 hover:bg-gray-300'
-                          }`}
+                          className={`rounded-full transition-all duration-200 cursor-pointer text-center ${opportunityCarouselIndex === i
+                            ? 'w-5 h-2.5 bg-[#0eb59a]'
+                            : 'w-2.5 h-2.5 bg-gray-200 dark:bg-white/20 hover:bg-gray-300 dark:hover:bg-white/30'
+                            }`}
                         />
                       ))}
                     </div>
@@ -1982,7 +1997,7 @@ const ExpertDashboard = () => {
                       {isCarouselHovered ? (
                         <span className="text-[10px] text-gray-400 font-black tracking-wider uppercase">Paused</span>
                       ) : (
-                        <div className="bg-gray-100 rounded-full w-40 h-0.5 overflow-hidden">
+                        <div className="bg-gray-100 dark:bg-white/10 rounded-full w-40 h-0.5 overflow-hidden">
                           <div
                             className="bg-[#0eb59a] rounded-full h-full"
                             style={{ width: `${autoPlayProgress}%`, transition: 'none' }}
@@ -2004,10 +2019,9 @@ const ExpertDashboard = () => {
 
               {/* RIGHT 40% — Pending Actions with more room */}
               <div className="lg:col-span-2">
-                <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden flex flex-col h-full relative">
-                  <FormalCardBorder />
+                <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 shadow-sm overflow-hidden flex flex-col h-full relative">
                   {/* Header (with count badge + wobble animation) */}
-                  <div className="p-5 border-b border-gray-50 bg-gradient-to-b from-amber-50/40 to-white flex items-center justify-between">
+                  <div className="p-5 border-b border-gray-50 dark:border-white/5 bg-gradient-to-b from-amber-50/40 dark:from-amber-500/5 to-white dark:to-[#1e2028] flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <motion.div
                         animate={{ rotate: [0, 6, -6, 0] }}
@@ -2016,7 +2030,7 @@ const ExpertDashboard = () => {
                         <AlertCircle size={16} className="text-amber-500" />
                       </motion.div>
                       <div>
-                        <h2 className="text-base font-black text-gray-900">
+                        <h2 className="text-base font-black text-gray-900 dark:text-white">
                           Pending Actions
                         </h2>
                         <p className="text-[10px] text-gray-400 font-medium">
@@ -2044,11 +2058,11 @@ const ExpertDashboard = () => {
                       </div>
                     ) : (
                       pendingActions.map((action, idx) => {
-                        const leftBorder = action.type === 'SIGN' 
-                          ? 'border-l-red-400' 
-                          : action.urgent 
-                          ? 'border-l-amber-400' 
-                          : 'border-l-blue-400';
+                        const leftBorder = action.type === 'SIGN'
+                          ? 'border-l-red-400'
+                          : action.urgent
+                            ? 'border-l-amber-400'
+                            : 'border-l-[#0eb59a]';
 
                         const actionLabel = {
                           'SUBMIT': 'Submit Deliverable',
@@ -2063,10 +2077,10 @@ const ExpertDashboard = () => {
 
                         return (
                           <motion.div key={idx}
-                            whileHover={{ scale: 1.01, backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}
+                            whileHover={{ scale: 1.01, boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}
                             whileTap={{ scale: 0.99 }}
                             onClick={() => navigate(action.path)}
-                            className={`p-5 mx-4 my-2.5 rounded-2xl border border-gray-100 bg-gray-50/30 border-l-4 ${leftBorder} hover:border-[#0eb59a]/20 transition-all cursor-pointer group`}
+                            className={`p-5 mx-4 my-2.5 rounded-2xl border border-gray-100 dark:border-white/10 bg-gray-50/30 dark:!bg-white/5 border-l-4 ${leftBorder} hover:border-[#0eb59a]/20 transition-all cursor-pointer group`}
                           >
                             <div className="flex items-center justify-between mb-2">
                               <span className={`text-[11px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md text-left ${action.typeColor}`}>
@@ -2076,7 +2090,7 @@ const ExpertDashboard = () => {
                                 <Clock size={8} /> {action.time}
                               </span>
                             </div>
-                            <h4 className="font-black text-gray-700 text-sm mb-1 group-hover:text-gray-900 leading-snug">
+                            <h4 className="font-black text-gray-700 dark:text-gray-200 text-sm mb-1 group-hover:text-gray-900 dark:group-hover:text-white leading-snug">
                               {action.title}
                             </h4>
                             <p className="text-xs text-gray-500 font-medium mb-3 flex items-center gap-1">
@@ -2085,11 +2099,11 @@ const ExpertDashboard = () => {
                             <motion.button
                               whileHover={{ scale: 1.02 }}
                               whileTap={{ scale: 0.97 }}
-                              onClick={(e) => { 
-                                e.stopPropagation(); 
-                                navigate(action.path); 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                navigate(action.path);
                               }}
-                              className="w-full py-2 bg-white border border-gray-200 rounded-xl text-[11px] font-black text-gray-600 hover:bg-[#134e40] hover:text-white hover:border-[#134e40] transition-all duration-200 shadow-sm text-center cursor-pointer justify-center flex border-0 bg-transparent"
+                              className="w-full py-2 bg-gray-50 dark:!bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl text-[11px] font-black text-gray-600 dark:text-gray-300 hover:bg-[#134e40] hover:text-white hover:border-[#134e40] transition-all duration-200 shadow-sm text-center cursor-pointer justify-center flex"
                             >
                               {actionLabel}
                             </motion.button>
@@ -2108,12 +2122,11 @@ const ExpertDashboard = () => {
 
               {/* LEFT 3/5 (lg:col-span-3) — Stacked Active Engagements + Performance Snapshot */}
               <div className="lg:col-span-3 flex flex-col gap-6">
-                
+
                 {/* Active Engagements */}
-                <div className="bg-white rounded-3xl border border-gray-100 p-6 shadow-sm relative">
-                  <FormalCardBorder />
+                <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 p-6 shadow-sm relative">
                   <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-base font-black text-gray-900 flex items-center gap-2">
+                    <h2 className="text-base font-black text-gray-900 dark:text-white flex items-center gap-2">
                       <Activity size={16} className="text-[#0eb59a]" /> Active Engagements
                     </h2>
                     <div className="flex items-center gap-1.5">
@@ -2139,7 +2152,7 @@ const ExpertDashboard = () => {
                           whileHover={{ y: -4, boxShadow: '0 12px 24px rgba(19,78,64,0.06)' }}
                           whileTap={{ scale: 0.99 }}
                           onClick={() => navigate(eng.path)}
-                          className="bg-[#FAFBF9] rounded-2xl border border-gray-200 p-6 hover:border-[#0eb59a]/30 hover:shadow-lg transition-all duration-300 cursor-pointer group relative overflow-hidden"
+                          className="bg-[#FAFBF9] dark:!bg-[#252830] rounded-2xl border border-gray-200 dark:border-white/10 p-6 hover:border-[#0eb59a]/30 hover:shadow-lg transition-all duration-300 cursor-pointer group relative overflow-hidden"
                         >
                           {/* Hover accent */}
                           <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#134e40] to-[#0eb59a] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -2153,7 +2166,7 @@ const ExpertDashboard = () => {
                                 </span>
                               </div>
                               <div>
-                                <h4 className="font-black text-gray-900 text-xs group-hover:text-[#134e40] transition-colors leading-tight">{eng.title}</h4>
+                                <h4 className="font-black text-gray-900 dark:text-white text-xs group-hover:text-[#134e40] dark:group-hover:text-[#0eb59a] transition-colors leading-tight">{eng.title}</h4>
                                 <p className="text-[11px] text-gray-400 font-medium mb-2">{eng.company}</p>
                               </div>
                             </div>
@@ -2163,7 +2176,7 @@ const ExpertDashboard = () => {
                           </div>
 
                           {/* Milestone + rate info */}
-                          <div className="flex items-center justify-between mb-3 p-2.5 bg-[#f0fdf4] rounded-xl border border-[#0eb59a]/10">
+                          <div className="flex items-center justify-between mb-3 p-2.5 bg-[#f0fdf4] dark:!bg-white/5 rounded-xl border border-[#0eb59a]/10 dark:border-white/10">
                             <div>
                               <p className="text-[8px] text-gray-400 font-black uppercase tracking-wider text-left">Next Milestone</p>
                               <p className="text-[11px] font-black text-[#134e40] leading-tight mt-0.5 max-w-[110px] truncate text-left"
@@ -2184,7 +2197,7 @@ const ExpertDashboard = () => {
                               <span className="text-gray-400 font-bold">Progress</span>
                               <span className="font-black text-[#134e40]">{eng.progress}%</span>
                             </div>
-                            <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
+                            <div className="h-2 w-full bg-gray-100 dark:bg-white/10 rounded-full overflow-hidden">
                               <motion.div
                                 initial={{ width: 0 }}
                                 animate={{ width: `${eng.progress}%` }}
@@ -2211,25 +2224,25 @@ const ExpertDashboard = () => {
                             <motion.button
                               whileHover={{ scale: 1.03 }}
                               whileTap={{ scale: 0.97 }}
-                              onClick={(e) => { 
-                                e.stopPropagation(); 
-                                navigate(eng.path); 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                navigate(eng.path);
                               }}
                               className="flex-1 py-2.5 bg-[#134e40] hover:bg-[#0eb59a] text-white text-[11px] font-black rounded-xl transition-all shadow-sm text-center cursor-pointer justify-center flex animate-none bg-none border-0"
                             >
                               Open Workspace
                             </motion.button>
-                            
+
                             <div className="flex flex-col items-center gap-0.5">
                               <motion.button
                                 whileHover={{ scale: 1.08 }}
                                 whileTap={{ scale: 0.92 }}
                                 title="Send Message"
-                                onClick={(e) => { 
-                                  e.stopPropagation(); 
-                                  navigate(`${eng.path}?tab=messages`); 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  navigate(`${eng.path}?tab=messages`);
                                 }}
-                                className="w-9 h-9 border border-gray-200 rounded-xl hover:border-[#0eb59a] hover:bg-[#f0fdf4] transition-all flex items-center justify-center cursor-pointer shrink-0 text-center bg-transparent shadow-none"
+                                className="w-9 h-9 border border-gray-200 dark:border-white/10 rounded-xl hover:border-[#0eb59a] hover:bg-[#f0fdf4] dark:hover:bg-[#0eb59a]/10 transition-all flex items-center justify-center cursor-pointer shrink-0 text-center bg-transparent shadow-none"
                               >
                                 <MessageSquare size={13} className="text-gray-400" />
                               </motion.button>
@@ -2241,9 +2254,9 @@ const ExpertDashboard = () => {
                                 whileHover={{ scale: 1.08 }}
                                 whileTap={{ scale: 0.92 }}
                                 title="View Milestone"
-                                onClick={(e) => { 
-                                  e.stopPropagation(); 
-                                  navigate(`${eng.path}?tab=milestones`); 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  navigate(`${eng.path}?tab=milestones`);
                                 }}
                                 className="w-9 h-9 border border-gray-200 rounded-xl hover:border-amber-300 hover:bg-amber-50 transition-all flex items-center justify-center cursor-pointer shrink-0 text-center bg-transparent shadow-none"
                               >
@@ -2263,14 +2276,13 @@ const ExpertDashboard = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.45 }}
-                  className="bg-white rounded-3xl border border-gray-100 p-6 shadow-sm relative overflow-hidden"
+                  className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 p-6 shadow-sm relative overflow-hidden"
                 >
-                  <FormalCardBorder />
                   <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#134e40] via-[#0eb59a] to-transparent" />
-                  
+
                   <div className="flex items-center justify-between mb-5">
                     <div>
-                      <h2 className="text-base font-black text-gray-900 flex items-center gap-2">
+                      <h2 className="text-base font-black text-gray-900 dark:text-white flex items-center gap-2">
                         <TrendingUp size={16} className="text-[#0eb59a]" />
                         Your Performance
                       </h2>
@@ -2295,14 +2307,14 @@ const ExpertDashboard = () => {
                         whileHover={{ y: -3 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={() => navigate('/expert-analytics')}
-                        className="flex flex-col gap-2 p-4 bg-[#FAFBF9] rounded-2xl border border-gray-100 cursor-pointer hover:border-[#0eb59a]/30 transition-all"
+                        className="flex flex-col gap-2 p-4 bg-[#FAFBF9] dark:!bg-[#252830] rounded-2xl border border-gray-100 dark:border-white/10 cursor-pointer hover:border-[#0eb59a]/30 transition-all"
                       >
                         <div className={`w-10 h-10 ${stat.bg} rounded-xl flex items-center justify-center shadow-sm`}>
                           <stat.icon size={18} className={stat.color} />
                         </div>
-                        <p className="text-xl font-black text-gray-900">{stat.value}</p>
+                        <p className="text-xl font-black text-gray-900 dark:text-white">{stat.value}</p>
                         <div>
-                          <p className="text-[11px] font-black text-gray-700">{stat.label}</p>
+                          <p className="text-[11px] font-black text-gray-700 dark:text-gray-300">{stat.label}</p>
                           <p className="text-[10px] text-gray-400 font-medium">{stat.sub}</p>
                         </div>
                       </motion.div>
@@ -2321,9 +2333,8 @@ const ExpertDashboard = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.38 }}
-                    className="bg-white rounded-3xl border border-gray-100 p-5 shadow-sm relative overflow-hidden"
+                    className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 p-5 shadow-sm relative overflow-hidden"
                   >
-                    <FormalCardBorder />
                     {/* Header */}
                     <div className="flex items-center justify-between mb-4">
                       <h2 className="text-base font-black text-gray-900 flex items-center gap-2">
@@ -2331,14 +2342,14 @@ const ExpertDashboard = () => {
                           animate={{ scale: [1, 1.15, 1] }}
                           transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
                         >
-                          <UserPlus size={16} className="text-blue-500" />
+                          <UserPlus size={16} className="text-[#0eb59a]" />
                         </motion.div>
                         Connection Requests
                       </h2>
                       <motion.span
                         animate={{ scale: [1, 1.2, 1] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
-                        className="bg-blue-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center"
+                        className="bg-[#0eb59a] text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center"
                       >
                         {connectRequests.length}
                       </motion.span>
@@ -2353,7 +2364,7 @@ const ExpertDashboard = () => {
                           animate={{ opacity: 1, x: 0 }}
                           exit={{ opacity: 0, x: 10 }}
                           transition={{ delay: idx * 0.08 }}
-                          className="p-4 bg-blue-50/40 rounded-2xl border border-blue-100"
+                          className="p-4 bg-teal-50/40 dark:!bg-[#0eb59a]/5 rounded-2xl border border-teal-100 dark:border-[#0eb59a]/20"
                         >
                           {/* Company info */}
                           <div className="flex items-center gap-3 mb-3">
@@ -2361,7 +2372,7 @@ const ExpertDashboard = () => {
                               {(req.companyName || 'A').charAt(0)}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="font-black text-gray-900 text-sm truncate">{req.companyName}</p>
+                              <p className="font-black text-gray-900 dark:text-white text-sm truncate">{req.companyName}</p>
                               <p className="text-[10px] text-gray-400 font-medium">Wants to connect with you</p>
                             </div>
                           </div>
@@ -2380,7 +2391,7 @@ const ExpertDashboard = () => {
                               whileHover={{ scale: 1.04 }}
                               whileTap={{ scale: 0.95 }}
                               onClick={() => handleDeclineConnect(req.id)}
-                              className="flex-1 py-2 bg-gray-50 hover:bg-red-50 text-gray-500 hover:text-red-500 border border-gray-200 hover:border-red-200 text-xs font-black rounded-xl flex items-center justify-center gap-1.5 transition-all duration-200"
+                              className="flex-1 py-2 bg-gray-50 dark:!bg-white/5 hover:bg-red-50 dark:hover:bg-red-500/10 text-gray-500 dark:text-gray-400 hover:text-red-500 border border-gray-200 dark:border-white/10 hover:border-red-200 text-xs font-black rounded-xl flex items-center justify-center gap-1.5 transition-all duration-200"
                             >
                               <UserX size={12} /> Decline
                             </motion.button>
@@ -2397,13 +2408,12 @@ const ExpertDashboard = () => {
                   animate={{ opacity: 1, y: 0 }}
                   whileHover={{ boxShadow: '0 12px 40px rgba(14,181,154,0.12)', borderColor: 'rgba(14,181,154,0.3)' }}
                   transition={{ delay: 0.40, duration: 0.3 }}
-                  className="bg-white rounded-3xl border border-gray-100 p-5 shadow-sm relative overflow-hidden"
+                  className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 p-5 shadow-sm relative overflow-hidden"
                 >
-                  <FormalCardBorder />
 
                   {/* Header */}
                   <div className="flex items-center justify-between mb-5">
-                    <h2 className="text-base font-black text-gray-900 flex items-center gap-2">
+                    <h2 className="text-base font-black text-gray-900 dark:text-white flex items-center gap-2">
                       <Users size={16} className="text-[#0eb59a]" /> Your Network
                     </h2>
                     <motion.button
@@ -2439,11 +2449,11 @@ const ExpertDashboard = () => {
                       {
                         value: (() => { try { return JSON.parse(localStorage.getItem('cxo_following') || '[]').length; } catch { return 0; } })(),
                         label: 'Following',
-                        bg: 'bg-blue-50',
+                        bg: 'bg-teal-50',
                         hoverBg: '#eff6ff',
-                        border: 'border-blue-100',
+                        border: 'border-teal-100',
                         hoverBorder: 'rgba(59,130,246,0.4)',
-                        color: 'text-blue-600',
+                        color: 'text-[#134e40]',
                         hoverShadow: '0 8px 20px rgba(59,130,246,0.12)',
                       },
                       {
@@ -2467,7 +2477,7 @@ const ExpertDashboard = () => {
                         }}
                         whileTap={{ scale: 0.96 }}
                         transition={{ duration: 0.2 }}
-                        className={`${stat.bg} border ${stat.border} rounded-2xl p-3 text-center cursor-default transition-colors duration-200`}
+                        className={`${stat.bg} dark:!bg-white/5 border ${stat.border} dark:border-white/10 rounded-2xl p-3 text-center cursor-default transition-colors duration-200`}
                       >
                         <motion.p
                           initial={{ opacity: 0, scale: 0.3, y: 10 }}
@@ -2482,7 +2492,7 @@ const ExpertDashboard = () => {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: 0.6 + idx * 0.12 }}
-                          className="text-[10px] font-bold text-gray-500 mt-0.5"
+                          className="text-[10px] font-bold text-gray-500 dark:text-gray-400 mt-0.5"
                         >
                           {stat.label}
                         </motion.p>
@@ -2514,10 +2524,9 @@ const ExpertDashboard = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.42 }}
-                  className="bg-white rounded-3xl border border-gray-100 p-5 shadow-sm relative"
+                  className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 p-5 shadow-sm relative"
                 >
-                  <FormalCardBorder />
-                  <h2 className="text-base font-black text-gray-900 flex items-center gap-2 mb-6">
+                  <h2 className="text-base font-black text-gray-900 dark:text-white flex items-center gap-2 mb-6">
                     <Award size={16} className="text-[#0eb59a]" /> Profile Strength
                   </h2>
 
@@ -2525,7 +2534,7 @@ const ExpertDashboard = () => {
                   <div className="flex items-center gap-4 mb-5">
                     <div className="relative w-20 h-20 shrink-0">
                       <svg className="w-20 h-20 -rotate-90" viewBox="0 0 80 80">
-                        <circle cx="40" cy="40" r="34" fill="none" stroke="#f0fdf4" strokeWidth="8" />
+                        <circle cx="40" cy="40" r="34" fill="none" stroke="#f0fdf4" className="dark:!stroke-white/10" strokeWidth="8" />
                         <motion.circle
                           cx="40" cy="40" r="34" fill="none"
                           stroke="url(#expertGradient)" strokeWidth="8"
@@ -2545,20 +2554,20 @@ const ExpertDashboard = () => {
                         </defs>
                       </svg>
                       <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <span className="text-lg font-black text-[#134e40] leading-none text-left">
+                        <span className="text-lg font-black text-[#134e40] dark:text-[#0eb59a] leading-none text-left">
                           {profileStrength}%
                         </span>
                         <span className="text-[9px] text-gray-400 font-bold text-left">Strong</span>
                       </div>
                     </div>
                     <div>
-                      <p className="text-xs font-black text-gray-700 mb-1">Almost there!</p>
+                      <p className="text-xs font-black text-gray-700 dark:text-gray-200 mb-1">Almost there!</p>
                       <p className="text-[11px] text-gray-400 leading-relaxed">Complete your profile to get more matched opportunities.</p>
                     </div>
                   </div>
 
                   {/* Motivational sub-text */}
-                  <div className="bg-[#f0fdf4] border border-[#0eb59a]/10 rounded-xl p-3 mb-4">
+                  <div className="bg-[#f0fdf4] dark:!bg-[#0eb59a]/5 border border-[#0eb59a]/10 dark:border-[#0eb59a]/20 rounded-xl p-3 mb-4">
                     <p className="text-[11px] font-black text-[#134e40] leading-relaxed text-left">
                       🎯 Complete your profile to unlock <span className="text-[#0eb59a]">3x more</span> opportunity matches
                     </p>
@@ -2568,19 +2577,17 @@ const ExpertDashboard = () => {
                   <div className="space-y-2.5">
                     {profileTips.map((tip, idx) => (
                       <div key={idx} className="flex items-center gap-3">
-                        <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-all ${
-                          tip.done
-                            ? 'bg-[#134e40] shadow-sm'
-                            : 'bg-gray-100 border border-gray-200'
-                        }`}
+                        <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-all ${tip.done
+                          ? 'bg-[#134e40] shadow-sm'
+                          : 'bg-gray-100 dark:!bg-white/5 border border-gray-200 dark:border-white/15'
+                          }`}
                         >
                           {tip.done && <Check size={11} className="text-white" />}
                         </div>
-                        <span className={`text-xs font-bold transition-colors text-left ${
-                          tip.done 
-                            ? 'text-gray-300 opacity-60' 
-                            : 'text-gray-700 font-black'
-                        }`}>
+                        <span className={`text-xs font-bold transition-colors text-left ${tip.done
+                          ? 'text-gray-300 opacity-60'
+                          : 'text-gray-700 dark:text-gray-300 font-black'
+                          }`}>
                           {tip.label}
                         </span>
                       </div>
@@ -2604,17 +2611,17 @@ const ExpertDashboard = () => {
                   className="rounded-3xl overflow-hidden shadow-xl relative"
                 >
                   {/* Top accent strip */}
-                  <div 
+                  <div
                     className="h-1 w-full"
                     style={{ background: 'linear-gradient(90deg, #134e40, #0eb59a, #134e40)' }}
                   />
-                  <div 
+                  <div
                     className="p-6 text-white relative overflow-hidden"
                     style={{ background: 'linear-gradient(135deg, #134e40 0%, #0eb59a 100%)' }}
                   >
                     <Shield size={80} className="absolute -right-6 -bottom-6 text-white/5" />
                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl" />
-                    
+
                     <p className="text-[10px] font-black text-white/50 uppercase tracking-[0.2em] mb-1 text-left">
                       Earnings Balance
                     </p>
@@ -2639,8 +2646,8 @@ const ExpertDashboard = () => {
                     </div>
 
                     <motion.button
-                      whileHover={{ 
-                        backgroundColor: 'rgba(255,255,255,0.95)', 
+                      whileHover={{
+                        backgroundColor: 'rgba(255,255,255,0.95)',
                         color: '#134e40',
                         scale: 1.02
                       }}

@@ -50,7 +50,7 @@ const CreateRequirement = () => {
           .select('*')
           .eq('id', draftId)
           .single();
-        
+
         if (data && !error) {
           setFormData({
             engagementType: data.engagement_type || '',
@@ -185,7 +185,7 @@ const CreateRequirement = () => {
     { value: '10-13', label: '10–13 yrs' },
     { value: '14-17', label: '14–17 yrs' },
     { value: '18-20', label: '18–20 yrs' },
-    { value: '20+',   label: '20+ yrs'   },
+    { value: '20+', label: '20+ yrs' },
   ];
 
   const durationOptions = [
@@ -333,11 +333,10 @@ const CreateRequirement = () => {
                     whileHover={{ y: -3, boxShadow: '0 12px 30px rgba(0,0,0,0.08)' }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setFormData(prev => ({ ...prev, engagementType: type.id }))}
-                    className={`relative text-left p-6 rounded-2xl border-2 transition-all duration-200 ${
-                      isSelected
-                        ? 'bg-[#134e40] border-[#134e40] shadow-xl shadow-[#134e40]/20'
-                        : 'border-gray-100 dark:border-white/5 bg-white dark:bg-[#1e2028] hover:border-gray-200 dark:hover:border-white/10 hover:shadow-md'
-                    }`}
+                    className={`relative text-left p-6 rounded-2xl border-2 transition-all duration-200 ${isSelected
+                      ? 'bg-[#134e40] border-[#134e40] shadow-xl shadow-[#134e40]/20'
+                      : 'border-gray-100 dark:border-white/5 bg-white dark:bg-[#1e2028] hover:border-gray-200 dark:hover:border-white/10 hover:shadow-md'
+                      }`}
                   >
                     {isSelected && (
                       <motion.div
@@ -392,11 +391,10 @@ const CreateRequirement = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => toggleItem('businessProblems', problem.id)}
-                    className={`relative flex items-center gap-3 p-3.5 rounded-2xl border-2 text-left transition-all ${
-                      isSelected
-                        ? 'border-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10 shadow-md shadow-teal-100 dark:shadow-none'
-                        : 'border-gray-100 dark:border-white/5 bg-white dark:bg-[#1e2028] hover:border-gray-200 dark:hover:border-white/10'
-                    }`}
+                    className={`relative flex items-center gap-3 p-3.5 rounded-2xl border-2 text-left transition-all ${isSelected
+                      ? 'border-[#0eb59a] bg-teal-50 dark:bg-[#0eb59a]/10 shadow-md shadow-teal-100 dark:shadow-none'
+                      : 'border-gray-100 dark:border-white/5 bg-white dark:bg-[#1e2028] hover:border-gray-200 dark:hover:border-white/10'
+                      }`}
                   >
                     <div className={`w-9 h-9 ${problem.bg} dark:bg-white/5 rounded-xl flex items-center justify-center shrink-0`}>
                       <problem.icon size={16} className={problem.color} />
@@ -501,11 +499,10 @@ const CreateRequirement = () => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => toggleItem('skills', skill)}
-                      className={`px-3.5 py-2 rounded-xl text-xs font-bold border-2 transition-all ${
-                        isSelected
-                          ? 'bg-[#134e40] text-white border-[#134e40] shadow-md'
-                          : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-100 dark:border-white/5 hover:border-[#0eb59a]/40 hover:text-[#0eb59a] dark:hover:text-[#0eb59a]'
-                      }`}
+                      className={`px-3.5 py-2 rounded-xl text-xs font-bold border-2 transition-all ${isSelected
+                        ? 'bg-[#134e40] text-white border-[#134e40] shadow-md'
+                        : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-100 dark:border-white/5 hover:border-[#0eb59a]/40 hover:text-[#0eb59a] dark:hover:text-[#0eb59a]'
+                        }`}
                     >
                       {isSelected && <Check size={10} className="inline mr-1" strokeWidth={3} />}
                       {skill}
@@ -532,11 +529,10 @@ const CreateRequirement = () => {
                   <button
                     key={exp.value}
                     onClick={() => setFormData(prev => ({ ...prev, experienceYears: exp.value }))}
-                    className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 ${
-                      formData.experienceYears === exp.value
-                        ? 'bg-[#134e40] text-white border-[#134e40]'
-                        : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#134e40]/30 hover:text-[#134e40] dark:hover:text-[#0eb59a] dark:hover:border-[#0eb59a]/30'
-                    }`}
+                    className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 ${formData.experienceYears === exp.value
+                      ? 'bg-[#134e40] text-white border-[#134e40]'
+                      : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#134e40]/30 hover:text-[#134e40] dark:hover:text-[#0eb59a] dark:hover:border-[#0eb59a]/30'
+                      }`}
                   >
                     {exp.label}
                   </button>
@@ -560,11 +556,10 @@ const CreateRequirement = () => {
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.97 }}
                       onClick={() => toggleItem('industries', industry)}
-                      className={`px-3.5 py-2 rounded-xl text-xs font-bold border-2 transition-all ${
-                        isSelected
-                          ? 'bg-teal-50 dark:bg-[#0eb59a]/10 text-[#134e40] dark:text-[#0eb59a] border-[#0eb59a]'
-                          : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-100 dark:border-white/5 hover:border-gray-200 dark:hover:border-white/10'
-                      }`}
+                      className={`px-3.5 py-2 rounded-xl text-xs font-bold border-2 transition-all ${isSelected
+                        ? 'bg-teal-50 dark:bg-[#0eb59a]/10 text-[#134e40] dark:text-[#0eb59a] border-[#0eb59a]'
+                        : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-100 dark:border-white/5 hover:border-gray-200 dark:hover:border-white/10'
+                        }`}
                     >
                       {industry}
                     </motion.button>
@@ -659,11 +654,10 @@ const CreateRequirement = () => {
                   <button
                     key={dur}
                     onClick={() => setFormData(prev => ({ ...prev, duration: dur }))}
-                    className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 ${
-                      formData.duration === dur
-                        ? 'bg-[#134e40] text-white border-[#134e40]'
-                        : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#134e40]/30 hover:text-[#134e40] dark:hover:text-[#0eb59a] dark:hover:border-[#0eb59a]/30'
-                    }`}
+                    className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 ${formData.duration === dur
+                      ? 'bg-[#134e40] text-white border-[#134e40]'
+                      : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#134e40]/30 hover:text-[#134e40] dark:hover:text-[#0eb59a] dark:hover:border-[#0eb59a]/30'
+                      }`}
                   >
                     {dur}
                   </button>
@@ -681,11 +675,10 @@ const CreateRequirement = () => {
                   <button
                     key={com}
                     onClick={() => setFormData(prev => ({ ...prev, commitment: com }))}
-                    className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 ${
-                      formData.commitment === com
-                        ? 'bg-[#134e40] text-white border-[#134e40]'
-                        : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#134e40]/30 hover:text-[#134e40] dark:hover:text-[#0eb59a] dark:hover:border-[#0eb59a]/30'
-                    }`}
+                    className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 ${formData.commitment === com
+                      ? 'bg-[#134e40] text-white border-[#134e40]'
+                      : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#134e40]/30 hover:text-[#134e40] dark:hover:text-[#0eb59a] dark:hover:border-[#0eb59a]/30'
+                      }`}
                   >
                     {com}
                   </button>
@@ -703,11 +696,10 @@ const CreateRequirement = () => {
                   <button
                     key={urg.value}
                     onClick={() => setFormData(prev => ({ ...prev, urgency: urg.value }))}
-                    className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 ${
-                      formData.urgency === urg.value
-                        ? 'bg-[#134e40] text-white border-[#134e40]'
-                        : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#134e40]/30 hover:text-[#134e40] dark:hover:text-[#0eb59a] dark:hover:border-[#0eb59a]/30'
-                    }`}
+                    className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 ${formData.urgency === urg.value
+                      ? 'bg-[#134e40] text-white border-[#134e40]'
+                      : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#134e40]/30 hover:text-[#134e40] dark:hover:text-[#0eb59a] dark:hover:border-[#0eb59a]/30'
+                      }`}
                   >
                     {urg.label}
                   </button>
@@ -732,11 +724,10 @@ const CreateRequirement = () => {
                   <button
                     key={loc}
                     onClick={() => setFormData(prev => ({ ...prev, location: loc }))}
-                    className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 flex items-center gap-1.5 ${
-                      formData.location === loc
-                        ? 'bg-[#134e40] text-white border-[#134e40]'
-                        : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#134e40]/30 hover:text-[#134e40] dark:hover:text-[#0eb59a] dark:hover:border-[#0eb59a]/30'
-                    }`}
+                    className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 flex items-center gap-1.5 ${formData.location === loc
+                      ? 'bg-[#134e40] text-white border-[#134e40]'
+                      : 'bg-white dark:bg-[#1e2028] text-gray-500 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#134e40]/30 hover:text-[#134e40] dark:hover:text-[#0eb59a] dark:hover:border-[#0eb59a]/30'
+                      }`}
                   >
                     <MapPin size={11} />
                     {loc}
@@ -917,36 +908,28 @@ const CreateRequirement = () => {
         />
 
         {/* Top — Logo + Brand */}
-        <div className="relative z-10 px-8 pt-10 pb-6 border-b border-white/10">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full border-2 border-white/30 flex items-center justify-center shrink-0">
-              <span className="text-white font-black text-base">♔</span>
-            </div>
-            <div>
-              <p className="text-white font-black text-sm tracking-wide whitespace-nowrap">ExigentCX</p>
-              <p className="text-[#0eb59a] text-[10px] font-bold tracking-widest uppercase">Company Portal</p>
-            </div>
+        <div className="relative z-10 px-10 pt-10 pb-6 border-b border-white/10">
+          <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/requirements')}>
+            <Logo variant="dark" className="h-10 shrink-0" />
+            <span className="text-xl font-black text-white tracking-tight">
+              ExigentCX
+            </span>
           </div>
         </div>
 
         {/* Center — Heading + Subtext only, vertically centered */}
-        <div className="relative z-10 flex-1 flex flex-col justify-center px-8">
-
-          {/* Teal label */}
-          <p className="text-[#0eb59a] text-[10px] font-bold tracking-[0.2em] uppercase mb-5">
-            Post a Requirement
-          </p>
+        <div className="relative z-10 flex-1 flex flex-col justify-center px-10 text-left">
 
           {/* Main headline */}
-          <h1 className="text-4xl font-black text-white leading-[1.1] mb-5">
-            Find the Right<br />
-            <span className="text-[#0eb59a]">CXO.</span><br />
-            Right Now.
+          <h1 className="text-4xl font-black text-white leading-[1.15] mb-5 tracking-tight">
+            Secure Elite<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0eb59a] to-emerald-300">CXO Talent.</span><br />
+            On Demand.
           </h1>
 
           {/* Subtext */}
-          <p className="text-white/50 text-sm leading-relaxed max-w-[280px]">
-            Define your leadership requirement and get matched with vetted CXO-level experts within 24 hours.
+          <p className="text-white/60 text-sm leading-relaxed max-w-[300px]">
+            Scale smarter with executive talent that hits the ground running.
           </p>
 
           {/* Decorative teal accent line */}
@@ -955,10 +938,13 @@ const CreateRequirement = () => {
         </div>
 
         {/* Bottom — Autosave + Save as Draft */}
-        <div className="relative z-10 px-8 pb-8 pt-6 border-t border-white/10">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-1.5 h-1.5 bg-[#0eb59a] rounded-full animate-pulse" />
-            <span className="text-white/30 text-[10px]">Draft auto-saved</span>
+        <div className="relative z-10 px-10 pb-8 pt-6 border-t border-white/10">
+          <div className="flex items-center gap-2 mb-4 justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 bg-[#0eb59a] rounded-full animate-pulse" />
+              <span className="text-white/30 text-[10px]">Draft auto-saved</span>
+            </div>
+            <ThemeToggle />
           </div>
           <motion.button
             whileHover={{ scale: 1.02 }}
@@ -1064,11 +1050,10 @@ const CreateRequirement = () => {
               whileHover={{ x: currentStep === 1 ? 0 : -2 }}
               onClick={handleBack}
               disabled={currentStep === 1}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 bg-transparent cursor-pointer ${
-                currentStep === 1
-                  ? 'text-gray-200 dark:text-gray-700 cursor-not-allowed border-gray-100 dark:border-white/5'
-                  : 'text-gray-500 dark:text-gray-400 hover:text-[#134e40] dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/5 border border-gray-200 dark:border-white/10'
-              }`}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 bg-transparent cursor-pointer ${currentStep === 1
+                ? 'text-gray-200 dark:text-gray-700 cursor-not-allowed border-gray-100 dark:border-white/5'
+                : 'text-gray-500 dark:text-gray-400 hover:text-[#134e40] dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/5 border border-gray-200 dark:border-white/10'
+                }`}
             >
               <ChevronLeft size={16} /> Back
             </motion.button>
@@ -1077,9 +1062,8 @@ const CreateRequirement = () => {
             <div className="flex items-center gap-5">
               <div className="flex items-center gap-1.5">
                 {steps.map((_, i) => (
-                  <div key={i} className={`rounded-full transition-all duration-300 ${
-                    i + 1 === currentStep ? 'w-5 h-2 bg-[#134e40] dark:bg-[#0eb59a]' : i + 1 < currentStep ? 'w-2 h-2 bg-[#0eb59a]' : 'w-2 h-2 bg-gray-200 dark:bg-white/10'
-                  }`} />
+                  <div key={i} className={`rounded-full transition-all duration-300 ${i + 1 === currentStep ? 'w-5 h-2 bg-[#134e40] dark:bg-[#0eb59a]' : i + 1 < currentStep ? 'w-2 h-2 bg-[#0eb59a]' : 'w-2 h-2 bg-gray-200 dark:bg-white/10'
+                    }`} />
                 ))}
               </div>
 
@@ -1089,11 +1073,10 @@ const CreateRequirement = () => {
                   whileTap={{ scale: canProceed() ? 0.97 : 1 }}
                   onClick={handleNext}
                   disabled={!canProceed()}
-                  className={`flex items-center gap-2 px-7 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 border-0 cursor-pointer ${
-                    canProceed()
-                      ? 'bg-[#134e40] text-white shadow-md shadow-[#134e40]/20 hover:bg-[#1a6b57]'
-                      : 'bg-gray-100 dark:bg-white/5 text-gray-300 dark:text-gray-600 cursor-not-allowed'
-                  }`}
+                  className={`flex items-center gap-2 px-7 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 border-0 cursor-pointer ${canProceed()
+                    ? 'bg-[#134e40] text-white shadow-md shadow-[#134e40]/20 hover:bg-[#1a6b57]'
+                    : 'bg-gray-100 dark:bg-white/5 text-gray-300 dark:text-gray-600 cursor-not-allowed'
+                    }`}
                 >
                   Next <ChevronRight size={16} />
                 </motion.button>

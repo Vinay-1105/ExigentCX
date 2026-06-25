@@ -20,12 +20,7 @@ const Messages = () => {
 
   // Smart Role Detection
   const activeRole = localStorage.getItem('user_role');
-  const isExpert =
-    activeRole === 'expert' ||
-    (activeRole !== 'company' && (
-      localStorage.getItem('demo_expert') === 'true' ||
-      localStorage.getItem('sb-mock-auth') === 'true'
-    ));
+  const isExpert = activeRole === 'expert' || localStorage.getItem('demo_expert') === 'true';
   const isDemo = isExpert || localStorage.getItem('demo_company') === 'true';
 
   // State Management
@@ -533,13 +528,14 @@ const Messages = () => {
 
         {/* Right Column: Active Conversation (Aesthetics aligned to warmth layout) */}
         <div
-          className="flex-1 flex flex-col h-full relative overflow-hidden bg-[#eef3ef] dark:!bg-[#0f1117] dark:[background-image:none]"
-          style={{
+          className="flex-1 flex flex-col h-full relative overflow-hidden dark:!bg-[#0f1117]"
+        >
+          <div className="absolute inset-0 dark:hidden" style={{
+            backgroundColor: '#eef3ef',
             backgroundImage: 'radial-gradient(rgba(19,78,64,0.04) 0.8px, transparent 0.8px), radial-gradient(rgba(19,78,64,0.04) 0.8px, #eef3ef 0.8px)',
             backgroundSize: '24px 24px',
             backgroundPosition: '0 0, 12px 12px'
-          }}
-        >
+          }} />
 
           {/* Header */}
           <div className="h-16 bg-white dark:bg-[#1b1d24] border-b border-gray-100 dark:border-white/10 flex items-center justify-between px-6 shrink-0 z-10 shadow-sm">
@@ -803,7 +799,7 @@ const Messages = () => {
               <div className="flex-1 overflow-y-auto p-4 space-y-5">
                 {/* Profile Card */}
                 <div className="flex flex-col items-center text-center p-4 bg-slate-50 dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-3xl relative overflow-hidden">
-                   <div className={`w-16 h-16 rounded-full bg-gradient-to-tr ${activeThread.avatarColor} flex items-center justify-center font-bold text-white text-xl shadow-md mb-3`}>
+                  <div className={`w-16 h-16 rounded-full bg-gradient-to-tr ${activeThread.avatarColor} flex items-center justify-center font-bold text-white text-xl shadow-md mb-3`}>
                     {activeThread.initials}
                   </div>
                   <h4 className="text-sm font-black text-slate-800 dark:text-white leading-snug">{activeThread.name}</h4>
@@ -916,7 +912,7 @@ const Messages = () => {
                   <div className="p-3 bg-teal-50/70 dark:bg-[#0eb59a]/10 border border-teal-100 dark:border-[#0eb59a]/20 rounded-2xl text-left flex items-start gap-2.5">
                     <div className="w-8 h-8 bg-white dark:bg-[#1e2028] rounded-lg flex items-center justify-center shadow-sm shrink-0 mt-0.5">
                       <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 10.5V6C18 4.9 17.1 4 16 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H16C17.1 20 18 19.1 18 18V13.5L22 17.5V6.5L18 10.5Z" fill="#0eb59a"/>
+                        <path d="M18 10.5V6C18 4.9 17.1 4 16 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H16C17.1 20 18 19.1 18 18V13.5L22 17.5V6.5L18 10.5Z" fill="#0eb59a" />
                       </svg>
                     </div>
                     <div>

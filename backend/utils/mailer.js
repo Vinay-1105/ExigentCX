@@ -13,14 +13,14 @@ export const sendOtpMail = async (email, otp) => {
   const { data, error } = await resend.emails.send({
     from: "onboarding@resend.dev",
     to: email,
-    subject: "CXOConnect - OTP Verification",
+    subject: "ExigentCX - OTP Verification",
     html: `
 <div style="background-color: #F8F4EE; padding: 40px 20px; font-family: Arial, sans-serif; color: #1A1A1A;">
   <div style="max-width: 600px; margin: 0 auto; background-color: #F8F4EE; border: 3px solid #2B2D42; padding: 40px;">
     
     <!-- Header -->
     <div style="text-align: center; margin-bottom: 30px;">
-      <img src="${process.env.FRONTEND_URL}/favicon.png" alt="CXO Connect" style="height: 120px; width: auto; display: inline-block;" />
+      <img src="${process.env.FRONTEND_URL}/favicon.png" alt="ExigentCX" style="height: 120px; width: auto; display: inline-block;" />
     </div>
     
     <!-- Content -->
@@ -42,13 +42,13 @@ export const sendOtpMail = async (email, otp) => {
       This is an auto-generated email. Do not reply to this email.
     </p>
     <p style="font-size: 16px; margin-top: 0; margin-bottom: 40px;">
-      If you did not request this OTP, please connect with us immediately at <a href="mailto:support@cxoconnect.com" style="color: #004AAD; font-weight: bold; text-decoration: underline;">CXO Connect</a>.
+      If you did not request this OTP, please connect with us immediately at <a href="mailto:support@exigentcx.com" style="color: #004AAD; font-weight: bold; text-decoration: underline;">ExigentCX</a>.
     </p>
     
     <!-- Footer -->
     <div style="margin-top: 40px;">
       <p style="font-size: 16px; margin: 0 0 5px 0;">Best regards,</p>
-      <p style="font-size: 16px; margin: 0;">CXO Connect Team</p>
+      <p style="font-size: 16px; margin: 0;">ExigentCX Team</p>
     </div>
   </div>
 </div>
@@ -67,14 +67,14 @@ export const sendMagicLinkMail = async (email, magicLink) => {
   const { data, error } = await resend.emails.send({
     from: "onboarding@resend.dev",
     to: email,
-    subject: "CXOConnect - Secure Sign In",
+    subject: "ExigentCX - Secure Sign In",
     html: `
 <div style="background-color: #F8F4EE; padding: 40px 20px; font-family: Arial, sans-serif; color: #1A1A1A;">
   <div style="max-width: 600px; margin: 0 auto; background-color: #F8F4EE; border: 3px solid #2B2D42; padding: 40px;">
     
     <!-- Header -->
     <div style="text-align: center; margin-bottom: 30px;">
-      <img src="${process.env.FRONTEND_URL}/favicon.png" alt="CXO Connect" style="height: 120px; width: auto; display: inline-block;" />
+      <img src="${process.env.FRONTEND_URL}/favicon.png" alt="ExigentCX" style="height: 120px; width: auto; display: inline-block;" />
     </div>
     
     <!-- Content -->
@@ -85,7 +85,7 @@ export const sendMagicLinkMail = async (email, magicLink) => {
     
     <!-- Button -->
     <div style="text-align: center; margin-bottom: 40px;">
-      <a href="${magicLink}" style="background-color: #88A99E; color: #1A1A1A; padding: 14px 40px; text-decoration: none; border-radius: 50px; font-size: 18px; display: inline-block;">Sign in to CXO</a>
+      <a href="${magicLink}" style="background-color: #88A99E; color: #1A1A1A; padding: 14px 40px; text-decoration: none; border-radius: 50px; font-size: 18px; display: inline-block;">Sign in to ExigentCX</a>
     </div>
     
     <p style="font-size: 16px; margin-bottom: 30px; text-align: center;">
@@ -96,13 +96,13 @@ export const sendMagicLinkMail = async (email, magicLink) => {
       If you didn't request this email, you can safely ignore it.
     </p>
     <p style="font-size: 16px; margin-top: 0; margin-bottom: 40px; text-align: center;">
-      If you're experiencing issues, please contact <a href="mailto:support@cxoconnect.com" style="color: #004AAD; font-weight: bold; text-decoration: underline;">CXO Connect</a>.
+      If you're experiencing issues, please contact <a href="mailto:support@exigentcx.com" style="color: #004AAD; font-weight: bold; text-decoration: underline;">ExigentCX</a>.
     </p>
     
     <!-- Footer -->
     <div style="margin-top: 40px;">
       <p style="font-size: 16px; margin: 0 0 5px 0;">Best regards,</p>
-      <p style="font-size: 16px; margin: 0;">CXO Connect Team</p>
+      <p style="font-size: 16px; margin: 0;">ExigentCX Team</p>
     </div>
   </div>
 </div>

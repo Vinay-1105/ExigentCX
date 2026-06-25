@@ -143,7 +143,7 @@ const TarsChatbot = () => {
                         exit={{ opacity: 0, y: 50, scale: 0.9 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                         style={{ position: 'fixed', bottom: '30px', right: '30px', zIndex: 1000 }}
-                        className="w-[350px] sm:w-[400px] h-[550px] max-h-[80vh] bg-[#f8f9fa] rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200"
+                        className="w-[350px] sm:w-[400px] h-[550px] max-h-[80vh] bg-[#f8f9fa] dark:bg-[#12141c] rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200 dark:border-white/10"
                     >
                         {/* Header */}
                         <div className="bg-[#134e40] p-4 flex items-center justify-between text-white shadow-md z-10">
@@ -162,7 +162,7 @@ const TarsChatbot = () => {
                         </div>
 
                         {/* Messages Area */}
-                        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 flex flex-col">
+                        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-[#0f1117]/50 flex flex-col">
                             {messages.map((msg, idx) => (
                                 <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                     {msg.role === 'assistant' && (
@@ -174,7 +174,7 @@ const TarsChatbot = () => {
                                         className={`px-4 py-3 rounded-2xl max-w-[80%] text-sm leading-relaxed whitespace-pre-wrap text-left ${
                                             msg.role === 'user' 
                                             ? 'bg-[#134e40] text-white rounded-br-sm shadow-md' 
-                                            : 'bg-white text-gray-800 border border-gray-100 shadow-sm rounded-bl-sm'
+                                            : 'bg-white dark:bg-white/5 text-gray-800 dark:text-gray-100 border border-gray-100 dark:border-white/5 shadow-sm rounded-bl-sm'
                                         }`}
                                     >
                                         {msg.content}
@@ -186,7 +186,7 @@ const TarsChatbot = () => {
                                     <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center mr-2 shrink-0 self-end mb-1">
                                         <img src="/favicon.png" alt="TARS" className="w-full h-full object-cover" />
                                     </div>
-                                    <div className="px-4 py-3 rounded-2xl bg-white text-gray-800 border border-gray-100 shadow-sm rounded-bl-sm">
+                                    <div className="px-4 py-3 rounded-2xl bg-white dark:bg-white/5 text-gray-800 dark:text-gray-100 border border-gray-100 dark:border-white/5 shadow-sm rounded-bl-sm">
                                         <div className="flex gap-2 items-center h-full text-xs font-medium text-gray-500 italic">
                                             <span>{loadingText}</span>
                                             <div className="flex gap-1">
@@ -209,7 +209,7 @@ const TarsChatbot = () => {
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                                 placeholder="Type a message..."
-                                className="flex-1 bg-white rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a] text-gray-800 shadow-inner"
+                                className="flex-1 bg-white dark:bg-white/10 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a] text-gray-800 dark:text-white dark:placeholder-gray-400 shadow-inner"
                             />
                             <button 
                                 onClick={handleSend}

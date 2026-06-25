@@ -55,7 +55,7 @@ const Toast = ({
             <div className={`flex-1 text-sm font-semibold ${config.text}`}>{message}</div>
             <button 
               onClick={onClose}
-              className="p-1 hover:bg-black/5 rounded-lg transition-colors text-gray-400 dark:text-gray-500"
+              className="p-1 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-colors text-gray-400 dark:text-gray-500"
             >
               <X className="w-4 h-4" />
             </button>
