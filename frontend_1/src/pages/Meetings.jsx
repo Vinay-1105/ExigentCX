@@ -56,7 +56,7 @@ const Meetings = () => {
         expert: isExpert ? 'Arjun Mehta' : 'Sarah Jenkins',
         expertRole: isExpert ? 'Client Coordinator' : 'Chief Marketing Officer',
         initials: isExpert ? 'AM' : 'SJ',
-        avatarColor: isExpert ? 'bg-teal-600' : 'bg-purple-500',
+        avatarColor: isExpert ? 'bg-teal-600' : 'bg-[#134e40]',
         meetLink: 'https://meet.google.com/cxo-connect-meeting',
         platform: 'Google Meet'
       },
@@ -70,7 +70,7 @@ const Meetings = () => {
         expert: isExpert ? 'Bruce Wayne' : 'David Chen',
         expertRole: isExpert ? 'Managing Director' : 'Interim CFO',
         initials: isExpert ? 'BW' : 'DC',
-        avatarColor: isExpert ? 'bg-slate-800' : 'bg-blue-500',
+        avatarColor: isExpert ? 'bg-[#134e40]' : 'bg-[#0eb59a]',
         meetLink: 'https://meet.google.com/cxo-connect-meeting',
         platform: 'Google Meet'
       }
@@ -161,7 +161,7 @@ const Meetings = () => {
         className="bg-white dark:bg-[#1b1d24] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
         <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
-          <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/company-dashboard')}>
+          <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate(isExpert ? '/expert-dashboard' : '/company-dashboard')}>
             <Logo variant="light" className="h-8 shrink-0" />
             <motion.span
               animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}

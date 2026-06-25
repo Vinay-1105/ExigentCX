@@ -1,6 +1,5 @@
 import Logo from '../components/Logo';
 import ThemeToggle from '../components/ThemeToggle';
-import FormalCardBorder from '../components/FormalCardBorder';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -102,7 +101,7 @@ const ExpertEngagements = () => {
     companyLogo: 'AC',
     logoColor: 'from-[#134e40] to-[#0eb59a]',
     status: 'IN PROGRESS',
-    statusColor: 'text-blue-600 bg-blue-50 border-blue-200',
+    statusColor: 'text-teal-700 bg-teal-50 border-teal-200',
     type: 'Interim',
     startDate: 'Feb 1, 2025',
     endDate: 'Jul 31, 2025',
@@ -130,7 +129,7 @@ const ExpertEngagements = () => {
       logo: 'AC',
       logoColor: 'from-[#134e40] to-[#0eb59a]',
       status: 'IN PROGRESS',
-      statusColor: 'text-blue-600 bg-blue-50',
+      statusColor: 'text-teal-700 bg-teal-50',
       progress: 65,
       monthlyRate: '₹3L/mo',
       nextAction: 'Submit Investor Deck',
@@ -157,7 +156,7 @@ const ExpertEngagements = () => {
       logo: ea.companyLogo || 'AC',
       logoColor: ea.logoColor || 'from-[#134e40] to-[#0eb59a]',
       status: ea.status === 'Active' ? 'IN PROGRESS' : ea.status.toUpperCase(),
-      statusColor: ea.status === 'Active' ? 'text-blue-600 bg-blue-50' : 'text-emerald-600 bg-emerald-50',
+      statusColor: ea.status === 'Active' ? 'text-teal-700 bg-teal-50' : 'text-emerald-600 bg-emerald-50',
       progress: ea.progress !== undefined ? ea.progress : 0,
       monthlyRate: ea.monthlyRate || '₹3L/mo',
       nextAction: ea.pendingMilestone || 'None',
@@ -177,22 +176,38 @@ const ExpertEngagements = () => {
 
   // ── DATA ARRAYS (ExpertOpportunities) ──
   const sidebarMenu = [
-    { name: 'Dashboard',      icon: LayoutDashboard,
-      path: '/expert-dashboard'      },
-    { name: 'Opportunities',  icon: Briefcase,
-      path: '/expert-opportunities', badge: '3' },
-    { name: 'My Engagements', icon: Activity,
-      path: '/expert-engagements'    },
-    { name: 'Contracts',      icon: FileText,
-      path: '/expert-contracts'      },
-    { name: 'Earnings',       icon: IndianRupee,
-      path: '/expert-earnings'       },
-    { name: 'Profile',        icon: UserCircle,
-      path: '/expert-profile'        },
-    { name: 'Messages',       icon: MessageSquare,
-      path: '/messages'              },
-    { name: 'Meetings',       icon: Calendar,
-      path: '/meetings'              },
+    {
+      name: 'Dashboard', icon: LayoutDashboard,
+      path: '/expert-dashboard'
+    },
+    {
+      name: 'Opportunities', icon: Briefcase,
+      path: '/expert-opportunities', badge: '3'
+    },
+    {
+      name: 'My Engagements', icon: Activity,
+      path: '/expert-engagements'
+    },
+    {
+      name: 'Contracts', icon: FileText,
+      path: '/expert-contracts'
+    },
+    {
+      name: 'Earnings', icon: IndianRupee,
+      path: '/expert-earnings'
+    },
+    {
+      name: 'Profile', icon: UserCircle,
+      path: '/expert-profile'
+    },
+    {
+      name: 'Messages', icon: MessageSquare,
+      path: '/messages'
+    },
+    {
+      name: 'Meetings', icon: Calendar,
+      path: '/meetings'
+    },
   ];
 
   const notifications = [
@@ -296,7 +311,7 @@ const ExpertEngagements = () => {
       const res = await fetch(`${baseUrl}/api/payments/engagement/${engId}`, { headers });
       if (res.ok) {
         const data = await res.json();
-        
+
         // Map backend properties to frontend schema
         const mappedEngagement = {
           ...data.engagement,
@@ -332,8 +347,8 @@ const ExpertEngagements = () => {
   const getMilestoneStatus = (status) => {
     switch (status) {
       case 'approved': return { label: 'Approved', color: 'text-emerald-600 bg-emerald-50 border-emerald-200', icon: CheckCircle };
-      case 'submitted': return { label: 'Submitted', color: 'text-blue-600 bg-blue-50 border-blue-200', icon: Clock };
-      case 'pending_approval': return { label: 'Awaiting Approval', color: 'text-blue-600 bg-blue-50 border-blue-200', icon: Clock };
+      case 'submitted': return { label: 'Submitted', color: 'text-teal-700 bg-teal-50 border-teal-200', icon: Clock };
+      case 'pending_approval': return { label: 'Awaiting Approval', color: 'text-teal-700 bg-teal-50 border-teal-200', icon: Clock };
       case 'pending_admin_release': return { label: 'Awaiting Release', color: 'text-purple-600 bg-purple-50 border-purple-200', icon: Clock };
       case 'in_progress': return { label: 'In Progress', color: 'text-amber-600 bg-amber-50 border-amber-200', icon: Clock };
       case 'upcoming': return { label: 'Upcoming', color: 'text-gray-400 bg-gray-50 border-gray-200', icon: Circle };
@@ -347,7 +362,7 @@ const ExpertEngagements = () => {
       case 'pdf': return { icon: FileText, color: 'text-red-500', bg: 'bg-red-50' };
       case 'excel': return { icon: BarChart2, color: 'text-emerald-500', bg: 'bg-emerald-50' };
       case 'ppt': return { icon: Image, color: 'text-orange-500', bg: 'bg-orange-50' };
-      default: return { icon: File, color: 'text-blue-500', bg: 'bg-blue-50' };
+      default: return { icon: File, color: 'text-[#0eb59a]', bg: 'bg-teal-50' };
     }
   };
 
@@ -441,25 +456,22 @@ const ExpertEngagements = () => {
         className="bg-white dark:!bg-[#1b1d24] border-r border-gray-100 dark:!border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
         {/* Logo area */}
-        <div className="flex items-center border-b border-gray-50 px-3 py-4 gap-3">
-          <motion.div
-            animate={{ 
-              width: isSidebarOpen ? 'auto' : 0, 
-              opacity: isSidebarOpen ? 1 : 0 
-            }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden shrink-0 flex items-center"
-          >
-            <div className="cursor-pointer" onClick={() => navigate('/expert-dashboard')}>
-              <Logo variant="dark" className="h-8" />
-            </div>
-          </motion.div>
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
+          <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/expert-dashboard')}>
+            <Logo variant="light" className="h-8 shrink-0" />
+            <motion.span
+              animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden whitespace-nowrap text-sm font-black text-[#134e40] dark:text-[#0eb59a] tracking-tight"
+            >
+              ExigentCX
+            </motion.span>
+          </div>
           <motion.button
-            animate={{ marginLeft: isSidebarOpen ? 'auto' : 0 }}
-            whileHover={{ scale: 1.1, backgroundColor: '#f0fdf4' }}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsSidebarOpen(s => !s)}
-            className="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-[#134e40] hover:bg-[#f0fdf4] transition-all cursor-pointer shrink-0 border border-gray-200 hover:border-[#0eb59a]"
+            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 dark:text-gray-500 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 dark:hover:bg-white/10 transition-all shrink-0"
           >
             {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
           </motion.button>
@@ -478,11 +490,10 @@ const ExpertEngagements = () => {
                 whileHover={{ x: 2, transition: { duration: 0.15 } }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => navigate(item.path)}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative cursor-pointer ${
-                  isActive
+                className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative cursor-pointer ${isActive
                     ? 'bg-[#134e40] text-white shadow-md'
                     : 'text-gray-500 dark:text-gray-400 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]'
-                }`}
+                  }`}
               >
                 {isActive && (
                   <motion.div
@@ -517,25 +528,23 @@ const ExpertEngagements = () => {
           })}
         </nav>
 
-        <div className="p-3 border-t border-gray-50 space-y-1">
+        <div className="p-3 border-t border-gray-50 dark:border-white/5 space-y-1">
           <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
             {isSidebarOpen && <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Theme</span>}
             <ThemeToggle />
           </div>
 
           <motion.button
-            whileHover={{ x: 2, transition: { duration: 0.15 }}}
+            whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/expert-settings')}
-            className="w-full flex items-center gap-3 px-3 
-              py-2 rounded-xl text-gray-500 dark:text-gray-400 hover:bg-gray-50 
-              hover:text-[#134e40] transition-all"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a] transition-all"
           >
             <Settings size={17} className="shrink-0" />
             <motion.span
-              animate={{ 
-                opacity: isSidebarOpen ? 1 : 0, 
-                width: isSidebarOpen ? 'auto' : 0 
+              animate={{
+                opacity: isSidebarOpen ? 1 : 0,
+                width: isSidebarOpen ? 'auto' : 0
               }}
               transition={{ duration: 0.2 }}
               className="overflow-hidden whitespace-nowrap 
@@ -552,15 +561,13 @@ const ExpertEngagements = () => {
               await supabase.auth.signOut();
               navigate('/signin?role=expert');
             }}
-            className="w-full flex items-center gap-3 px-3 
-              py-2 rounded-xl text-red-500 hover:bg-red-50 
-              hover:text-red-600 transition-all font-bold"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 hover:text-red-600 transition-all font-bold"
           >
             <LogOut size={17} className="shrink-0" />
             <motion.span
-              animate={{ 
-                opacity: isSidebarOpen ? 1 : 0, 
-                width: isSidebarOpen ? 'auto' : 0 
+              animate={{
+                opacity: isSidebarOpen ? 1 : 0,
+                width: isSidebarOpen ? 'auto' : 0
               }}
               transition={{ duration: 0.2 }}
               className="overflow-hidden whitespace-nowrap 
@@ -598,19 +605,17 @@ const ExpertEngagements = () => {
 
           <div className="flex-1 max-w-xl mx-4 sm:mx-6 hidden md:block">
             <div className="relative group">
-              <Search size={15} className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-200 ${
-                searchFocused ? 'text-[#0eb59a]' : 'text-gray-300'
-              }`} />
+              <Search size={15} className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-200 ${searchFocused ? 'text-[#0eb59a]' : 'text-gray-300'
+                }`} />
               <input
                 type="text"
                 placeholder="Search engagements, milestones, messages..."
                 onFocus={() => setSearchFocused(true)}
                 onBlur={() => setSearchFocused(false)}
-                className={`w-full pl-11 pr-12 py-2.5 bg-gray-50 dark:!bg-white/5 border rounded-full text-sm text-gray-700 dark:text-gray-300 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-600 focus:bg-white dark:focus:bg-white/10 focus:outline-none transition-all duration-200 ${
-                  searchFocused
+                className={`w-full pl-11 pr-12 py-2.5 bg-gray-50 dark:!bg-white/5 border rounded-full text-sm text-gray-700 dark:text-gray-300 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-600 focus:bg-white dark:focus:bg-white/10 focus:outline-none transition-all duration-200 ${searchFocused
                     ? 'border-[#0eb59a] ring-2 ring-[#0eb59a]/20'
                     : 'border-gray-200'
-                }`}
+                  }`}
               />
               {!searchFocused && (
                 <div className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -642,11 +647,10 @@ const ExpertEngagements = () => {
                   setGridOpen(!gridOpen);
                   setShowNotifications(false);
                 }}
-                className={`w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 cursor-pointer ${
-                  gridOpen
+                className={`w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 cursor-pointer ${gridOpen
                     ? 'bg-teal-50 border-[#0eb59a] text-[#134e40]'
                     : 'bg-gray-50 border-gray-200 text-gray-500 dark:text-gray-400'
-                }`}
+                  }`}
               >
                 <Grid size={17} />
               </motion.button>
@@ -713,11 +717,10 @@ const ExpertEngagements = () => {
                   setShowNotifications(!showNotifications);
                   setGridOpen(false);
                 }}
-                className={`relative w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 cursor-pointer ${
-                  showNotifications
+                className={`relative w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 cursor-pointer ${showNotifications
                     ? 'bg-teal-50 border-[#0eb59a]'
                     : 'bg-gray-50 border-gray-200'
-                }`}
+                  }`}
               >
                 <Bell size={16} className={showNotifications ? 'text-[#134e40]' : 'text-gray-500 dark:text-gray-400'} />
                 <motion.span
@@ -759,9 +762,8 @@ const ExpertEngagements = () => {
                             initial={{ opacity: 0, x: 10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: idx * 0.05 }}
-                            className={`px-5 py-4 border-b border-gray-50 hover:bg-gray-50 cursor-pointer flex gap-3 transition-colors ${
-                              notif.unread ? 'bg-teal-50/20' : ''
-                            }`}
+                            className={`px-5 py-4 border-b border-gray-50 hover:bg-gray-50 cursor-pointer flex gap-3 transition-colors ${notif.unread ? 'bg-teal-50/20' : ''
+                              }`}
                           >
                             <div className={`w-2 h-2 rounded-full ${notif.color} mt-1.5 shrink-0`} />
                             <div className="flex-1 min-w-0">
@@ -809,7 +811,7 @@ const ExpertEngagements = () => {
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto bg-[#f4f7f5] [&::-webkit-scrollbar]:hidden">
+        <main className="flex-1 overflow-y-auto bg-[#f4f7f5] dark:!bg-[#0f1117] [&::-webkit-scrollbar]:hidden">
           {engagementsList.length === 0 ? (
             <div className="max-w-md mx-auto px-6 py-16 text-center flex flex-col items-center justify-center min-h-[50vh]">
               <Activity size={48} className="text-[#0eb59a] mb-4 animate-pulse" />
@@ -827,10 +829,10 @@ const ExpertEngagements = () => {
           ) : showEngagementList ? (
             /* ══ LIST VIEW ══ */
             <div className="max-w-5xl mx-auto px-6 py-8 pb-16">
-              
-              {/* Brand-consistent page hero */}
-              <div className="relative overflow-hidden border border-teal-100/60 rounded-3xl mb-8 dark:!bg-[#1b1d24]">
 
+              {/* Brand-consistent page hero */}
+              <div className="relative overflow-hidden border border-teal-100/60 dark:border-white/10 rounded-3xl mb-8 dark:!bg-[#1b1d24]">
+                <div className="absolute inset-0 dark:hidden" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f8fafc 100%)' }} />
                 <div
                   className="absolute inset-0 opacity-[0.25]"
                   style={{
@@ -907,7 +909,7 @@ const ExpertEngagements = () => {
                 {[
                   { label: 'Active', value: engagementsList.length, icon: Activity, color: 'text-teal-500', bg: 'bg-teal-50', border: 'border-l-[#0eb59a]' },
                   { label: 'This Month', value: '₹5.5L', icon: DollarSign, color: 'text-emerald-500', bg: 'bg-emerald-50', border: 'border-l-emerald-400' },
-                  { label: 'Avg Progress', value: '52%', icon: TrendingUp, color: 'text-blue-500', bg: 'bg-blue-50', border: 'border-l-blue-400' },
+                  { label: 'Avg Progress', value: '52%', icon: TrendingUp, color: 'text-[#0eb59a]', bg: 'bg-teal-50', border: 'border-l-[#0eb59a]' },
                 ].map((stat, idx) => (
                   <motion.div
                     key={idx}
@@ -917,10 +919,10 @@ const ExpertEngagements = () => {
                     whileHover={{ y: -4 }}
                     className={`bg-white dark:!bg-[#1e2028] rounded-2xl p-5 border border-gray-100 dark:!border-white/10 border-l-4 ${stat.border} shadow-sm relative`}
                   >
-    
+
                     {/* Change content to be slightly centered */}
                     <div className="flex flex-col items-center justify-center text-center pt-2">
-                      <div className={`w-10 h-10 ${stat.bg} rounded-2xl flex items-center justify-center mb-3 shadow-sm`}>
+                      <div className={`w-10 h-10 ${stat.bg} dark:bg-white/10 rounded-2xl flex items-center justify-center mb-3 shadow-sm`}>
                         {stat.label === 'This Month' ? (
                           <span className={`text-base font-black ${stat.color}`}>₹</span>
                         ) : (
@@ -950,7 +952,7 @@ const ExpertEngagements = () => {
                     onClick={() => { setSelectedEngagement(eng.id); setShowEngagementList(false); setActiveTab('Overview'); }}
                     className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm p-6 cursor-pointer group transition-all relative overflow-hidden"
                   >
-    
+
                     <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#134e40] via-[#0eb59a] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-3xl" />
                     <div className="flex items-start gap-4">
                       {/* Logo */}
@@ -984,9 +986,9 @@ const ExpertEngagements = () => {
                         </div>
 
                         {/* Next action */}
-                        <div className="flex items-center gap-2 mb-3 p-3 bg-amber-50 rounded-xl border border-amber-100">
+                        <div className="flex items-center gap-2 mb-3 p-3 bg-amber-50 dark:bg-amber-500/15 rounded-xl border border-amber-100 dark:border-amber-500/30">
                           <AlertCircle size={13} className="text-amber-500 shrink-0" />
-                          <p className="text-xs font-bold text-amber-700">
+                          <p className="text-xs font-bold text-amber-700 dark:text-amber-400">
                             Next: <span className="font-black">{eng.nextAction}</span>
                           </p>
                         </div>
@@ -997,7 +999,7 @@ const ExpertEngagements = () => {
                             <span className="text-gray-400 font-semibold">Overall Progress</span>
                             <span className="font-black text-[#134e40]">{eng.progress}%</span>
                           </div>
-                          <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="h-2 bg-gray-100 dark:bg-white/10 rounded-full overflow-hidden">
                             <motion.div
                               initial={{ width: 0 }}
                               animate={{ width: `${eng.progress}%` }}
@@ -1011,7 +1013,7 @@ const ExpertEngagements = () => {
                       {/* Arrow */}
                       <motion.div
                         whileHover={{ x: 3 }}
-                        className="w-8 h-8 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center shrink-0 group-hover:bg-teal-50 group-hover:border-teal-200 transition-all"
+                        className="w-8 h-8 rounded-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center shrink-0 group-hover:bg-teal-50 dark:group-hover:bg-[#0eb59a]/10 group-hover:border-teal-200 dark:group-hover:border-[#0eb59a]/30 transition-all"
                       >
                         <ChevronRight size={15} className="text-gray-400 group-hover:text-[#0eb59a] transition-colors" />
                       </motion.div>
@@ -1072,17 +1074,17 @@ const ExpertEngagements = () => {
                           engId: '2',
                         },
                       ] : dbEscrowAccounts.flatMap(ea => (ea.milestones || [])
-                          .filter(m => m.status === 'in_progress' || m.status === 'upcoming')
-                          .map(m => ({
-                            title: m.title,
-                            engagement: ea.engagement,
-                            company: ea.company || 'Acme Corp',
-                            due: m.dueDate,
-                            payment: m.payment,
-                            status: m.status,
-                            urgency: m.status === 'in_progress' ? 'border-l-amber-400' : 'border-l-gray-300',
-                            engId: ea.id,
-                          }))
+                        .filter(m => m.status === 'in_progress' || m.status === 'upcoming')
+                        .map(m => ({
+                          title: m.title,
+                          engagement: ea.engagement,
+                          company: ea.company || 'Acme Corp',
+                          due: m.dueDate,
+                          payment: m.payment,
+                          status: m.status,
+                          urgency: m.status === 'in_progress' ? 'border-l-amber-400' : 'border-l-gray-300',
+                          engId: ea.id,
+                        }))
                       );
 
                       if (upcomingMsList.length === 0) {
@@ -1105,11 +1107,10 @@ const ExpertEngagements = () => {
                             setShowEngagementList(false);
                             setActiveTab('Milestones');
                           }}
-                          className={`flex items-center gap-4 p-4 rounded-2xl border border-gray-100 bg-gray-50/50 border-l-4 ${ms.urgency} cursor-pointer transition-all group`}
+                          className={`flex items-center gap-4 p-4 rounded-2xl border border-gray-100 dark:border-white/10 bg-gray-50/50 dark:bg-[#252830] border-l-4 ${ms.urgency} cursor-pointer transition-all group`}
                         >
-                          <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
-                            ms.status === 'in_progress' ? 'bg-amber-50' : 'bg-gray-100'
-                          }`}>
+                          <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${ms.status === 'in_progress' ? 'bg-amber-50' : 'bg-gray-100'
+                            }`}>
                             {ms.status === 'in_progress' ? (
                               <Clock size={15} className="text-amber-500" />
                             ) : (
@@ -1117,18 +1118,17 @@ const ExpertEngagements = () => {
                             )}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-black text-gray-800 group-hover:text-[#134e40] transition-colors truncate">
+                            <p className="text-sm font-black text-gray-800 dark:text-white group-hover:text-[#134e40] dark:group-hover:text-[#0eb59a] transition-colors truncate">
                               {ms.title}
                             </p>
-                            <p className="text-xs text-gray-400 font-medium mt-0.5">
+                            <p className="text-xs text-gray-400 dark:text-gray-500 font-medium mt-0.5">
                               {ms.company} · Due {ms.due}
                             </p>
                           </div>
                           <div className="text-right shrink-0">
                             <p className="text-sm font-black text-[#134e40]">{ms.payment}</p>
-                            <p className={`text-[10px] font-bold mt-0.5 ${
-                              ms.status === 'in_progress' ? 'text-amber-500' : 'text-gray-400'
-                            }`}>
+                            <p className={`text-[10px] font-bold mt-0.5 ${ms.status === 'in_progress' ? 'text-amber-500' : 'text-gray-400'
+                              }`}>
                               {ms.status === 'in_progress' ? 'In Progress' : 'Upcoming'}
                             </p>
                           </div>
@@ -1189,7 +1189,7 @@ const ExpertEngagements = () => {
           ) : (
             /* ══ WORKSPACE VIEW ══ */
             <div className="flex flex-col h-full">
-              
+
               {/* Sticky sub-header (engagement info + tabs) */}
               <div className="bg-white dark:!bg-[#1b1d24] border-b border-gray-100 dark:!border-white/10 shadow-sm sticky top-0 z-30">
                 <div className="max-w-7xl mx-auto px-6 py-4">
@@ -1210,7 +1210,7 @@ const ExpertEngagements = () => {
                       <motion.button
                         whileHover={{ x: -3 }}
                         onClick={() => setShowEngagementList(true)}
-                        className="p-2 rounded-xl bg-gray-50 border border-gray-200 text-gray-400 hover:text-gray-600 dark:text-gray-400 transition-all cursor-pointer"
+                        className="p-2 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-400 hover:text-gray-600 dark:text-gray-400 transition-all cursor-pointer"
                       >
                         <ArrowLeft size={16} />
                       </motion.button>
@@ -1245,7 +1245,7 @@ const ExpertEngagements = () => {
                           <span className="text-gray-400 font-semibold">Progress</span>
                           <span className="font-black text-[#134e40]">{engagement.progress}%</span>
                         </div>
-                        <div className="w-36 h-2 bg-gray-100 rounded-full overflow-hidden">
+                        <div className="w-36 h-2 bg-gray-100 dark:bg-white/10 rounded-full overflow-hidden">
                           <motion.div
                             initial={{ width: 0 }}
                             animate={{ width: `${engagement.progress}%` }}
@@ -1254,9 +1254,9 @@ const ExpertEngagements = () => {
                           />
                         </div>
                       </div>
-                      <div className="flex items-center gap-2 bg-teal-50 border border-teal-100 px-4 py-2 rounded-xl">
+                      <div className="flex items-center gap-2 bg-teal-50 dark:bg-[#1e2028] border border-teal-100 dark:border-[#0eb59a]/30 px-4 py-2 rounded-xl">
                         <Shield size={14} className="text-[#0eb59a]" />
-                        <span className="text-xs font-black text-[#134e40]">PMO: {engagement.pmContact}</span>
+                        <span className="text-xs font-black text-[#134e40] dark:text-[#0eb59a]">PMO: {engagement.pmContact}</span>
                       </div>
                     </div>
                   </div>
@@ -1268,9 +1268,8 @@ const ExpertEngagements = () => {
                         key={tab.id}
                         whileHover={{ y: -1 }}
                         onClick={() => setActiveTab(tab.id)}
-                        className={`flex items-center gap-1.5 px-3 sm:px-4 py-3 text-xs sm:text-sm font-bold transition-all relative shrink-0 border-0 bg-transparent cursor-pointer ${
-                          activeTab === tab.id ? 'text-[#134e40]' : 'text-gray-400 hover:text-gray-600 dark:text-gray-400'
-                        }`}
+                        className={`flex items-center gap-1.5 px-3 sm:px-4 py-3 text-xs sm:text-sm font-bold transition-all relative shrink-0 border-0 bg-transparent cursor-pointer ${activeTab === tab.id ? 'text-[#134e40]' : 'text-gray-400 hover:text-gray-600 dark:text-gray-400'
+                          }`}
                       >
                         <tab.icon size={14} />
                         {tab.id}
@@ -1315,7 +1314,7 @@ const ExpertEngagements = () => {
                               { label: 'Total Value', value: engagement.totalValue, icon: TrendingUp, color: 'text-teal-500', bg: 'bg-teal-50', border: 'border-l-[#0eb59a]' },
                               { label: 'Received', value: engagement.received, icon: Unlock, color: 'text-emerald-500', bg: 'bg-emerald-50', border: 'border-l-emerald-400' },
                               { label: 'In Escrow', value: engagement.pending, icon: Lock, color: 'text-amber-500', bg: 'bg-amber-50', border: 'border-l-amber-400' },
-                              { label: 'Days Left', value: engagement.daysLeft, icon: Calendar, color: 'text-blue-500', bg: 'bg-blue-50', border: 'border-l-blue-400' },
+                              { label: 'Days Left', value: engagement.daysLeft, icon: Calendar, color: 'text-[#0eb59a]', bg: 'bg-teal-50', border: 'border-l-[#0eb59a]' },
                             ].map((kpi, idx) => (
                               <motion.div
                                 key={idx}
@@ -1323,9 +1322,9 @@ const ExpertEngagements = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: idx * 0.07 }}
                                 whileHover={{ y: -4 }}
-                                className={`bg-white rounded-2xl p-4 border border-gray-100 border-l-4 ${kpi.border} shadow-sm relative`}
+                                className={`bg-white dark:!bg-[#1e2028] rounded-2xl p-4 border border-gray-100 dark:!border-white/10 border-l-4 ${kpi.border} shadow-sm relative`}
                               >
-                
+
                                 <div className={`w-8 h-8 ${kpi.bg} rounded-xl flex items-center justify-center mb-3`}>
                                   <kpi.icon size={15} className={kpi.color} />
                                 </div>
@@ -1337,14 +1336,14 @@ const ExpertEngagements = () => {
 
                           {/* Progress */}
                           <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm p-6 relative overflow-hidden">
-            
+
                             <div className="flex items-center justify-between mb-5">
                               <h3 className="font-black text-gray-900 dark:text-white text-base flex items-center gap-2">
                                 <BarChart2 size={16} className="text-[#0eb59a]" /> Engagement Progress
                               </h3>
                               <span className="text-2xl font-black text-[#134e40]">{engagement.progress}%</span>
                             </div>
-                            <div className="h-3 bg-gray-100 rounded-full overflow-hidden mb-5">
+                            <div className="h-3 bg-gray-100 dark:bg-white/10 rounded-full overflow-hidden mb-5">
                               <motion.div
                                 initial={{ width: 0 }}
                                 animate={{ width: `${engagement.progress}%` }}
@@ -1376,7 +1375,7 @@ const ExpertEngagements = () => {
 
                           {/* Milestone summary */}
                           <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm p-6 relative overflow-hidden">
-            
+
                             <div className="flex items-center justify-between mb-4">
                               <h3 className="font-black text-gray-900 dark:text-white text-base flex items-center gap-2">
                                 <CheckCircle size={16} className="text-[#0eb59a]" /> Milestone Summary
@@ -1398,24 +1397,23 @@ const ExpertEngagements = () => {
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: idx * 0.06 }}
                                     onClick={() => setActiveTab('Milestones')}
-                                    className="flex items-center gap-3 p-3 rounded-2xl hover:bg-gray-50 transition-colors cursor-pointer"
+                                    className="flex items-center gap-3 p-3 rounded-2xl hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer"
                                   >
-                                    <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${
-                                      ms.status === 'approved' ? 'bg-emerald-500' :
-                                      ms.status === 'in_progress' ? 'bg-amber-500' :
-                                      ms.status === 'submitted' ? 'bg-blue-500' : 'bg-gray-200'
-                                    }`}>
+                                    <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${ms.status === 'approved' ? 'bg-emerald-500' :
+                                        ms.status === 'in_progress' ? 'bg-amber-500' :
+                                          ms.status === 'submitted' ? 'bg-[#0eb59a]' : 'bg-gray-200'
+                                      }`}>
                                       {ms.status === 'approved'
                                         ? <Check size={13} className="text-white" strokeWidth={3} />
                                         : ms.status === 'in_progress'
-                                        ? <motion.div animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}>
+                                          ? <motion.div animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}>
                                             <Clock size={13} className="text-white" />
                                           </motion.div>
-                                        : <Circle size={13} className="text-white" />
+                                          : <Circle size={13} className="text-white" />
                                       }
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                      <p className="text-sm font-bold text-gray-800 truncate">{ms.title}</p>
+                                      <p className="text-sm font-bold text-gray-800 dark:text-gray-200 truncate">{ms.title}</p>
                                       <p className="text-xs text-gray-400">Due {ms.dueDate} · {ms.payment}</p>
                                     </div>
                                     <span className={`text-[10px] font-black px-2 py-0.5 rounded-lg border shrink-0 ${statusInfo.color}`}>
@@ -1438,7 +1436,7 @@ const ExpertEngagements = () => {
                             transition={{ delay: 0.1 }}
                             className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm p-5 relative overflow-hidden"
                           >
-            
+
                             <h3 className="font-black text-gray-900 dark:text-white text-sm mb-4 flex items-center gap-2">
                               <Building size={14} className="text-[#0eb59a]" /> Client Company
                             </h3>
@@ -1481,7 +1479,7 @@ const ExpertEngagements = () => {
                             transition={{ delay: 0.15 }}
                             className="bg-gradient-to-br from-[#0d1f2d] to-[#134e40] rounded-3xl p-5 text-white relative overflow-hidden"
                           >
-            
+
                             <div className="absolute -right-4 -top-4 w-20 h-20 bg-white/5 rounded-full" />
                             <div className="relative z-10">
                               <div className="flex items-center gap-2 mb-2">
@@ -1511,7 +1509,7 @@ const ExpertEngagements = () => {
                             transition={{ delay: 0.2 }}
                             className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm p-5 relative overflow-hidden"
                           >
-            
+
                             <h3 className="font-black text-gray-900 dark:text-white text-sm mb-3">Quick Actions</h3>
                             <div className="space-y-2">
                               {[
@@ -1552,7 +1550,7 @@ const ExpertEngagements = () => {
                           <motion.div
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-center gap-3"
+                            className="bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 rounded-2xl p-4 flex items-center gap-3"
                           >
                             <AlertCircle size={20} className="text-amber-500 shrink-0" />
                             <div className="flex-1">
@@ -1575,7 +1573,7 @@ const ExpertEngagements = () => {
 
                         {/* Timeline */}
                         <div className="relative">
-                          <div className="absolute left-7 top-8 bottom-8 w-0.5 bg-gray-100 rounded-full" />
+                          <div className="absolute left-7 top-8 bottom-8 w-0.5 bg-gray-100 dark:bg-white/10 rounded-full" />
 
                           <div className="space-y-4">
                             {milestones.map((ms, idx) => {
@@ -1589,26 +1587,25 @@ const ExpertEngagements = () => {
                                   className={`relative flex gap-4 ${ms.status === 'upcoming' ? 'opacity-60' : ''}`}
                                 >
                                   {/* Dot */}
-                                  <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 z-10 shadow-sm ${
-                                    ms.status === 'approved' ? 'bg-emerald-500' :
-                                    ms.status === 'in_progress' ? 'bg-amber-500' :
-                                    ms.status === 'submitted' ? 'bg-blue-500' : 'bg-gray-100 border border-gray-200'
-                                  }`}>
+                                  <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 z-10 shadow-sm ${ms.status === 'approved' ? 'bg-emerald-500' :
+                                      ms.status === 'in_progress' ? 'bg-amber-500' :
+                                        ms.status === 'submitted' ? 'bg-[#0eb59a]' : 'bg-gray-100 border border-gray-200'
+                                    }`}>
                                     {ms.status === 'approved'
                                       ? <Check className="w-5 h-5 sm:w-[22px] sm:h-[22px] text-white" strokeWidth={3} />
                                       : ms.status === 'in_progress'
-                                      ? <motion.div animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}>
+                                        ? <motion.div animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}>
                                           <Clock className="w-5 h-5 sm:w-[22px] sm:h-[22px] text-white" />
                                         </motion.div>
-                                      : ms.status === 'submitted'
-                                      ? <CheckCircle className="w-5 h-5 sm:w-[22px] sm:h-[22px] text-white" />
-                                      : <span className="text-sm font-black text-gray-400">{idx + 1}</span>
+                                        : ms.status === 'submitted'
+                                          ? <CheckCircle className="w-5 h-5 sm:w-[22px] sm:h-[22px] text-white" />
+                                          : <span className="text-sm font-black text-gray-400">{idx + 1}</span>
                                     }
                                   </div>
 
                                   {/* Card */}
                                   <div className="flex-1 bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm p-5 hover:shadow-md transition-all relative overflow-hidden">
-                    
+
                                     <div className="flex items-start justify-between mb-3">
                                       <div>
                                         <div className="flex items-center gap-2 mb-1">
@@ -1651,7 +1648,7 @@ const ExpertEngagements = () => {
                                             return (
                                               <div
                                                 key={dIdx}
-                                                className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100 group hover:bg-teal-50 hover:border-teal-100 transition-all cursor-pointer"
+                                                className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 group hover:bg-teal-50 dark:hover:bg-[#0eb59a]/10 hover:border-teal-100 transition-all cursor-pointer"
                                               >
                                                 <div className={`w-8 h-8 ${fileInfo.bg} rounded-lg flex items-center justify-center shrink-0`}>
                                                   <fileInfo.icon size={15} className={fileInfo.color} />
@@ -1687,9 +1684,9 @@ const ExpertEngagements = () => {
 
                                     {/* Approved message */}
                                     {ms.status === 'approved' && (
-                                      <div className="flex items-center gap-2 p-3 bg-emerald-50 rounded-xl border border-emerald-100">
+                                      <div className="flex items-center gap-2 p-3 bg-emerald-50 dark:bg-emerald-500/10 rounded-xl border border-emerald-100 dark:border-emerald-500/20">
                                         <CheckCircle size={14} className="text-emerald-500 shrink-0" />
-                                        <p className="text-xs text-emerald-700 font-bold">
+                                        <p className="text-xs text-emerald-700 dark:text-emerald-400 font-bold">
                                           Approved by {engagement.company} — payment released ✓
                                         </p>
                                       </div>
@@ -1715,7 +1712,7 @@ const ExpertEngagements = () => {
                         style={{ height: 'calc(100vh - 200px)' }}
                       >
                         {/* Chat Header */}
-                        <div className="flex items-center gap-3 p-5 border-b border-gray-100 bg-gray-50/50 text-left">
+                        <div className="flex items-center gap-3 p-5 border-b border-gray-100 dark:border-white/10 bg-gray-50/50 dark:bg-white/5 text-left">
                           <div className={`w-10 h-10 rounded-2xl bg-gradient-to-br ${engagement.logoColor} flex items-center justify-center shadow-sm`}>
                             <span className="text-white font-black text-sm">{engagement.companyLogo}</span>
                           </div>
@@ -1751,11 +1748,10 @@ const ExpertEngagements = () => {
                                   </div>
                                 )}
                                 <div className={`max-w-md flex flex-col gap-1 ${isExpert ? 'items-end' : 'items-start'}`}>
-                                  <div className={`px-4 py-3 rounded-2xl text-sm leading-relaxed text-left ${
-                                    isExpert
+                                  <div className={`px-4 py-3 rounded-2xl text-sm leading-relaxed text-left ${isExpert
                                       ? 'bg-gradient-to-br from-[#134e40] to-[#0eb59a] text-white rounded-tr-sm'
-                                      : 'bg-gray-50 text-gray-700 dark:text-gray-300 border border-gray-100 rounded-tl-sm'
-                                  }`}>
+                                      : 'bg-gray-50 dark:bg-white/5 text-gray-700 dark:text-gray-300 border border-gray-100 dark:border-white/10 rounded-tl-sm'
+                                    }`}>
                                     {msg.text}
                                   </div>
                                   <span className="text-[10px] text-gray-400 font-semibold px-1">{msg.time}</span>
@@ -1766,7 +1762,7 @@ const ExpertEngagements = () => {
                         </div>
 
                         {/* Input */}
-                        <div className="p-4 border-t border-gray-100 bg-gray-50/50">
+                        <div className="p-4 border-t border-gray-100 dark:border-white/10 bg-gray-50/50 dark:bg-[#1e2028]/50">
                           <div className="flex items-end gap-3">
                             <motion.button
                               whileHover={{ scale: 1.05 }}
@@ -1790,11 +1786,10 @@ const ExpertEngagements = () => {
                               whileTap={{ scale: 0.95 }}
                               onClick={sendMessage}
                               disabled={!messageText.trim()}
-                              className={`p-3 rounded-2xl shrink-0 transition-all border-0 cursor-pointer ${
-                                messageText.trim()
+                              className={`p-3 rounded-2xl shrink-0 transition-all border-0 cursor-pointer ${messageText.trim()
                                   ? 'bg-[#134e40] hover:bg-[#0eb59a] text-white shadow-md'
                                   : 'bg-gray-100 text-gray-300 cursor-not-allowed'
-                              }`}
+                                }`}
                             >
                               <Send size={16} />
                             </motion.button>
@@ -1818,7 +1813,7 @@ const ExpertEngagements = () => {
                           whileHover={{ borderColor: '#0eb59a' }}
                           className="bg-white dark:!bg-[#1e2028] rounded-3xl border-2 border-dashed border-gray-200 dark:!border-white/10 p-8 text-center cursor-pointer transition-all group relative overflow-hidden"
                         >
-          
+
                           <motion.div
                             whileHover={{ scale: 1.1, rotate: 5 }}
                             className="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-3 border border-teal-100"
@@ -1839,15 +1834,15 @@ const ExpertEngagements = () => {
                               <h3 className="font-black text-gray-900 dark:text-white text-sm mb-3 flex items-center gap-2 text-left">
                                 {category === 'Deliverable'
                                   ? <Upload size={15} className="text-[#0eb59a]" />
-                                  : <Shield size={15} className="text-blue-500" />
+                                  : <Shield size={15} className="text-[#0eb59a]" />
                                 }
                                 {category} Documents
-                                <span className="text-xs font-bold text-gray-400 bg-gray-50 px-2 py-0.5 rounded-lg border border-gray-100">
+                                <span className="text-xs font-bold text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-white/5 px-2 py-0.5 rounded-lg border border-gray-100 dark:border-white/10">
                                   {catDocs.length}
                                 </span>
                               </h3>
                               <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm overflow-hidden text-left relative">
-                
+
                                 {catDocs.map((doc, idx) => {
                                   const fileInfo = getFileIcon(doc.type);
                                   return (
@@ -1856,15 +1851,14 @@ const ExpertEngagements = () => {
                                       initial={{ opacity: 0, x: -10 }}
                                       animate={{ opacity: 1, x: 0 }}
                                       transition={{ delay: idx * 0.06 }}
-                                      className={`flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors group cursor-pointer ${
-                                        idx < catDocs.length - 1 ? 'border-b border-gray-50' : ''
-                                      }`}
+                                      className={`flex items-center gap-4 p-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors group cursor-pointer ${idx < catDocs.length - 1 ? 'border-b border-gray-50 dark:border-white/5' : ''
+                                        }`}
                                     >
                                       <div className={`w-10 h-10 ${fileInfo.bg} rounded-xl flex items-center justify-center shrink-0`}>
                                         <fileInfo.icon size={18} className={fileInfo.color} />
                                       </div>
                                       <div className="flex-1 min-w-0">
-                                        <p className="font-bold text-gray-800 text-sm truncate">{doc.name}</p>
+                                        <p className="font-bold text-gray-800 dark:text-gray-200 text-sm truncate">{doc.name}</p>
                                         <p className="text-xs text-gray-400 font-semibold">
                                           {doc.uploadedBy === 'You' ? (
                                             <span className="text-[#0eb59a] font-bold">Uploaded by you</span>
@@ -1880,7 +1874,7 @@ const ExpertEngagements = () => {
                                         </motion.button>
                                         <motion.button
                                           whileHover={{ scale: 1.1 }}
-                                          className="p-1.5 rounded-lg text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition-all border-0 bg-transparent cursor-pointer"
+                                          className="p-1.5 rounded-lg text-gray-400 hover:text-[#0eb59a] hover:bg-teal-50 transition-all border-0 bg-transparent cursor-pointer"
                                         >
                                           <Download size={14} />
                                         </motion.button>
@@ -1918,9 +1912,9 @@ const ExpertEngagements = () => {
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: idx * 0.08 }}
                               whileHover={{ y: -4 }}
-                              className={`bg-white rounded-2xl p-5 border border-gray-100 border-l-4 ${kpi.border} shadow-sm relative`}
+                              className={`bg-white dark:!bg-[#1e2028] rounded-2xl p-5 border border-gray-100 dark:!border-white/10 border-l-4 ${kpi.border} shadow-sm relative`}
                             >
-              
+
                               <div className={`w-9 h-9 ${kpi.bg} rounded-xl flex items-center justify-center mb-3`}>
                                 <kpi.icon size={17} className={kpi.color} />
                               </div>
@@ -1932,7 +1926,7 @@ const ExpertEngagements = () => {
                         </div>
 
                         {/* Escrow info */}
-                        <div className="bg-teal-50 rounded-2xl border border-teal-100 p-4 flex items-start gap-3">
+                        <div className="bg-teal-50 dark:bg-[#0eb59a]/10 rounded-2xl border border-teal-100 dark:border-[#0eb59a]/20 p-4 flex items-start gap-3">
                           <Shield size={18} className="text-[#0eb59a] shrink-0 mt-0.5" />
                           <div>
                             <p className="text-sm font-black text-[#134e40]">How you get paid</p>
@@ -1944,8 +1938,8 @@ const ExpertEngagements = () => {
 
                         {/* Payment table */}
                         <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:!border-white/10 shadow-sm overflow-hidden relative">
-          
-                          <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+
+                          <div className="px-6 py-4 border-b border-gray-50 dark:border-white/5 flex items-center justify-between">
                             <h3 className="font-black text-gray-900 dark:text-white text-sm">Payment Schedule</h3>
                             <motion.button
                               whileHover={{ scale: 1.03 }}
@@ -1955,7 +1949,7 @@ const ExpertEngagements = () => {
                             </motion.button>
                           </div>
 
-                          <div className="divide-y divide-gray-50">
+                          <div className="divide-y divide-gray-50 dark:divide-white/5">
                             {payments.map((payment, idx) => {
                               const payStatus = getPaymentStatus(payment.status);
                               return (
@@ -1964,19 +1958,18 @@ const ExpertEngagements = () => {
                                   initial={{ opacity: 0, x: -10 }}
                                   animate={{ opacity: 1, x: 0 }}
                                   transition={{ delay: idx * 0.07 }}
-                                  className="flex items-center gap-4 px-6 py-4 hover:bg-gray-50 transition-colors"
+                                  className="flex items-center gap-4 px-6 py-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
                                 >
-                                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
-                                    payment.status === 'received' ? 'bg-emerald-50' :
-                                    payment.status === 'in_escrow' ? 'bg-amber-50' : 'bg-gray-50'
-                                  }`}>
+                                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${payment.status === 'received' ? 'bg-emerald-50' :
+                                      payment.status === 'in_escrow' ? 'bg-amber-50' : 'bg-gray-50'
+                                    }`}>
                                     <payStatus.icon size={16} className={
                                       payment.status === 'received' ? 'text-emerald-500' :
-                                      payment.status === 'in_escrow' ? 'text-amber-500' : 'text-gray-300'
+                                        payment.status === 'in_escrow' ? 'text-amber-500' : 'text-gray-300'
                                     } />
                                   </div>
                                   <div className="flex-1 min-w-0">
-                                    <p className="font-bold text-gray-800 text-sm truncate">{payment.milestone}</p>
+                                    <p className="font-bold text-gray-800 dark:text-gray-200 text-sm truncate">{payment.milestone}</p>
                                     <p className="text-xs text-gray-400 font-semibold">
                                       {payment.txId !== '—' ? `TX: ${payment.txId}` : 'Pending'} · {payment.date}
                                     </p>
@@ -2036,7 +2029,7 @@ const ExpertEngagements = () => {
                     {/* File upload zone */}
                     <motion.div
                       whileHover={{ borderColor: '#0eb59a' }}
-                      className="border-2 border-dashed border-gray-200 rounded-2xl p-6 text-center mb-4 cursor-pointer transition-all group"
+                      className="border-2 border-dashed border-gray-200 dark:border-white/10 rounded-2xl p-6 text-center mb-4 cursor-pointer transition-all group"
                     >
                       <Upload size={20} className="text-gray-300 mx-auto mb-2 group-hover:text-[#0eb59a] transition-colors" />
                       <p className="text-sm font-bold text-gray-500 dark:text-gray-400 group-hover:text-[#0eb59a] transition-colors">
@@ -2055,14 +2048,14 @@ const ExpertEngagements = () => {
                         onChange={e => setDeliverableNote(e.target.value)}
                         placeholder="Add any context or notes for the client about this submission..."
                         rows={3}
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 resize-none transition-all"
+                        className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl text-sm text-gray-800 dark:text-gray-200 placeholder-gray-300 dark:placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 resize-none transition-all"
                       />
                     </div>
 
                     {/* Payment reminder */}
-                    <div className="flex items-start gap-2 p-3 bg-emerald-50 rounded-xl border border-emerald-100 mb-5 text-left">
+                    <div className="flex items-start gap-2 p-3 bg-emerald-50 dark:bg-emerald-500/10 rounded-xl border border-emerald-100 dark:border-emerald-500/20 mb-5 text-left">
                       <DollarSign size={14} className="text-emerald-500 shrink-0 mt-0.5" />
-                      <p className="text-[11px] text-emerald-700 leading-relaxed font-semibold">
+                      <p className="text-[11px] text-emerald-700 dark:text-emerald-400 leading-relaxed font-semibold">
                         Upon approval, <span className="font-black">{showSubmitModal.payment}</span> will be released from escrow to your account within 24 hours.
                       </p>
                     </div>
@@ -2072,7 +2065,7 @@ const ExpertEngagements = () => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => { setShowSubmitModal(null); setDeliverableNote(''); }}
-                        className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 dark:text-gray-400 text-sm font-bold rounded-2xl border-0 cursor-pointer"
+                        className="flex-1 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 text-sm font-bold rounded-2xl cursor-pointer"
                       >
                         Cancel
                       </motion.button>

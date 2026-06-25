@@ -12,11 +12,29 @@ import {
 } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import Logo from '../components/Logo';
-import FormalCardBorder from '../components/FormalCardBorder';
+import ThemeToggle from '../components/ThemeToggle';
 import {
   LayoutDashboard, Briefcase, Activity, IndianRupee,
   UserCircle, MessageSquare, Calendar, ChevronLeft
 } from 'lucide-react';
+
+// ── Toggle component (must be outside ExpertSettings to keep stable reference) ──
+const Toggle = ({ value, onToggle }) => (
+  <motion.button
+    whileTap={{ scale: 0.9 }}
+    onClick={onToggle}
+    className={`relative w-12 h-6 rounded-full transition-colors duration-300 shrink-0 border-0 cursor-pointer ${
+      value ? 'bg-[#0eb59a]' : 'bg-gray-200 dark:bg-white/20'
+    }`}
+  >
+    <motion.div
+      initial={false}
+      animate={{ x: value ? 24 : 2 }}
+      transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+      className="absolute top-1 w-4 h-4 bg-white rounded-full shadow-md"
+    />
+  </motion.button>
+);
 
 const ExpertSettings = () => {
   const navigate = useNavigate();
@@ -87,7 +105,7 @@ const ExpertSettings = () => {
     { id: 'Account', icon: User, color: 'text-[#0eb59a]', bg: 'bg-teal-50' },
     { id: 'Notifications', icon: Bell, color: 'text-amber-500', bg: 'bg-amber-50' },
     { id: 'Payout Settings', icon: Landmark, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-    { id: 'Privacy', icon: Shield, color: 'text-blue-500', bg: 'bg-blue-50' },
+    { id: 'Privacy', icon: Shield, color: 'text-[#0eb59a]', bg: 'bg-teal-50' },
   ];
 
   const notificationGroups = [
@@ -159,7 +177,7 @@ const ExpertSettings = () => {
 
   const handleSave = async () => {
     const isDemo = localStorage.getItem('sb-mock-auth') === 'true' ||
-                   localStorage.getItem('demo_expert') === 'true';
+      localStorage.getItem('demo_expert') === 'true';
     if (isDemo) {
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 3000);
@@ -192,47 +210,33 @@ const ExpertSettings = () => {
     }
   };
 
-  // ── Toggle component ──
-  const Toggle = ({ value, onToggle }) => (
-    <motion.button
-      whileTap={{ scale: 0.9 }}
-      onClick={onToggle}
-      className={`relative w-12 h-6 rounded-full transition-colors duration-300 shrink-0 ${value ? 'bg-[#0eb59a]' : 'bg-gray-200'}`}
-    >
-      <motion.div
-        animate={{ x: value ? 24 : 2 }}
-        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-        className="absolute top-1 w-4 h-4 bg-white rounded-full shadow-md"
-      />
-    </motion.button>
-  );
 
   return (
-    <div className="flex h-screen bg-[#f4f7f5] font-sans overflow-hidden">
+    <div className="flex h-screen bg-[#f4f7f5] dark:bg-[#0f1117] font-sans overflow-hidden text-slate-900 dark:text-white">
 
       {/* ══ SIDEBAR ══ */}
       <motion.aside
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-white border-r border-gray-100 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white dark:bg-[#1b1d24] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
         {/* Logo */}
-        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50">
-          <motion.div
-            animate={{ width: isSidebarOpen ? 'auto' : 0, opacity: isSidebarOpen ? 1 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden shrink-0 flex items-center"
-          >
-            <div className="cursor-pointer" onClick={() => navigate('/expert-dashboard')}>
-              <Logo variant="dark" className="h-8" />
-            </div>
-          </motion.div>
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
+          <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/expert-dashboard')}>
+            <Logo variant="light" className="h-8 shrink-0" />
+            <motion.span
+              animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden whitespace-nowrap text-sm font-black text-[#134e40] dark:text-[#0eb59a] tracking-tight"
+            >
+              ExigentCX
+            </motion.span>
+          </div>
           <motion.button
-            animate={{ marginLeft: isSidebarOpen ? 'auto' : 0 }}
             whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
             onClick={() => setIsSidebarOpen(s => !s)}
-            className="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-[#134e40] hover:bg-[#f0fdf4] transition-all shrink-0 border border-gray-200 hover:border-[#0eb59a]"
+            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 dark:text-gray-500 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 dark:hover:bg-white/10 transition-all shrink-0"
           >
             {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
           </motion.button>
@@ -241,7 +245,7 @@ const ExpertSettings = () => {
         {/* Nav */}
         <nav className="flex-1 px-3 py-2 space-y-0.5 overflow-hidden">
           {isSidebarOpen && (
-            <p className="text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2 mb-2">Main Menu</p>
+            <p className="text-center text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest px-2 mb-2">Main Menu</p>
           )}
           {sidebarMenu.map((item) => (
             <motion.button
@@ -249,7 +253,7 @@ const ExpertSettings = () => {
               whileHover={{ x: 2, transition: { duration: 0.15 } }}
               whileTap={{ scale: 0.97 }}
               onClick={() => navigate(item.path)}
-              className="w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative text-gray-500 hover:bg-gray-50 hover:text-[#134e40]"
+              className="w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-[#0eb59a]"
             >
               <item.icon size={17} className="shrink-0" />
               <motion.span
@@ -264,7 +268,11 @@ const ExpertSettings = () => {
         </nav>
 
         {/* Settings — active pinned bottom */}
-        <div className="p-3 border-t border-gray-50 space-y-1">
+        <div className="p-3 border-t border-gray-50 dark:border-white/5 space-y-1">
+          <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
+            {isSidebarOpen && <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Theme</span>}
+            <ThemeToggle />
+          </div>
           <motion.button
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
@@ -280,7 +288,7 @@ const ExpertSettings = () => {
               Settings
             </motion.span>
           </motion.button>
-          
+
           <motion.button
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
@@ -294,7 +302,7 @@ const ExpertSettings = () => {
               }
               navigate('/signin?role=expert');
             }}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-red-500 hover:bg-red-50 hover:text-red-600 transition-all duration-150 font-bold"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 hover:text-red-600 transition-all duration-150 font-bold"
           >
             <LogOut size={17} className="shrink-0" />
             <motion.span
@@ -315,7 +323,7 @@ const ExpertSettings = () => {
       >
 
         {/* ── STICKY HEADER ── */}
-        <header className="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-4 sm:px-6 shrink-0 z-40 sticky top-0 shadow-sm">
+        <header className="h-16 bg-white dark:bg-[#1b1d24] border-b border-gray-100 dark:border-white/10 flex items-center justify-between px-4 sm:px-6 shrink-0 z-40 sticky top-0 shadow-sm">
           <div className="flex items-center gap-3" />
 
           {/* Search */}
@@ -327,7 +335,7 @@ const ExpertSettings = () => {
                 placeholder="Search settings..."
                 onFocus={() => setSearchFocused(true)}
                 onBlur={() => setSearchFocused(false)}
-                className={`w-full pl-11 pr-12 py-2.5 bg-gray-50 border rounded-full text-sm text-gray-700 placeholder-gray-400 focus:bg-white focus:outline-none transition-all duration-200 ${searchFocused ? 'border-[#0eb59a] ring-2 ring-[#0eb59a]/20' : 'border-gray-200'}`}
+                className={`w-full pl-11 pr-12 py-2.5 bg-gray-50 dark:bg-white/5 border rounded-full text-sm text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-600 focus:bg-white dark:focus:bg-white/10 focus:outline-none transition-all duration-200 ${searchFocused ? 'border-[#0eb59a] ring-2 ring-[#0eb59a]/20' : 'border-gray-200 dark:border-white/10'}`}
               />
               {!searchFocused && (
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded font-mono">⌘K</span>
@@ -356,7 +364,7 @@ const ExpertSettings = () => {
               <motion.button
                 whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.92 }}
                 onClick={() => { setGridOpen(!gridOpen); setShowNotificationPanel(false); }}
-                className={`w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 ${gridOpen ? 'bg-teal-50 border-[#0eb59a] text-[#134e40]' : 'bg-gray-50 border-gray-200 text-gray-500'}`}
+                className={`w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 ${gridOpen ? 'bg-teal-50 border-[#0eb59a] text-[#134e40]' : 'bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400'}`}
               >
                 <Grid size={17} />
               </motion.button>
@@ -367,8 +375,7 @@ const ExpertSettings = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.97 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full right-0 mt-2 w-64 bg-white rounded-2xl z-50 overflow-hidden"
-                    style={{ boxShadow: '0 20px 50px rgba(0,0,0,0.12)', border: '1px solid #F1F5F2' }}
+                    className="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-[#1e2028] rounded-2xl z-50 overflow-hidden border border-gray-100 dark:border-white/10 shadow-xl"
                   >
                     <div className="p-3 space-y-1">
                       {[
@@ -379,14 +386,14 @@ const ExpertSettings = () => {
                       ].map((item, idx) => (
                         <motion.button
                           key={idx}
-                          whileHover={{ x: 3, backgroundColor: '#FAFBF9' }}
+                          whileHover={{ x: 3 }}
                           onClick={() => { navigate(item.path); setGridOpen(false); }}
-                          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer border-l-2 border-[#0eb59a]"
+                          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer border-l-2 border-[#0eb59a] hover:bg-gray-50 dark:hover:bg-white/5"
                         >
                           <div className="w-7 h-7 bg-teal-50 rounded-lg flex items-center justify-center shrink-0">
                             <item.icon size={13} className="text-[#134e40]" />
                           </div>
-                          <span className="text-sm font-bold text-[#1C3627] text-left">{item.label}</span>
+                          <span className="text-sm font-bold text-[#1C3627] dark:text-white text-left">{item.label}</span>
                         </motion.button>
                       ))}
                     </div>
@@ -400,7 +407,7 @@ const ExpertSettings = () => {
               <motion.button
                 whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.92 }}
                 onClick={() => { setShowNotificationPanel(!showNotificationPanel); setGridOpen(false); }}
-                className={`relative w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 ${showNotificationPanel ? 'bg-teal-50 border-[#0eb59a]' : 'bg-gray-50 border-gray-200'}`}
+                className={`relative w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 ${showNotificationPanel ? 'bg-teal-50 border-[#0eb59a]' : 'bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10'}`}
               >
                 <Bell size={16} className={showNotificationPanel ? 'text-[#134e40]' : 'text-gray-500'} />
                 <motion.span
@@ -418,20 +425,20 @@ const ExpertSettings = () => {
                     <motion.div
                       initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: '100%' }} transition={{ duration: 0.3, type: 'tween' }}
-                      className="fixed right-0 top-16 bottom-0 w-80 bg-white shadow-2xl border-l border-gray-100 z-50 flex flex-col"
+                      className="fixed right-0 top-16 bottom-0 w-80 bg-white dark:bg-[#1b1d24] shadow-2xl border-l border-gray-100 dark:border-white/10 z-50 flex flex-col"
                     >
-                      <div className="px-5 py-4 border-b border-gray-50 flex items-center justify-between">
-                        <h3 className="font-black text-[#1C3627] text-sm">Notifications</h3>
+                      <div className="px-5 py-4 border-b border-gray-50 dark:border-white/10 flex items-center justify-between">
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-sm">Notifications</h3>
                         <button className="text-xs font-bold text-[#0eb59a]">Mark all read</button>
                       </div>
                       <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden">
                         {appNotifications.map((notif, idx) => (
-                          <div key={idx} className={`px-5 py-4 border-b border-gray-50 hover:bg-gray-50 cursor-pointer flex gap-3 ${notif.unread ? 'bg-teal-50/20' : ''}`}>
+                          <div key={idx} className={`px-5 py-4 border-b border-gray-50 dark:border-white/5 hover:bg-gray-50 dark:hover:bg-white/5 cursor-pointer flex gap-3 transition-colors ${notif.unread ? 'bg-teal-50/20 dark:bg-teal-500/5' : ''}`}>
                             <div className={`w-2 h-2 rounded-full ${notif.color} mt-1.5 shrink-0`} />
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-bold text-[#1C3627] leading-tight text-left">{notif.title}</p>
-                              <p className="text-xs text-gray-400 mt-0.5 text-left">{notif.desc}</p>
-                              <p className="text-[10px] text-gray-300 font-semibold mt-1 text-left">{notif.time}</p>
+                              <p className="text-sm font-bold text-[#1C3627] dark:text-white leading-tight text-left">{notif.title}</p>
+                              <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5 text-left">{notif.desc}</p>
+                              <p className="text-[10px] text-gray-300 dark:text-gray-600 font-semibold mt-1 text-left">{notif.time}</p>
                             </div>
                             {notif.unread && <div className="w-1.5 h-1.5 rounded-full bg-[#0eb59a] mt-1.5 shrink-0" />}
                           </div>
@@ -463,10 +470,8 @@ const ExpertSettings = () => {
         <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden">
 
           {/* ── HERO STRIP ── */}
-          <div
-            className="relative overflow-hidden border-b border-teal-100/60"
-            style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #e8f5f1 50%, #f8fafc 100%)' }}
-          >
+          <div className="relative overflow-hidden border-b border-teal-100/60 dark:border-white/5 dark:bg-[#1b1d24]">
+            <div className="absolute inset-0 dark:hidden" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #e8f5f1 50%, #f8fafc 100%)' }} />
             <div className="absolute inset-0 opacity-[0.4]" style={{ backgroundImage: 'radial-gradient(circle, rgba(14,181,154,0.12) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
             <div className="absolute top-0 right-0 w-48 h-24 bg-[#0eb59a]/8 rounded-full blur-3xl pointer-events-none" />
 
@@ -478,7 +483,7 @@ const ExpertSettings = () => {
                     <span className="text-[10px] font-black text-[#134e40] uppercase tracking-[0.15em]">Account Settings</span>
                   </div>
                 </div>
-                <h1 style={{ fontFamily: 'Georgia, serif' }} className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-2 text-left">
+                <h1 style={{ fontFamily: 'Georgia, serif' }} className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-2 text-left">
                   Settings
                 </h1>
                 <p className="text-slate-500 text-sm mt-1 font-medium text-left">
@@ -503,7 +508,7 @@ const ExpertSettings = () => {
                     onClick={() => setActiveTab(tab.id)}
                     className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap shrink-0 transition-all border ${isActive
                       ? 'bg-[#134e40] text-white border-[#134e40] shadow-md'
-                      : 'bg-white text-gray-500 border-gray-200 hover:border-[#0eb59a]/40 hover:text-[#134e40]'
+                      : 'bg-white dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/10 hover:border-[#0eb59a]/40 hover:text-[#134e40]'
                       }`}
                   >
                     <div className={`w-5 h-5 rounded-lg flex items-center justify-center shrink-0 ${isActive ? 'bg-white/20' : tab.bg}`}>
@@ -525,10 +530,9 @@ const ExpertSettings = () => {
                 <motion.div key="account" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }} className="space-y-4">
 
                   {/* Contact Info */}
-                  <div className="bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                    <FormalCardBorder />
-                    <h3 className="font-black text-[#1C3627] text-sm flex items-center gap-2 mb-5 text-left">
-                      <div className="w-7 h-7 bg-teal-50 rounded-xl flex items-center justify-center"><User size={14} className="text-[#0eb59a]" /></div>
+                  <div className="bg-white dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 mb-5 text-left">
+                      <div className="w-7 h-7 bg-teal-50 dark:bg-[#0eb59a]/10 rounded-xl flex items-center justify-center"><User size={14} className="text-[#0eb59a]" /></div>
                       Contact Information
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -544,7 +548,7 @@ const ExpertSettings = () => {
                               <input
                                 type={field.type} value={account[field.key]}
                                 onChange={e => setAccount(prev => ({ ...prev, [field.key]: e.target.value }))}
-                                className="w-full pl-10 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
+                                className="w-full pl-10 pr-3 py-2.5 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
                               />
                             </div>
                             <div className="flex items-center gap-1 px-2.5 py-2 bg-emerald-50 border border-emerald-100 rounded-xl shrink-0">
@@ -558,10 +562,9 @@ const ExpertSettings = () => {
                   </div>
 
                   {/* Password & Security */}
-                  <div className="bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                    <FormalCardBorder />
-                    <h3 className="font-black text-[#1C3627] text-sm flex items-center gap-2 mb-5 text-left">
-                      <div className="w-7 h-7 bg-teal-50 rounded-xl flex items-center justify-center"><Lock size={14} className="text-[#0eb59a]" /></div>
+                  <div className="bg-white dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 mb-5 text-left">
+                      <div className="w-7 h-7 bg-teal-50 dark:bg-[#0eb59a]/10 rounded-xl flex items-center justify-center"><Lock size={14} className="text-[#0eb59a]" /></div>
                       Password & Security
                     </h3>
                     <div className="space-y-3">
@@ -569,9 +572,9 @@ const ExpertSettings = () => {
                         { label: 'Two-Factor Authentication', desc: 'Extra security via OTP on login', key: 'twoFactor' },
                         { label: 'Login Alerts', desc: 'Get notified of new logins to your account', key: 'loginAlerts' },
                       ].map(item => (
-                        <div key={item.key} className="flex items-center justify-between p-4 bg-[#FAFBF9] rounded-xl border border-gray-100">
+                        <div key={item.key} className="flex items-center justify-between p-4 bg-[#FAFBF9] dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10">
                           <div className="text-left">
-                            <p className="font-bold text-[#1C3627] text-sm">{item.label}</p>
+                            <p className="font-bold text-[#1C3627] dark:text-white text-sm">{item.label}</p>
                             <p className="text-xs text-gray-400 font-medium mt-0.5">{item.desc}</p>
                           </div>
                           <Toggle value={account[item.key]} onToggle={() => setAccount(prev => ({ ...prev, [item.key]: !prev[item.key] }))} />
@@ -581,16 +584,15 @@ const ExpertSettings = () => {
                   </div>
 
                   {/* Referral */}
-                  <div className="bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                    <FormalCardBorder />
-                    <h3 className="font-black text-[#1C3627] text-sm flex items-center gap-2 mb-2 text-left">
-                      <div className="w-7 h-7 bg-teal-50 rounded-xl flex items-center justify-center"><Zap size={14} className="text-[#0eb59a]" /></div>
+                  <div className="bg-white dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 mb-2 text-left">
+                      <div className="w-7 h-7 bg-teal-50 dark:bg-[#0eb59a]/10 rounded-xl flex items-center justify-center"><Zap size={14} className="text-[#0eb59a]" /></div>
                       Referral Program
                     </h3>
                     <p className="text-xs text-gray-400 mb-4 font-semibold leading-relaxed text-left">
-                      Refer other experts and earn <span className="font-black text-gray-700">₹5,000</span> for every expert who completes their first engagement.
+                      Refer other experts and earn <span className="font-black text-gray-700 dark:text-gray-300">₹5,000</span> for every expert who completes their first engagement.
                     </p>
-                    <div className="flex items-center gap-3 p-4 bg-gradient-to-r from-teal-50 to-emerald-50 rounded-2xl border border-teal-100">
+                    <div className="flex items-center gap-3 p-4 bg-gradient-to-r from-teal-50 to-emerald-50 dark:from-[#0eb59a]/10 dark:to-emerald-500/10 rounded-2xl border border-teal-100 dark:border-[#0eb59a]/20">
                       <div className="flex-1 text-left">
                         <p className="text-[10px] font-black text-gray-500 mb-1 uppercase tracking-wider">Your Referral Code</p>
                         <p className="font-black text-[#134e40] text-lg tracking-widest">DAVID-CFO-2025</p>
@@ -606,8 +608,8 @@ const ExpertSettings = () => {
                     </div>
                     <div className="grid grid-cols-3 gap-3 mt-3">
                       {[{ label: 'Referrals Sent', value: '3' }, { label: 'Joined', value: '2' }, { label: 'Earned', value: '₹10,000' }].map((item, idx) => (
-                        <motion.div key={idx} whileHover={{ y: -2 }} className="text-center p-3 bg-[#FAFBF9] rounded-xl border border-gray-100">
-                          <p className="font-black text-[#1C3627] text-base">{item.value}</p>
+                        <motion.div key={idx} whileHover={{ y: -2 }} className="text-center p-3 bg-[#FAFBF9] dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10">
+                          <p className="font-black text-[#1C3627] dark:text-white text-base">{item.value}</p>
                           <p className="text-[10px] text-gray-400 font-semibold mt-0.5">{item.label}</p>
                         </motion.div>
                       ))}
@@ -624,12 +626,11 @@ const ExpertSettings = () => {
                   </motion.button>
 
                   {/* Danger Zone */}
-                  <div className="bg-white rounded-2xl border border-red-100 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
-                    <FormalCardBorder />
+                  <div className="bg-white dark:bg-[#1e2028] rounded-2xl border border-red-100 dark:border-red-500/20 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
                     <h3 className="font-black text-red-600 text-sm flex items-center gap-2 mb-3 text-left">
                       <AlertCircle size={15} /> Danger Zone
                     </h3>
-                    <p className="text-xs text-gray-500 mb-4 leading-relaxed text-left">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-4 leading-relaxed text-left">
                       Deleting your account is permanent. All profile data, engagement history, and earnings records will be removed.
                     </p>
                     <motion.button
@@ -649,23 +650,22 @@ const ExpertSettings = () => {
                   {notificationGroups.map((group, gIdx) => (
                     <div
                       key={group.title}
-                      className="bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden"
+                      className="bg-white dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 p-6 relative overflow-hidden"
                       style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}
                     >
-                      <FormalCardBorder />
                       <div className="mb-4 text-left">
-                        <h3 className="font-black text-[#1C3627] text-sm">{group.title}</h3>
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-sm">{group.title}</h3>
                         <p className="text-xs text-gray-400 mt-0.5 font-semibold">{group.desc}</p>
                       </div>
                       <div className="space-y-1">
                         {group.items.map((item, iIdx) => (
                           <motion.div
                             key={item.key}
-                            whileHover={{ backgroundColor: '#FAFBF9', borderRadius: '12px' }}
-                            className="flex items-center justify-between px-3 py-3 rounded-xl transition-all"
+                            whileHover={{}}
+                            className="flex items-center justify-between px-3 py-3 rounded-xl transition-all hover:bg-white/5 dark:hover:bg-white/5"
                           >
                             <div className="flex-1 pr-4 text-left">
-                              <p className="font-bold text-[#1C3627] text-sm">{item.label}</p>
+                              <p className="font-bold text-[#1C3627] dark:text-white text-sm">{item.label}</p>
                               <p className="text-xs text-gray-400 font-medium mt-0.5">{item.desc}</p>
                             </div>
                             <Toggle value={notifications[item.key]} onToggle={() => toggleNotification(item.key)} />
@@ -690,12 +690,11 @@ const ExpertSettings = () => {
                 <motion.div key="payout" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }} className="space-y-4">
 
                   {/* Payout accounts */}
-                  <div className="bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                    <FormalCardBorder />
+                  <div className="bg-white dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
                     <div className="flex items-center justify-between mb-5">
                       <div className="text-left">
-                        <h3 className="font-black text-[#1C3627] text-sm flex items-center gap-2">
-                          <div className="w-7 h-7 bg-emerald-50 rounded-xl flex items-center justify-center"><Landmark size={14} className="text-emerald-600" /></div>
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2">
+                          <div className="w-7 h-7 bg-emerald-50 dark:bg-emerald-500/10 rounded-xl flex items-center justify-center"><Landmark size={14} className="text-emerald-600" /></div>
                           Payout Accounts
                         </h3>
                         <p className="text-xs text-gray-400 mt-1 font-semibold">Payments are released here after milestone approval</p>
@@ -714,26 +713,26 @@ const ExpertSettings = () => {
                           key={acc.id}
                           initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.08 }}
                           whileHover={{ y: -2, transition: { duration: 0.2 } }}
-                          className={`p-4 rounded-2xl border-2 transition-all ${acc.default ? 'border-[#0eb59a] bg-teal-50/40' : 'border-gray-100 bg-[#FAFBF9] hover:border-gray-200'}`}
+                          className={`p-4 rounded-2xl border-2 transition-all ${acc.default ? 'border-[#0eb59a] bg-teal-50/40 dark:bg-[#0eb59a]/10' : 'border-gray-100 dark:border-white/10 bg-[#FAFBF9] dark:bg-white/5 hover:border-gray-200 dark:hover:border-white/20'}`}
                         >
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                              <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 ${acc.default ? 'bg-teal-100' : 'bg-gray-100'}`}>
+                              <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 ${acc.default ? 'bg-teal-100 dark:bg-[#0eb59a]/20' : 'bg-gray-100 dark:bg-white/10'}`}>
                                 {acc.type === 'bank'
-                                  ? <Building size={18} className={acc.default ? 'text-[#134e40]' : 'text-gray-500'} />
-                                  : <Zap size={18} className={acc.default ? 'text-[#134e40]' : 'text-gray-500'} />
+                                  ? <Building size={18} className={acc.default ? 'text-[#134e40] dark:text-[#0eb59a]' : 'text-gray-500 dark:text-gray-400'} />
+                                  : <Zap size={18} className={acc.default ? 'text-[#134e40] dark:text-[#0eb59a]' : 'text-gray-500 dark:text-gray-400'} />
                                 }
                               </div>
                               <div className="text-left">
                                 <div className="flex items-center gap-2 flex-wrap">
-                                  <p className="font-black text-[#1C3627] text-sm">{acc.label}</p>
+                                  <p className="font-black text-[#1C3627] dark:text-white text-sm">{acc.label}</p>
                                   {acc.verified && (
                                     <span className="text-[9px] font-black text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-md border border-emerald-200 flex items-center gap-0.5">
                                       <Check size={8} strokeWidth={3} /> Verified
                                     </span>
                                   )}
                                   {acc.default && (
-                                    <span className="text-[9px] font-black text-[#134e40] bg-teal-100 px-1.5 py-0.5 rounded-md border border-teal-200">Default</span>
+                                    <span className="text-[9px] font-black text-[#134e40] dark:text-[#0eb59a] bg-teal-100 dark:bg-[#0eb59a]/20 px-1.5 py-0.5 rounded-md border border-teal-200 dark:border-[#0eb59a]/30">Default</span>
                                   )}
                                 </div>
                                 {acc.type === 'bank'
@@ -744,7 +743,7 @@ const ExpertSettings = () => {
                             </div>
                             {!acc.default && (
                               <div className="flex items-center gap-2 shrink-0">
-                                <motion.button whileHover={{ scale: 1.03 }} onClick={() => setDefaultPayout(acc.id)} className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] px-3 py-1.5 bg-white rounded-xl border border-teal-100">Set Default</motion.button>
+                                <motion.button whileHover={{ scale: 1.03 }} onClick={() => setDefaultPayout(acc.id)} className="text-xs font-bold text-[#0eb59a] hover:text-[#134e40] px-3 py-1.5 bg-white dark:bg-white/5 rounded-xl border border-teal-100 dark:border-white/10">Set Default</motion.button>
                                 <motion.button whileHover={{ scale: 1.05 }} onClick={() => removePayout(acc.id)} className="p-2 rounded-xl text-gray-300 hover:text-red-500 hover:bg-red-50 transition-all"><Trash2 size={13} /></motion.button>
                               </div>
                             )}
@@ -755,10 +754,9 @@ const ExpertSettings = () => {
                   </div>
 
                   {/* Tax Info */}
-                  <div className="bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                    <FormalCardBorder />
-                    <h3 className="font-black text-[#1C3627] text-sm flex items-center gap-2 mb-5 text-left">
-                      <div className="w-7 h-7 bg-emerald-50 rounded-xl flex items-center justify-center"><Shield size={14} className="text-emerald-600" /></div>
+                  <div className="bg-white dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 mb-5 text-left">
+                      <div className="w-7 h-7 bg-emerald-50 dark:bg-emerald-500/10 rounded-xl flex items-center justify-center"><Shield size={14} className="text-emerald-600" /></div>
                       Tax Information
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -772,21 +770,22 @@ const ExpertSettings = () => {
                           <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5 text-left">{field.label}</label>
                           <input
                             type="text" defaultValue={field.value} placeholder={field.placeholder}
-                            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
+                            className="w-full px-4 py-2.5 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
                           />
                         </div>
                       ))}
                     </div>
-                    <div className="mt-4 flex items-start gap-2 p-3 bg-blue-50 rounded-xl border border-blue-100">
-                      <AlertCircle size={13} className="text-blue-500 shrink-0 mt-0.5" />
-                      <p className="text-xs text-blue-700 font-semibold leading-relaxed text-left">TDS of <span className="font-black">10%</span> is deducted from each milestone payment per Section 194J. Form 16A issued quarterly.</p>
+                    <div className="mt-4 flex items-start gap-2 p-3 bg-teal-50 dark:bg-[#0eb59a]/10 rounded-xl border border-teal-100 dark:border-[#0eb59a]/20">
+                      <AlertCircle size={13} className="text-[#0eb59a] shrink-0 mt-0.5" />
+                      <p className="text-xs text-[#0eb59a] font-semibold leading-relaxed text-left">TDS of <span className="font-black">10%</span> is deducted from each milestone payment per Section 194J. Form 16A issued quarterly.</p>
                     </div>
                   </div>
 
                   {/* Payout Policy */}
-                  <div className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-2xl border border-teal-100 p-5 relative overflow-hidden">
-                    <FormalCardBorder />
-                    <h4 className="font-black text-[#134e40] text-sm mb-3 flex items-center gap-2 text-left">
+                  <div className="bg-white dark:bg-[#1e2028] rounded-2xl border border-teal-100 dark:border-white/10 p-5 relative overflow-hidden">
+                    <div className="absolute inset-0 dark:hidden bg-gradient-to-r from-teal-50 to-emerald-50 pointer-events-none" />
+                    <div className="relative z-10">
+                    <h4 className="font-black text-[#134e40] dark:text-[#0eb59a] text-sm mb-3 flex items-center gap-2 text-left">
                       <Shield size={13} className="text-[#0eb59a]" /> Payout Policy
                     </h4>
                     <div className="grid grid-cols-2 gap-2">
@@ -796,11 +795,12 @@ const ExpertSettings = () => {
                         { label: 'Platform Fee', value: '10% per milestone' },
                         { label: 'TDS Deduction', value: '10% (Form 16A)' },
                       ].map((item, idx) => (
-                        <div key={idx} className="bg-white/60 rounded-xl p-3 border border-teal-100/60 text-left">
-                          <p className="text-[10px] text-teal-600 font-bold uppercase tracking-wide">{item.label}</p>
-                          <p className="font-black text-[#134e40] text-xs mt-0.5">{item.value}</p>
+                        <div key={idx} className="bg-white/60 dark:bg-white/5 rounded-xl p-3 border border-teal-100/60 dark:border-white/10 text-left">
+                          <p className="text-[10px] text-teal-600 dark:text-[#0eb59a] font-bold uppercase tracking-wide">{item.label}</p>
+                          <p className="font-black text-[#134e40] dark:text-white text-xs mt-0.5">{item.value}</p>
                         </div>
                       ))}
+                    </div>
                     </div>
                   </div>
 
@@ -820,10 +820,9 @@ const ExpertSettings = () => {
                 <motion.div key="privacy" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }} className="space-y-4">
 
                   {/* Profile Visibility */}
-                  <div className="bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                    <FormalCardBorder />
-                    <h3 className="font-black text-[#1C3627] text-sm flex items-center gap-2 mb-2 text-left">
-                      <div className="w-7 h-7 bg-blue-50 rounded-xl flex items-center justify-center"><Shield size={14} className="text-blue-500" /></div>
+                  <div className="bg-white dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 mb-2 text-left">
+                      <div className="w-7 h-7 bg-teal-50 dark:bg-[#0eb59a]/10 rounded-xl flex items-center justify-center"><Shield size={14} className="text-[#0eb59a]" /></div>
                       Profile Visibility
                     </h3>
                     <p className="text-xs text-gray-400 mb-5 font-semibold text-left">Control what companies can see on your public profile</p>
@@ -831,14 +830,14 @@ const ExpertSettings = () => {
                       {privacyItems.map((item, idx) => (
                         <motion.div
                           key={item.key}
-                          className={`flex items-center justify-between p-4 rounded-2xl border transition-all ${privacy[item.key] ? 'bg-teal-50/50 border-teal-100' : 'bg-[#FAFBF9] border-gray-100 hover:border-gray-200'}`}
+                          className={`flex items-center justify-between p-4 rounded-2xl border transition-all ${privacy[item.key] ? 'bg-teal-50/50 dark:bg-[#0eb59a]/10 border-teal-100 dark:border-[#0eb59a]/20' : 'bg-[#FAFBF9] dark:bg-white/5 border-gray-100 dark:border-white/10 hover:border-gray-200 dark:hover:border-white/20'}`}
                         >
                           <div className="flex items-center gap-3 flex-1 pr-4">
-                            <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${privacy[item.key] ? 'bg-teal-100' : 'bg-gray-100'}`}>
+                            <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${privacy[item.key] ? 'bg-teal-100 dark:bg-[#0eb59a]/20' : 'bg-gray-100 dark:bg-white/10'}`}>
                               <item.icon size={14} className={privacy[item.key] ? 'text-[#0eb59a]' : 'text-gray-400'} />
                             </div>
                             <div className="text-left">
-                              <p className="font-bold text-[#1C3627] text-sm">{item.label}</p>
+                              <p className="font-bold text-[#1C3627] dark:text-white text-sm">{item.label}</p>
                               <p className="text-xs text-gray-400 font-medium mt-0.5">{item.desc}</p>
                             </div>
                           </div>
@@ -849,10 +848,9 @@ const ExpertSettings = () => {
                   </div>
 
                   {/* Your Data */}
-                  <div className="bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                    <FormalCardBorder />
-                    <h3 className="font-black text-[#1C3627] text-sm flex items-center gap-2 mb-5 text-left">
-                      <div className="w-7 h-7 bg-blue-50 rounded-xl flex items-center justify-center"><Download size={14} className="text-blue-500" /></div>
+                  <div className="bg-white dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 p-6 relative overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-sm flex items-center gap-2 mb-5 text-left">
+                      <div className="w-7 h-7 bg-teal-50 dark:bg-[#0eb59a]/10 rounded-xl flex items-center justify-center"><Download size={14} className="text-[#0eb59a]" /></div>
                       Your Data
                     </h3>
                     <div className="space-y-3">
@@ -908,10 +906,10 @@ const ExpertSettings = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }} transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full"
+              className="bg-white dark:bg-[#1e2028] rounded-3xl shadow-2xl p-8 max-w-md w-full"
             >
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-black text-[#1C3627]">Add Bank Account</h3>
+                <h3 className="text-xl font-black text-[#1C3627] dark:text-white">Add Bank Account</h3>
                 <motion.button whileHover={{ scale: 1.1 }} onClick={() => setShowAddBankModal(false)} className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:bg-gray-100"><X size={16} /></motion.button>
               </div>
               <div className="space-y-4 mb-6">
@@ -928,7 +926,7 @@ const ExpertSettings = () => {
                       type="text" value={newBank[field.key]}
                       onChange={e => setNewBank(prev => ({ ...prev, [field.key]: e.target.value }))}
                       placeholder={field.placeholder}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
+                      className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl text-sm font-semibold text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all"
                     />
                   </div>
                 ))}
@@ -938,7 +936,7 @@ const ExpertSettings = () => {
                 <p className="text-xs text-amber-700 leading-relaxed font-semibold text-left">Your bank account will be verified via a ₹1 penny deposit within 24 hours before it can be used for withdrawals.</p>
               </div>
               <div className="flex gap-3">
-                <motion.button whileHover={{ scale: 1.02 }} onClick={() => setShowAddBankModal(false)} className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl">Cancel</motion.button>
+                <motion.button whileHover={{ scale: 1.02 }} onClick={() => setShowAddBankModal(false)} className="flex-1 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-sm font-bold rounded-2xl">Cancel</motion.button>
                 <motion.button
                   whileHover={{ scale: (newBank.accountHolder && newBank.accountNumber && newBank.ifsc) ? 1.02 : 1 }}
                   disabled={!newBank.accountHolder || !newBank.accountNumber || !newBank.ifsc}
@@ -962,7 +960,7 @@ const ExpertSettings = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }} transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full"
+              className="bg-white dark:bg-[#1e2028] rounded-3xl shadow-2xl p-8 max-w-sm w-full"
             >
               <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-5 border border-red-100">
                 <Trash2 size={28} className="text-red-500" />
@@ -976,11 +974,11 @@ const ExpertSettings = () => {
                 <input
                   type="text" value={deleteConfirm} onChange={e => setDeleteConfirm(e.target.value)}
                   placeholder="Type DELETE here..."
-                  className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 focus:border-red-300 rounded-2xl text-sm font-semibold focus:outline-none transition-all"
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border-2 border-gray-200 dark:border-white/10 focus:border-red-300 rounded-2xl text-sm font-semibold dark:text-gray-200 focus:outline-none transition-all"
                 />
               </div>
               <div className="flex gap-3">
-                <motion.button whileHover={{ scale: 1.02 }} onClick={() => { setShowDeleteModal(false); setDeleteConfirm(''); }} className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl">Cancel</motion.button>
+                <motion.button whileHover={{ scale: 1.02 }} onClick={() => { setShowDeleteModal(false); setDeleteConfirm(''); }} className="flex-1 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-sm font-bold rounded-2xl">Cancel</motion.button>
                 <motion.button
                   whileHover={{ scale: deleteConfirm === 'DELETE' ? 1.02 : 1 }}
                   disabled={deleteConfirm !== 'DELETE'}
