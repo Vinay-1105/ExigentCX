@@ -1,4 +1,5 @@
 import Logo from '../components/Logo';
+import ThemeToggle from '../components/ThemeToggle';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -14,7 +15,6 @@ import {
   LogOut, UserCircle, Activity, MessageSquare, Settings
 } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
-import FormalCardBorder from '../components/FormalCardBorder';
 
 const monthlyData = [
   { month: 'Nov', amount: 150, label: '₹1.5L' },
@@ -477,7 +477,7 @@ const ExpertEarnings = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f7f5] flex">
+    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0f1117] flex">
 
       {/* MOBILE BACKDROP */}
       <AnimatePresence>
@@ -497,26 +497,25 @@ const ExpertEarnings = () => {
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-white border-r border-gray-100 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white dark:bg-[#1b1d24] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
 
-        {/* Logo area */}
-        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50">
-          <motion.div
-            animate={{ width: isSidebarOpen ? 'auto' : 0, opacity: isSidebarOpen ? 1 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden shrink-0 flex items-center"
-          >
-            <div className="cursor-pointer" onClick={() => window.location.reload()}>
-              <Logo variant="dark" className="h-8" />
-            </div>
-          </motion.div>
+        {/* Logo */}
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
+          <div className="flex items-center gap-2 overflow-hidden cursor-pointer shrink-0" onClick={() => navigate('/expert-dashboard')}>
+            <Logo variant="light" className="h-8 shrink-0" />
+            <motion.span
+              animate={{ opacity: isSidebarOpen ? 1 : 0, width: isSidebarOpen ? 'auto' : 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden whitespace-nowrap text-sm font-black text-[#134e40] dark:text-[#0eb59a] tracking-tight"
+            >
+              ExigentCX
+            </motion.span>
+          </div>
           <motion.button
-            animate={{ marginLeft: isSidebarOpen ? 'auto' : 0 }}
-            whileHover={{ scale: 1.1, backgroundColor: '#f0fdf4' }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
             onClick={() => setIsSidebarOpen(s => !s)}
-            className="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-[#134e40] hover:bg-[#f0fdf4] transition-all cursor-pointer shrink-0 border border-gray-200 hover:border-[#0eb59a]"
+            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 dark:text-gray-500 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 dark:hover:bg-white/10 transition-all shrink-0"
           >
             {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
           </motion.button>
@@ -538,7 +537,7 @@ const ExpertEarnings = () => {
                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative cursor-pointer ${
                   isActive
                     ? 'bg-[#134e40] text-white shadow-md'
-                    : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40]'
                 }`}
               >
                 {isActive && (
@@ -575,7 +574,11 @@ const ExpertEarnings = () => {
         </nav>
 
         {/* Settings + Sign Out pinned to bottom */}
-        <div className="p-3 border-t border-gray-50 space-y-1">
+        <div className="p-3 border-t border-gray-50 dark:border-white/10 space-y-1">
+          <div className={`flex items-center gap-3 px-3 py-2 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
+            {isSidebarOpen && <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Theme</span>}
+            <ThemeToggle />
+          </div>
           <motion.button
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
@@ -583,7 +586,7 @@ const ExpertEarnings = () => {
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative cursor-pointer ${
               window.location.pathname === '/expert-settings'
                 ? 'bg-[#134e40] text-white shadow-md'
-                : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40]'
             }`}
           >
             <Settings size={17} className="shrink-0" />
@@ -637,7 +640,7 @@ const ExpertEarnings = () => {
         }}
       >
         {/* STICKY HEADER */}
-        <header className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-sm px-6 py-3 flex items-center justify-between">
+        <header className="sticky top-0 z-30 bg-white dark:bg-[#1b1d24] border-b border-gray-100 dark:border-white/10 shadow-sm px-6 py-3 flex items-center justify-between">
           
           {/* Left - Page Title only */}
           <div className="flex items-center gap-3">
@@ -652,7 +655,7 @@ const ExpertEarnings = () => {
               </motion.button>
             )}
             <div className="text-left">
-              <h1 className="text-lg font-black text-[#1C3627]">
+              <h1 className="text-lg font-black text-[#1C3627] dark:text-white">
                 Earnings & Payouts
               </h1>
               <p className="text-xs text-gray-400 font-medium">
@@ -669,7 +672,7 @@ const ExpertEarnings = () => {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={handleExport}
-              className="hidden md:flex items-center gap-2 px-3 py-2 bg-gray-50 border border-gray-200 text-gray-600 text-xs font-bold rounded-xl hover:bg-gray-100 transition-all cursor-pointer"
+              className="hidden md:flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-xs font-bold rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 transition-all cursor-pointer"
             >
               <Download size={13} /> Export
             </motion.button>
@@ -713,10 +716,10 @@ const ExpertEarnings = () => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -8, scale: 0.95 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute right-0 top-11 w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden"
+                      className="absolute right-0 top-11 w-80 bg-white dark:bg-[#1b1d24] rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 z-50 overflow-hidden"
                     >
-                      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-50">
-                        <h4 className="font-black text-[#1C3627] text-sm">Notifications</h4>
+                      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-50 dark:border-white/10">
+                        <h4 className="font-black text-[#1C3627] dark:text-white text-sm">Notifications</h4>
                         <span className="text-[10px] font-bold text-[#0eb59a] cursor-pointer">Mark all read</span>
                       </div>
                       {notifications.map((notif, idx) => (
@@ -725,13 +728,13 @@ const ExpertEarnings = () => {
                           initial={{ opacity: 0, x: -8 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: idx * 0.05 }}
-                          className={`flex items-start gap-3 px-4 py-3 cursor-pointer border-b border-gray-50 last:border-0 hover:bg-gray-50 transition-colors ${notif.unread ? 'bg-teal-50/20' : ''}`}
+                          className={`flex items-start gap-3 px-4 py-3 cursor-pointer border-b border-gray-50 dark:border-white/5 last:border-0 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors ${notif.unread ? 'bg-teal-50/20 dark:bg-teal-500/5' : ''}`}
                         >
                           <div className={`w-8 h-8 ${notif.color} rounded-xl flex items-center justify-center shrink-0`}>
                             <Bell size={13} className="text-white" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-xs font-black text-[#1C3627] mb-0.5 text-left">{notif.title}</p>
+                            <p className="text-xs font-black text-[#1C3627] dark:text-white mb-0.5 text-left">{notif.title}</p>
                             <p className="text-[11px] text-gray-500 text-left">{notif.desc}</p>
                             <p className="text-[10px] text-gray-400 mt-1 text-left">{notif.time}</p>
                           </div>
@@ -775,7 +778,7 @@ const ExpertEarnings = () => {
         </header>
 
         {/* ── PAGE BODY ── */}
-        <div className="flex-1 overflow-y-auto bg-[#f4f7f5] [&::-webkit-scrollbar]:hidden">
+        <div className="flex-1 overflow-y-auto bg-[#f4f7f5] dark:bg-[#0f1117] [&::-webkit-scrollbar]:hidden">
           <div className="relative max-w-7xl mx-auto px-8 py-8 pb-16 space-y-6">
 
             {/* ── HERO EARNINGS CARD ── */}
@@ -785,7 +788,6 @@ const ExpertEarnings = () => {
               transition={{ delay: 0.05 }}
               className="bg-gradient-to-br from-[#0d1f2d] via-[#134e40] to-[#0eb59a]/80 rounded-3xl p-7 text-white relative overflow-hidden shadow-2xl"
             >
-              <FormalCardBorder />
               {/* Decorative circles */}
               <div className="absolute -right-10 -top-10 w-48 h-48 bg-white/5 rounded-full" />
               <div className="absolute -right-4 -bottom-8 w-32 h-32 bg-[#0eb59a]/20 rounded-full" />
@@ -869,9 +871,8 @@ const ExpertEarnings = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 + idx * 0.07 }}
                   whileHover={{ y: -5, boxShadow: '0 16px 40px rgba(0,0,0,0.07)' }}
-                  className={`bg-white rounded-2xl p-5 border border-gray-100 border-l-4 ${card.border} shadow-sm transition-all cursor-default group relative overflow-hidden`}
+                  className={`bg-white dark:bg-[#1e2028] rounded-2xl p-5 border border-gray-100 dark:border-white/10 border-l-4 ${card.border} shadow-sm transition-all cursor-default group relative overflow-hidden`}
                 >
-                  <FormalCardBorder />
                   <div className="flex items-start justify-between mb-3 relative z-10">
                     <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pr-2 leading-tight text-left">
                       {card.label}
@@ -883,7 +884,7 @@ const ExpertEarnings = () => {
                       <card.icon size={17} className={card.color} />
                     </motion.div>
                   </div>
-                  <p className="text-3xl font-black text-gray-900 tracking-tight mb-1 text-left relative z-10">{card.value}</p>
+                  <p className="text-3xl font-black text-gray-900 dark:text-white tracking-tight mb-1 text-left relative z-10">{card.value}</p>
                   <p className="text-[10px] text-gray-400 font-semibold text-left relative z-10">{card.trend}</p>
                 </motion.div>
               ))}
@@ -894,7 +895,7 @@ const ExpertEarnings = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.15 }}
-              className="flex gap-1 bg-white border border-gray-100 rounded-2xl p-1 shadow-sm w-fit"
+              className="flex gap-1 bg-white dark:bg-[#1e2028] border border-gray-100 dark:border-white/10 rounded-2xl p-1 shadow-sm w-fit"
             >
               {tabs.map(tab => (
                 <motion.button
@@ -905,7 +906,7 @@ const ExpertEarnings = () => {
                   className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all border-0 cursor-pointer ${
                     activeTab === tab
                       ? 'bg-[#134e40] text-white shadow-md'
-                      : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                      : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/10'
                   }`}
                 >
                   {tab}
@@ -930,10 +931,9 @@ const ExpertEarnings = () => {
                   <div className="lg:col-span-2 space-y-5">
 
                     {/* Monthly earnings chart */}
-                    <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 relative overflow-hidden">
-                      <FormalCardBorder />
+                    <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-6 relative overflow-hidden">
                       <div className="flex items-center justify-between mb-6 relative z-10">
-                        <h3 className="font-black text-[#1C3627] text-base flex items-center gap-2">
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-base flex items-center gap-2">
                           <BarChart2 size={16} className="text-[#0eb59a]" /> Monthly Earnings
                         </h3>
                         <div className="flex items-center gap-2 text-xs font-bold text-gray-400">
@@ -964,11 +964,11 @@ const ExpertEarnings = () => {
                                     ? bar.month === 'Apr'
                                       ? 'bg-gradient-to-t from-[#134e40] to-[#0eb59a] ring-2 ring-[#0eb59a]/30'
                                       : 'bg-gradient-to-t from-[#134e40] to-[#0eb59a]'
-                                    : 'bg-gray-100'
+                                    : 'bg-gray-100 dark:bg-white/10'
                                 }`}
                               />
                             </div>
-                            <span className={`text-[10px] font-black text-gray-500 ${
+                            <span className={`text-[10px] font-black text-gray-500 dark:text-gray-400 ${
                               idx % 2 !== 0 ? 'hidden sm:block' : ''
                             }`}>
                               {bar.month}
@@ -978,27 +978,26 @@ const ExpertEarnings = () => {
                       </div>
 
                       {/* Chart footer */}
-                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t border-gray-50 relative z-10 text-left">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t border-gray-50 dark:border-white/10 relative z-10 text-left">
                         <div>
                           <p className="text-xs text-gray-400 font-semibold">Year to Date (2025)</p>
-                          <p className="text-lg font-black text-gray-900">₹10,50,000</p>
+                          <p className="text-lg font-black text-gray-900 dark:text-white">₹10,50,000</p>
                         </div>
                         <div>
                           <p className="text-xs text-gray-400 font-semibold">Avg Monthly</p>
-                          <p className="text-lg font-black text-gray-900">{summary.avgMonthly}</p>
+                          <p className="text-lg font-black text-gray-900 dark:text-white">{summary.avgMonthly}</p>
                         </div>
                         <div>
                           <p className="text-xs text-gray-400 font-semibold">Best Month</p>
-                          <p className="text-lg font-black text-gray-900">₹3,50,000</p>
+                          <p className="text-lg font-black text-gray-900 dark:text-white">₹3,50,000</p>
                         </div>
                       </div>
                     </div>
 
                     {/* Recent Transactions */}
-                    <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 relative overflow-hidden">
-                      <FormalCardBorder />
+                    <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-6 relative overflow-hidden">
                       <div className="flex items-center justify-between mb-4 relative z-10">
-                        <h3 className="font-black text-[#1C3627] text-base flex items-center gap-2">
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-base flex items-center gap-2">
                           <Clock size={16} className="text-[#0eb59a]" /> Recent Activity
                         </h3>
                         <button
@@ -1023,11 +1022,11 @@ const ExpertEarnings = () => {
                                 <txIcon.icon size={15} className={txIcon.color} />
                               </div>
                               <div className="flex-1 min-w-0 text-left">
-                                <p className="text-xs font-bold text-gray-800 truncate leading-tight">{tx.description}</p>
+                                <p className="text-xs font-bold text-gray-800 dark:text-gray-200 truncate leading-tight">{tx.description}</p>
                                 <p className="text-[10px] text-gray-400 font-semibold">{tx.date}</p>
                               </div>
                               <span className={`text-xs font-black shrink-0 ${
-                                tx.amountNum > 0 ? 'text-emerald-600' : 'text-gray-600'
+                                tx.amountNum > 0 ? 'text-emerald-600' : 'text-gray-600 dark:text-gray-400'
                               }`}>
                                 {tx.amount}
                               </span>
@@ -1046,10 +1045,9 @@ const ExpertEarnings = () => {
                       initial={{ opacity: 0, x: 15 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.15 }}
-                      className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5 relative overflow-hidden"
+                      className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-5 relative overflow-hidden"
                     >
-                      <FormalCardBorder />
-                      <h3 className="font-black text-[#1C3627] text-sm mb-1 flex items-center gap-2 relative z-10">
+                      <h3 className="font-black text-[#1C3627] dark:text-white text-sm mb-1 flex items-center gap-2 relative z-10">
                         <Wallet size={15} className="text-[#0eb59a]" /> Available to Withdraw
                       </h3>
                       <p className="text-3xl font-black text-[#134e40] mb-1 text-left relative z-10">{summary.availableToWithdraw}</p>
@@ -1069,10 +1067,9 @@ const ExpertEarnings = () => {
                       initial={{ opacity: 0, x: 15 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.2 }}
-                      className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5 relative overflow-hidden"
+                      className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-5 relative overflow-hidden"
                     >
-                      <FormalCardBorder />
-                      <h3 className="font-black text-[#1C3627] text-sm mb-4 flex items-center gap-2 relative z-10">
+                      <h3 className="font-black text-[#1C3627] dark:text-white text-sm mb-4 flex items-center gap-2 relative z-10">
                         <Target size={15} className="text-[#0eb59a]" /> Upcoming Payments
                       </h3>
                       <div className="space-y-3 relative z-10">
@@ -1086,13 +1083,13 @@ const ExpertEarnings = () => {
                             initial={{ opacity: 0, x: 10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.25 + idx * 0.07 }}
-                            className="flex items-center gap-3 p-3 rounded-2xl hover:bg-gray-50 transition-colors"
+                            className="flex items-center gap-3 p-3 rounded-2xl hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
                           >
                             <div className={`w-8 h-8 rounded-xl bg-gradient-to-br ${item.logoColor} flex items-center justify-center shrink-0`}>
                               <span className="text-white text-[10px] font-black">{item.logo}</span>
                             </div>
                             <div className="flex-1 min-w-0 text-left">
-                              <p className="text-xs font-bold text-gray-800 truncate">{item.milestone}</p>
+                              <p className="text-xs font-bold text-gray-800 dark:text-white truncate">{item.milestone}</p>
                               <p className="text-[10px] text-gray-400 font-semibold">{item.company} · {item.date}</p>
                             </div>
                             <p className="font-black text-[#134e40] text-sm shrink-0">{item.amount}</p>
@@ -1106,24 +1103,22 @@ const ExpertEarnings = () => {
                       initial={{ opacity: 0, x: 15 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.25 }}
-                      className="bg-gray-50 rounded-2xl border border-gray-100 p-4 relative overflow-hidden"
+                      className="bg-gray-50 dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 p-4 relative overflow-hidden"
                     >
-                      <FormalCardBorder />
                       <div className="flex items-start gap-2 relative z-10 text-left">
                         <Shield size={14} className="text-purple-500 shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-black text-gray-800 text-xs mb-1">Platform Fee</p>
-                          <p className="text-[11px] text-gray-500 leading-relaxed">
-                            ExigentCX charges a <span className="font-black text-gray-700">10% platform fee</span> on each milestone payment. This covers PMO support, legal protection, and escrow management.
+                          <p className="font-black text-gray-800 dark:text-white text-xs mb-1">Platform Fee</p>
+                          <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed">
+                            ExigentCX charges a <span className="font-black text-gray-700 dark:text-gray-200">10% platform fee</span> on each milestone payment. This covers PMO support, legal protection, and escrow management.
                           </p>
                         </div>
                       </div>
                     </motion.div>
 
                     {/* Quick actions */}
-                    <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5 relative overflow-hidden">
-                      <FormalCardBorder />
-                      <h3 className="font-black text-[#1C3627] text-sm mb-3 relative z-10">Quick Actions</h3>
+                    <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-5 relative overflow-hidden">
+                      <h3 className="font-black text-[#1C3627] dark:text-white text-sm mb-3 relative z-10">Quick Actions</h3>
                       <div className="space-y-2 relative z-10">
                         {[
                           { label: 'View Invoices', icon: FileText, action: () => setActiveTab('Invoices') },
@@ -1135,7 +1130,7 @@ const ExpertEarnings = () => {
                             whileHover={{ x: 3 }}
                             whileTap={{ scale: 0.97 }}
                             onClick={item.action}
-                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-[#0eb59a] transition-all border-0 bg-transparent cursor-pointer"
+                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#0eb59a] transition-all border-0 bg-transparent cursor-pointer"
                           >
                             <item.icon size={15} className="text-[#0eb59a]" />
                             <span className="text-left">{item.label}</span>
@@ -1166,16 +1161,15 @@ const ExpertEarnings = () => {
                       placeholder="Search transactions..."
                       value={searchQuery}
                       onChange={e => setSearchQuery(e.target.value)}
-                      className="w-full pl-11 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all shadow-sm max-w-md"
+                      className="w-full pl-11 pr-4 py-2.5 bg-white dark:bg-[#1e2028] border border-gray-200 dark:border-white/10 rounded-xl text-sm dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all shadow-sm max-w-md"
                     />
                   </div>
 
-                  <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden relative">
-                    <FormalCardBorder />
-                    <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between relative z-10">
-                      <h3 className="font-black text-[#1C3627] text-sm">
+                  <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm overflow-hidden relative">
+                    <div className="px-6 py-4 border-b border-gray-50 dark:border-white/10 flex items-center justify-between relative z-10">
+                      <h3 className="font-black text-[#1C3627] dark:text-white text-sm">
                         All Transactions
-                        <span className="ml-2 text-xs font-bold text-gray-400 bg-gray-50 px-2 py-0.5 rounded-lg border border-gray-100">
+                        <span className="ml-2 text-xs font-bold text-gray-400 bg-gray-50 dark:bg-white/5 px-2 py-0.5 rounded-lg border border-gray-100 dark:border-white/10">
                           {filteredTransactions.length}
                         </span>
                       </h3>
@@ -1188,7 +1182,7 @@ const ExpertEarnings = () => {
                       </motion.button>
                     </div>
 
-                    <div className="divide-y divide-gray-50 relative z-10">
+                    <div className="divide-y divide-gray-50 dark:divide-white/5 relative z-10">
                       {filteredTransactions.map((tx, idx) => {
                         const txIcon = getTxIcon(tx.type);
                         return (
@@ -1197,7 +1191,7 @@ const ExpertEarnings = () => {
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: idx * 0.05 }}
-                            className="flex flex-col sm:flex-row sm:items-center gap-3 px-4 sm:px-6 py-4 hover:bg-gray-50 transition-colors group"
+                            className="flex flex-col sm:flex-row sm:items-center gap-3 px-4 sm:px-6 py-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors group"
                           >
                             {/* Top row on mobile */}
                             <div className="flex items-center gap-3 flex-1">
@@ -1205,13 +1199,13 @@ const ExpertEarnings = () => {
                                 <txIcon.icon size={16} className={txIcon.color} />
                               </div>
                               <div className="flex-1 min-w-0 text-left">
-                                <p className="font-bold text-gray-800 text-sm truncate">{tx.description}</p>
+                                <p className="font-bold text-gray-800 dark:text-gray-200 text-sm truncate">{tx.description}</p>
                                 <p className="text-xs text-gray-400 font-semibold truncate">
                                   {tx.engagement !== '—' ? tx.engagement : tx.company}
                                 </p>
                               </div>
                               {/* Amount — right on mobile */}
-                              <p className={`font-black text-gray-900 sm:hidden ${tx.amountNum > 0 ? 'text-emerald-600' : ''}`}>
+                              <p className={`font-black text-gray-900 dark:text-gray-200 sm:hidden ${tx.amountNum > 0 ? 'text-emerald-600' : ''}`}>
                                 {tx.amount}
                               </p>
                             </div>
@@ -1229,7 +1223,7 @@ const ExpertEarnings = () => {
                             {/* Desktop layout — hidden on mobile */}
                             <div className="hidden sm:flex items-center gap-4">
                               <div className="text-right">
-                                <p className={`font-black text-base ${tx.amountNum > 0 ? 'text-emerald-600' : 'text-gray-700'}`}>
+                                <p className={`font-black text-base ${tx.amountNum > 0 ? 'text-emerald-600' : 'text-gray-700 dark:text-gray-300'}`}>
                                   {tx.amount}
                                 </p>
                                 <p className="text-[10px] text-gray-400 font-semibold">
@@ -1240,7 +1234,7 @@ const ExpertEarnings = () => {
                                 <span className={`text-[10px] font-black px-2.5 py-1 rounded-lg border ${getStatusStyle(tx.status)}`}>
                                   {tx.status}
                                 </span>
-                                <span className="text-[10px] text-gray-300 font-semibold">{tx.txRef}</span>
+                                <span className="text-[10px] text-gray-300 dark:text-gray-600 font-semibold">{tx.txRef}</span>
                               </div>
                             </div>
                           </motion.div>
@@ -1262,7 +1256,7 @@ const ExpertEarnings = () => {
                   className="space-y-4 text-left"
                 >
                   <div className="flex items-center justify-between">
-                    <h3 className="font-black text-[#1C3627] text-base">
+                    <h3 className="font-black text-[#1C3627] dark:text-white text-base">
                       All Invoices <span className="text-sm font-bold text-gray-400">({invoices.length})</span>
                     </h3>
                     <motion.button
@@ -1281,9 +1275,8 @@ const ExpertEarnings = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: idx * 0.07 }}
                       whileHover={{ y: -2, boxShadow: '0 10px 30px rgba(0,0,0,0.06)' }}
-                      className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-5 group transition-all relative overflow-hidden"
+                      className="bg-white dark:bg-[#1e2028] rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-5 flex items-center gap-5 group transition-all relative overflow-hidden"
                     >
-                      <FormalCardBorder />
                       {/* Company logo */}
                       <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${invoice.logoColor} flex items-center justify-center shrink-0 relative z-10`}>
                         <span className="text-white font-black text-sm">{invoice.companyLogo}</span>
@@ -1291,7 +1284,7 @@ const ExpertEarnings = () => {
 
                       <div className="flex-1 min-w-0 relative z-10">
                         <div className="flex items-center gap-2 mb-1 justify-start">
-                          <h4 className="font-black text-gray-900 text-sm truncate">{invoice.title}</h4>
+                          <h4 className="font-black text-gray-900 dark:text-white text-sm truncate">{invoice.title}</h4>
                           <span className={`text-[10px] font-black px-2 py-0.5 rounded-lg border shrink-0 ${getStatusStyle(invoice.status)}`}>
                             {invoice.status}
                           </span>
@@ -1320,14 +1313,14 @@ const ExpertEarnings = () => {
                         <motion.button
                           whileHover={{ scale: 1.05 }}
                           onClick={() => setShowInvoiceModal(invoice)}
-                          className="p-2 rounded-xl bg-gray-50 border border-gray-100 text-gray-400 hover:text-[#0eb59a] hover:bg-teal-50 transition-all border-0 cursor-pointer"
+                          className="p-2 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 text-gray-400 hover:text-[#0eb59a] hover:bg-teal-50 transition-all border-0 cursor-pointer"
                         >
                           <Eye size={14} />
                         </motion.button>
                         <motion.button
                           whileHover={{ scale: 1.05 }}
                           onClick={() => handleDownloadInvoice(invoice)}
-                          className="p-2 rounded-xl bg-gray-50 border border-gray-100 text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition-all border-0 cursor-pointer"
+                          className="p-2 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition-all border-0 cursor-pointer"
                         >
                           <Download size={14} />
                         </motion.button>
@@ -1352,7 +1345,6 @@ const ExpertEarnings = () => {
 
                     {/* Withdraw CTA banner */}
                     <div className="bg-gradient-to-br from-[#0d1f2d] to-[#134e40] rounded-3xl p-6 text-white relative overflow-hidden shadow-sm">
-                      <FormalCardBorder />
                       <div className="absolute -right-8 -top-8 w-40 h-40 bg-white/5 rounded-full" />
                       <div className="relative z-10 flex items-center justify-between">
                         <div>
@@ -1372,10 +1364,9 @@ const ExpertEarnings = () => {
                     </div>
 
                     {/* Payout accounts */}
-                    <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 relative overflow-hidden">
-                      <FormalCardBorder />
+                    <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-6 relative overflow-hidden">
                       <div className="flex items-center justify-between mb-5 relative z-10">
-                        <h3 className="font-black text-[#1C3627] text-base">Payout Accounts</h3>
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-base">Payout Accounts</h3>
                         <motion.button
                           whileHover={{ scale: 1.03 }}
                           className="flex items-center gap-2 text-xs font-bold text-[#0eb59a] hover:text-[#134e40] transition-colors border-0 bg-transparent cursor-pointer"
@@ -1389,19 +1380,19 @@ const ExpertEarnings = () => {
                           <motion.div
                             key={account.id}
                             whileHover={{ x: 3 }}
-                            className="flex items-center gap-4 p-4 rounded-2xl border border-gray-100 hover:border-[#0eb59a]/30 hover:bg-teal-50/30 transition-all cursor-pointer"
+                            className="flex items-center gap-4 p-4 rounded-2xl border border-gray-100 dark:border-white/10 hover:border-[#0eb59a]/30 hover:bg-teal-50/30 dark:hover:bg-[#0eb59a]/10 transition-all cursor-pointer"
                           >
                             <account.icon className="text-gray-400 shrink-0" size={22} />
                             <div className="flex-1">
                               <div className="flex items-center gap-2 justify-start">
-                                <p className="font-black text-gray-900 text-sm">{account.label}</p>
+                                <p className="font-black text-gray-900 dark:text-white text-sm">{account.label}</p>
                                 {account.verified && (
-                                  <span className="text-[9px] font-black text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-md border border-emerald-200 flex items-center gap-0.5">
+                                  <span className="text-[9px] font-black text-emerald-700 bg-emerald-50 dark:bg-emerald-500/10 px-1.5 py-0.5 rounded-md border border-emerald-200 dark:border-emerald-500/20 flex items-center gap-0.5">
                                     <Check size={8} strokeWidth={3} /> Verified
                                   </span>
                                 )}
                                 {account.default && (
-                                  <span className="text-[9px] font-black text-[#134e40] bg-teal-50 px-1.5 py-0.5 rounded-md border border-teal-200">
+                                  <span className="text-[9px] font-black text-[#134e40] dark:text-[#0eb59a] bg-teal-50 dark:bg-teal-500/10 px-1.5 py-0.5 rounded-md border border-teal-200 dark:border-teal-500/20">
                                     Default
                                   </span>
                                 )}
@@ -1415,25 +1406,24 @@ const ExpertEarnings = () => {
                     </div>
 
                     {/* Payout history */}
-                    <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden relative">
-                      <FormalCardBorder />
-                      <div className="px-6 py-4 border-b border-gray-50 relative z-10">
-                        <h3 className="font-black text-[#1C3627] text-sm">Payout History</h3>
+                    <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm overflow-hidden relative">
+                      <div className="px-6 py-4 border-b border-gray-50 dark:border-white/10 relative z-10">
+                        <h3 className="font-black text-[#1C3627] dark:text-white text-sm">Payout History</h3>
                       </div>
-                      <div className="divide-y divide-gray-50 relative z-10">
+                      <div className="divide-y divide-gray-50 dark:divide-white/5 relative z-10">
                         {payoutHistory.map((payout, idx) => (
                           <motion.div
                             key={idx}
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: idx * 0.07 }}
-                            className="flex items-center gap-4 px-6 py-4 hover:bg-gray-50 transition-colors"
+                            className="flex items-center gap-4 px-6 py-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
                           >
-                            <div className="w-9 h-9 bg-emerald-50 rounded-xl flex items-center justify-center shrink-0">
+                            <div className="w-9 h-9 bg-emerald-50 dark:bg-emerald-500/10 rounded-xl flex items-center justify-center shrink-0">
                               <Landmark size={16} className="text-emerald-500" />
                             </div>
                             <div className="flex-1 text-left">
-                              <p className="font-bold text-gray-800 text-sm">{payout.method}</p>
+                              <p className="font-bold text-gray-800 dark:text-gray-200 text-sm">{payout.method}</p>
                               <p className="text-xs text-gray-400 font-semibold">
                                 {payout.date} · Cleared in {payout.days} {payout.days > 1 ? 'days' : 'day'}
                               </p>
@@ -1450,8 +1440,7 @@ const ExpertEarnings = () => {
 
                   {/* Right — Info */}
                   <div className="space-y-5">
-                    <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5 relative overflow-hidden">
-                      <FormalCardBorder />
+                    <div className="bg-white dark:bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-5 relative overflow-hidden">
                       <h3 className="font-black text-[#1C3627] text-sm mb-4 flex items-center gap-2 relative z-10">
                         <Shield size={14} className="text-[#0eb59a]" /> Payout Policy
                       </h3>
@@ -1465,19 +1454,18 @@ const ExpertEarnings = () => {
                         ].map((item, idx) => (
                           <div key={idx} className="flex justify-between text-xs">
                             <span className="text-gray-400 font-semibold">{item.label}</span>
-                            <span className="font-bold text-gray-700">{item.value}</span>
+                            <span className="font-bold text-gray-700 dark:text-gray-200">{item.value}</span>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="bg-teal-50 rounded-2xl border border-teal-100 p-4 relative overflow-hidden">
-                      <FormalCardBorder />
+                    <div className="bg-teal-50 dark:bg-[#0eb59a]/10 rounded-2xl border border-teal-100 dark:border-[#0eb59a]/20 p-4 relative overflow-hidden">
                       <div className="relative z-10 text-left">
                         <p className="font-black text-[#134e40] text-sm mb-2 flex items-center gap-2">
                           <Star size={13} fill="#0eb59a" className="text-[#0eb59a]" /> Tax Benefits
                         </p>
-                        <p className="text-xs text-teal-700 leading-relaxed">
+                        <p className="text-xs text-teal-700 dark:text-teal-300 leading-relaxed">
                           All invoices are GST-compliant. Form 16A is issued each quarter for TDS deductions. Download your tax statement from the Invoices tab.
                         </p>
                       </div>
@@ -1507,7 +1495,7 @@ const ExpertEarnings = () => {
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               onClick={e => e.stopPropagation()}
-              className="bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden"
+              className="bg-white dark:bg-[#1e2028] rounded-t-3xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden"
             >
               <AnimatePresence mode="wait">
                 {!withdrawSent ? (
@@ -1515,7 +1503,7 @@ const ExpertEarnings = () => {
 
                     <div className="flex items-center justify-between mb-6">
                       <div className="text-left">
-                        <h3 className="text-xl font-black text-[#1C3627]">Withdraw Funds</h3>
+                        <h3 className="text-xl font-black text-[#1C3627] dark:text-white">Withdraw Funds</h3>
                         <p className="text-xs text-gray-400 mt-0.5">Available: {summary.availableToWithdraw}</p>
                       </div>
                       <motion.button
@@ -1681,12 +1669,12 @@ const ExpertEarnings = () => {
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               onClick={e => e.stopPropagation()}
-              className="bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden"
+              className="bg-white dark:bg-[#1e2028] rounded-t-3xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden"
             >
               <div className="flex items-center justify-between mb-6">
                 <div className="text-left">
                   <p className="text-xs font-black text-gray-400 uppercase tracking-wider mb-0.5">Invoice</p>
-                  <h3 className="text-lg font-black text-[#1C3627]">{showInvoiceModal.id}</h3>
+                  <h3 className="text-lg font-black text-[#1C3627] dark:text-white">{showInvoiceModal.id}</h3>
                 </div>
                 <motion.button
                   whileHover={{ scale: 1.1 }}
@@ -1697,7 +1685,7 @@ const ExpertEarnings = () => {
                 </motion.button>
               </div>
 
-              <div className="bg-gray-50 rounded-2xl border border-gray-100 p-5 mb-5 space-y-3">
+              <div className="bg-gray-50 dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 p-5 mb-5 space-y-3">
                 {[
                   { label: 'Description', value: showInvoiceModal.title },
                   { label: 'Company', value: showInvoiceModal.company },
@@ -1707,7 +1695,7 @@ const ExpertEarnings = () => {
                 ].map((item, idx) => (
                   <div key={idx} className="flex justify-between text-sm">
                     <span className="text-gray-400 font-semibold text-left">{item.label}</span>
-                    <span className="font-bold text-gray-800 text-right max-w-[200px]">{item.value}</span>
+                    <span className="font-bold text-gray-800 dark:text-gray-200 text-right max-w-[200px]">{item.value}</span>
                   </div>
                 ))}
                 <div className="h-px bg-gray-200 my-1" />

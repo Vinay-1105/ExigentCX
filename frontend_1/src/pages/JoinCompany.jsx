@@ -244,7 +244,7 @@ const JoinCompany = () => {
 	];
 
 	return (
-		<div className="flex min-h-screen bg-gray-50 dark:bg-[#0d1a14] flex-col lg:flex-row">
+		<div className="flex min-h-screen bg-gray-50 dark:bg-[#0f1117] flex-col lg:flex-row">
 
 			{/* ── LEFT PANEL — enhanced ── */}
 			<div className="hidden lg:flex flex-col w-[38%] bg-[#0d1a18] relative overflow-hidden sticky top-0 h-screen">
@@ -304,7 +304,7 @@ const JoinCompany = () => {
 			</div>
 
 			{/* ── RIGHT PANEL — form ── */}
-			<div className="relative flex-1 flex items-start justify-center py-8 px-4 md:px-8 overflow-y-auto dark:bg-[#0d1a14]">
+			<div className="relative flex-1 flex items-start justify-center py-8 px-4 md:px-8 overflow-y-auto dark:bg-[#0f1117]">
 				<div className="absolute inset-0 pointer-events-none md:hidden bg-gradient-to-br from-teal-400/10 to-transparent" />
 
 				<div className="relative z-10 w-full max-w-2xl">
@@ -377,7 +377,7 @@ const JoinCompany = () => {
 						animate={{ opacity: 1, x: 0 }}
 						exit={{ opacity: 0, x: -20 }}
 						transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-						className="bg-white dark:bg-[#0d2318] border border-gray-100 dark:border-white/10 shadow-lg shadow-gray-100/80 dark:shadow-none rounded-2xl p-6 md:p-8"
+						className="bg-white dark:bg-[#1b1d24] border border-gray-100 dark:border-white/10 shadow-lg shadow-gray-100/80 dark:shadow-none rounded-2xl p-6 md:p-8"
 					>
 						<form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
@@ -398,13 +398,13 @@ const JoinCompany = () => {
 									<div className="flex flex-col gap-1">
 										<label className={labelClass}>Upload Company Logo *</label>
 										<input type="file" accept=".png, .jpg, .jpeg"
-											className="w-full px-4 py-2.5 bg-gray-50 dark:bg-white/5 border-2 border-dashed border-gray-200 dark:border-white/10 rounded-xl cursor-pointer hover:border-[#0eb59a] hover:bg-teal-50/30 transition-all duration-200 text-gray-600 dark:text-gray-400 text-sm file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#134e40] file:text-white hover:file:bg-[#0eb59a]"
+											className="w-full px-4 py-2.5 bg-gray-50 dark:bg-white/5 border-2 border-dashed border-gray-200 dark:border-white/10 rounded-xl cursor-pointer hover:border-[#0eb59a] hover:bg-teal-50/30 dark:hover:bg-[#0eb59a]/10 transition-all duration-200 text-gray-600 dark:text-gray-400 text-sm file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#134e40] file:text-white hover:file:bg-[#0eb59a]"
 											{...register("logo", { required: "Logo is required" })}
 										/>
 										<span className="text-xs text-gray-400 mt-0.5">PNG, JPG up to 2MB</span>
 										{errors.logo && <span className="text-red-500 text-xs">{errors.logo.message}</span>}
 										{logoPreview && (
-											<motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="mt-2 p-3 border border-gray-100 rounded-xl bg-gray-50 flex justify-center">
+											<motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="mt-2 p-3 border border-gray-100 dark:border-white/10 rounded-xl bg-gray-50 dark:bg-white/5 flex justify-center">
 												<img src={logoPreview} alt="Logo Preview" className="h-16 object-contain" />
 											</motion.div>
 										)}
@@ -645,7 +645,7 @@ const JoinCompany = () => {
 									<div className="flex flex-col gap-1">
 										<label className={labelClass}>Certificate of Incorporation <span className="text-gray-300 font-normal normal-case">(optional)</span></label>
 										<input type="file" accept=".pdf, .jpg, .jpeg, .png"
-											className="w-full px-4 py-2 bg-gray-50 dark:bg-white/5 border-2 border-dashed border-gray-200 dark:border-white/10 rounded-xl cursor-pointer hover:border-[#0eb59a] hover:bg-teal-50/30 transition-all text-gray-500 dark:text-gray-400 text-xs file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#134e40] file:text-white hover:file:bg-[#0eb59a]"
+											className="w-full px-4 py-2 bg-gray-50 dark:bg-white/5 border-2 border-dashed border-gray-200 dark:border-white/10 rounded-xl cursor-pointer hover:border-[#0eb59a] hover:bg-teal-50/30 dark:hover:bg-[#0eb59a]/10 transition-all text-gray-500 dark:text-gray-400 text-xs file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#134e40] file:text-white hover:file:bg-[#0eb59a]"
 											{...register("gstCertificate")}
 										/>
 										<span className="text-xs text-[#0eb59a] font-medium mt-0.5">Uploading your COI helps verify your company faster.</span>

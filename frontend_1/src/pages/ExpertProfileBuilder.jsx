@@ -382,10 +382,18 @@ const ExpertProfileBuilder = () => {
       return;
     }
 
+    // Set local preview URL immediately for instant UI feedback
+    const localUrl = URL.createObjectURL(file);
+    setProfile(prev => ({ ...prev, profileUrl: localUrl }));
+
+    const isDemo = localStorage.getItem('demo_expert') === 'true' || localStorage.getItem('sb-mock-auth') === 'true';
+    if (isDemo) {
+      return;
+    }
+
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
-        alert('Please sign in first');
         return;
       }
 
@@ -408,8 +416,7 @@ const ExpertProfileBuilder = () => {
         }
       }
     } catch (err) {
-      console.error('Error uploading photo:', err);
-      alert(`Failed to upload photo: ${err.message || 'Unknown error'}`);
+      console.error('Error uploading photo to Supabase:', err);
     }
   };
 
@@ -583,7 +590,7 @@ const ExpertProfileBuilder = () => {
     n => n.unread).length;
 
   return (
-    <div className="min-h-screen bg-[#f4f7f5] flex">
+    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0f1117] flex">
 
       {/* ══ SIDEBAR ══ */}
       <motion.aside
@@ -593,9 +600,7 @@ const ExpertProfileBuilder = () => {
           duration: 0.3,
           ease: [0.4, 0, 0.2, 1]
         }}
-        className="bg-white border-r border-gray-100 
-          flex flex-col z-50 overflow-hidden shrink-0 
-          shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white dark:bg-[#1b1d24] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
         {/* Logo + Toggle */}
         <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/10 justify-between">
@@ -733,7 +738,7 @@ const ExpertProfileBuilder = () => {
             }}
             className="w-full flex items-center gap-3 
               px-3 py-2 rounded-xl text-red-500 
-              hover:bg-red-50 hover:text-red-600 
+              hover:bg-red-50 dark:hover:bg-red-500/10 hover:text-red-600 
               transition-all font-bold cursor-pointer border-0"
           >
             <LogOut size={17} className="shrink-0" />
@@ -763,9 +768,7 @@ const ExpertProfileBuilder = () => {
       >
 
         {/* STICKY HEADER */}
-        <header className="sticky top-0 z-30 bg-white 
-          border-b border-gray-100 shadow-sm px-6 
-          py-3 flex items-center justify-between">
+        <header className="sticky top-0 z-30 bg-white dark:bg-[#1b1d24] border-b border-gray-100 dark:border-white/10 shadow-sm px-6 py-3 flex items-center justify-between">
 
           {/* Left - Title */}
           <div className="text-left">
@@ -819,10 +822,7 @@ const ExpertProfileBuilder = () => {
               whileTap={{ scale: 0.97 }}
               onClick={() => setShowPreview(true)}
               className="flex items-center gap-2 px-4 
-                py-2 bg-white border border-gray-200 
-                text-gray-600 text-xs font-bold 
-                rounded-xl hover:bg-gray-50 
-                transition-all shadow-sm cursor-pointer"
+                py-2 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-xs font-bold rounded-xl hover:bg-gray-50 dark:hover:bg-white/10 transition-all shadow-sm cursor-pointer"
             >
               <Eye size={14} /> Preview Profile
             </motion.button>
@@ -903,12 +903,10 @@ const ExpertProfileBuilder = () => {
                       className="absolute right-0 
                         top-11 w-80 bg-white 
                         rounded-2xl shadow-2xl 
-                        border border-gray-100 
+                        border border-gray-100 dark:border-white/10 
                         z-50 overflow-hidden"
                     >
-                      <div className="flex items-center
-                        justify-between px-4 py-3 
-                        border-b border-gray-50">
+                      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-50 dark:border-white/10">
                         <h4 className="font-black 
                           text-[#1C3627] dark:text-white text-sm">
                           Notifications
@@ -934,15 +932,7 @@ const ExpertProfileBuilder = () => {
                             transition={{
                               delay: idx * 0.05
                             }}
-                            className={`flex items-start
-                            gap-3 px-4 py-3 
-                            cursor-pointer border-b 
-                            border-gray-50 last:border-0
-                            hover:bg-gray-50 
-                            transition-colors ${notif.unread
-                                ? 'bg-teal-50/20'
-                                : ''
-                              }`}
+                            className={`flex items-start gap-3 px-4 py-3 cursor-pointer border-b border-gray-50 dark:border-white/5 last:border-0 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors ${notif.unread ? 'bg-teal-50/20 dark:bg-[#0eb59a]/10' : ''}`}
                           >
                             <div className={`w-8 h-8 
                             ${notif.color} rounded-xl 
@@ -1020,7 +1010,7 @@ const ExpertProfileBuilder = () => {
 
         {/* PAGE BODY */}
         <div className="flex-1 overflow-y-auto 
-          bg-[#f4f7f5] [&::-webkit-scrollbar]:hidden">
+          bg-[#f4f7f5] dark:bg-[#0f1117] [&::-webkit-scrollbar]:hidden">
           <div className="relative max-w-6xl mx-auto 
             px-6 py-8 pb-16">
 
@@ -1034,7 +1024,7 @@ const ExpertProfileBuilder = () => {
                 transition={{ delay: 0.1 }}
                 className="lg:w-64 shrink-0"
               >
-                <div className="bg-white dark:!bg-[#1e2028] rounded-2xl lg:rounded-3xl border border-gray-100 shadow-sm p-2 lg:p-4 lg:sticky lg:top-6">
+                <div className="bg-white dark:!bg-[#1e2028] rounded-2xl lg:rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-2 lg:p-4 lg:sticky lg:top-6">
 
                   {/* Profile strength — hidden on mobile horizontal nav */}
                   <div className="hidden lg:block">
@@ -1062,7 +1052,7 @@ const ExpertProfileBuilder = () => {
                               <div className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 ${tip.done ? 'bg-emerald-500' : 'bg-white/10 border border-dashed border-white/20'}`}>
                                 {tip.done && <Check size={8} className="text-white" strokeWidth={3} />}
                               </div>
-                              <span className={`text-[10px] font-semibold ${tip.done ? 'text-white/50 line-through' : 'text-white/70'}`}>
+                              <span className={`text-[10px] font-semibold text-gray-900 dark:text-white ${tip.done ? 'text-white/50 line-through' : 'text-white/70'}`}>
                                 {tip.label}
                               </span>
                             </div>
@@ -1111,8 +1101,8 @@ const ExpertProfileBuilder = () => {
                       className="space-y-5"
                     >
                       {/* Photo + headline */}
-                      <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 shadow-sm p-6 relative overflow-hidden">
-                        <h3 className="font-black text-gray-900 text-base mb-5 flex items-center gap-2">
+                      <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-6 relative overflow-hidden">
+                        <h3 className="font-black text-gray-900 dark:text-white text-base mb-5 flex items-center gap-2">
                           <User size={16} className="text-[#0eb59a]" /> Profile Photo & Headline
                         </h3>
 
@@ -1133,7 +1123,7 @@ const ExpertProfileBuilder = () => {
                               <img
                                 src={profile.profileUrl}
                                 alt="Profile"
-                                className="w-20 h-20 rounded-2xl object-cover shadow-lg border border-gray-100 dark:!border-white/10"
+                                className="w-20 h-20 rounded-2xl object-cover shadow-lg border border-gray-100 dark:border-white/10 dark:!border-white/10"
                               />
                             ) : (
                               <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#134e40] to-[#0eb59a] flex items-center justify-center shadow-lg">
@@ -1152,12 +1142,12 @@ const ExpertProfileBuilder = () => {
                             </motion.div>
                           </div>
                           <div className="text-left">
-                            <p className="font-bold text-gray-900 text-sm">Profile Photo</p>
+                            <p className="font-bold text-gray-900 dark:text-white text-sm">Profile Photo</p>
                             <p className="text-xs text-gray-400 mb-2">Square image, min 400×400px. Your face should be clearly visible.</p>
                             <motion.button
                               whileHover={{ scale: 1.03 }}
                               onClick={() => fileInputRef.current?.click()}
-                              className="flex items-center gap-2 px-4 py-2 bg-gray-50 border border-gray-200 text-gray-600 text-xs font-bold rounded-xl hover:bg-gray-100 transition-all cursor-pointer"
+                              className="flex items-center gap-2 px-4 py-2 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-xs font-bold rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 transition-all cursor-pointer"
                             >
                               <Upload size={13} /> Upload Photo
                             </motion.button>
@@ -1171,12 +1161,12 @@ const ExpertProfileBuilder = () => {
                             { label: 'Last Name', key: 'lastName' },
                           ].map(field => (
                             <div key={field.key}>
-                              <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">{field.label}</label>
+                              <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">{field.label}</label>
                               <input
                                 type="text"
                                 value={profile[field.key]}
                                 onChange={e => setProfile(prev => ({ ...prev, [field.key]: e.target.value }))}
-                                className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                                className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                               />
                             </div>
                           ))}
@@ -1184,36 +1174,36 @@ const ExpertProfileBuilder = () => {
 
                         {/* Headline */}
                         <div className="mb-4 text-left">
-                          <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                          <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                             Professional Headline
                           </label>
                           <input
                             type="text"
                             value={profile.headline}
                             onChange={e => setProfile(prev => ({ ...prev, headline: e.target.value }))}
-                            className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                            className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                           />
-                          <p className="text-[10px] text-gray-400 mt-1 font-semibold">{profile.headline.length}/120 characters · This appears under your name on your profile</p>
+                          <p className="text-[10px] text-gray-400 mt-1 font-semibold text-gray-900 dark:text-white">{profile.headline.length}/120 characters · This appears under your name on your profile</p>
                         </div>
 
                         {/* Bio */}
                         <div className="text-left">
-                          <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                          <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                             Professional Summary
                           </label>
                           <textarea
                             value={profile.bio}
                             onChange={e => setProfile(prev => ({ ...prev, bio: e.target.value }))}
                             rows={4}
-                            className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all resize-none text-left"
+                            className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all resize-none text-left"
                           />
-                          <p className="text-[10px] text-gray-400 mt-1 font-semibold">{profile.bio.length}/600 characters</p>
+                          <p className="text-[10px] text-gray-400 mt-1 font-semibold text-gray-900 dark:text-white">{profile.bio.length}/600 characters</p>
                         </div>
                       </div>
 
                       {/* Contact & Location */}
-                      <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 shadow-sm p-6 relative overflow-hidden">
-                        <h3 className="font-black text-gray-900 text-base mb-5 flex items-center gap-2">
+                      <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-6 relative overflow-hidden">
+                        <h3 className="font-black text-gray-900 dark:text-white text-base mb-5 flex items-center gap-2">
                           <MapPin size={16} className="text-[#0eb59a]" /> Contact & Location
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
@@ -1226,7 +1216,7 @@ const ExpertProfileBuilder = () => {
                             { label: 'Years of Experience', key: 'yearsExperience', icon: TrendingUp, type: 'number' },
                           ].map(field => (
                             <div key={field.key}>
-                              <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                              <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                                 {field.label}
                               </label>
                               <div className="relative">
@@ -1235,7 +1225,7 @@ const ExpertProfileBuilder = () => {
                                   type={field.type}
                                   value={profile[field.key]}
                                   onChange={e => setProfile(prev => ({ ...prev, [field.key]: e.target.value }))}
-                                  className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                                  className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                                 />
                               </div>
                             </div>
@@ -1265,7 +1255,7 @@ const ExpertProfileBuilder = () => {
                       className="space-y-4 text-left"
                     >
                       <div className="flex items-center justify-between">
-                        <h3 className="font-black text-gray-900 text-base">Work Experience</h3>
+                        <h3 className="font-black text-gray-900 dark:text-white text-base">Work Experience</h3>
                         <motion.button
                           whileHover={{ scale: 1.03 }}
                           whileTap={{ scale: 0.97 }}
@@ -1282,7 +1272,7 @@ const ExpertProfileBuilder = () => {
                           initial={{ opacity: 0, y: 15 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: idx * 0.08 }}
-                          className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 shadow-sm p-6 group hover:shadow-md transition-all relative overflow-hidden"
+                          className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-6 group hover:shadow-md transition-all relative overflow-hidden"
                         >
                           <div className="flex items-start gap-4">
                             <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${exp.logoColor} flex items-center justify-center shadow-sm shrink-0`}>
@@ -1291,31 +1281,31 @@ const ExpertProfileBuilder = () => {
                             <div className="flex-1 min-w-0">
                               <div className="flex items-start justify-between mb-1">
                                 <div>
-                                  <h4 className="font-black text-gray-900 text-sm">{exp.role}</h4>
-                                  <p className="text-sm text-gray-600 font-bold">{exp.company}</p>
+                                  <h4 className="font-black text-gray-900 dark:text-white text-sm">{exp.role}</h4>
+                                  <p className="text-sm text-gray-600 dark:text-gray-300 font-bold">{exp.company}</p>
                                 </div>
                                 <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 ml-2">
                                   <motion.button
                                     whileHover={{ scale: 1.05 }}
-                                    className="p-1.5 rounded-lg text-gray-400 hover:text-[#0eb59a] hover:bg-teal-50 transition-all border-0 bg-transparent cursor-pointer"
+                                    className="p-1.5 rounded-lg text-gray-400 hover:text-[#0eb59a] hover:bg-teal-50 dark:hover:bg-teal-500/10 transition-all border-0 bg-transparent cursor-pointer"
                                   >
                                     <Edit3 size={13} />
                                   </motion.button>
                                   <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     onClick={() => handleDeleteExperience(exp.id)}
-                                    className="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all border-0 bg-transparent cursor-pointer"
+                                    className="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all border-0 bg-transparent cursor-pointer"
                                   >
                                     <Trash2 size={13} />
                                   </motion.button>
                                 </div>
                               </div>
-                              <div className="flex flex-wrap gap-3 text-xs text-gray-400 font-semibold mb-3 justify-start">
+                              <div className="flex flex-wrap gap-3 text-xs text-gray-400 font-semibold text-gray-900 dark:text-white mb-3 justify-start">
                                 <span className="flex items-center gap-1">
                                   <Calendar size={11} /> {exp.startDate} — {exp.current ? 'Present' : exp.endDate}
                                 </span>
                                 <span className={`px-2 py-0.5 rounded-lg border text-[10px] font-black ${exp.type === 'Fractional' ? 'text-[#0eb59a] bg-teal-50 border-teal-200' :
-                                    'text-gray-600 bg-gray-50 border-gray-200'
+                                    'text-gray-600 dark:text-gray-300 bg-gray-50 border-gray-200 dark:border-white/10'
                                   }`}>
                                   {exp.type}
                                 </span>
@@ -1358,8 +1348,8 @@ const ExpertProfileBuilder = () => {
                       className="space-y-5"
                     >
                       {/* Skills */}
-                      <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 shadow-sm p-6 relative overflow-hidden">
-                        <h3 className="font-black text-gray-900 text-base mb-5 flex items-center gap-2">
+                      <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-6 relative overflow-hidden">
+                        <h3 className="font-black text-gray-900 dark:text-white text-base mb-5 flex items-center gap-2">
                           <Zap size={16} className="text-[#0eb59a]" /> Skills & Expertise
                         </h3>
 
@@ -1371,7 +1361,7 @@ const ExpertProfileBuilder = () => {
                             onChange={e => setNewSkill(e.target.value)}
                             onKeyDown={e => e.key === 'Enter' && addSkill()}
                             placeholder="Add a skill (e.g. Fundraising, M&A)..."
-                            className="flex-1 px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                            className="flex-1 px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                           />
                           <motion.button
                             whileHover={{ scale: 1.05 }}
@@ -1406,15 +1396,15 @@ const ExpertProfileBuilder = () => {
                             ))}
                           </AnimatePresence>
                         </div>
-                        <p className="text-xs text-gray-400 mt-3 font-semibold text-left">{skills.length} skills added · Add up to 30</p>
+                        <p className="text-xs text-gray-400 mt-3 font-semibold text-gray-900 dark:text-white text-left">{skills.length} skills added · Add up to 30</p>
                       </div>
 
                       {/* Industries */}
-                      <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 shadow-sm p-6 relative overflow-hidden">
-                        <h3 className="font-black text-gray-900 text-base mb-2 flex items-center gap-2">
+                      <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-6 relative overflow-hidden">
+                        <h3 className="font-black text-gray-900 dark:text-white text-base mb-2 flex items-center gap-2">
                           <Building size={16} className="text-[#0eb59a]" /> Industries Served
                         </h3>
-                        <p className="text-xs text-gray-400 mb-4 font-semibold text-left">Select all industries you have experience in</p>
+                        <p className="text-xs text-gray-400 mb-4 font-semibold text-gray-900 dark:text-white text-left">Select all industries you have experience in</p>
                         <div className="flex flex-wrap gap-2">
                           {allIndustries.map(ind => {
                             const isActive = industries.includes(ind);
@@ -1425,8 +1415,8 @@ const ExpertProfileBuilder = () => {
                                 whileTap={{ scale: 0.97 }}
                                 onClick={() => toggleIndustry(ind)}
                                 className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold border-2 transition-all cursor-pointer ${isActive
-                                    ? 'border-[#0eb59a] bg-teal-50 text-[#134e40]'
-                                    : 'border-gray-100 bg-gray-50 text-gray-500 hover:border-gray-200'
+                                    ? 'border-[#0eb59a] bg-teal-50 dark:bg-teal-500/10 text-[#134e40] dark:text-[#0eb59a]'
+                                    : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-gray-400 hover:border-gray-200 dark:hover:border-white/20 dark:border-white/10'
                                   }`}
                               >
                                 {isActive && <Check size={10} className="text-[#0eb59a]" strokeWidth={3} />}
@@ -1438,11 +1428,11 @@ const ExpertProfileBuilder = () => {
                       </div>
 
                       {/* Engagement Types */}
-                      <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 shadow-sm p-6 relative overflow-hidden">
-                        <h3 className="font-black text-gray-900 text-base mb-2 flex items-center gap-2">
+                      <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-6 relative overflow-hidden">
+                        <h3 className="font-black text-gray-900 dark:text-white text-base mb-2 flex items-center gap-2">
                           <Briefcase size={16} className="text-[#0eb59a]" /> Open To
                         </h3>
-                        <p className="text-xs text-gray-400 mb-4 font-semibold text-left">Select the types of engagements you are open to</p>
+                        <p className="text-xs text-gray-400 mb-4 font-semibold text-gray-900 dark:text-white text-left">Select the types of engagements you are open to</p>
                         <div className="grid grid-cols-2 gap-3">
                           {Object.entries(engagementTypes).map(([type, active]) => (
                             <motion.button
@@ -1452,13 +1442,13 @@ const ExpertProfileBuilder = () => {
                               onClick={() => handleToggleEngagementType(type)}
                               className={`flex items-center justify-between p-4 rounded-2xl border-2 transition-all cursor-pointer ${active
                                   ? 'border-[#0eb59a] bg-teal-50'
-                                  : 'border-gray-100 bg-gray-50 hover:border-gray-200'
+                                  : 'border-gray-100 dark:border-white/10 bg-gray-50 hover:border-gray-200 dark:border-white/10'
                                 }`}
                             >
-                              <span className={`text-sm font-black ${active ? 'text-[#134e40]' : 'text-gray-500'}`}>
+                              <span className={`text-sm font-black ${active ? 'text-[#134e40] dark:text-[#0eb59a]' : 'text-gray-500 dark:text-gray-400'}`}>
                                 {type}
                               </span>
-                              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${active ? 'bg-[#0eb59a] border-[#0eb59a]' : 'border-gray-300'
+                              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${active ? 'bg-[#0eb59a] border-[#0eb59a]' : 'border-gray-300 dark:border-white/20'
                                 }`}>
                                 {active && <Check size={11} className="text-white" strokeWidth={3} />}
                               </div>
@@ -1489,7 +1479,7 @@ const ExpertProfileBuilder = () => {
                       className="space-y-4 text-left"
                     >
                       <div className="flex items-center justify-between">
-                        <h3 className="font-black text-gray-900 text-base">Education & Certifications</h3>
+                        <h3 className="font-black text-gray-900 dark:text-white text-base">Education & Certifications</h3>
                         <motion.button
                           whileHover={{ scale: 1.03 }}
                           whileTap={{ scale: 0.97 }}
@@ -1506,17 +1496,17 @@ const ExpertProfileBuilder = () => {
                           initial={{ opacity: 0, y: 15 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: idx * 0.08 }}
-                          className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 shadow-sm p-6 group hover:shadow-md transition-all flex items-start gap-4 relative overflow-hidden"
+                          className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-6 group hover:shadow-md transition-all flex items-start gap-4 relative overflow-hidden"
                         >
-                          <div className="w-12 h-12 rounded-2xl bg-teal-50 border border-teal-100 flex items-center justify-center shrink-0">
+                          <div className="w-12 h-12 rounded-2xl bg-teal-50 dark:bg-teal-500/10 border border-teal-100 dark:border-[#0eb59a]/20 flex items-center justify-center shrink-0">
                             <GraduationCap size={22} className="text-[#0eb59a]" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-start justify-between">
                               <div>
-                                <h4 className="font-black text-gray-900 text-sm">{edu.degree}</h4>
-                                <p className="text-sm text-gray-600 font-bold">{edu.institution}</p>
-                                <div className="flex gap-3 mt-1 text-xs text-gray-400 font-semibold justify-start">
+                                <h4 className="font-black text-gray-900 dark:text-white text-sm">{edu.degree}</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-300 font-bold">{edu.institution}</p>
+                                <div className="flex gap-3 mt-1 text-xs text-gray-400 font-semibold text-gray-900 dark:text-white justify-start">
                                   <span className="flex items-center gap-1">
                                     <Calendar size={11} /> {edu.year}
                                   </span>
@@ -1530,14 +1520,14 @@ const ExpertProfileBuilder = () => {
                               <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <motion.button
                                   whileHover={{ scale: 1.05 }}
-                                  className="p-1.5 rounded-lg text-gray-400 hover:text-[#0eb59a] hover:bg-teal-50 border-0 bg-transparent cursor-pointer"
+                                  className="p-1.5 rounded-lg text-gray-400 hover:text-[#0eb59a] hover:bg-teal-50 dark:hover:bg-teal-500/10 border-0 bg-transparent cursor-pointer"
                                 >
                                   <Edit3 size={13} />
                                 </motion.button>
                                 <motion.button
                                   whileHover={{ scale: 1.05 }}
                                   onClick={() => handleDeleteEducation(edu.id)}
-                                  className="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 border-0 bg-transparent cursor-pointer"
+                                  className="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 border-0 bg-transparent cursor-pointer"
                                 >
                                   <Trash2 size={13} />
                                 </motion.button>
@@ -1570,7 +1560,7 @@ const ExpertProfileBuilder = () => {
                     >
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="font-black text-gray-900 text-base">Case Studies</h3>
+                          <h3 className="font-black text-gray-900 dark:text-white text-base">Case Studies</h3>
                           <p className="text-xs text-gray-400 mt-0.5">Showcase your impact with real results</p>
                         </div>
                         <motion.button
@@ -1589,7 +1579,7 @@ const ExpertProfileBuilder = () => {
                           initial={{ opacity: 0, y: 15 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: idx * 0.1 }}
-                          className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 shadow-sm overflow-hidden group hover:shadow-md transition-all relative"
+                          className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm overflow-hidden group hover:shadow-md transition-all relative"
                         >
                           {/* Card top accent */}
                           <div className="h-1 bg-gradient-to-r from-[#134e40] to-[#0eb59a]" />
@@ -1599,26 +1589,26 @@ const ExpertProfileBuilder = () => {
                               <div className="flex-1">
                                 <div className="flex flex-wrap gap-2 mb-2 justify-start">
                                   {cs.tags.map(tag => (
-                                    <span key={tag} className="text-[10px] font-black bg-gray-100 text-gray-500 px-2 py-0.5 rounded-md">
+                                    <span key={tag} className="text-[10px] font-black bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 px-2 py-0.5 rounded-md">
                                       {tag}
                                     </span>
                                   ))}
                                   <span className="text-[10px] font-black text-gray-400">{cs.year}</span>
                                 </div>
-                                <h4 className="font-black text-gray-900 text-base mb-1">{cs.title}</h4>
+                                <h4 className="font-black text-gray-900 dark:text-white text-base mb-1">{cs.title}</h4>
                                 <p className="text-sm text-[#0eb59a] font-bold">{cs.outcome}</p>
                               </div>
                               <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 ml-3">
                                 <motion.button
                                   whileHover={{ scale: 1.05 }}
-                                  className="p-1.5 rounded-lg text-gray-400 hover:text-[#0eb59a] hover:bg-teal-50 border-0 bg-transparent cursor-pointer"
+                                  className="p-1.5 rounded-lg text-gray-400 hover:text-[#0eb59a] hover:bg-teal-50 dark:hover:bg-teal-500/10 border-0 bg-transparent cursor-pointer"
                                 >
                                   <Edit3 size={13} />
                                 </motion.button>
                                 <motion.button
                                   whileHover={{ scale: 1.05 }}
                                   onClick={() => setCaseStudies(prev => prev.filter(c => c.id !== cs.id))}
-                                  className="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 border-0 bg-transparent cursor-pointer"
+                                  className="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 border-0 bg-transparent cursor-pointer"
                                 >
                                   <Trash2 size={13} />
                                 </motion.button>
@@ -1628,8 +1618,8 @@ const ExpertProfileBuilder = () => {
                             {/* Metrics */}
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
                               {cs.metrics.map((metric, mIdx) => (
-                                <div key={mIdx} className="bg-teal-50 rounded-xl p-3 border border-teal-100 text-center">
-                                  <p className="text-xs font-black text-[#134e40]">{metric}</p>
+                                <div key={mIdx} className="bg-teal-50 dark:bg-teal-500/10 rounded-xl p-3 border border-teal-100 dark:border-[#0eb59a]/20 text-center">
+                                  <p className="text-xs font-black text-[#134e40] dark:text-[#0eb59a]">{metric}</p>
                                 </div>
                               ))}
                             </div>
@@ -1675,15 +1665,15 @@ const ExpertProfileBuilder = () => {
                       className="space-y-5 text-left"
                     >
                       {/* Availability */}
-                      <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 shadow-sm p-6 relative overflow-hidden">
-                        <h3 className="font-black text-gray-900 text-base mb-5 flex items-center gap-2">
+                      <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-6 relative overflow-hidden">
+                        <h3 className="font-black text-gray-900 dark:text-white text-base mb-5 flex items-center gap-2">
                           <Calendar size={16} className="text-[#0eb59a]" /> Availability
                         </h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           {/* Status */}
                           <div>
-                            <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                            <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                               Current Status
                             </label>
                             <div className="space-y-2">
@@ -1693,8 +1683,8 @@ const ExpertProfileBuilder = () => {
                                   whileHover={{ x: 3 }}
                                   onClick={() => setAvailability(prev => ({ ...prev, status: opt }))}
                                   className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border-2 transition-all text-sm font-bold cursor-pointer ${availability.status === opt
-                                      ? 'border-[#0eb59a] bg-teal-50 text-[#134e40]'
-                                      : 'border-gray-100 bg-gray-50 text-gray-500 hover:border-gray-200'
+                                      ? 'border-[#0eb59a] bg-teal-50 dark:bg-teal-500/10 text-[#134e40] dark:text-[#0eb59a]'
+                                      : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-gray-400 hover:border-gray-200 dark:hover:border-white/20 dark:border-white/10'
                                     }`}
                                 >
                                   <div className="flex items-center gap-2">
@@ -1716,13 +1706,13 @@ const ExpertProfileBuilder = () => {
                           <div className="space-y-4">
                             {/* Hours per week */}
                             <div>
-                              <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                              <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                                 Hours Available Per Week
                               </label>
                               <select
                                 value={availability.hoursPerWeek}
                                 onChange={e => setAvailability(prev => ({ ...prev, hoursPerWeek: e.target.value }))}
-                                className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                                className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                               >
                                 {hoursOptions.map(opt => (
                                   <option key={opt} value={opt}>{opt}</option>
@@ -1732,7 +1722,7 @@ const ExpertProfileBuilder = () => {
 
                             {/* Mode */}
                             <div>
-                              <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                              <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                                 Preferred Work Mode
                               </label>
                               <div className="flex gap-2 flex-wrap">
@@ -1742,8 +1732,8 @@ const ExpertProfileBuilder = () => {
                                     whileHover={{ scale: 1.03 }}
                                     onClick={() => setAvailability(prev => ({ ...prev, preferredMode: mode }))}
                                     className={`flex-1 py-3 rounded-xl text-xs font-black border-2 transition-all cursor-pointer ${availability.preferredMode === mode
-                                        ? 'border-[#0eb59a] bg-teal-50 text-[#134e40]'
-                                        : 'border-gray-100 bg-gray-50 text-gray-500'
+                                        ? 'border-[#0eb59a] bg-teal-50 dark:bg-teal-500/10 text-[#134e40] dark:text-[#0eb59a]'
+                                        : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-gray-400'
                                       }`}
                                   >
                                     {mode}
@@ -1754,14 +1744,14 @@ const ExpertProfileBuilder = () => {
 
                             {/* Timezone */}
                             <div>
-                              <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                              <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                                 Timezone
                               </label>
                               <input
                                 type="text"
                                 value={availability.timezone}
                                 onChange={e => setAvailability(prev => ({ ...prev, timezone: e.target.value }))}
-                                className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                                className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                               />
                             </div>
                           </div>
@@ -1769,23 +1759,23 @@ const ExpertProfileBuilder = () => {
                       </div>
 
                       {/* Rate Card */}
-                      <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 shadow-sm p-6 relative overflow-hidden">
-                        <h3 className="font-black text-gray-900 text-base mb-2 flex items-center gap-2">
+                      <div className="bg-white dark:!bg-[#1e2028] rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm p-6 relative overflow-hidden">
+                        <h3 className="font-black text-gray-900 dark:text-white text-base mb-2 flex items-center gap-2">
                           <IndianRupee size={16} className="text-[#0eb59a]" /> Rate Card
                         </h3>
-                        <p className="text-xs text-gray-400 mb-5 font-semibold text-left">
+                        <p className="text-xs text-gray-400 mb-5 font-semibold text-gray-900 dark:text-white text-left">
                           Set your monthly rates per engagement type. These are shown as indicative ranges to companies.
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                           {[
-                            { key: 'fractional', label: 'Fractional (per month)', desc: '10-20 hrs/wk', color: 'text-[#0eb59a]', bg: 'bg-teal-50' },
-                            { key: 'interim', label: 'Interim (per month)', desc: '40 hrs/wk', color: 'text-[#0eb59a]', bg: 'bg-teal-50' },
-                            { key: 'advisory', label: 'Advisory (per month)', desc: '5-10 hrs/wk', color: 'text-amber-500', bg: 'bg-amber-50' },
-                            { key: 'project', label: 'Project-based (flat fee)', desc: 'Per project', color: 'text-teal-500', bg: 'bg-teal-50' },
+                            { key: 'fractional', label: 'Fractional (per month)', desc: '10-20 hrs/wk', color: 'text-[#0eb59a] dark:text-[#0eb59a]', bg: 'bg-teal-50 dark:bg-[#0eb59a]/10' },
+                            { key: 'interim', label: 'Interim (per month)', desc: '40 hrs/wk', color: 'text-[#0eb59a] dark:text-[#0eb59a]', bg: 'bg-teal-50 dark:bg-[#0eb59a]/10' },
+                            { key: 'advisory', label: 'Advisory (per month)', desc: '5-10 hrs/wk', color: 'text-amber-500 dark:text-amber-400', bg: 'bg-amber-50 dark:bg-amber-500/10' },
+                            { key: 'project', label: 'Project-based (flat fee)', desc: 'Per project', color: 'text-teal-500 dark:text-teal-400', bg: 'bg-teal-50 dark:bg-teal-500/10' },
                           ].map(rate => (
                             <div key={rate.key}>
-                              <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                              <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                                 {rate.label}
                               </label>
                               <div className="relative">
@@ -1796,24 +1786,24 @@ const ExpertProfileBuilder = () => {
                                   type="text"
                                   value={rateCard[rate.key]}
                                   onChange={e => setRateCard(prev => ({ ...prev, [rate.key]: e.target.value }))}
-                                  className="w-full pl-12 pr-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                                  className="w-full pl-12 pr-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                                 />
                               </div>
-                              <p className="text-[10px] text-gray-400 mt-1 font-semibold text-left">{rate.desc}</p>
+                              <p className="text-[10px] text-gray-400 mt-1 font-semibold text-gray-900 dark:text-white text-left">{rate.desc}</p>
                             </div>
                           ))}
                         </div>
 
                         {/* Negotiable toggle */}
-                        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl border border-gray-100 dark:!border-white/10">
+                        <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 dark:!border-white/10">
                           <div className="text-left">
-                            <p className="font-bold text-gray-800 text-sm">Rates are negotiable</p>
-                            <p className="text-xs text-gray-400 font-semibold mt-0.5">Companies can request a custom quote</p>
+                            <p className="font-bold text-gray-800 dark:text-gray-200 text-sm">Rates are negotiable</p>
+                            <p className="text-xs text-gray-400 font-semibold text-gray-900 dark:text-white mt-0.5">Companies can request a custom quote</p>
                           </div>
                           <motion.button
                             whileTap={{ scale: 0.9 }}
                             onClick={() => setRateCard(prev => ({ ...prev, negotiable: !prev.negotiable }))}
-                            className={`relative w-12 h-6 rounded-full transition-colors duration-300 shrink-0 border-0 ${rateCard.negotiable ? 'bg-[#0eb59a]' : 'bg-gray-200'
+                            className={`relative w-12 h-6 rounded-full transition-colors duration-300 shrink-0 border-0 ${rateCard.negotiable ? 'bg-[#0eb59a]' : 'bg-gray-200 dark:bg-white/10'
                               }`}
                           >
                             <motion.div
@@ -1865,7 +1855,7 @@ const ExpertProfileBuilder = () => {
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   onClick={() => setShowAddExperienceModal(false)}
-                  className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:text-gray-600 border-0 cursor-pointer"
+                  className="p-2 rounded-xl bg-gray-50 dark:bg-white/5 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-300 border-0 cursor-pointer"
                 >
                   <X size={16} />
                 </motion.button>
@@ -1875,7 +1865,7 @@ const ExpertProfileBuilder = () => {
 
                 {/* Role */}
                 <div>
-                  <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                     Job Title / Role *
                   </label>
                   <input
@@ -1885,13 +1875,13 @@ const ExpertProfileBuilder = () => {
                       ...prev, role: e.target.value
                     }))}
                     placeholder="e.g. Chief Financial Officer"
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                   />
                 </div>
 
                 {/* Company */}
                 <div>
-                  <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                     Company *
                   </label>
                   <input
@@ -1901,14 +1891,14 @@ const ExpertProfileBuilder = () => {
                       ...prev, company: e.target.value
                     }))}
                     placeholder="e.g. Meesho"
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                   />
                 </div>
 
                 {/* Location + Workplace Type */}
                 <div className="grid grid-cols-2 gap-3 text-left">
                   <div>
-                    <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                    <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                       Location
                     </label>
                     <input
@@ -1918,11 +1908,11 @@ const ExpertProfileBuilder = () => {
                         ...prev, location: e.target.value
                       }))}
                       placeholder="e.g. Mumbai, India"
-                      className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                      className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                    <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                       Workplace Type
                     </label>
                     <select
@@ -1931,7 +1921,7 @@ const ExpertProfileBuilder = () => {
                         ...prev,
                         workplaceType: e.target.value
                       }))}
-                      className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                      className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                     >
                       {workplaceTypes.map(wt => (
                         <option key={wt} value={wt}>{wt}</option>
@@ -1942,7 +1932,7 @@ const ExpertProfileBuilder = () => {
 
                 {/* Engagement Type */}
                 <div>
-                  <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                     Engagement Type
                   </label>
                   <div className="flex gap-2 flex-wrap">
@@ -1954,8 +1944,8 @@ const ExpertProfileBuilder = () => {
                           ...prev, type
                         }))}
                         className={`flex-1 py-2.5 rounded-xl text-xs font-black border-2 transition-all cursor-pointer ${newExp.type === type
-                            ? 'border-[#0eb59a] bg-teal-50 text-[#134e40]'
-                            : 'border-gray-100 bg-gray-50 text-gray-500'
+                            ? 'border-[#0eb59a] bg-teal-50 dark:bg-teal-500/10 text-[#134e40] dark:text-[#0eb59a]'
+                            : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-gray-400'
                           }`}
                       >
                         {type}
@@ -1966,7 +1956,7 @@ const ExpertProfileBuilder = () => {
 
                 {/* Start Date */}
                 <div>
-                  <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                     Start Date
                   </label>
                   <div className="grid grid-cols-2 gap-3 text-left">
@@ -1976,7 +1966,7 @@ const ExpertProfileBuilder = () => {
                         ...prev,
                         startMonth: e.target.value
                       }))}
-                      className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                      className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                     >
                       <option value="">Month</option>
                       {months.map(m => (
@@ -1989,7 +1979,7 @@ const ExpertProfileBuilder = () => {
                         ...prev,
                         startYear: e.target.value
                       }))}
-                      className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                      className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                     >
                       <option value="">Year</option>
                       {years.map(y => (
@@ -2009,7 +1999,7 @@ const ExpertProfileBuilder = () => {
                 >
                   <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all shrink-0 ${newExp.current
                       ? 'bg-[#134e40] border-[#134e40]'
-                      : 'border-gray-300 bg-white group-hover:border-[#0eb59a]'
+                      : 'border-gray-300 dark:border-white/20 bg-white group-hover:border-[#0eb59a]'
                     }`}>
                     {newExp.current && (
                       <Check size={11} className="text-white" strokeWidth={3} />
@@ -2017,7 +2007,7 @@ const ExpertProfileBuilder = () => {
                   </div>
                   <span className={`text-sm font-bold transition-colors ${newExp.current
                       ? 'text-[#134e40]'
-                      : 'text-gray-500 group-hover:text-gray-700'
+                      : 'text-gray-500 group-hover:text-gray-700 dark:text-gray-300'
                     }`}>
                     I currently work in this role
                   </span>
@@ -2033,7 +2023,7 @@ const ExpertProfileBuilder = () => {
                       transition={{ duration: 0.2 }}
                       className="overflow-hidden"
                     >
-                      <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                      <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                         End Date
                       </label>
                       <div className="grid grid-cols-2 gap-3 text-left">
@@ -2043,7 +2033,7 @@ const ExpertProfileBuilder = () => {
                             ...prev,
                             endMonth: e.target.value
                           }))}
-                          className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                          className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                         >
                           <option value="">Month</option>
                           {months.map(m => (
@@ -2058,7 +2048,7 @@ const ExpertProfileBuilder = () => {
                             ...prev,
                             endYear: e.target.value
                           }))}
-                          className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                          className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                         >
                           <option value="">Year</option>
                           {years.map(y => (
@@ -2074,7 +2064,7 @@ const ExpertProfileBuilder = () => {
 
                 {/* Key Achievements */}
                 <div>
-                  <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                     Key Achievements
                   </label>
                   <textarea
@@ -2084,7 +2074,7 @@ const ExpertProfileBuilder = () => {
                     }))}
                     placeholder="Describe your key achievements, impact, and responsibilities..."
                     rows={3}
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 resize-none transition-all text-left"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 resize-none transition-all text-left"
                   />
                 </div>
 
@@ -2094,7 +2084,7 @@ const ExpertProfileBuilder = () => {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   onClick={() => setShowAddExperienceModal(false)}
-                  className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl border-0 cursor-pointer"
+                  className="flex-1 py-3 bg-gray-50 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-sm font-bold rounded-2xl border-0 cursor-pointer"
                 >
                   Cancel
                 </motion.button>
@@ -2129,14 +2119,14 @@ const ExpertProfileBuilder = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden relative overflow-hidden"
+              className="bg-white dark:bg-[#1e2028] rounded-t-3xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden relative overflow-hidden"
             >
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-black text-gray-900 dark:text-white">Add Education</h3>
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   onClick={() => setShowAddEducationModal(false)}
-                  className="p-2 rounded-xl bg-gray-50 text-gray-400 border-0 cursor-pointer"
+                  className="p-2 rounded-xl bg-gray-50 dark:bg-white/5 text-gray-400 dark:text-gray-500 border-0 cursor-pointer"
                 >
                   <X size={16} />
                 </motion.button>
@@ -2150,13 +2140,13 @@ const ExpertProfileBuilder = () => {
                   { label: 'Grade / Distinction', key: 'grade', placeholder: 'e.g. Gold Medalist, First Class' },
                 ].map(field => (
                   <div key={field.key}>
-                    <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">{field.label}</label>
+                    <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">{field.label}</label>
                     <input
                       type="text"
                       value={newEdu[field.key]}
                       onChange={e => setNewEdu(prev => ({ ...prev, [field.key]: e.target.value }))}
                       placeholder={field.placeholder}
-                      className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                      className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                     />
                   </div>
                 ))}
@@ -2166,7 +2156,7 @@ const ExpertProfileBuilder = () => {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   onClick={() => setShowAddEducationModal(false)}
-                  className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl border-0 cursor-pointer"
+                  className="flex-1 py-3 bg-gray-50 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-sm font-bold rounded-2xl border-0 cursor-pointer"
                 >
                   Cancel
                 </motion.button>
@@ -2208,7 +2198,7 @@ const ExpertProfileBuilder = () => {
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   onClick={() => setShowAddCaseStudyModal(false)}
-                  className="p-2 rounded-xl bg-gray-50 text-gray-400 border-0 cursor-pointer"
+                  className="p-2 rounded-xl bg-gray-50 dark:bg-white/5 text-gray-400 dark:text-gray-500 border-0 cursor-pointer"
                 >
                   <X size={16} />
                 </motion.button>
@@ -2216,47 +2206,47 @@ const ExpertProfileBuilder = () => {
 
               <div className="space-y-4 mb-6 text-left">
                 <div>
-                  <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">Title</label>
+                  <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">Title</label>
                   <input
                     type="text"
                     value={newCase.title}
                     onChange={e => setNewCase(prev => ({ ...prev, title: e.target.value }))}
                     placeholder="e.g. Led $570M Series E for Meesho"
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">Company / Engagement</label>
+                  <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">Company / Engagement</label>
                   <input
                     type="text"
                     value={newCase.engagement}
                     onChange={e => setNewCase(prev => ({ ...prev, engagement: e.target.value }))}
                     placeholder="e.g. Meesho"
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">Outcome (one-liner)</label>
+                  <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">Outcome (one-liner)</label>
                   <input
                     type="text"
                     value={newCase.outcome}
                     onChange={e => setNewCase(prev => ({ ...prev, outcome: e.target.value }))}
                     placeholder="e.g. Successfully closed $570M Series E at $4.9B valuation"
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">Description</label>
+                  <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">Description</label>
                   <textarea
                     value={newCase.description}
                     onChange={e => setNewCase(prev => ({ ...prev, description: e.target.value }))}
                     placeholder="Describe what you did, how you did it, and the impact..."
                     rows={3}
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 resize-none transition-all text-left"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 resize-none transition-all text-left"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                     Key Metrics <span className="font-normal text-gray-400 normal-case">(comma-separated)</span>
                   </label>
                   <input
@@ -2264,11 +2254,11 @@ const ExpertProfileBuilder = () => {
                     value={newCase.metrics}
                     onChange={e => setNewCase(prev => ({ ...prev, metrics: e.target.value }))}
                     placeholder="e.g. $570M raised, $4.9B valuation, 6 months"
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                     Tags <span className="font-normal text-gray-400 normal-case">(comma-separated)</span>
                   </label>
                   <input
@@ -2276,7 +2266,7 @@ const ExpertProfileBuilder = () => {
                     value={newCase.tags}
                     onChange={e => setNewCase(prev => ({ ...prev, tags: e.target.value }))}
                     placeholder="e.g. Fundraising, Series E, D2C"
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:!border-white/10 rounded-2xl text-sm font-semibold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0eb59a]/20 focus:border-[#0eb59a]/40 transition-all text-left"
                   />
                 </div>
               </div>
@@ -2285,7 +2275,7 @@ const ExpertProfileBuilder = () => {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   onClick={() => setShowAddCaseStudyModal(false)}
-                  className="flex-1 py-3 bg-gray-50 border border-gray-200 text-gray-600 text-sm font-bold rounded-2xl border-0 cursor-pointer"
+                  className="flex-1 py-3 bg-gray-50 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 text-sm font-bold rounded-2xl border-0 cursor-pointer"
                 >
                   Cancel
                 </motion.button>
@@ -2323,10 +2313,10 @@ const ExpertProfileBuilder = () => {
               className="bg-white dark:!bg-[#1e2028] rounded-3xl shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col relative"
             >
               {/* Preview header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50/50">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-white/10 bg-gray-50/50 dark:bg-white/5">
                 <div className="flex items-center gap-2">
                   <Eye size={16} className="text-[#0eb59a]" />
-                  <h3 className="font-black text-gray-900 text-sm">Profile Preview</h3>
+                  <h3 className="font-black text-gray-900 dark:text-white text-sm">Profile Preview</h3>
                   <span className="text-[10px] font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-lg border border-amber-200">
                     Company View
                   </span>
@@ -2334,7 +2324,7 @@ const ExpertProfileBuilder = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   onClick={() => setShowPreview(false)}
-                  className="p-2 rounded-xl bg-white border border-gray-200 text-gray-400 hover:text-gray-600 border-0 cursor-pointer"
+                  className="p-2 rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-300 border-0 cursor-pointer"
                 >
                   <X size={15} />
                 </motion.button>
@@ -2355,8 +2345,8 @@ const ExpertProfileBuilder = () => {
                         <h2 className="text-xl font-black">{profile.firstName} {profile.lastName}</h2>
                         <Shield size={14} className="text-[#0eb59a]" />
                       </div>
-                      <p className="text-sm text-white/80 font-semibold mb-2 text-left">{profile.headline}</p>
-                      <div className="flex flex-wrap gap-3 text-xs text-white/50 font-semibold justify-start">
+                      <p className="text-sm text-white/80 font-semibold text-gray-900 dark:text-white mb-2 text-left">{profile.headline}</p>
+                      <div className="flex flex-wrap gap-3 text-xs text-white/50 font-semibold text-gray-900 dark:text-white justify-start">
                         <span className="flex items-center gap-1"><MapPin size={11} /> {profile.location}</span>
                         <span className="flex items-center gap-1"><TrendingUp size={11} /> {profile.yearsExperience} yrs exp</span>
                       </div>
@@ -2369,7 +2359,7 @@ const ExpertProfileBuilder = () => {
                   <p className="text-xs font-black text-gray-500 uppercase tracking-wider mb-2">Skills</p>
                   <div className="flex flex-wrap gap-2">
                     {skills.slice(0, 8).map(skill => (
-                      <span key={skill} className="text-xs font-bold bg-gray-100 text-gray-600 px-3 py-1.5 rounded-xl">
+                      <span key={skill} className="text-xs font-bold bg-gray-100 text-gray-600 dark:text-gray-300 px-3 py-1.5 rounded-xl">
                         {skill}
                       </span>
                     ))}
@@ -2395,13 +2385,13 @@ const ExpertProfileBuilder = () => {
                 </div>
 
                 {/* Availability */}
-                <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl border border-gray-100 dark:!border-white/10">
+                <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl border border-gray-100 dark:border-white/10 dark:!border-white/10">
                   <div className={`w-3 h-3 rounded-full shrink-0 ${availability.status === 'Available' ? 'bg-emerald-500' :
                       availability.status === 'Available from next month' ? 'bg-amber-500' : 'bg-orange-400'
                     }`} />
                   <div>
-                    <p className="font-black text-gray-900 text-sm">{availability.status}</p>
-                    <p className="text-xs text-gray-400 font-semibold">{availability.hoursPerWeek} · {availability.preferredMode}</p>
+                    <p className="font-black text-gray-900 dark:text-white text-sm">{availability.status}</p>
+                    <p className="text-xs text-gray-400 font-semibold text-gray-900 dark:text-white">{availability.hoursPerWeek} · {availability.preferredMode}</p>
                   </div>
                 </div>
               </div>

@@ -20,12 +20,7 @@ const Messages = () => {
 
   // Smart Role Detection
   const activeRole = localStorage.getItem('user_role');
-  const isExpert =
-    activeRole === 'expert' ||
-    (activeRole !== 'company' && (
-      localStorage.getItem('demo_expert') === 'true' ||
-      localStorage.getItem('sb-mock-auth') === 'true'
-    ));
+  const isExpert = activeRole === 'expert' || localStorage.getItem('demo_expert') === 'true';
   const isDemo = isExpert || localStorage.getItem('demo_company') === 'true';
 
   // State Management
