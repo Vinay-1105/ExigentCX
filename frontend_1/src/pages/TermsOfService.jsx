@@ -857,7 +857,7 @@ const TermsOfService = () => {
 
                     {/* ── LEFT SIDEBAR — Table of Contents ── */}
                     <aside className="hidden lg:block w-64 shrink-0 sticky top-24 self-start">
-                        <div className="bg-white dark:bg-[#0d2318] rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm overflow-hidden">
+                        <div className="bg-white dark:bg-[#1a1d23] rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm overflow-hidden">
                             <div className="px-4 py-3 border-b border-gray-100 dark:border-white/5 bg-[#f0fdfa] dark:bg-[#0eb59a]/10">
                                 <p className="text-xs font-black text-[#134e40] uppercase tracking-widest">Contents</p>
                             </div>

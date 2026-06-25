@@ -1,5 +1,4 @@
 import Logo from '../components/Logo';
-import FormalCardBorder from '../components/FormalCardBorder';
 import ThemeToggle from '../components/ThemeToggle';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';

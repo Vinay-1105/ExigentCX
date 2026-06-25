@@ -95,7 +95,7 @@ const AdminSignUp = () => {
     };
 
     return (
-        <div className="flex h-screen bg-white dark:bg-[#070a09] overflow-hidden relative font-sans text-gray-800 dark:text-gray-200">
+        <div className="flex h-screen bg-white dark:bg-[#0f1117] overflow-hidden relative font-sans text-gray-800 dark:text-gray-200">
 
             {/* ── LEFT PANEL (BRAND GRID SHOWCASE) ── */}
             <div className="hidden lg:flex flex-col w-[45%] bg-[#08120e] relative overflow-hidden p-12 border-r border-[#134e40]/15">
@@ -149,7 +149,7 @@ const AdminSignUp = () => {
                 </div>
             </div>
 
-            <div className="flex-1 flex flex-col items-center px-6 md:px-16 py-8 relative overflow-y-auto h-full z-10 bg-white dark:bg-[#070908]">
+            <div className="flex-1 flex flex-col items-center px-6 md:px-16 py-8 relative overflow-y-auto h-full z-10 bg-white dark:bg-[#0f1117]">
                 {/* Subtle grid pattern with light white stripes */}
                 <div
                     className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -190,7 +190,7 @@ const AdminSignUp = () => {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="name@company.com"
-                                    className="w-full bg-gray-50 dark:bg-[#0c0f0d] border-2 border-gray-300 dark:border-[#1d2722] focus:border-[#0eb59a] focus:ring-1 focus:ring-[#0eb59a]/30 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 text-sm transition-all outline-none"
+                                    className="w-full bg-gray-50 dark:bg-white/5 border-2 border-gray-300 dark:border-white/10 focus:border-[#0eb59a] focus:ring-1 focus:ring-[#0eb59a]/30 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 text-sm transition-all outline-none"
                                 />
                                 <span className="text-[10px] text-gray-400 dark:text-gray-500 italic mt-1.5 block">
                                     *Please enter your email
@@ -209,7 +209,7 @@ const AdminSignUp = () => {
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         placeholder="••••••••••••"
-                                        className="w-full bg-gray-50 dark:bg-[#0c0f0d] border-2 border-gray-300 dark:border-[#1d2722] focus:border-[#0eb59a] focus:ring-1 focus:ring-[#0eb59a]/30 rounded-lg pl-4 pr-11 py-3 text-gray-900 dark:text-white placeholder-gray-400 text-sm transition-all outline-none"
+                                        className="w-full bg-gray-50 dark:bg-white/5 border-2 border-gray-300 dark:border-white/10 focus:border-[#0eb59a] focus:ring-1 focus:ring-[#0eb59a]/30 rounded-lg pl-4 pr-11 py-3 text-gray-900 dark:text-white placeholder-gray-400 text-sm transition-all outline-none"
                                     />
                                     <button
                                         type="button"
@@ -221,7 +221,7 @@ const AdminSignUp = () => {
                                 </div>
 
                                 {/* Dynamic password helper checkmarks */}
-                                <div className="mt-3.5 space-y-1.5 bg-gray-50 dark:bg-[#0a0d0c] border border-gray-300 dark:border-[#141b18] rounded-lg p-3 text-xs">
+                                <div className="mt-3.5 space-y-1.5 bg-gray-50 dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-lg p-3 text-xs">
                                     <div className="flex items-center gap-2">
                                         <span className={`w-4 h-4 rounded-full flex items-center justify-center ${isMinLength ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'}`}>
                                             {isMinLength ? <Check size={10} /> : <X size={10} />}
