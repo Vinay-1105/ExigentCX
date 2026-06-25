@@ -30,7 +30,7 @@ const SignIn2 = ({
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-full max-w-sm bg-white/90 dark:bg-[#0d1a14]/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8 flex flex-col items-center border border-white/50 dark:border-white/10 text-black dark:text-white"
+        className="relative w-full max-w-sm bg-white/90 dark:bg-[#12141c]/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8 flex flex-col items-center border border-white/50 dark:border-white/10 text-black dark:text-white"
       >
         <motion.div
           animate={{
@@ -41,7 +41,7 @@ const SignIn2 = ({
             ]
           }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="flex items-center justify-center w-14 h-14 rounded-2xl bg-white dark:bg-[#0d2318] mb-6"
+          className="flex items-center justify-center w-14 h-14 rounded-2xl bg-white dark:bg-[#1b1d24] mb-6"
         >
           <LogIn className="w-7 h-7 text-[#0eb59a]" />
         </motion.div>

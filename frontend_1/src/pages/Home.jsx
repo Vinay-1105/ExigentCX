@@ -94,11 +94,11 @@ const Home = () => {
     const prevSlide = () => setCurrentSlide((prev) => (prev === 0 ? maxSlide : prev - 1));
 
     return (
-        <div className="bg-white dark:bg-[#0d1a14] min-h-screen text-gray-900 dark:text-gray-100 font-sans selection:bg-[#0eb59a] selection:text-white pt-20">
+        <div className="bg-white dark:bg-[#0f1117] min-h-screen text-gray-900 dark:text-gray-100 font-sans selection:bg-[#0eb59a] selection:text-white pt-20">
 
             {/* Hero Section — staggered entrance */}
-            <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-white dark:bg-[#0d1a14]">
-                <div className="absolute inset-0 z-0 bg-white dark:bg-[#0d1a14]">
+            <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-white dark:bg-[#0f1117]">
+                <div className="absolute inset-0 z-0 bg-white dark:bg-[#0f1117]">
                     <video
                         autoPlay
                         loop
@@ -112,7 +112,7 @@ const Home = () => {
                         Your browser does not support the video tag.
                     </video>
                     <div className="absolute inset-0 bg-white/10"></div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-[#0d1a14] via-transparent to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-[#0f1117] via-transparent to-transparent"></div>
                 </div>
 
                 <motion.div
@@ -147,7 +147,7 @@ const Home = () => {
                         </motion.button>
                         <motion.button
                             onClick={(e) => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }}
-                            className="px-10 py-4 rounded-full bg-white dark:bg-[#0d1a14] text-[#134e40] dark:text-[#0eb59a] border-2 border-[#134e40] dark:border-[#0eb59a] font-semibold text-lg hover:bg-[#134e40] dark:hover:bg-[#0eb59a] hover:text-white dark:hover:text-[#0d1a14] transition-all duration-300 w-full sm:w-auto shadow-sm"
+                            className="px-10 py-4 rounded-full bg-white dark:bg-[#0f1117] text-[#134e40] dark:text-[#0eb59a] border-2 border-[#134e40] dark:border-[#0eb59a] font-semibold text-lg hover:bg-[#134e40] dark:hover:bg-[#0eb59a] hover:text-white dark:hover:text-[#0f1117] transition-all duration-300 w-full sm:w-auto shadow-sm"
                             whileHover={{ scale: 1.03 }}
                             whileTap={{ scale: 0.97 }}
                             transition={{ duration: 0.2 }}

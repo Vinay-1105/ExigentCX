@@ -259,11 +259,11 @@ const SignIn = () => {
 	};
 
 	return (
-		<div className="relative min-h-screen bg-gray-50 dark:bg-[#0d1a14] flex items-center justify-center">
+		<div className="relative min-h-screen bg-gray-50 dark:bg-[#0f1117] flex items-center justify-center">
 			{/* Back Button */}
 			<button
 				onClick={() => navigate("/")}
-				className="absolute top-6 left-6 z-50 flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white dark:bg-[#0d2318] hover:bg-teal-50 dark:hover:bg-[#0eb59a]/10 text-gray-600 dark:text-gray-300 hover:text-[#134e40] border border-gray-200 dark:border-white/10 hover:border-teal-200 shadow-sm transition-all duration-300 hover:shadow-md group active:scale-95 min-h-[44px]"
+				className="absolute top-6 left-6 z-50 flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white dark:bg-[#1b1d24] hover:bg-teal-50 dark:hover:bg-[#0eb59a]/10 text-gray-600 dark:text-gray-300 hover:text-[#134e40] border border-gray-200 dark:border-white/10 hover:border-teal-200 shadow-sm transition-all duration-300 hover:shadow-md group active:scale-95 min-h-[44px]"
 			>
 				<ArrowLeft size={16} className="group-hover:-translate-x-0.5 transition-transform" />
 				<span className="text-xs font-bold tracking-wider uppercase">Back</span>
