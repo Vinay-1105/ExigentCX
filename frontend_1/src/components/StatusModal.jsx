@@ -13,31 +13,31 @@ const StatusModal = ({
   const configs = {
     success: {
       icon: <CheckCircle2 className="w-12 h-12 text-teal-500" />,
-      bgColor: "bg-teal-50",
+      bgColor: "bg-teal-50 dark:bg-teal-950/20",
       borderColor: "border-teal-500",
       buttonColor: "bg-teal-500 hover:bg-teal-600",
-      titleColor: "text-gray-900"
+      titleColor: "text-gray-900 dark:text-white"
     },
     error: {
       icon: <XCircle className="w-12 h-12 text-red-500" />,
-      bgColor: "bg-red-50",
+      bgColor: "bg-red-50 dark:bg-red-950/20",
       borderColor: "border-red-500",
       buttonColor: "bg-red-500 hover:bg-red-600",
-      titleColor: "text-red-900"
+      titleColor: "text-red-900 dark:text-red-400"
     },
     warning: {
       icon: <AlertCircle className="w-12 h-12 text-amber-500" />,
-      bgColor: "bg-amber-50",
+      bgColor: "bg-amber-50 dark:bg-amber-950/20",
       borderColor: "border-amber-500",
       buttonColor: "bg-amber-500 hover:bg-amber-600",
-      titleColor: "text-amber-900"
+      titleColor: "text-amber-900 dark:text-amber-400"
     },
     info: {
       icon: <Info className="w-12 h-12 text-blue-500" />,
-      bgColor: "bg-blue-50",
+      bgColor: "bg-blue-50 dark:bg-blue-950/20",
       borderColor: "border-blue-500",
       buttonColor: "bg-blue-500 hover:bg-blue-600",
-      titleColor: "text-blue-900"
+      titleColor: "text-blue-900 dark:text-blue-400"
     }
   };
 
@@ -62,7 +62,7 @@ const StatusModal = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative bg-white/90 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-white/20 p-10 flex flex-col items-center gap-6 max-w-md w-full overflow-hidden"
+            className="relative bg-white/90 dark:bg-[#12141c]/95 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-white/20 dark:border-white/10 p-10 flex flex-col items-center gap-6 max-w-md w-full overflow-hidden"
           >
             {/* Background Accent Gradient */}
             <div className={`absolute -top-24 -right-24 w-48 h-48 rounded-full blur-3xl opacity-20 ${config.bgColor}`} />
@@ -81,7 +81,7 @@ const StatusModal = ({
               <h2 className={`text-3xl font-extrabold tracking-tight ${config.titleColor}`}>
                 {title}
               </h2>
-              <p className="text-gray-500 text-lg leading-relaxed whitespace-pre-line">
+              <p className="text-gray-500 dark:text-gray-400 text-lg leading-relaxed whitespace-pre-line">
                 {message}
               </p>
             </div>
@@ -96,7 +96,7 @@ const StatusModal = ({
             {/* Close Button */}
             <button 
               onClick={onClose}
-              className="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition-colors"
+              className="absolute top-6 right-6 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
             >
               <X size={24} />
             </button>

@@ -9,7 +9,6 @@ import {
   Bell, LogOut, Shield, Award, AlertCircle, CheckCircle, Activity,
   Briefcase, TrendingUp, Clock, HardDrive, CheckSquare, Settings
 } from 'lucide-react';
-import FormalCardBorder from '../components/FormalCardBorder';
 
 const Pmo = () => {
   const navigate = useNavigate();
@@ -45,10 +44,10 @@ const Pmo = () => {
   ];
 
   const pmoKPIS = [
-    { title: 'Governance Score', value: '96%', sub: 'All MSAs & NDAs intact', icon: Shield, color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-l-emerald-500' },
-    { title: 'Audit Readiness', value: 'Compliant', sub: 'Escrow records absolute', icon: Award, color: 'text-blue-600', bg: 'bg-blue-50', border: 'border-l-blue-500' },
-    { title: 'SLA Match Rate', value: '98.2%', sub: 'Expert turnaround < 4h', icon: Activity, color: 'text-purple-600', bg: 'bg-purple-50', border: 'border-l-purple-500' },
-    { title: 'Contract Status', value: 'Fully Signed', sub: 'No critical liabilities', icon: CheckCircle, color: 'text-teal-600', bg: 'bg-teal-50', border: 'border-l-teal-500' },
+    { title: 'Governance Score', value: '96%', sub: 'All MSAs & NDAs intact', icon: Shield, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-950/20', border: 'border-l-emerald-500' },
+    { title: 'Audit Readiness', value: 'Compliant', sub: 'Escrow records absolute', icon: Award, color: 'text-blue-600 dark:text-blue-400', bg: 'bg-blue-50 dark:bg-blue-950/20', border: 'border-l-blue-500' },
+    { title: 'SLA Match Rate', value: '98.2%', sub: 'Expert turnaround < 4h', icon: Activity, color: 'text-purple-600 dark:text-purple-400', bg: 'bg-purple-50 dark:bg-purple-950/20', border: 'border-l-purple-500' },
+    { title: 'Contract Status', value: 'Fully Signed', sub: 'No critical liabilities', icon: CheckCircle, color: 'text-teal-600 dark:text-teal-400', bg: 'bg-teal-50 dark:bg-teal-950/20', border: 'border-l-teal-500' },
   ];
 
   const complianceItems = [
@@ -68,16 +67,16 @@ const Pmo = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f4f7f5] text-slate-900 font-sans">
+    <div className="min-h-screen bg-[#f4f7f5] dark:bg-[#0f1117] text-slate-900 dark:text-gray-100 font-sans">
       
       {/* ── SIDEBAR ── */}
       <motion.aside
         initial={{ width: 260 }}
         animate={{ width: isSidebarOpen ? 260 : 68 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="bg-white border-r border-gray-100 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
+        className="bg-white dark:bg-[#1b1d24] border-r border-gray-100 dark:border-white/10 flex flex-col z-50 overflow-hidden shrink-0 shadow-sm fixed left-0 top-0 h-screen"
       >
-        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50">
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-white/5">
           <motion.div
             animate={{ width: isSidebarOpen ? 'auto' : 0, opacity: isSidebarOpen ? 1 : 0 }}
             transition={{ duration: 0.2 }}
@@ -89,7 +88,7 @@ const Pmo = () => {
             animate={{ marginLeft: isSidebarOpen ? 'auto' : 0 }}
             whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="w-7 h-7 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#134e40] hover:bg-gray-100 transition-all shrink-0"
+            className="w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 dark:hover:bg-white/10 transition-all shrink-0 border border-transparent dark:border-white/5"
           >
             {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
           </motion.button>
@@ -108,7 +107,7 @@ const Pmo = () => {
               className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 relative ${
                 item.active
                   ? 'bg-[#134e40] text-white shadow-md font-bold'
-                  : 'text-gray-500 hover:bg-gray-50 hover:text-[#134e40]'
+                  : 'text-gray-500 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white'
               }`}
             >
               {item.active && (
@@ -138,7 +137,7 @@ const Pmo = () => {
             whileHover={{ x: 2, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/settings')}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#134e40] transition-all"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-500 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-[#134e40] dark:hover:text-white transition-all"
           >
             <Settings size={17} className="shrink-0" />
             <motion.span
@@ -161,7 +160,7 @@ const Pmo = () => {
               await supabase.auth.signOut();
               navigate('/');
             }}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-rose-500 hover:bg-rose-50 transition-all"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/20 transition-all"
           >
             <LogOut size={17} className="shrink-0" />
             <motion.span
@@ -182,15 +181,15 @@ const Pmo = () => {
       >
         
         {/* Top Header */}
-        <header className="h-16 border-b border-gray-100 bg-white flex items-center justify-between px-6 sticky top-0 z-30 shadow-sm">
-          <h1 className="font-black text-[#1C3627] text-lg">PMO Oversight & Compliance</h1>
+        <header className="h-16 border-b border-gray-100 dark:border-white/10 bg-white dark:bg-[#1b1d24] flex items-center justify-between px-6 sticky top-0 z-30 shadow-sm">
+          <h1 className="font-black text-[#1C3627] dark:text-white text-lg">PMO Oversight & Compliance</h1>
           <div className="flex items-center gap-3">
             {/* Notification Bell */}
             <div className="relative">
               <motion.button
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                 onClick={() => setShowNotifications(!showNotifications)}
-                className="w-9 h-9 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#134e40] hover:bg-gray-100 transition-all border border-gray-100"
+                className="w-9 h-9 rounded-xl bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#134e40] dark:hover:text-[#0eb59a] hover:bg-gray-100 dark:hover:bg-white/10 transition-all border border-gray-100 dark:border-white/10"
               >
                 <Bell size={16} />
                 <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#0eb59a]" />
@@ -202,18 +201,18 @@ const Pmo = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute right-0 mt-2 w-80 bg-white rounded-2xl p-4 shadow-xl border border-gray-100 z-50 text-left"
+                    className="absolute right-0 mt-2 w-80 bg-white dark:bg-[#1b1d24] rounded-2xl p-4 shadow-xl border border-gray-100 dark:border-white/10 z-50 text-left"
                   >
-                    <h3 className="font-black text-sm text-slate-800 mb-3">Notifications</h3>
+                    <h3 className="font-black text-sm text-slate-800 dark:text-white mb-3">Notifications</h3>
                     <div className="space-y-3">
                       {notifications.map(n => (
-                        <div key={n.id} className="p-2.5 rounded-xl bg-slate-50 border border-gray-100 text-xs hover:bg-slate-100 transition-colors">
-                          <p className="font-bold text-slate-800 flex items-center gap-1.5">
+                        <div key={n.id} className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 text-xs hover:bg-slate-100 dark:hover:bg-white/10 transition-colors">
+                          <p className="font-bold text-slate-800 dark:text-white flex items-center gap-1.5">
                             <span className={`w-1.5 h-1.5 rounded-full ${n.color}`} />
                             {n.title}
                           </p>
-                          <p className="text-gray-500 mt-1">{n.desc}</p>
-                          <p className="text-[10px] text-gray-400 mt-1">{n.time}</p>
+                          <p className="text-gray-500 dark:text-gray-400 mt-1">{n.desc}</p>
+                          <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-1">{n.time}</p>
                         </div>
                       ))}
                     </div>
@@ -229,7 +228,6 @@ const Pmo = () => {
           
           {/* Welcome Banner */}
           <div className="bg-gradient-to-r from-[#134e40] to-[#0d3f33] text-white p-6 rounded-3xl relative overflow-hidden shadow-xl text-left">
-            <FormalCardBorder />
             <div className="relative z-10 max-w-lg">
               <span className="text-[10px] font-black tracking-widest uppercase bg-[#0eb59a] text-white px-3 py-1 rounded-full mb-3 inline-block">
                 Oversight Panel
@@ -255,15 +253,14 @@ const Pmo = () => {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.05 }}
-                  className={`bg-white rounded-2xl p-5 ${topBorder} text-center flex flex-col items-center justify-center relative overflow-hidden`}
+                  className="bg-white dark:bg-[#1b1d24] rounded-2xl p-5 border border-gray-100 dark:border-white/10 text-center flex flex-col items-center justify-center relative overflow-hidden"
                   style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}
                 >
-                  <FormalCardBorder />
                   <div className={`w-9 h-9 ${kpi.bg} rounded-xl flex items-center justify-center mb-2.5 relative z-10 mx-auto`}>
                     <kpi.icon size={16} className={kpi.color} />
                   </div>
                   <p className="text-[10px] sm:text-[11px] font-black text-gray-400 uppercase tracking-widest mb-1.5 relative z-10 text-center">{kpi.title}</p>
-                  <p className="text-2xl sm:text-3xl font-black text-slate-800 mb-1.5 relative z-10 text-center">{kpi.value}</p>
+                  <p className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-white mb-1.5 relative z-10 text-center">{kpi.value}</p>
                   <p className="text-xs text-gray-400 font-bold relative z-10 text-center">{kpi.sub}</p>
                 </motion.div>
               );
@@ -274,11 +271,10 @@ const Pmo = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             
             {/* Left 2/3 - Compliance Checklist */}
-            <div className="lg:col-span-2 bg-white rounded-2xl p-5 relative overflow-hidden text-left" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
-              <FormalCardBorder />
+            <div className="lg:col-span-2 bg-white dark:bg-[#1b1d24] rounded-2xl p-5 border border-gray-100 dark:border-white/10 relative overflow-hidden text-left" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
               <div className="flex items-center gap-2 mb-4">
                 <ShieldCheck size={16} className="text-[#0eb59a]" />
-                <h3 className="font-black text-slate-800 text-sm">Escrow & Legal Safeguards Checklist</h3>
+                <h3 className="font-black text-slate-800 dark:text-white text-sm">Escrow & Legal Safeguards Checklist</h3>
               </div>
               <p className="text-xs text-gray-400 mb-5 font-semibold">Active trackers assessing legal health and structural security across current expert engagements.</p>
 
@@ -289,17 +285,17 @@ const Pmo = () => {
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.05 }}
-                    className="p-4 rounded-2xl bg-slate-50 border border-gray-100 flex items-start justify-between gap-4 hover:border-teal-100 hover:bg-teal-50/20 transition-all duration-200"
+                    className="p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 flex items-start justify-between gap-4 hover:border-teal-100 dark:hover:border-teal-500/20 hover:bg-teal-50/20 dark:hover:bg-teal-500/5 transition-all duration-200"
                   >
                     <div className="space-y-1">
-                      <p className="text-xs font-bold text-slate-800 flex items-center gap-2">
+                      <p className="text-xs font-bold text-slate-800 dark:text-white flex items-center gap-2">
                         <CheckCircle size={14} className="text-emerald-500" />
                         {item.name}
                       </p>
                       <p className="text-[11px] text-gray-400 leading-relaxed font-semibold">{item.desc}</p>
                       <p className="text-[9px] text-gray-400 font-bold uppercase tracking-wider">{item.date}</p>
                     </div>
-                    <span className="text-[10px] font-black px-2.5 py-1 rounded-lg border bg-white border-emerald-200 text-emerald-700 uppercase shrink-0">
+                    <span className="text-[10px] font-black px-2.5 py-1 rounded-lg border bg-white dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-400 uppercase shrink-0">
                       {item.status}
                     </span>
                   </motion.div>
@@ -308,24 +304,23 @@ const Pmo = () => {
             </div>
 
             {/* Right 1/3 - Audit Trail */}
-            <div className="bg-white rounded-2xl p-5 relative overflow-hidden text-left" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
-              <FormalCardBorder />
+            <div className="bg-white dark:bg-[#1b1d24] rounded-2xl p-5 border border-gray-100 dark:border-white/10 relative overflow-hidden text-left" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
               <div className="flex items-center gap-2 mb-4">
                 <CheckSquare size={15} className="text-[#0eb59a]" />
-                <h3 className="font-black text-slate-800 text-sm">Real-time Compliance Audit Trail</h3>
+                <h3 className="font-black text-slate-800 dark:text-white text-sm">Real-time Compliance Audit Trail</h3>
               </div>
               <p className="text-xs text-gray-400 mb-5 font-semibold">Verified system logs demonstrating recent background checks and identity matches.</p>
-
+ 
               <div className="space-y-4">
                 {auditLogs.map((log, idx) => (
-                  <div key={idx} className="border-b border-gray-50 pb-3 last:border-0 last:pb-0">
+                  <div key={idx} className="border-b border-gray-50 dark:border-white/5 pb-3 last:border-0 last:pb-0">
                     <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[10px] font-black uppercase text-teal-800 bg-teal-50 px-2 py-0.5 rounded-md">
+                      <span className="text-[10px] font-black uppercase text-teal-800 dark:text-teal-400 bg-teal-50 dark:bg-teal-950/20 px-2 py-0.5 rounded-md">
                         {log.action}
                       </span>
                       <span className="text-[10px] text-gray-400 font-bold">{log.date}</span>
                     </div>
-                    <p className="text-xs font-bold text-slate-800">Expert: {log.expert}</p>
+                    <p className="text-xs font-bold text-slate-800 dark:text-white">Expert: {log.expert}</p>
                     <p className="text-[11px] text-gray-400 font-semibold mt-0.5 leading-relaxed">{log.details}</p>
                   </div>
                 ))}

@@ -57,11 +57,11 @@ const OTPModal = ({ isOpen, onClose, onVerify }) => {
   return (
     <div className="fixed inset-0 z-40 backdrop-blur-md bg-black/20 flex items-center justify-center">
       <form 
-        className="bg-white/80 backdrop-blur-xl border border-white/40 shadow-2xl rounded-2xl p-8 z-50 w-full max-w-md mx-4 relative animate-scale-up flex flex-col items-center" 
+        className="bg-white/80 dark:bg-[#12141c]/90 backdrop-blur-xl border border-white/40 dark:border-white/10 shadow-2xl rounded-2xl p-8 z-50 w-full max-w-md mx-4 relative animate-scale-up flex flex-col items-center" 
         onSubmit={handleSubmit}
       >
-        <h2 className="text-xl font-bold text-gray-900 text-center mb-2">Enter OTP</h2>
-        <p className="text-sm text-gray-500 text-center mb-6">We have sent a verification code to your email</p>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white text-center mb-2">Enter OTP</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-6">We have sent a verification code to your email</p>
 
         <div className="flex justify-center gap-3 mb-6">
           {[0, 1, 2, 3, 4, 5].map((index) => (
@@ -70,7 +70,7 @@ const OTPModal = ({ isOpen, onClose, onVerify }) => {
               required
               maxLength="1"
               type="text"
-              className="w-11 h-12 text-center text-lg font-semibold border border-gray-300 rounded-lg bg-white/70 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all"
+              className="w-11 h-12 text-center text-lg font-semibold border border-gray-300 dark:border-white/10 rounded-lg bg-white/70 dark:bg-white/5 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-teal-500 text-gray-900 dark:text-white transition-all"
               value={otp[index]}
               onChange={(e) => handleChange(e, index)}
               onKeyDown={(e) => handleKeyDown(e, index)}
@@ -101,7 +101,7 @@ const OTPModal = ({ isOpen, onClose, onVerify }) => {
         </AnimatePresence>
         
         <button 
-          className="absolute top-4 right-4 text-2xl text-gray-400 hover:text-gray-700 transition-colors" 
+          className="absolute top-4 right-4 text-2xl text-gray-400 hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-300 transition-colors" 
           type="button" 
           onClick={onClose}
         >
@@ -111,7 +111,7 @@ const OTPModal = ({ isOpen, onClose, onVerify }) => {
         <p className="text-center text-sm text-gray-400 mt-4">
           Didn't receive the code?
           <button 
-            className="ml-1 text-teal-600 cursor-pointer hover:underline font-medium" 
+            className="ml-1 text-teal-600 dark:text-teal-400 cursor-pointer hover:underline font-medium" 
             type="button" 
             onClick={() => setShowToast(true)}
           >
