@@ -1,5 +1,47 @@
 [
   {
+    "id": "INV-7137",
+    "title": "Discovery & Assessment",
+    "engagement": "Engagement Agreement — snksnfgfn",
+    "engagement_id": "79cbbd0d-6865-4d1c-b37e-86d1361cbdee",
+    "expert": "Suyash Tripathi",
+    "expertAvatar": "https://mvhptjmouxznfmjgmhbn.supabase.co/storage/v1/object/public/expert-profiles/1778949248922-lion-7680x4320-17146.jpg",
+    "amount": "₹1,20,000",
+    "amountNum": 120000,
+    "date": "Jun 26, 2026",
+    "dueDate": "Jun 26, 2026",
+    "status": "Paid",
+    "type": "Milestone Invoice"
+  },
+  {
+    "id": "INV-5865",
+    "title": "Escrow Wallet Deposit",
+    "engagement": "Registered Escrow Payout Engagement",
+    "engagement_id": "3",
+    "expert": "Suyash Tripathi",
+    "expertAvatar": "https://i.pravatar.cc/150?u=suyash",
+    "amount": "₹50,000",
+    "amountNum": 50000,
+    "date": "Jun 26, 2026",
+    "dueDate": "Jun 26, 2026",
+    "status": "Paid",
+    "type": "Wallet Deposit Invoice"
+  },
+  {
+    "id": "INV-6267",
+    "title": "Escrow Wallet Deposit",
+    "engagement": "Registered Escrow Payout Engagement",
+    "engagement_id": "3",
+    "expert": "Suyash Tripathi",
+    "expertAvatar": "https://i.pravatar.cc/150?u=suyash",
+    "amount": "₹50,000",
+    "amountNum": 50000,
+    "date": "Jun 25, 2026",
+    "dueDate": "Jun 25, 2026",
+    "status": "Paid",
+    "type": "Wallet Deposit Invoice"
+  },
+  {
     "id": "INV-8711",
     "title": "Final Phase Support - Funded",
     "engagement": "Registered Escrow Payout Engagement",

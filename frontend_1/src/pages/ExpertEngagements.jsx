@@ -39,6 +39,37 @@ const ExpertEngagements = () => {
   const [messageText, setMessageText] = useState('');
   const [showSubmitModal, setShowSubmitModal] = useState(null);
   const [showEngagementList, setShowEngagementList] = useState(!engagementId);
+
+  const fileInputRef = useRef(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    const newFiles = files.map(file => {
+      const ext = file.name.split('.').pop().toLowerCase();
+      let type = 'pdf';
+      if (['xls', 'xlsx'].includes(ext)) type = 'excel';
+      else if (['ppt', 'pptx'].includes(ext)) type = 'ppt';
+      return {
+        name: file.name,
+        size: file.size >= 1048576 
+          ? `${(file.size / 1048576).toFixed(1)} MB` 
+          : `${(file.size / 1024).toFixed(0)} KB`,
+        type
+      };
+    });
+    setSelectedFiles(prev => [...prev, ...newFiles]);
+  };
+
+  const handleUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleRemoveFile = (indexToRemove) => {
+    setSelectedFiles(prev => prev.filter((_, idx) => idx !== indexToRemove));
+  };
   const [deliverableNote, setDeliverableNote] = useState('');
   const [submitSent, setSubmitSent] = useState(false);
   const [messages, setMessages] = useState([
@@ -394,7 +425,8 @@ const ExpertEngagements = () => {
         body: JSON.stringify({
           engagementId: selectedEngagement,
           milestoneId: showSubmitModal.id,
-          note: deliverableNote
+          note: deliverableNote,
+          deliverables: selectedFiles
         })
       });
 
@@ -403,6 +435,7 @@ const ExpertEngagements = () => {
           setShowSubmitModal(null);
           setSubmitSent(false);
           setDeliverableNote('');
+          setSelectedFiles([]);
           fetchEngagementDetails(selectedEngagement);
         }, 2000);
       } else {
@@ -2031,8 +2064,16 @@ const ExpertEngagements = () => {
                     </p>
 
                     {/* File upload zone */}
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={handleFileChange}
+                      multiple
+                      style={{ display: 'none' }}
+                    />
                     <motion.div
                       whileHover={{ borderColor: '#0eb59a' }}
+                      onClick={handleUploadClick}
                       className="border-2 border-dashed border-gray-200 rounded-2xl p-6 text-center mb-4 cursor-pointer transition-all group"
                     >
                       <Upload size={20} className="text-gray-300 mx-auto mb-2 group-hover:text-[#0eb59a] transition-colors" />
@@ -2041,6 +2082,32 @@ const ExpertEngagements = () => {
                       </p>
                       <p className="text-xs text-gray-400 mt-1">PDF, XLSX, PPTX, DOCX up to 25MB each</p>
                     </motion.div>
+
+                    {/* Display selected files */}
+                    {selectedFiles.length > 0 && (
+                      <div className="mb-4 text-left">
+                        <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">
+                          Selected Files ({selectedFiles.length})
+                        </label>
+                        <div className="space-y-2 max-h-32 overflow-y-auto">
+                          {selectedFiles.map((file, idx) => (
+                            <div key={idx} className="flex items-center justify-between p-2 bg-gray-50 rounded-xl border border-gray-100">
+                              <div className="flex items-center gap-2 min-w-0">
+                                <span className="text-xs font-bold text-gray-700 truncate">{file.name}</span>
+                                <span className="text-[10px] text-gray-400">({file.size})</span>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveFile(idx)}
+                                className="text-xs text-gray-400 hover:text-red-500 font-bold border-0 bg-transparent cursor-pointer"
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
                     {/* Note */}
                     <div className="mb-5 text-left">

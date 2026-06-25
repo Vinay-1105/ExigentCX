@@ -6,7 +6,8 @@ import {
   getRegisteredExpertById, 
   getTeamMembers,
   getCompanyRequirements,
-  sendInvitation
+  sendInvitation,
+  getCompanyInvitations
 } from "../controllers/companyController.js";
 
 const router = express.Router();
@@ -16,6 +17,7 @@ router.get("/team", requireAuth, getTeamMembers);
 router.get("/experts", requireAuth, getRegisteredExperts);
 router.get("/experts/:expertId", requireAuth, getRegisteredExpertById);
 router.get("/requirements", requireAuth, getCompanyRequirements);
+router.get("/invitations", requireAuth, getCompanyInvitations);
 router.post("/invite", requireAuth, sendInvitation);
 
 export default router;
