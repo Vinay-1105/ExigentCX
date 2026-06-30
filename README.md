@@ -195,7 +195,7 @@ scalability, security, and efficient real-time communication.
 
 <ul>
 <li>React.js for building the interactive web interface.</li>
-<li>HTML5 and CSS3 for layout and styling.</li>
+<li>HTML5, CSS3, and TailwindCSS for layout and styling.</li>
 <li>JavaScript for application logic and UI interactions.</li>
 </ul>
 
