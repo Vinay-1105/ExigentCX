@@ -4,7 +4,12 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
-import chatbotRoutes from "./routes/chatbotRoutes.js";
+import chatRoutes from "./routes/chatRoutes.js";
+import companyRoutes from "./routes/companyRoutes.js";
+import expertRoutes from "./routes/expertRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
+import contractRoutes from "./routes/contractRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -26,7 +31,22 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// Request logging middleware
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on("finish", () => {
+    const duration = Date.now() - start;
+    console.log(`[${req.method}] ${req.originalUrl} - ${res.statusCode} (${duration}ms)`);
+  });
+  next();
+});
+
 app.use("/api/auth", authRoutes);
-app.use("/api/chatbot", chatbotRoutes);
+app.use("/api/chat", chatRoutes);
+app.use("/api/company", companyRoutes);
+app.use("/api/expert", expertRoutes);
+app.use("/api/notifications", notificationRoutes);
+app.use("/api/payments", paymentRoutes);
+app.use("/api/contracts", contractRoutes);
 
 app.listen(port, () => console.log(`🚀 Server running on port ${port}`));

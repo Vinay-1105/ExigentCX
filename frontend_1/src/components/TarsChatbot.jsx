@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Crown, X, Send } from 'lucide-react';
-import { HfInference } from '@huggingface/inference';
 
 const TarsChatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +9,7 @@ const TarsChatbot = () => {
     ]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
     const [loadingText, setLoadingText] = useState("Thinking about it...");
     const messagesEndRef = useRef(null);
     // Use a ref to ensure we always have the absolute latest messages for context history
@@ -44,38 +44,37 @@ const TarsChatbot = () => {
         setIsLoading(true);
 
         try {
-            // Get base URL from environment, fallback to current origin if on hosting, or localhost:5001 for local dev
-            const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 
-                             (window.location.hostname === 'localhost' ? "http://localhost:5001" : window.location.origin);
-            
+            const baseUrl = (import.meta.env.VITE_API_BASE_URL || "http://localhost:5000").replace(/\/$/, "");
+
             let loadingInterval = setInterval(() => {
                 setLoadingText(loadingPhrases[Math.floor(Math.random() * loadingPhrases.length)]);
             }, 1500);
 
-            // Filter out the initial greeting and map to the format expected by the backend
-            const filteredMessages = messagesRef.current
+            // Map previous messages using the ref to absolutely guarantee no stale context
+            const formattedMessages = messagesRef.current
                 .filter(m => m.role !== 'assistant' || m.content !== 'Welcome! I am TARS, here to guide you to the right expertise. What can I help with today?')
                 .map(m => ({ role: m.role, content: m.content }));
+            
+            formattedMessages.push({ role: "user", content: userMessage });
 
-            const response = await fetch(`${apiBaseUrl}/api/chatbot`, {
-                method: 'POST',
+            const response = await fetch(`${baseUrl}/api/chat/completions`, {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ 
-                    messages: [...filteredMessages, { role: "user", content: userMessage }]
-                }),
+                body: JSON.stringify({ messages: formattedMessages })
             });
 
-            clearInterval(loadingInterval);
-
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || "Failed to get response from AI");
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || `Server error: ${response.status}`);
             }
 
             const data = await response.json();
-            setMessages(prev => [...prev, { role: 'assistant', content: data.content }]);
+            
+            clearInterval(loadingInterval);
+            
+            setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
         } catch (error) {
             console.error("Error generating response:", error);
             const errorMessage = error instanceof Error ? error.message : String(error);
@@ -90,18 +89,50 @@ const TarsChatbot = () => {
             {/* The Floating Button */}
             {!isOpen && (
                 <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                     onClick={() => setIsOpen(true)}
-                    style={{ position: 'fixed', bottom: '30px', right: '30px', backgroundColor: '#000000', color: '#ffffff', cursor: 'pointer', zIndex: 1000 }}
-                    className="hover:-translate-y-1 transition-all flex items-center justify-center gap-3 px-6 py-4 shadow-2xl rounded-full border border-gray-800 group"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    animate={{ width: isHovered ? 'auto' : '56px' }}
+                    transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                    style={{ position: 'fixed', bottom: '30px', right: '30px', zIndex: 1000, cursor: 'pointer', height: '56px', borderRadius: '9999px', overflow: 'hidden' }}
+                    className="bg-[#134e40] border-2 border-[#0eb59a]/40 flex items-center justify-end shadow-2xl"
+                    whileTap={{ scale: 0.93 }}
                 >
-                    <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <img src="/favicon.png" alt="TARS" className="w-full h-full object-cover" />
-                </div>
-                    <span className="font-bold tracking-widest text-sm uppercase">Ask Tars</span>
+                    <AnimatePresence>
+                        {isHovered && (
+                            <motion.span
+                                key="tars-label"
+                                initial={{ opacity: 0, x: 8 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: 8 }}
+                                transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+                                className="font-bold tracking-widest text-sm uppercase text-white pl-5 pr-3 whitespace-nowrap"
+                            >
+                                Ask Tars
+                            </motion.span>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Circle icon with pulsing glow — always visible, anchored right */}
+                    <motion.div
+                        className="relative shrink-0 w-[52px] h-[52px] rounded-full overflow-hidden flex items-center justify-center bg-[#0eb59a]"
+                        animate={{
+                            boxShadow: [
+                                "0 0 0px rgba(14,181,154,0.4)",
+                                "0 0 20px rgba(14,181,154,0.6)",
+                                "0 0 0px rgba(14,181,154,0.4)"
+                            ]
+                        }}
+                        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                        <img src="/favicon.png" alt="TARS" className="w-full h-full object-cover" />
+                        {/* Online indicator dot */}
+                        <span className="absolute bottom-0.5 right-0.5 w-2 h-2 bg-[#0eb59a] rounded-full animate-pulse border border-[#134e40]" />
+                    </motion.div>
                 </motion.div>
             )}
+
+
 
             {/* The Chat Window */}
             <AnimatePresence>
@@ -112,7 +143,7 @@ const TarsChatbot = () => {
                         exit={{ opacity: 0, y: 50, scale: 0.9 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                         style={{ position: 'fixed', bottom: '30px', right: '30px', zIndex: 1000 }}
-                        className="w-[350px] sm:w-[400px] h-[550px] max-h-[80vh] bg-[#f8f9fa] rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200"
+                        className="w-[350px] sm:w-[400px] h-[550px] max-h-[80vh] bg-[#f8f9fa] dark:bg-[#12141c] rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200 dark:border-white/10"
                     >
                         {/* Header */}
                         <div className="bg-[#134e40] p-4 flex items-center justify-between text-white shadow-md z-10">
@@ -131,7 +162,7 @@ const TarsChatbot = () => {
                         </div>
 
                         {/* Messages Area */}
-                        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 flex flex-col">
+                        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-[#0f1117]/50 flex flex-col">
                             {messages.map((msg, idx) => (
                                 <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                     {msg.role === 'assistant' && (
@@ -143,7 +174,7 @@ const TarsChatbot = () => {
                                         className={`px-4 py-3 rounded-2xl max-w-[80%] text-sm leading-relaxed whitespace-pre-wrap text-left ${
                                             msg.role === 'user' 
                                             ? 'bg-[#134e40] text-white rounded-br-sm shadow-md' 
-                                            : 'bg-white text-gray-800 border border-gray-100 shadow-sm rounded-bl-sm'
+                                            : 'bg-white dark:bg-white/5 text-gray-800 dark:text-gray-100 border border-gray-100 dark:border-white/5 shadow-sm rounded-bl-sm'
                                         }`}
                                     >
                                         {msg.content}
@@ -155,7 +186,7 @@ const TarsChatbot = () => {
                                     <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center mr-2 shrink-0 self-end mb-1">
                                         <img src="/favicon.png" alt="TARS" className="w-full h-full object-cover" />
                                     </div>
-                                    <div className="px-4 py-3 rounded-2xl bg-white text-gray-800 border border-gray-100 shadow-sm rounded-bl-sm">
+                                    <div className="px-4 py-3 rounded-2xl bg-white dark:bg-white/5 text-gray-800 dark:text-gray-100 border border-gray-100 dark:border-white/5 shadow-sm rounded-bl-sm">
                                         <div className="flex gap-2 items-center h-full text-xs font-medium text-gray-500 italic">
                                             <span>{loadingText}</span>
                                             <div className="flex gap-1">
@@ -178,7 +209,7 @@ const TarsChatbot = () => {
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                                 placeholder="Type a message..."
-                                className="flex-1 bg-white rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a] text-gray-800 shadow-inner"
+                                className="flex-1 bg-white dark:bg-white/10 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#0eb59a] text-gray-800 dark:text-white dark:placeholder-gray-400 shadow-inner"
                             />
                             <button 
                                 onClick={handleSend}

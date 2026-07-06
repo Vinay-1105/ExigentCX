@@ -33,6 +33,35 @@ export const sendOtp = async (req, res) => {
   }
 };
 
+// ================= CHECK COMPANY EMAIL =================
+export const checkCompanyEmail = async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ error: "Email is required" });
+  }
+
+  try {
+    const { data, error } = await supabaseAdmin
+      .from("company_applications")
+      .select("admin_email")
+      .eq("admin_email", email)
+      .single();
+
+    if (error && error.code !== "PGRST116") {
+      throw error;
+    }
+
+    if (!data) {
+      return res.status(404).json({ error: "Company not found" });
+    }
+
+    res.json({ email: data.admin_email });
+  } catch (err) {
+    console.error("Check company email error:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 // ================= VERIFY OTP =================
 export const verifyOtp = async (req, res) => {
   const { email, otp, role } = req.body;

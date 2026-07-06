@@ -1,8 +1,8 @@
-<h1 align="center">CXOConnect Platform</h1>
+<h1 align="center">ExigentCX</h1>
 
 <p align="center">
 <b>Leadership On Demand Marketplace</b><br>
-A Digital Platform Connecting Companies with Experienced CXOs, Advisors and Consultants
+A Digital Platform Connecting Companies with Experienced CXOs, Advisors, and Consultants
 </p>
 
 <hr>
@@ -10,8 +10,8 @@ A Digital Platform Connecting Companies with Experienced CXOs, Advisors and Cons
 <h2>1. Introduction</h2>
 
 <p>
-CXOConnect is a digital marketplace platform designed to connect organizations with
-experienced senior professionals such as CXOs, advisors, consultants and directors.
+ExigentCX is a digital marketplace platform designed to connect organizations with
+experienced senior professionals such as CXOs, advisors, consultants, and directors.
 Many companies, especially startups and small to medium enterprises, require strategic
 leadership but cannot afford to hire full-time executives. At the same time, many
 experienced professionals seek flexible opportunities to provide advisory and consulting
@@ -19,15 +19,15 @@ services.
 </p>
 
 <p>
-The CXOConnect platform bridges this gap by creating a trusted ecosystem where
+The ExigentCX platform bridges this gap by creating a trusted ecosystem where
 companies can discover and engage experienced professionals for fractional leadership,
-interim roles and strategic consulting assignments.
+interim roles, and strategic consulting assignments.
 </p>
 
 <p>
-To ensure trust, transparency and effective delivery, the platform integrates an
+To ensure trust, transparency, and effective delivery, the platform integrates an
 administrative and Project Management Office (PMO) layer that governs vetting,
-engagement monitoring and escrow-based payment systems.
+engagement monitoring, and escrow-based payment systems.
 </p>
 
 <hr>
@@ -38,7 +38,7 @@ engagement monitoring and escrow-based payment systems.
 Many organizations face challenges in accessing high-level leadership expertise when
 required. Hiring full-time CXOs can be expensive and time-consuming, particularly for
 startups and growing businesses. Additionally, organizations often require expert
-guidance only for short-term projects, transformation initiatives or specific strategic
+guidance only for short-term projects, transformation initiatives, or specific strategic
 challenges.
 </p>
 
@@ -51,7 +51,7 @@ without committing to permanent roles.
 <p>
 Currently, there is no structured and trustworthy digital infrastructure that efficiently
 connects companies with verified senior professionals while managing contracts,
-deliverables and payments securely.
+deliverables, and payments securely.
 </p>
 
 <hr>
@@ -61,7 +61,7 @@ deliverables and payments securely.
 <ul>
 <li>To create a trusted digital marketplace connecting companies with experienced CXOs and consultants.</li>
 <li>To enable organizations to access leadership expertise on a flexible and on-demand basis.</li>
-<li>To provide a structured workflow for project engagements, contracts and deliverables.</li>
+<li>To provide a structured workflow for project engagements, contracts, and deliverables.</li>
 <li>To ensure transparency through milestone-based engagements and escrow payments.</li>
 <li>To provide governance through a PMO and administrative layer.</li>
 </ul>
@@ -71,19 +71,19 @@ deliverables and payments securely.
 <h2>4. Platform Concept</h2>
 
 <p>
-The CXOConnect platform functions as a two-sided marketplace where companies and
+The ExigentCX platform functions as a two-sided marketplace where companies and
 professionals interact through a structured digital environment.
 </p>
 
 <p>
-Companies can post their leadership requirements, browse expert profiles and engage
+Companies can post their leadership requirements, browse expert profiles, and engage
 professionals for consulting or advisory projects. Professionals can create verified
-profiles, showcase their experience and apply for opportunities posted by companies.
+profiles, showcase their experience, and apply for opportunities posted by companies.
 </p>
 
 <p>
 The platform also introduces an administrative governance layer responsible for
-professional vetting, dispute resolution, milestone monitoring and payment approvals.
+professional vetting, dispute resolution, milestone monitoring, and payment approvals.
 This governance mechanism differentiates the platform from traditional freelance
 marketplaces.
 </p>
@@ -96,16 +96,16 @@ marketplaces.
 
 <p>
 Company users represent organizations seeking leadership expertise. These users may
-include founders, CXOs, HR leaders or strategy heads. They can create project
-requirements, search for professionals and manage engagements through the platform.
+include founders, CXOs, HR leaders, or strategy heads. They can create project
+requirements, search for professionals, and manage engagements through the platform.
 </p>
 
 <h3>5.2 Professional Users</h3>
 
 <p>
-Professional users include senior executives, advisors and consultants who offer their
+Professional users include senior executives, advisors, and consultants who offer their
 expertise to organizations. They can create professional profiles, apply for consulting
-opportunities and manage their engagements through the platform.
+opportunities, and manage their engagements through the platform.
 </p>
 
 <h3>5.3 Admin / PMO Team</h3>
@@ -113,7 +113,7 @@ opportunities and manage their engagements through the platform.
 <p>
 The Admin and PMO team manages platform governance. Their responsibilities include
 reviewing professional profiles, approving engagements, monitoring project milestones,
-managing escrow payments and resolving disputes between parties.
+managing escrow payments, and resolving disputes between parties.
 </p>
 
 <hr>
@@ -121,14 +121,14 @@ managing escrow payments and resolving disputes between parties.
 <h2>6. System Architecture</h2>
 
 <p>
-The CXOConnect platform is built using a multi-layered architecture consisting of the
+The ExigentCX platform is built using a multi-layered architecture consisting of the
 following components:
 </p>
 
 <ul>
-<li><b>Presentation Layer</b> – Web and mobile interfaces for companies, professionals and administrators.</li>
-<li><b>Application Layer</b> – Backend services responsible for business logic, engagement workflows and authentication.</li>
-<li><b>Data Layer</b> – Databases storing user profiles, project requirements, contracts and transactions.</li>
+<li><b>Presentation Layer</b> – Web and mobile interfaces for companies, professionals, and administrators.</li>
+<li><b>Application Layer</b> – Backend services responsible for business logic, engagement workflows, and authentication.</li>
+<li><b>Data Layer</b> – Databases storing user profiles, project requirements, contracts, and transactions.</li>
 <li><b>Governance Layer</b> – Administrative tools used for vetting professionals and monitoring engagements.</li>
 </ul>
 
@@ -171,7 +171,7 @@ following components:
 <h2>8. Development Methodology</h2>
 
 <p>
-The development of the CXOConnect platform follows the Agile Scrum methodology.
+The development of the ExigentCX platform follows the Agile Scrum methodology.
 Agile development enables iterative improvement of the platform through continuous
 feedback from users and stakeholders.
 </p>
@@ -187,7 +187,7 @@ continuous refinement of the product.
 <h2>9. Technology Stack</h2>
 
 <p>
-The CXOConnect platform is built using modern web technologies that support
+The ExigentCX platform is built using modern web technologies that support
 scalability, security, and efficient real-time communication.
 </p>
 
@@ -195,7 +195,7 @@ scalability, security, and efficient real-time communication.
 
 <ul>
 <li>React.js for building the interactive web interface.</li>
-<li>HTML5 and CSS3 for layout and styling.</li>
+<li>HTML5, CSS3, and TailwindCSS for layout and styling.</li>
 <li>JavaScript for application logic and UI interactions.</li>
 </ul>
 
@@ -203,14 +203,14 @@ scalability, security, and efficient real-time communication.
 
 <ul>
 <li>Supabase – an open-source Backend-as-a-Service platform.</li>
-<li>Supabase provides authentication, database management, APIs and real-time functionality.</li>
+<li>Supabase provides authentication, database management, APIs, and real-time functionality.</li>
 </ul>
 
 <h3>Database</h3>
 
 <ul>
 <li>PostgreSQL database managed through Supabase.</li>
-<li>Secure data storage for users, requirements, engagements and transactions.</li>
+<li>Secure data storage for users, requirements, engagements, and transactions.</li>
 </ul>
 
 <h3>Authentication</h3>
@@ -280,7 +280,7 @@ scalability, security, and efficient real-time communication.
 <h2>13. Conclusion</h2>
 
 <p>
-CXOConnect aims to transform how organizations access leadership expertise by
+ExigentCX aims to transform how organizations access leadership expertise by
 providing a trusted and structured digital marketplace for consulting and advisory
 engagements. By integrating governance mechanisms, milestone-based workflows and
 secure payment systems, the platform ensures reliability and transparency for both
@@ -295,5 +295,5 @@ leadership and executive consulting in the modern digital economy.
 <hr>
 
 <p align="center">
-Developed as part of the CXOConnect Platform Project!
+Developed as part of the ExigentCX Platform Project!
 </p>
