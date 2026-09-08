@@ -9,6 +9,16 @@
 
 ---
 
+## 🎬 Platform Demo & Walkthrough
+
+Watch the video walkthrough below to understand how the platform works:
+
+https://github.com/Vinay-1105/CXO/raw/admin/ExigentCX.mp4
+
+<video src="./ExigentCX.mp4" controls="controls" width="100%"></video>
+
+---
+
 ## 🔗 Live Application
 
 The application is deployed and hosted at:
@@ -18,6 +28,7 @@ The application is deployed and hosted at:
 
 ## 📖 Table of Contents
 
+- [Platform Demo](#-platform-demo--walkthrough)
 - [Introduction](#1-introduction)
 - [Problem Statement](#2-problem-statement)
 - [Platform Concept](#3-platform-concept)
